@@ -19,9 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,26 +28,27 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.atLeast
 
 /**
- * Create a composable representing a single step in a vertical sequenced stepper with customizable appearance and behavior.
+ * Create a composable representing a single step in a vertical icon-based stepper with customizable appearance and behavior.
  *
- * Displays a single step in a vertical sequenced stepper, allowing customization of colors,
- * labels, and icons based on its state (current, visited, or completed).
+ * Displays a single step in a vertical icon-based stepper, allowing customization of colors,
+ * icons, labels, and icons based on its state (current, visited, or completed).
  *
  * @param modifier The modifier for styling the composable. (Optional)
- * @param stepName The label or number associated with the step. (Required)
  * @param stepTitle The title or description of the step. (Optional)
  * @param isCurrent Whether the step is currently active or not. (Required)
  * @param isVisited Whether the step has been visited (prior to the current step) or not. (Required)
  * @param isCompleted Whether the step is completed or not. (Required)
  * @param lineThickness The thickness of the connecting line between steps. Defaults to 1.dp. (Optional)
- * @param stepSize The size of the step circle. Defaults to 28.dp. (Optional)
+ * @param stepSize The size of the step icon. Defaults to 28.dp. (Optional)
  * @param incompleteColor The color for incomplete steps. Defaults to [Color.Gray]. (Optional)
  * @param completedColor The color for completed steps. Defaults to [Color.Blue]. (Optional)
  * @param checkMarkColor The color of the checkmark symbol for completed steps. Defaults to [Color.White]. (Optional)
+ * @param stepIcon The icon to display for the step. (Required)
  * @param stepTitleOnIncompleteColor The color of step titles on incomplete steps. Defaults to [checkMarkColor]. (Optional)
  * @param stepTitleOnCompleteColor The color of step titles on completed steps. Defaults to [completedColor]. (Optional)
- * @param stepNameOnIncompleteColor The color of step names on incomplete steps. Defaults to [checkMarkColor]. (Optional)
- * @param stepNameOnCompleteColor The color of step names on completed steps. Defaults to [completedColor]. (Optional)
+ * @param stepIconsColorOnComplete The color of step icons on completed steps. Defaults to [incompleteColor]. (Optional)
+ * @param stepIconsColorOnIncomplete The color of step icons on incomplete steps. Defaults to [checkMarkColor]. (Optional)
+ * @param showCheckMarkOnDone Whether to display a checkmark icon for completed steps. (Optional)
  */
 @Composable
 fun VerticalIconStep(

@@ -10,11 +10,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AddCircle
@@ -22,7 +27,6 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.Button
@@ -31,6 +35,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,7 +74,9 @@ fun MainPreview() {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        val totalSteps = 5
+        var totalSteps by rememberSaveable {
+            mutableStateOf(5)
+        }
 
         var currentStep by rememberSaveable { mutableStateOf(0) }
 
@@ -79,11 +86,20 @@ fun MainPreview() {
             mutableStateOf(StepperTypes.HORIZONTAL_SEQUENCED_STEPPER)
         }
 
+        var stepItemSize by remember {
+            mutableStateOf(35)
+        }
+
+        var lineThickness by rememberSaveable {
+            mutableStateOf(3)
+        }
+
 
         Column(
             modifier = Modifier
                 .fillMaxHeight(0.7f)
-                .padding(16.dp),
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
 
@@ -145,8 +161,8 @@ fun MainPreview() {
                     HorizontalSequencedStepper(
                         totalSteps = totalSteps,
                         currentStep = currentStep,
-                        stepSize = 35.dp,
-                        lineThickness = 3.dp,
+                        stepSize = stepItemSize.dp,
+                        lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
                         checkMarkColor = Color.White,
@@ -159,8 +175,8 @@ fun MainPreview() {
                     VerticalSequencedStepper(
                         totalSteps = totalSteps,
                         currentStep = currentStep,
-                        stepSize = 35.dp,
-                        lineThickness = 3.dp,
+                        stepSize = stepItemSize.dp,
+                        lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
                         checkMarkColor = Color.White,
@@ -173,14 +189,19 @@ fun MainPreview() {
                     HorizontalIconStepper(
                         totalSteps = totalSteps,
                         currentStep = currentStep,
-                        stepSize = 35.dp,
-                        lineThickness = 3.dp,
+                        stepSize = stepItemSize.dp,
+                        lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
                         checkMarkColor = Color.White,
                         stepIconsColorOnIncomplete = Color.White,
                         stepIconsColorOnComplete = Color.White,
                         stepIconsList = listOf(
+                            Icons.Default.AccountBox,
+                            Icons.Default.AddCircle,
+                            Icons.Default.Build,
+                            Icons.Default.Face,
+                            Icons.Default.Home,
                             Icons.Default.AccountBox,
                             Icons.Default.AddCircle,
                             Icons.Default.Build,
@@ -194,8 +215,8 @@ fun MainPreview() {
                     VerticalIconStepper(
                         totalSteps = totalSteps,
                         currentStep = currentStep,
-                        stepSize = 35.dp,
-                        lineThickness = 3.dp,
+                        stepSize = stepItemSize.dp,
+                        lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
                         checkMarkColor = Color.White,
@@ -206,10 +227,70 @@ fun MainPreview() {
                             Icons.Default.AddCircle,
                             Icons.Default.Build,
                             Icons.Default.Face,
+                            Icons.Default.Home,
+                            Icons.Default.AccountBox,
+                            Icons.Default.AddCircle,
+                            Icons.Default.Build,
+                            Icons.Default.Face,
                             Icons.Default.Home
                         )
                     )
                 }
+            }
+
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "Total Steps: : $totalSteps",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Slider(
+                    value = totalSteps.toFloat(),
+                    onValueChange = { newValue ->
+                        totalSteps = newValue.toInt()
+                    },
+                    valueRange = 1f..10f, // Set the range of Total Steps
+                    steps = 10, // Divide the range into 10 steps
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Step Item Size in DP: $stepItemSize",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Slider(
+                    value = stepItemSize.toFloat(),
+                    onValueChange = { newValue ->
+                        stepItemSize = newValue.toInt()
+                    },
+                    valueRange = 35f..55f, // Set the range of Step Item size
+                    steps = 20, // Divide the range into 20 steps
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Line Thickness in DP: $lineThickness",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Slider(
+                    value = lineThickness.toFloat(),
+                    onValueChange = { newValue ->
+                        lineThickness = newValue.toInt()
+                    },
+                    valueRange = 1f..10f, // Set the range of Line Thickness
+                    steps = 10, // Divide the range into 10 steps
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
 
