@@ -16,7 +16,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.Button
@@ -38,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.ui.horizontal.HorizontalIconStepper
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalSequencedStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalSequencedStepper
@@ -111,6 +118,15 @@ fun MainPreview() {
                                 contentDescription = null
                             )
                         })
+                    DropdownMenuItem(
+                        text = { Text("Vertical Sequenced Stepper") },
+                        onClick = { currentStepperType = StepperTypes.HORIZONTAL_ICON_STEPPER },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Outlined.ArrowForward,
+                                contentDescription = null
+                            )
+                        })
                 }
             }
 
@@ -140,6 +156,27 @@ fun MainPreview() {
                         checkMarkColor = Color.White,
                         stepNameOnIncompleteColor = Color.White,
                         stepNameOnCompleteColor = Color.White
+                    )
+                }
+
+                StepperTypes.HORIZONTAL_ICON_STEPPER -> {
+                    HorizontalIconStepper(
+                        totalSteps = totalSteps,
+                        currentStep = currentStep,
+                        stepSize = 35.dp,
+                        lineThickness = 3.dp,
+                        completedColor = MaterialTheme.colorScheme.primary,
+                        incompleteColor = Color.Gray,
+                        checkMarkColor = Color.White,
+                        stepIconsColorOnIncomplete = Color.White,
+                        stepIconsColorOnComplete = Color.White,
+                        stepIconsList = listOf(
+                            Icons.Default.AccountBox,
+                            Icons.Default.AddCircle,
+                            Icons.Default.Build,
+                            Icons.Default.Face,
+                            Icons.Default.Home
+                        )
                     )
                 }
             }
