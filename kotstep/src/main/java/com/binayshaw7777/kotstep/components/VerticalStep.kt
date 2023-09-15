@@ -5,6 +5,7 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -19,16 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-
+import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.atLeast
 
 /**
- * Create a single step in a sequenced stepper with customizable appearance and behavior.
+ * Create a composable representing a single step in a vertical sequenced stepper with customizable appearance and behavior.
  *
- * Displays a single step in a horizontal sequenced stepper, allowing customization of colors,
+ * Displays a single step in a vertical sequenced stepper, allowing customization of colors,
  * labels, and icons based on its state (current, visited, or completed).
  *
  * @param modifier The modifier for styling the composable. (Optional)
@@ -37,6 +40,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
  * @param isCurrent Whether the step is currently active or not. (Required)
  * @param isVisited Whether the step has been visited (prior to the current step) or not. (Required)
  * @param isCompleted Whether the step is completed or not. (Required)
+ * @param lineThickness The thickness of the connecting line between steps. Defaults to 1.dp. (Optional)
+ * @param stepSize The size of the step circle. Defaults to 28.dp. (Optional)
  * @param incompleteColor The color for incomplete steps. Defaults to [Color.Gray]. (Optional)
  * @param completedColor The color for completed steps. Defaults to [Color.Blue]. (Optional)
  * @param checkMarkColor The color of the checkmark symbol for completed steps. Defaults to [Color.White]. (Optional)
@@ -46,7 +51,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
  * @param stepNameOnCompleteColor The color of step names on completed steps. Defaults to [completedColor]. (Optional)
  */
 @Composable
-fun HorizontalStep(
+fun VerticalStep(
     modifier: Modifier = Modifier,
     stepName: String,
     stepTitle: String?,
@@ -88,13 +93,44 @@ fun HorizontalStep(
 
         val (circleBoxItem, text, line) = createRefs()
 
+        // Display is continuous line if not completed
+        if (isCompleted.not()) {
+            Divider(
+                modifier = Modifier.width(lineThickness).constrainAs(line) {
+                    height = Dimension.fillToConstraints.atLeast(20.dp)
+                    top.linkTo(circleBoxItem.bottom)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(circleBoxItem.start)
+                    end.linkTo(circleBoxItem.end)
+                },
+                color = itemColor
+            )
+        }
+
+        // Display Step Title if available
+        stepTitle?.let {
+            Text(
+                modifier = Modifier.constrainAs(text) {
+                    top.linkTo(circleBoxItem.top)
+                    start.linkTo(circleBoxItem.end, margin = 3.dp)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(circleBoxItem.bottom)
+                },
+                fontSize = 12.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                text = it,
+                color = titleColor
+            )
+        }
+
         Surface(
             modifier = Modifier
                 .size(stepSize)
                 .constrainAs(circleBoxItem) {
                     top.linkTo(parent.top)
                     end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
+//                    bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 },
             shape = CircleShape,
@@ -115,35 +151,18 @@ fun HorizontalStep(
                 }
             }
         }
-
-        // Display Step Title if available
-        stepTitle?.let {
-            Text(
-                modifier = Modifier.constrainAs(text) {
-                    top.linkTo(circleBoxItem.bottom, margin = 3.dp)
-                    start.linkTo(circleBoxItem.start)
-                    end.linkTo(circleBoxItem.end)
-                    bottom.linkTo(parent.bottom)
-                },
-                fontSize = 12.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                text = it,
-                color = titleColor
-            )
-        }
-
-        // Display is continuous line if not completed
-        if (isCompleted.not()) {
-            Divider(
-                modifier = Modifier.constrainAs(line) {
-                    top.linkTo(circleBoxItem.top)
-                    bottom.linkTo(circleBoxItem.bottom)
-                    start.linkTo(circleBoxItem.end)
-                },
-                color = itemColor,
-                thickness = lineThickness
-            )
-        }
     }
+}
+
+@Preview
+@Composable
+fun Prev() {
+    VerticalStep(
+        modifier = Modifier,
+        stepName = "No",
+        stepTitle = "",
+        isCurrent = true,
+        isCompleted = false,
+        isVisited = false,
+    )
 }
