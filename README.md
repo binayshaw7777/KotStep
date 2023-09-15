@@ -143,7 +143,7 @@ VerticalIconStepper(
 ## Reporting Issues and Requesting Features✨
 If you encounter any issues or have feature requests, please create a new [issue](https://github.com/binayshaw7777/KotStep/issues) in this repository.
 
-## Supporting ComposeCards :heart:
+## Supporting KotStep :heart:
 Support it by joining __[stargazers](https://github.com/binayshaw7777/KotStep/stargazers)__ for this repository. :star: <br>
 Also __[follow](https://github.com/binayshaw7777)__ me for my next creations! 🤩
 
