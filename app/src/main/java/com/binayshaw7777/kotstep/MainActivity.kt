@@ -3,6 +3,9 @@ package com.binayshaw7777.kotstep
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -143,23 +146,36 @@ fun MainPreview() {
 
 
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-                Button(
-                    onClick = { if (currentStep >= 1) currentStep-- },
-                    enabled = currentStep >= 1
+
+                AnimatedVisibility(
+                    visible = currentStep >= 1,
+                    enter = fadeIn(),
+                    exit = fadeOut()
                 ) {
-                    Text(text = "Previous")
+                    Button(
+                        onClick = { currentStep-- },
+                        enabled = currentStep >= 1
+                    ) {
+                        Text(text = "Previous")
+                    }
                 }
 
-                Button(
-                    onClick = { if (currentStep <= totalSteps) currentStep++ },
-                    enabled = currentStep <= totalSteps
+                AnimatedVisibility(
+                    visible = currentStep <= totalSteps,
+                    enter = fadeIn(),
+                    exit = fadeOut()
                 ) {
-                    Text(
-                        text =
-                        if (currentStep == 0) "Start"
-                        else if (currentStep >= totalSteps) "Finish"
-                        else "Next"
-                    )
+                    Button(
+                        onClick = { currentStep++ },
+                        enabled = currentStep <= totalSteps
+                    ) {
+                        Text(
+                            text =
+                            if (currentStep == 0) "Start"
+                            else if (currentStep >= totalSteps) "Finish"
+                            else "Next"
+                        )
+                    }
                 }
             }
         }
