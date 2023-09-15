@@ -153,16 +153,3 @@ fun VerticalStep(
         }
     }
 }
-
-@Preview
-@Composable
-fun Prev() {
-    VerticalStep(
-        modifier = Modifier,
-        stepName = "No",
-        stepTitle = "",
-        isCurrent = true,
-        isCompleted = false,
-        isVisited = false,
-    )
-}
