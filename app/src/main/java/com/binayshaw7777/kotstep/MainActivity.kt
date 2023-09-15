@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalIconStepper
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalSequencedStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
+import com.binayshaw7777.kotstep.ui.vertical.VerticalIconStepper
 import com.binayshaw7777.kotstep.ui.vertical.VerticalSequencedStepper
 import com.binayshaw7777.kotstep.utils.StepperTypes
 
@@ -119,11 +120,20 @@ fun MainPreview() {
                             )
                         })
                     DropdownMenuItem(
-                        text = { Text("Vertical Sequenced Stepper") },
+                        text = { Text("Horizontal Icon Stepper") },
                         onClick = { currentStepperType = StepperTypes.HORIZONTAL_ICON_STEPPER },
                         leadingIcon = {
                             Icon(
-                                Icons.Outlined.ArrowForward,
+                                Icons.Outlined.KeyboardArrowRight,
+                                contentDescription = null
+                            )
+                        })
+                    DropdownMenuItem(
+                        text = { Text("Vertical Icon Stepper") },
+                        onClick = { currentStepperType = StepperTypes.VERTICAL_ICON_STEPPER },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Outlined.KeyboardArrowDown,
                                 contentDescription = null
                             )
                         })
@@ -161,6 +171,27 @@ fun MainPreview() {
 
                 StepperTypes.HORIZONTAL_ICON_STEPPER -> {
                     HorizontalIconStepper(
+                        totalSteps = totalSteps,
+                        currentStep = currentStep,
+                        stepSize = 35.dp,
+                        lineThickness = 3.dp,
+                        completedColor = MaterialTheme.colorScheme.primary,
+                        incompleteColor = Color.Gray,
+                        checkMarkColor = Color.White,
+                        stepIconsColorOnIncomplete = Color.White,
+                        stepIconsColorOnComplete = Color.White,
+                        stepIconsList = listOf(
+                            Icons.Default.AccountBox,
+                            Icons.Default.AddCircle,
+                            Icons.Default.Build,
+                            Icons.Default.Face,
+                            Icons.Default.Home
+                        )
+                    )
+                }
+
+                else -> {
+                    VerticalIconStepper(
                         totalSteps = totalSteps,
                         currentStep = currentStep,
                         stepSize = 35.dp,

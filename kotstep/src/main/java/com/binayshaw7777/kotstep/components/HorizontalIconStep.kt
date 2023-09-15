@@ -54,7 +54,7 @@ fun HorizontalIconStep(
         if (it || isCurrent) stepTitleOnCompleteColor else stepTitleOnIncompleteColor
     }
 
-    val stepIconTintColor: Color by transition.animateColor(label = "stepNameColor") {
+    val stepIconTintColor: Color by transition.animateColor(label = "stepIconTintColor") {
         if (it || isCurrent) stepIconsColorOnComplete else stepIconsColorOnIncomplete
     }
 
