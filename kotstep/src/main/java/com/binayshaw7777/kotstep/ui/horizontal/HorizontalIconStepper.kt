@@ -5,31 +5,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.binayshaw7777.kotstep.components.HorizontalStep
+import com.binayshaw7777.kotstep.components.HorizontalIconStep
 
 /**
- * Create a Horizontal Sequenced Stepper in a Jetpack Compose layout. [HorizontalStep]
+ * Create a composable representing a horizontal icon-based stepper with customizable appearance and behavior.
  *
- * Displays a horizontal sequence of steps with customizable options for styling and colors.
+ * Displays a horizontal icon-based stepper with a specified number of steps, allowing customization
+ * of colors, icons, labels, and icons for each step based on its state (current, visited, or completed).
  *
  * @param modifier The modifier for styling the composable. (Optional)
- * @param totalSteps The total number of steps in the sequence. (Required)
- * @param currentStep The currently active step. Defaults to the first step (1). (Optional)
+ * @param totalSteps The total number of steps in the stepper. (Required)
+ * @param currentStep The current active step. Defaults to the first step (1). (Optional)
+ * @param lineThickness The thickness of the connecting line between steps. Defaults to 1.dp. (Optional)
+ * @param stepSize The size of the step icons. Defaults to 28.dp. (Optional)
  * @param completedColor The color for completed steps. Defaults to [Color.Blue]. (Optional)
  * @param incompleteColor The color for incomplete steps. Defaults to [Color.Gray]. (Optional)
  * @param checkMarkColor The color of the checkmark symbol for completed steps. Defaults to [Color.White]. (Optional)
  * @param stepTitleOnIncompleteColor The color of step titles on incomplete steps. Defaults to [checkMarkColor]. (Optional)
  * @param stepTitleOnCompleteColor The color of step titles on completed steps. Defaults to [completedColor]. (Optional)
- * @param stepNameOnIncompleteColor The color of step names on incomplete steps. Defaults to [checkMarkColor]. (Optional)
- * @param stepNameOnCompleteColor The color of step names on completed steps. Defaults to [completedColor]. (Optional)
- * @param stepDescription A list of descriptions for each step. The list size should match `totalSteps`. (Optional)
- *
- * @see <a href="https://m1.material.io/components/steppers.html#steppers-types-of-steppers">Material Components - Stepper</a>
+ * @param stepDescription A list of step descriptions. Each description corresponds to a step. (Optional)
+ * @param stepIconsList A list of ImageVectors representing icons for each step. Must have a size equal to 'totalSteps'. (Required)
+ * @param stepIconsColorOnIncomplete The color of step icons on incomplete steps. Defaults to [checkMarkColor]. (Optional)
+ * @param stepIconsColorOnComplete The color of step icons on completed steps. Defaults to [incompleteColor]. (Optional)
+ * @param showCheckMarkOnDone Whether to display a checkmark icon for completed steps. (Optional)
  */
 @Composable
-fun HorizontalSequencedStepper(
+fun HorizontalIconStepper(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int = 1,
@@ -40,9 +44,11 @@ fun HorizontalSequencedStepper(
     checkMarkColor: Color = Color.White,
     stepTitleOnIncompleteColor: Color = checkMarkColor,
     stepTitleOnCompleteColor: Color = completedColor,
-    stepNameOnIncompleteColor: Color = checkMarkColor,
-    stepNameOnCompleteColor: Color = completedColor,
-    stepDescription: List<String> = List(totalSteps) { "" }
+    stepDescription: List<String> = List(totalSteps) { "" },
+    stepIconsList: List<ImageVector>,
+    stepIconsColorOnIncomplete: Color = checkMarkColor,
+    stepIconsColorOnComplete: Color = incompleteColor,
+    showCheckMarkOnDone: Boolean = false
 ) {
 
     val descriptionList = MutableList(totalSteps) { "" }
@@ -58,9 +64,8 @@ fun HorizontalSequencedStepper(
     ) {
         for (stepAtIt in 1..totalSteps) {
 
-            HorizontalStep(
+            HorizontalIconStep(
                 modifier = Modifier.weight(1F),
-                stepName = stepAtIt.toString(),
                 stepTitle = descriptionList[stepAtIt - 1],
                 lineThickness = lineThickness,
                 stepSize = stepSize,
@@ -70,12 +75,13 @@ fun HorizontalSequencedStepper(
                 incompleteColor = incompleteColor,
                 completedColor = completedColor,
                 checkMarkColor = checkMarkColor,
+                stepIcon = stepIconsList[stepAtIt - 1],
                 stepTitleOnIncompleteColor = stepTitleOnIncompleteColor,
                 stepTitleOnCompleteColor = stepTitleOnCompleteColor,
-                stepNameOnCompleteColor = stepNameOnCompleteColor,
-                stepNameOnIncompleteColor = stepNameOnIncompleteColor
+                stepIconsColorOnComplete = stepIconsColorOnComplete,
+                stepIconsColorOnIncomplete = stepIconsColorOnIncomplete,
+                showCheckMarkOnDone = showCheckMarkOnDone
             )
-
         }
     }
 }

@@ -17,38 +17,39 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 
-
 /**
- * Create a single step in a sequenced stepper with customizable appearance and behavior.
+ * Create a composable representing a single step in a horizontal icon-based stepper with customizable appearance and behavior.
  *
- * Displays a single step in a horizontal sequenced stepper, allowing customization of colors,
- * labels, and icons based on its state (current, visited, or completed).
+ * Displays a single step in a horizontal icon-based stepper, allowing customization of colors,
+ * icons, labels, and icons based on its state (current, visited, or completed).
  *
  * @param modifier The modifier for styling the composable. (Optional)
- * @param stepName The label or number associated with the step. (Required)
  * @param stepTitle The title or description of the step. (Optional)
  * @param isCurrent Whether the step is currently active or not. (Required)
  * @param isVisited Whether the step has been visited (prior to the current step) or not. (Required)
  * @param isCompleted Whether the step is completed or not. (Required)
+ * @param lineThickness The thickness of the connecting line between steps. Defaults to 1.dp. (Optional)
+ * @param stepSize The size of the step icon. Defaults to 28.dp. (Optional)
  * @param incompleteColor The color for incomplete steps. Defaults to [Color.Gray]. (Optional)
  * @param completedColor The color for completed steps. Defaults to [Color.Blue]. (Optional)
  * @param checkMarkColor The color of the checkmark symbol for completed steps. Defaults to [Color.White]. (Optional)
  * @param stepTitleOnIncompleteColor The color of step titles on incomplete steps. Defaults to [checkMarkColor]. (Optional)
  * @param stepTitleOnCompleteColor The color of step titles on completed steps. Defaults to [completedColor]. (Optional)
- * @param stepNameOnIncompleteColor The color of step names on incomplete steps. Defaults to [checkMarkColor]. (Optional)
- * @param stepNameOnCompleteColor The color of step names on completed steps. Defaults to [completedColor]. (Optional)
+ * @param stepIcon The icon to display for the step. (Required)
+ * @param stepIconsColorOnIncomplete The color of step icons on incomplete steps. Defaults to [checkMarkColor]. (Optional)
+ * @param stepIconsColorOnComplete The color of step icons on completed steps. Defaults to [incompleteColor]. (Optional)
+ * @param showCheckMarkOnDone Whether to display a checkmark icon for completed steps. (Optional)
  */
 @Composable
-fun HorizontalStep(
+fun HorizontalIconStep(
     modifier: Modifier = Modifier,
-    stepName: String,
     stepTitle: String?,
     isCurrent: Boolean,
     isVisited: Boolean,
@@ -60,8 +61,10 @@ fun HorizontalStep(
     checkMarkColor: Color = Color.White,
     stepTitleOnIncompleteColor: Color = checkMarkColor,
     stepTitleOnCompleteColor: Color = completedColor,
-    stepNameOnIncompleteColor: Color = checkMarkColor,
-    stepNameOnCompleteColor: Color = completedColor
+    stepIcon: ImageVector,
+    stepIconsColorOnIncomplete: Color = checkMarkColor,
+    stepIconsColorOnComplete: Color = incompleteColor,
+    showCheckMarkOnDone: Boolean = false
 ) {
 
     val transition = updateTransition(targetState = isVisited, label = "")
@@ -74,8 +77,8 @@ fun HorizontalStep(
         if (it || isCurrent) stepTitleOnCompleteColor else stepTitleOnIncompleteColor
     }
 
-    val stepNameColor: Color by transition.animateColor(label = "stepNameColor") {
-        if (it || isCurrent) stepNameOnCompleteColor else stepNameOnIncompleteColor
+    val stepIconTintColor: Color by transition.animateColor(label = "stepIconTintColor") {
+        if (it || isCurrent) stepIconsColorOnComplete else stepIconsColorOnIncomplete
     }
 
     val borderStrokeColor: BorderStroke = if (isCurrent || isVisited) {
@@ -104,15 +107,12 @@ fun HorizontalStep(
 
             // Defines Text or Tick/Done Icon
             Box(contentAlignment = Alignment.Center) {
-                if (isVisited) {
-                    Icon(
-                        imageVector = Icons.Default.Done,
-                        tint = checkMarkColor,
-                        contentDescription = "Done"
-                    )
-                } else {
-                    Text(text = stepName, color = stepNameColor, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                }
+
+                Icon(
+                    imageVector = if (isVisited && showCheckMarkOnDone) Icons.Default.Done else stepIcon,
+                    tint = if (isVisited && showCheckMarkOnDone) checkMarkColor else stepIconTintColor,
+                    contentDescription = "Done"
+                )
             }
         }
 
