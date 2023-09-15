@@ -147,6 +147,8 @@ If you encounter any issues or have feature requests, please create a new [issue
 Support it by joining __[stargazers](https://github.com/binayshaw7777/KotStep/stargazers)__ for this repository. :star: <br>
 Also __[follow](https://github.com/binayshaw7777)__ me for my next creations! 🤩
 
+<br>
+
 ```
 Copyright 2023 binayshaw7777
 
