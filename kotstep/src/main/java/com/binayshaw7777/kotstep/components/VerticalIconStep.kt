@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -60,6 +61,7 @@ fun VerticalIconStep(
     lineThickness: Dp = 1.dp,
     stepSize: Dp = 28.dp,
     stepIcon: ImageVector,
+    stepShape: Shape,
     incompleteColor: Color = Color.Gray,
     completedColor: Color = Color.Blue,
     checkMarkColor: Color = Color.White,
@@ -133,7 +135,7 @@ fun VerticalIconStep(
                     end.linkTo(parent.end)
                     start.linkTo(parent.start)
                 },
-            shape = CircleShape,
+            shape = stepShape,
             border = borderStrokeColor,
             color = itemColor,
         ) {

@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -56,6 +57,7 @@ fun HorizontalIconStep(
     isCompleted: Boolean,
     lineThickness: Dp = 1.dp,
     stepSize: Dp = 28.dp,
+    stepShape: Shape,
     incompleteColor: Color = Color.Gray,
     completedColor: Color = Color.Blue,
     checkMarkColor: Color = Color.White,
@@ -100,7 +102,7 @@ fun HorizontalIconStep(
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 },
-            shape = CircleShape,
+            shape = stepShape,
             border = borderStrokeColor,
             color = itemColor,
         ) {

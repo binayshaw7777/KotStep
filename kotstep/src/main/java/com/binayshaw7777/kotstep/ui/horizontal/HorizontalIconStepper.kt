@@ -1,10 +1,12 @@
 package com.binayshaw7777.kotstep.ui.horizontal
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ fun HorizontalIconStepper(
     currentStep: Int = 1,
     lineThickness: Dp = 1.dp,
     stepSize: Dp = 28.dp,
+    stepShape: Shape = CircleShape,
     completedColor: Color = Color.Blue,
     incompleteColor: Color = Color.Gray,
     checkMarkColor: Color = Color.White,
@@ -69,6 +72,7 @@ fun HorizontalIconStepper(
                 stepTitle = descriptionList[stepAtIt - 1],
                 lineThickness = lineThickness,
                 stepSize = stepSize,
+                stepShape = stepShape,
                 isCurrent = stepAtIt == currentStep,
                 isVisited = stepAtIt < currentStep,
                 isCompleted = stepAtIt == totalSteps,

@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
@@ -54,6 +55,8 @@ import com.binayshaw7777.kotstep.ui.horizontal.HorizontalSequencedStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalIconStepper
 import com.binayshaw7777.kotstep.ui.vertical.VerticalSequencedStepper
+import com.binayshaw7777.kotstep.utils.StepperItemShape
+import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
 import com.binayshaw7777.kotstep.utils.StepperTypes
 
 class MainActivity : ComponentActivity() {
@@ -82,8 +85,14 @@ fun MainPreview() {
 
         var expanded by remember { mutableStateOf(false) }
 
+        var expandedShapeMenu by remember { mutableStateOf(false) }
+
         var currentStepperType by remember {
             mutableStateOf(StepperTypes.HORIZONTAL_SEQUENCED_STEPPER)
+        }
+
+        var currentStepperItemShape by remember {
+            mutableStateOf(StepperItemShape.CIRCLE_SHAPE)
         }
 
         var stepItemSize by remember {
@@ -103,56 +112,89 @@ fun MainPreview() {
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.TopStart)
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IconButton(onClick = { expanded = true }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "Localized description")
+                Box {
+                    IconButton(onClick = { expanded = true }) {
+                        Icon(Icons.Default.MoreVert, contentDescription = "Localized description")
+                    }
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Horizontal Sequenced Stepper") },
+                            onClick = {
+                                currentStepperType = StepperTypes.HORIZONTAL_SEQUENCED_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            })
+                        DropdownMenuItem(
+                            text = { Text("Vertical Sequenced Stepper") },
+                            onClick = {
+                                currentStepperType = StepperTypes.VERTICAL_SEQUENCED_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowDown,
+                                    contentDescription = null
+                                )
+                            })
+                        DropdownMenuItem(
+                            text = { Text("Horizontal Icon Stepper") },
+                            onClick = { currentStepperType = StepperTypes.HORIZONTAL_ICON_STEPPER },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            })
+                        DropdownMenuItem(
+                            text = { Text("Vertical Icon Stepper") },
+                            onClick = { currentStepperType = StepperTypes.VERTICAL_ICON_STEPPER },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowDown,
+                                    contentDescription = null
+                                )
+                            })
+                    }
                 }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text("Horizontal Sequenced Stepper") },
-                        onClick = {
-                            currentStepperType = StepperTypes.HORIZONTAL_SEQUENCED_STEPPER
-                        },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Outlined.KeyboardArrowRight,
-                                contentDescription = null
-                            )
-                        })
-                    DropdownMenuItem(
-                        text = { Text("Vertical Sequenced Stepper") },
-                        onClick = { currentStepperType = StepperTypes.VERTICAL_SEQUENCED_STEPPER },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Outlined.KeyboardArrowDown,
-                                contentDescription = null
-                            )
-                        })
-                    DropdownMenuItem(
-                        text = { Text("Horizontal Icon Stepper") },
-                        onClick = { currentStepperType = StepperTypes.HORIZONTAL_ICON_STEPPER },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Outlined.KeyboardArrowRight,
-                                contentDescription = null
-                            )
-                        })
-                    DropdownMenuItem(
-                        text = { Text("Vertical Icon Stepper") },
-                        onClick = { currentStepperType = StepperTypes.VERTICAL_ICON_STEPPER },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Outlined.KeyboardArrowDown,
-                                contentDescription = null
-                            )
-                        })
+
+                Box {
+                    IconButton(onClick = { expandedShapeMenu = true }) {
+                        Icon(Icons.Default.Menu, contentDescription = "Localized description")
+                    }
+                    DropdownMenu(
+                        expanded = expandedShapeMenu,
+                        onDismissRequest = { expandedShapeMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("RectangleShape") },
+                            onClick = { currentStepperItemShape = StepperItemShape.RECTANGLE_SHAPE }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("CircleShape") },
+                            onClick = { currentStepperItemShape = StepperItemShape.CIRCLE_SHAPE }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("CutCornerShape") },
+                            onClick = {
+                                currentStepperItemShape = StepperItemShape.CUT_CORNER_SHAPE
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("RoundedCornerShape") },
+                            onClick = {
+                                currentStepperItemShape = StepperItemShape.ROUNDED_CORNER_SHAPE
+                            }
+                        )
+                    }
                 }
             }
 
@@ -162,6 +204,7 @@ fun MainPreview() {
                         totalSteps = totalSteps,
                         currentStep = currentStep,
                         stepSize = stepItemSize.dp,
+                        stepShape = getShapeFromEnum(currentStepperItemShape),
                         lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
@@ -176,6 +219,7 @@ fun MainPreview() {
                         totalSteps = totalSteps,
                         currentStep = currentStep,
                         stepSize = stepItemSize.dp,
+                        stepShape = getShapeFromEnum(currentStepperItemShape),
                         lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
@@ -190,6 +234,7 @@ fun MainPreview() {
                         totalSteps = totalSteps,
                         currentStep = currentStep,
                         stepSize = stepItemSize.dp,
+                        stepShape = getShapeFromEnum(currentStepperItemShape),
                         lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
@@ -216,6 +261,7 @@ fun MainPreview() {
                         totalSteps = totalSteps,
                         currentStep = currentStep,
                         stepSize = stepItemSize.dp,
+                        stepShape = getShapeFromEnum(currentStepperItemShape),
                         lineThickness = lineThickness.dp,
                         completedColor = MaterialTheme.colorScheme.primary,
                         incompleteColor = Color.Gray,
