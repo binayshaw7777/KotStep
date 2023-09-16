@@ -1,10 +1,12 @@
 package com.binayshaw7777.kotstep.ui.vertical
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.components.VerticalStep
@@ -38,6 +40,7 @@ fun VerticalSequencedStepper(
     currentStep: Int = 0,
     lineThickness: Dp = 1.dp,
     stepSize: Dp = 28.dp,
+    stepShape: Shape = CircleShape,
     completedColor: Color = Color.Blue,
     incompleteColor: Color = Color.Gray,
     checkMarkColor: Color = Color.White,
@@ -65,6 +68,7 @@ fun VerticalSequencedStepper(
                 stepName = stepAtIt.toString(),
                 lineThickness = lineThickness,
                 stepSize = stepSize,
+                stepShape = stepShape,
                 stepTitle = descriptionList[stepAtIt - 1],
                 isCurrent = stepAtIt == currentStep,
                 isVisited = stepAtIt < currentStep,
