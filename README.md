@@ -28,8 +28,10 @@ KotStep Library
 
 ## Installation
 
+[![](https://jitpack.io/v/binayshaw7777/KotStep.svg)](https://jitpack.io/#binayshaw7777/KotStep)
+
 To get started with KotStep in your Android Jetpack Compose project, 
-- Add it in your root `build.gradle` at the end of repositories:
+Add it in your root `build.gradle` at the end of repositories:
 
 ```
 allprojects {
@@ -40,8 +42,7 @@ allprojects {
 }
 ```
 
-- Lastly, add the following dependency to your app's `build.gradle.kts` (Kotlin) or `build.gradle` (Groovy) file:
-- [![](https://jitpack.io/v/binayshaw7777/KotStep.svg)](https://jitpack.io/#binayshaw7777/KotStep)
+Lastly, add the following dependency to your app's `build.gradle.kts` (Kotlin) or `build.gradle` (Groovy) file:
 
 <details>
 <summary>Kotlin</summary>
@@ -71,10 +72,10 @@ dependencies {
 
 ```kotlin
 HorizontalSequencedStepper(
-    totalSteps = totalSteps,
-    currentStep = currentStep,
-    stepSize = stepItemSize.dp,
-    lineThickness = lineThickness.dp
+    totalSteps = 5,
+    currentStep = 1,
+    stepSize = 35.dp,
+    lineThickness = 3.dp
 )
 ```
 
@@ -85,10 +86,10 @@ HorizontalSequencedStepper(
 
 ```kotlin
 HorizontalIconStepper(
-    totalSteps = totalSteps,
-    currentStep = currentStep,
-    stepSize = stepItemSize.dp,
-    lineThickness = lineThickness.dp,
+    totalSteps = 5,
+    currentStep = 1,
+    stepSize = 35.dp,
+    lineThickness = 3.dp,
     stepIconsList = listOf(
         Icons.Default.AccountBox,
         Icons.Default.AddCircle,
