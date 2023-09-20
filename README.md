@@ -86,6 +86,7 @@ HorizontalSequencedStepper(
 | `currentStep`                    | The current step that is active.                                                                    | `1`                 |
 | `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
 | `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
+| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
 | `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
 | `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
 | `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
@@ -126,6 +127,7 @@ HorizontalIconStepper(
 | `currentStep`                    | The current step that is active.                                                                    | `1`                 |
 | `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
 | `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
+| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
 | `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
 | `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
 | `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
@@ -161,6 +163,7 @@ VerticalSequencedStepper(
 | `currentStep`                    | The current step that is active.                                                                    | `0`                 |
 | `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
 | `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
+| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
 | `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
 | `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
 | `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
@@ -201,6 +204,7 @@ VerticalIconStepper(
 | `currentStep`                    | The current step that is active.                                                                    | `0`                 |
 | `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
 | `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
+| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
 | `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
 | `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
 | `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
@@ -226,6 +230,11 @@ Support it by joining __[stargazers](https://github.com/binayshaw7777/KotStep/st
 Also __[follow](https://github.com/binayshaw7777)__ me for my next creations! 🤩
 
 <br>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=binayshaw7777/KotStep&type=Date)](https://star-history.com/#binayshaw7777/KotStep&Date)
+
+<br>
+---
 
 ```
 Copyright 2023 binayshaw7777
