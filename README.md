@@ -1,6 +1,6 @@
 <h1 align="center">
 
-KotStep Library
+KotStep
 
 </h1>
 <p align="center">
