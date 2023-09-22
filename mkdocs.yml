@@ -1,12 +1,12 @@
-site_name: My Docs
+site_name: KotStep Docs
 site_url: https://binayshaw7777.github.io/kotstep
 
-nav:
-  - Home: index.md
-  - Guide:
-      - Installation: guide/installation.md
-      - Usage: guide/usage.md
-  - About: about.md
+# nav:
+#   - Home: index.md
+#   - Guide:
+#       - Installation: guide/installation.md
+#       - Usage: guide/usage.md
+#   - About: about.md
 
 theme:
   name: material
