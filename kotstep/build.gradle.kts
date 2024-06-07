@@ -35,9 +35,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
-    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
