@@ -4,6 +4,8 @@ import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -13,6 +15,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,13 +24,120 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.atLeast
+import com.binayshaw7777.kotstep.model.Step
+import com.binayshaw7777.kotstep.model.StepState
+import com.binayshaw7777.kotstep.model.StepStyle
+
+
+@Composable
+fun VerticalStep(
+    modifier: Modifier = Modifier,
+    stepStyle: StepStyle,
+    step: Step,
+    stepState: StepState,
+    isLastStep: Boolean
+) {
+    val transition = updateTransition(targetState = stepState, label = "")
+
+    val containerColor: Color by transition.animateColor(label = "itemColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoContainerColor
+            StepState.CURRENT -> stepStyle.colors.currentContainerColor
+            StepState.DONE -> stepStyle.colors.doneContainerColor
+        }
+    }
+
+    val contentColor: Color by transition.animateColor(label = "titleColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoContentColor
+            StepState.CURRENT -> stepStyle.colors.currentContentColor
+            StepState.DONE -> stepStyle.colors.doneContentColor
+        }
+    }
+
+    val borderStrokeColor: BorderStroke = if (stepState == StepState.CURRENT) {
+        BorderStroke(2.dp, stepStyle.colors.currentContainerColor)
+    } else {
+        BorderStroke(2.dp, stepStyle.colors.todoContainerColor)
+    }
+
+    ConstraintLayout(modifier = modifier) {
+
+        val (circleBoxItem, text, line) = createRefs()
+
+        // Display is continuous line if not completed
+        if (!isLastStep) {
+            VerticalDivider(
+                modifier = Modifier
+                    .constrainAs(line) {
+                        height = Dimension.fillToConstraints.atLeast(20.dp)
+                        top.linkTo(circleBoxItem.bottom)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(circleBoxItem.start)
+                        end.linkTo(circleBoxItem.end)
+                    },
+                color = containerColor,
+                thickness = stepStyle.lineThickness
+            )
+        }
+
+        // Display Step Title if available
+        if (step.supportingContent == null) {
+            Column {
+                Spacer(Modifier.weight(1f))
+
+            }
+        } else {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.constrainAs(text) {
+                    top.linkTo(circleBoxItem.top)
+                    start.linkTo(circleBoxItem.end, margin = 3.dp)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(line.bottom)
+                },
+            ) {
+                step.supportingContent.invoke()
+            }
+        }
+
+        Surface(
+            modifier = Modifier
+                .size(stepStyle.stepSize)
+                .constrainAs(circleBoxItem) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+//                    if (step.supportingContent == null) {
+//                        end.linkTo(parent.end)
+//                    }
+                },
+            shape = CircleShape,
+            border = borderStrokeColor,
+            color = containerColor,
+        ) {
+
+            // Defines Text or Tick/Done Icon
+            Box(contentAlignment = Alignment.Center) {
+                if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {
+                    Icon(
+                        imageVector = Icons.Default.Done,
+                        tint = contentColor,
+                        contentDescription = "Done"
+                    )
+                } else {
+                    Text(text = step.text, color = contentColor, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                }
+            }
+        }
+    }
+}
+
 
 /**
  * Create a composable representing a single step in a vertical sequenced stepper with customizable appearance and behavior.
@@ -98,13 +208,15 @@ fun VerticalStep(
         // Display is continuous line if not completed
         if (isCompleted.not()) {
             Divider(
-                modifier = Modifier.width(lineThickness).constrainAs(line) {
-                    height = Dimension.fillToConstraints.atLeast(20.dp)
-                    top.linkTo(circleBoxItem.bottom)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(circleBoxItem.start)
-                    end.linkTo(circleBoxItem.end)
-                },
+                modifier = Modifier
+                    .width(lineThickness)
+                    .constrainAs(line) {
+                        height = Dimension.fillToConstraints.atLeast(20.dp)
+                        top.linkTo(circleBoxItem.bottom)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(circleBoxItem.start)
+                        end.linkTo(circleBoxItem.end)
+                    },
                 color = itemColor
             )
         }

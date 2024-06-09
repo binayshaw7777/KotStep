@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Build
@@ -50,14 +51,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalIconStepper
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalSequencedStepper
+import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalIconStepper
 import com.binayshaw7777.kotstep.ui.vertical.VerticalSequencedStepper
+import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
 import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
 import com.binayshaw7777.kotstep.utils.StepperTypes
+import com.binayshaw7777.kotstep.utils.Utils
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +93,7 @@ fun MainPreview() {
         var expandedShapeMenu by remember { mutableStateOf(false) }
 
         var currentStepperType by remember {
-            mutableStateOf(StepperTypes.HORIZONTAL_SEQUENCED_STEPPER)
+            mutableStateOf(StepperTypes.VERTICAL_STEPPER)
         }
 
         var currentStepperItemShape by remember {
@@ -102,6 +107,15 @@ fun MainPreview() {
         var lineThickness by rememberSaveable {
             mutableStateOf(3)
         }
+
+//        val getSteps = Utils.getSteps()
+        val getSteps = Utils.getStepsWithSupportingContent()
+        val stepStyle = StepStyle(
+            lineThickness = lineThickness.dp,
+            showCheckMarkOnDone = true,
+            showStrokeOnCurrent = true,
+            stepSize = stepItemSize.dp
+        )
 
 
         Column(
@@ -146,6 +160,17 @@ fun MainPreview() {
                                 )
                             })
                         DropdownMenuItem(
+                            text = { Text("Vertical Stepper") },
+                            onClick = {
+                                currentStepperType = StepperTypes.VERTICAL_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowDown,
+                                    contentDescription = null
+                                )
+                            })
+                        DropdownMenuItem(
                             text = { Text("Horizontal Icon Stepper") },
                             onClick = { currentStepperType = StepperTypes.HORIZONTAL_ICON_STEPPER },
                             leadingIcon = {
@@ -160,6 +185,16 @@ fun MainPreview() {
                             leadingIcon = {
                                 Icon(
                                     Icons.Outlined.KeyboardArrowDown,
+                                    contentDescription = null
+                                )
+                            })
+
+                        DropdownMenuItem(
+                            text = { Text("Horizontal Stepper") },
+                            onClick = { currentStepperType = StepperTypes.HORIZONTAL_STEPPER },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             })
@@ -210,7 +245,19 @@ fun MainPreview() {
                         incompleteColor = Color.Gray,
                         checkMarkColor = Color.White,
                         stepNameOnIncompleteColor = Color.White,
-                        stepNameOnCompleteColor = Color.White
+                        stepNameOnCompleteColor = Color.White,
+                        stepDescription = listOf(
+                            "Step 1 supporting content",
+                            "Step 2",
+                            "Step 3, supporting content",
+                            "Step 4",
+                            "Step 5",
+                            "Step 6",
+                            "Step 7",
+                            "Step 8",
+                            "Step 9",
+                            "Step 10"
+                        )
                     )
                 }
 
@@ -256,7 +303,15 @@ fun MainPreview() {
                     )
                 }
 
-                else -> {
+                StepperTypes.HORIZONTAL_STEPPER -> {
+                    HorizontalStepper(currentStep = currentStep, steps = getSteps, stepStyle = stepStyle)
+                }
+
+                StepperTypes.VERTICAL_STEPPER -> {
+                    VerticalStepper(currentStep = currentStep, steps = getSteps, stepStyle = stepStyle)
+                }
+
+                StepperTypes.VERTICAL_ICON_STEPPER -> {
                     VerticalIconStepper(
                         totalSteps = totalSteps,
                         currentStep = currentStep,
