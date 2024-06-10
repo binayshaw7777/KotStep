@@ -41,6 +41,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -78,10 +79,10 @@ fun MainPreview() {
         color = MaterialTheme.colorScheme.background
     ) {
         var totalSteps by rememberSaveable {
-            mutableStateOf(5)
+            mutableIntStateOf(5)
         }
 
-        var currentStep by rememberSaveable { mutableStateOf(0) }
+        var currentStep by rememberSaveable { mutableIntStateOf(0) }
 
         var expanded by remember { mutableStateOf(false) }
 
@@ -96,11 +97,11 @@ fun MainPreview() {
         }
 
         var stepItemSize by remember {
-            mutableStateOf(35)
+            mutableIntStateOf(35)
         }
 
         var lineThickness by rememberSaveable {
-            mutableStateOf(3)
+            mutableIntStateOf(3)
         }
 
 
