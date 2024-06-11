@@ -8,5 +8,5 @@ plugins {
 }
 
 tasks.dokkaHtmlMultiModule.configure {
-    outputDirectory.set(rootDir.resolve("docs/api"))
+    outputDirectory.set(rootDir.resolve("docs"))
 }
