@@ -1,0 +1,7 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:kotstep
+com.binayshaw7777.kotstep.components
+com.binayshaw7777.kotstep.ui.horizontal
+com.binayshaw7777.kotstep.ui.vertical
