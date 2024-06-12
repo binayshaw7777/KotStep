@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id ("maven-publish")
+    id("maven-publish")
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -61,7 +62,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.binayshaw7777"
             artifactId = "KotStep"
-            version = "1.1.0"
+            version = "1.2.0"
 
             afterEvaluate {
                 from(components["release"])
