@@ -3,6 +3,7 @@ package com.binayshaw7777.kotstep.components
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.LinearProgressIndicator
@@ -30,6 +31,7 @@ fun HorizontalDashedStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
+    totalSteps: Int,
     size: IntSize
 ) {
 
@@ -43,14 +45,6 @@ fun HorizontalDashedStep(
         }
     }
 
-    val contentColor: Color by transition.animateColor(label = "titleColor") {
-        when (it) {
-            StepState.TODO -> stepStyle.colors.todoContentColor
-            StepState.CURRENT -> stepStyle.colors.currentContentColor
-            StepState.DONE -> stepStyle.colors.doneContentColor
-        }
-    }
-
     val progressState: Float by transition.animateFloat(label = "progress") {
         when (it) {
             StepState.TODO -> 0f
@@ -61,12 +55,21 @@ fun HorizontalDashedStep(
 
     LinearProgressIndicator(
         progress = { progressState },
-        modifier = Modifier.then(
-            with(LocalDensity.current) {
-                Modifier.widthIn(max = size.width.toDp())
-                    .padding(2.dp)
-            }
-        ),
+        modifier = Modifier
+            .then(
+                with(LocalDensity.current) {
+                    if (totalSteps > 1) {
+                        Modifier
+                            .widthIn(max = size.width.toDp() / totalSteps)
+                            .padding(2.dp)
+                    } else {
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(2.dp)
+                    }
+                }
+            )
+            .then(modifier),
         color = containerColor,
         trackColor = containerColor,
         strokeCap = stepStyle.strokeCap

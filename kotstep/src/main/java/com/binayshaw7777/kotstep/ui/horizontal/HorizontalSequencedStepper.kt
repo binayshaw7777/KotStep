@@ -1,5 +1,6 @@
 package com.binayshaw7777.kotstep.ui.horizontal
 
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -55,12 +56,15 @@ fun HorizontalSequencedStepper(
             descriptionList[index] = element
     }
 
+    Log.d("HorizontalSequencedStepper", "Total Steps: $totalSteps")
+
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         for (stepAtIt in 1..totalSteps) {
 
+            Log.d("HorizontalSequencedStepper", "Step: $stepAtIt and Current Step: $currentStep")
             HorizontalStep(
                 modifier = Modifier.weight(1F),
                 stepName = stepAtIt.toString(),

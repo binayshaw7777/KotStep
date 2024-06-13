@@ -197,6 +197,119 @@ fun HorizontalStep(
     }
 }
 
+@Composable
+fun HorizontalStep(
+    modifier: Modifier = Modifier,
+    stepStyle: StepStyle,
+    step: Step,
+    stepState: StepState,
+    isLastStep: Boolean,
+    stepShape: Shape = CircleShape
+) {
+    val transition = updateTransition(targetState = stepState, label = "")
+
+    val containerColor: Color by transition.animateColor(label = "itemColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoContainerColor
+            StepState.CURRENT -> stepStyle.colors.currentContainerColor
+            StepState.DONE -> stepStyle.colors.doneContainerColor
+        }
+    }
+
+    val contentColor: Color by transition.animateColor(label = "titleColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoContentColor
+            StepState.CURRENT -> stepStyle.colors.currentContentColor
+            StepState.DONE -> stepStyle.colors.doneContentColor
+        }
+    }
+
+    val borderStrokeColor: BorderStroke = if (stepState == StepState.CURRENT) {
+        BorderStroke(2.dp, stepStyle.colors.currentContainerColor)
+    } else {
+        BorderStroke(2.dp, stepStyle.colors.todoContainerColor)
+    }
+
+    ConstraintLayout(modifier = modifier) {
+
+        val (circleBoxItem, text, line) = createRefs()
+
+        Surface(
+            modifier = Modifier
+                .size(stepStyle.stepSize)
+                .constrainAs(circleBoxItem) {
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                },
+            shape = stepShape,
+            border = borderStrokeColor,
+            color = containerColor,
+        ) {
+
+            // Defines Text or Tick/Done Icon
+            Box(contentAlignment = Alignment.Center) {
+                when (stepState) {
+                    StepState.DONE -> {
+                        if (stepStyle.showCheckMarkOnDone) {
+                            Icon(
+                                imageVector = Icons.Default.Done,
+                                tint = contentColor,
+                                contentDescription = "Done"
+                            )
+                        } else {
+                            Text(
+                                text = step.text,
+                                color = contentColor,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
+                    else -> {
+                        Text(
+                            text = step.text,
+                            color = contentColor,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
+        }
+
+        // Display Step Title if available
+        Text(
+            modifier = Modifier.constrainAs(text) {
+                top.linkTo(circleBoxItem.bottom, margin = 3.dp)
+                start.linkTo(circleBoxItem.start)
+                end.linkTo(circleBoxItem.end)
+                bottom.linkTo(parent.bottom)
+            },
+            fontSize = 12.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            text = step.text,
+            color = contentColor
+        )
+
+        // Display is continuous line if not completed
+        if (!isLastStep) {
+            HorizontalDivider(
+                modifier = Modifier.constrainAs(line) {
+                    top.linkTo(circleBoxItem.top)
+                    bottom.linkTo(circleBoxItem.bottom)
+                    start.linkTo(circleBoxItem.end)
+                },
+                thickness = stepStyle.lineThickness,
+                color = containerColor
+            )
+        }
+    }
+}
+
 
 /**
  * Create a single step in a sequenced stepper with customizable appearance and behavior.

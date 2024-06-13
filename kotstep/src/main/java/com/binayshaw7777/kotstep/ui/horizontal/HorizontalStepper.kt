@@ -3,6 +3,7 @@ package com.binayshaw7777.kotstep.ui.horizontal
 import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,6 +62,7 @@ fun HorizontalStepper(
                         stepState = stepState,
                         isLastStep = isLastStep
                     )
+
                 }
 
                 StepperType.DASHED -> {
@@ -68,10 +70,8 @@ fun HorizontalStepper(
                     HorizontalDashedStep(
                         stepStyle = stepStyle,
                         stepState = stepState,
-                        size = IntSize(
-                            width = size.width / totalSteps,
-                            height = size.height
-                        )
+                        totalSteps = totalSteps,
+                        size = size
                     )
                 }
             }
@@ -107,7 +107,8 @@ fun HorizontalStepper(
                 stepStyle = stepStyle,
                 step = step,
                 stepState = stepState,
-                isLastStep = isLastStep
+                isLastStep = isLastStep,
+                stepShape = CircleShape
             )
         }
     }

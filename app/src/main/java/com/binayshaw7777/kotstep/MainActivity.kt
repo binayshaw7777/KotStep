@@ -162,67 +162,67 @@ fun MainPreview() {
                                     contentDescription = null
                                 )
                             })
-                        DropdownMenuItem(
-                            text = { Text("Horizontal Sequenced Stepper") },
-                            onClick = {
-                                currentStepperType = StepperOptions.HORIZONTAL_SEQUENCED_STEPPER
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("Vertical Sequenced Stepper") },
-                            onClick = {
-                                currentStepperType = StepperOptions.VERTICAL_SEQUENCED_STEPPER
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.KeyboardArrowDown,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("Vertical Stepper") },
-                            onClick = {
-                                currentStepperType = StepperOptions.VERTICAL_STEPPER
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.KeyboardArrowDown,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("Horizontal Icon Stepper") },
-                            onClick = { currentStepperType = StepperOptions.HORIZONTAL_ICON_STEPPER },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("Vertical Icon Stepper") },
-                            onClick = { currentStepperType = StepperOptions.VERTICAL_ICON_STEPPER },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.KeyboardArrowDown,
-                                    contentDescription = null
-                                )
-                            })
+//                        DropdownMenuItem(
+//                            text = { Text("Horizontal Sequenced Stepper") },
+//                            onClick = {
+//                                currentStepperType = StepperOptions.HORIZONTAL_SEQUENCED_STEPPER
+//                            },
+//                            leadingIcon = {
+//                                Icon(
+//                                    Icons.Outlined.KeyboardArrowRight,
+//                                    contentDescription = null
+//                                )
+//                            })
+//                        DropdownMenuItem(
+//                            text = { Text("Vertical Sequenced Stepper") },
+//                            onClick = {
+//                                currentStepperType = StepperOptions.VERTICAL_SEQUENCED_STEPPER
+//                            },
+//                            leadingIcon = {
+//                                Icon(
+//                                    Icons.Outlined.KeyboardArrowDown,
+//                                    contentDescription = null
+//                                )
+//                            })
+//                        DropdownMenuItem(
+//                            text = { Text("Vertical Stepper") },
+//                            onClick = {
+//                                currentStepperType = StepperOptions.VERTICAL_STEPPER
+//                            },
+//                            leadingIcon = {
+//                                Icon(
+//                                    Icons.Outlined.KeyboardArrowDown,
+//                                    contentDescription = null
+//                                )
+//                            })
+//                        DropdownMenuItem(
+//                            text = { Text("Horizontal Icon Stepper") },
+//                            onClick = { currentStepperType = StepperOptions.HORIZONTAL_ICON_STEPPER },
+//                            leadingIcon = {
+//                                Icon(
+//                                    Icons.Outlined.KeyboardArrowRight,
+//                                    contentDescription = null
+//                                )
+//                            })
+//                        DropdownMenuItem(
+//                            text = { Text("Vertical Icon Stepper") },
+//                            onClick = { currentStepperType = StepperOptions.VERTICAL_ICON_STEPPER },
+//                            leadingIcon = {
+//                                Icon(
+//                                    Icons.Outlined.KeyboardArrowDown,
+//                                    contentDescription = null
+//                                )
+//                            })
 
-                        DropdownMenuItem(
-                            text = { Text("Horizontal Stepper") },
-                            onClick = { currentStepperType = StepperOptions.HORIZONTAL_STEPPER },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
-                                    contentDescription = null
-                                )
-                            })
+//                        DropdownMenuItem(
+//                            text = { Text("Horizontal Stepper") },
+//                            onClick = { currentStepperType = StepperOptions.HORIZONTAL_STEPPER },
+//                            leadingIcon = {
+//                                Icon(
+//                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+//                                    contentDescription = null
+//                                )
+//                            })
                     }
                 }
 
@@ -259,109 +259,109 @@ fun MainPreview() {
             }
 
             when (currentStepperType) {
-                StepperOptions.HORIZONTAL_SEQUENCED_STEPPER -> {
-                    HorizontalSequencedStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepNameOnIncompleteColor = Color.White,
-                        stepNameOnCompleteColor = Color.White,
-                        stepDescription = listOf(
-                            "Step 1 supporting content",
-                            "Step 2",
-                            "Step 3, supporting content",
-                            "Step 4",
-                            "Step 5",
-                            "Step 6",
-                            "Step 7",
-                            "Step 8",
-                            "Step 9",
-                            "Step 10"
-                        )
-                    )
-                }
+//                StepperOptions.HORIZONTAL_SEQUENCED_STEPPER -> {
+//                    HorizontalSequencedStepper(
+//                        totalSteps = totalSteps,
+//                        currentStep = currentStep,
+//                        stepSize = stepItemSize.dp,
+//                        stepShape = getShapeFromEnum(currentStepperItemShape),
+//                        lineThickness = lineThickness.dp,
+//                        completedColor = MaterialTheme.colorScheme.primary,
+//                        incompleteColor = Color.Gray,
+//                        checkMarkColor = Color.White,
+//                        stepNameOnIncompleteColor = Color.White,
+//                        stepNameOnCompleteColor = Color.White,
+//                        stepDescription = listOf(
+//                            "Step 1 supporting content",
+//                            "Step 2",
+//                            "Step 3, supporting content",
+//                            "Step 4",
+//                            "Step 5",
+//                            "Step 6",
+//                            "Step 7",
+//                            "Step 8",
+//                            "Step 9",
+//                            "Step 10"
+//                        )
+//                    )
+//                }
+//
+//                StepperOptions.VERTICAL_SEQUENCED_STEPPER -> {
+//                    VerticalSequencedStepper(
+//                        totalSteps = totalSteps,
+//                        currentStep = currentStep,
+//                        stepSize = stepItemSize.dp,
+//                        stepShape = getShapeFromEnum(currentStepperItemShape),
+//                        lineThickness = lineThickness.dp,
+//                        completedColor = MaterialTheme.colorScheme.primary,
+//                        incompleteColor = Color.Gray,
+//                        checkMarkColor = Color.White,
+//                        stepNameOnIncompleteColor = Color.White,
+//                        stepNameOnCompleteColor = Color.White
+//                    )
+//                }
+//
+//                StepperOptions.HORIZONTAL_ICON_STEPPER -> {
+//                    HorizontalIconStepper(
+//                        totalSteps = totalSteps,
+//                        currentStep = currentStep,
+//                        stepSize = stepItemSize.dp,
+//                        stepShape = getShapeFromEnum(currentStepperItemShape),
+//                        lineThickness = lineThickness.dp,
+//                        completedColor = MaterialTheme.colorScheme.primary,
+//                        incompleteColor = Color.Gray,
+//                        checkMarkColor = Color.White,
+//                        stepIconsColorOnIncomplete = Color.White,
+//                        stepIconsColorOnComplete = Color.White,
+//                        stepIconsList = listOf(
+//                            Icons.Default.AccountBox,
+//                            Icons.Default.AddCircle,
+//                            Icons.Default.Build,
+//                            Icons.Default.Face,
+//                            Icons.Default.Home,
+//                            Icons.Default.AccountBox,
+//                            Icons.Default.AddCircle,
+//                            Icons.Default.Build,
+//                            Icons.Default.Face,
+//                            Icons.Default.Home
+//                        )
+//                    )
+//                }
 
-                StepperOptions.VERTICAL_SEQUENCED_STEPPER -> {
-                    VerticalSequencedStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepNameOnIncompleteColor = Color.White,
-                        stepNameOnCompleteColor = Color.White
-                    )
-                }
+//                StepperOptions.HORIZONTAL_STEPPER -> {
+//                    HorizontalStepper(currentStep = currentStep, steps = getSteps, stepStyle = stepStyle)
+//                }
+//
+//                StepperOptions.VERTICAL_STEPPER -> {
+//                    VerticalStepper(currentStep = currentStep, steps = getSteps, stepStyle = stepStyle)
+//                }
 
-                StepperOptions.HORIZONTAL_ICON_STEPPER -> {
-                    HorizontalIconStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepIconsColorOnIncomplete = Color.White,
-                        stepIconsColorOnComplete = Color.White,
-                        stepIconsList = listOf(
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home,
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home
-                        )
-                    )
-                }
-
-                StepperOptions.HORIZONTAL_STEPPER -> {
-                    HorizontalStepper(currentStep = currentStep, steps = getSteps, stepStyle = stepStyle)
-                }
-
-                StepperOptions.VERTICAL_STEPPER -> {
-                    VerticalStepper(currentStep = currentStep, steps = getSteps, stepStyle = stepStyle)
-                }
-
-                StepperOptions.VERTICAL_ICON_STEPPER -> {
-                    VerticalIconStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepIconsColorOnIncomplete = Color.White,
-                        stepIconsColorOnComplete = Color.White,
-                        stepIconsList = listOf(
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home,
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home
-                        )
-                    )
-                }
+//                StepperOptions.VERTICAL_ICON_STEPPER -> {
+//                    VerticalIconStepper(
+//                        totalSteps = totalSteps,
+//                        currentStep = currentStep,
+//                        stepSize = stepItemSize.dp,
+//                        stepShape = getShapeFromEnum(currentStepperItemShape),
+//                        lineThickness = lineThickness.dp,
+//                        completedColor = MaterialTheme.colorScheme.primary,
+//                        incompleteColor = Color.Gray,
+//                        checkMarkColor = Color.White,
+//                        stepIconsColorOnIncomplete = Color.White,
+//                        stepIconsColorOnComplete = Color.White,
+//                        stepIconsList = listOf(
+//                            Icons.Default.AccountBox,
+//                            Icons.Default.AddCircle,
+//                            Icons.Default.Build,
+//                            Icons.Default.Face,
+//                            Icons.Default.Home,
+//                            Icons.Default.AccountBox,
+//                            Icons.Default.AddCircle,
+//                            Icons.Default.Build,
+//                            Icons.Default.Face,
+//                            Icons.Default.Home
+//                        )
+//                    )
+//                }
 
                 StepperOptions.HORIZONTAL_SOLID_STEPPER -> {
                     HorizontalStepper(totalSteps = totalSteps, currentStep = currentStep, steps = getStepsComposable, stepStyle = stepStyle, stepperType = StepperType.SOLID)
