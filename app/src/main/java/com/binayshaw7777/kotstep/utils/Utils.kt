@@ -12,8 +12,8 @@ import com.binayshaw7777.kotstep.model.StepComposable
 object Utils {
 
     @Composable
-    fun getStepComposables(): List<StepComposable> {
-        return listOf(
+    fun getStepComposables(numberOfItems: Int = -1): List<StepComposable> {
+        return if (numberOfItems == - 1 ) listOf(
             StepComposable(
                 content = {
                     Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
@@ -38,7 +38,38 @@ object Utils {
                     Text(text = "Step 3 supporting")
                 }
             ),
-        )
+            StepComposable(
+                content = {
+                    Text(text = "Step 4")
+                },
+                supportingContent = {
+                    Text(text = "Step 4 supporting")
+                }
+            ),
+            StepComposable(
+                content = {
+                    Text(text = "Step 4")
+                },
+                supportingContent = {
+                    Text(text = "Step 4 supporting")
+                }
+            ),
+        ) else {
+            val steps = mutableListOf<StepComposable>()
+            for (i in 1..numberOfItems) {
+                steps.add(
+                    StepComposable(
+                        content = {
+                            Text(text = "Step $i")
+                        },
+                        supportingContent = {
+                            Text(text = "Step $i supporting content")
+                        }
+                    )
+                )
+            }
+            steps
+        }
     }
 
     @Composable

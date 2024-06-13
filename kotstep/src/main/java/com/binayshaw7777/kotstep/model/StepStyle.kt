@@ -2,6 +2,7 @@ package com.binayshaw7777.kotstep.model
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.dp
  * @param lineStyle The style of the line
  * @param showCheckMarkOnDone Whether to show check mark on done step
  * @param showStrokeOnCurrent Whether to show stroke on current step
+ * @param strokeCap The stroke cap of the line (default is round)
  */
 @Immutable
 data class StepStyle(
@@ -21,7 +23,8 @@ data class StepStyle(
     val lineThickness: Dp = 1.dp,
     val lineStyle: LineStyle = LineStyle.SOLID,
     val showCheckMarkOnDone: Boolean = true,
-    val showStrokeOnCurrent: Boolean = true
+    val showStrokeOnCurrent: Boolean = true,
+    val strokeCap: StrokeCap = StrokeCap.Square
 )
 
 /**
