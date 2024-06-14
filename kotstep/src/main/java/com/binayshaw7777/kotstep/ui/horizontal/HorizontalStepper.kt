@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
-import com.binayshaw7777.kotstep.components.HorizontalDashedStep
+import com.binayshaw7777.kotstep.components.horizontal.HorizontalDashedStep
 import com.binayshaw7777.kotstep.components.HorizontalStep
 import com.binayshaw7777.kotstep.model.HorizontalStepperStyle
 import com.binayshaw7777.kotstep.model.Step
@@ -40,9 +40,9 @@ fun HorizontalStepper(style: HorizontalStepperStyle) {
         )
 
         is HorizontalStepperStyle.Number -> RenderHorizontalNumber(
-            style.totalSteps,
-            style.currentStep,
-            style.textStyle
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
+            stepStyle = style.stepStyle
         )
 
         is HorizontalStepperStyle.NumberWithLabel -> RenderHorizontalNumberWithLabel(

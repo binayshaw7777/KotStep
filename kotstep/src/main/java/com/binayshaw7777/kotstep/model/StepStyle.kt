@@ -1,10 +1,14 @@
 package com.binayshaw7777.kotstep.model
 
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 /**
  * A data class for StepStyle
@@ -20,6 +24,8 @@ import androidx.compose.ui.unit.dp
 data class StepStyle(
     val colors: StepDefaults = StepDefaults.defaultColors(),
     val stepSize: Dp = 36.dp,
+    val stepShape: Shape = CircleShape,
+    val textSize: TextUnit = 16.sp,
     val lineThickness: Dp = 1.dp,
     val lineStyle: LineStyle = LineStyle.SOLID,
     val showCheckMarkOnDone: Boolean = true,

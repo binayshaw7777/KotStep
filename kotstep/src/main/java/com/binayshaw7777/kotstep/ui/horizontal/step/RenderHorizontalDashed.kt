@@ -11,9 +11,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
-import com.binayshaw7777.kotstep.components.HorizontalDashedStep
+import com.binayshaw7777.kotstep.components.horizontal.HorizontalDashedStep
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
