@@ -15,11 +15,56 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import com.binayshaw7777.kotstep.components.HorizontalDashedStep
 import com.binayshaw7777.kotstep.components.HorizontalStep
+import com.binayshaw7777.kotstep.model.HorizontalStepperStyle
 import com.binayshaw7777.kotstep.model.Step
 import com.binayshaw7777.kotstep.model.StepComposable
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.StepperType
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalDashed
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalFleet
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalIcon
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalNumber
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalNumberWithLabel
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
+
+
+@Composable
+fun HorizontalStepper(style: HorizontalStepperStyle) {
+    when (style) {
+        is HorizontalStepperStyle.Tab -> RenderHorizontalTab(style.totalSteps, style.currentStep)
+        is HorizontalStepperStyle.Icon -> RenderHorizontalIcon(
+            style.totalSteps,
+            style.currentStep,
+            style.iconSize
+        )
+
+        is HorizontalStepperStyle.Number -> RenderHorizontalNumber(
+            style.totalSteps,
+            style.currentStep,
+            style.textStyle
+        )
+
+        is HorizontalStepperStyle.NumberWithLabel -> RenderHorizontalNumberWithLabel(
+            style.totalSteps,
+            style.currentStep,
+            style.textStyle,
+            style.labelTextStyle
+        )
+
+        is HorizontalStepperStyle.Dashed -> RenderHorizontalDashed(
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
+            stepStyle = style.stepStyle
+        )
+
+        is HorizontalStepperStyle.Fleet -> RenderHorizontalFleet(
+            style.totalSteps,
+            style.currentStep,
+            style.fleetItemContent
+        )
+    }
+}
 
 @JvmName("HorizontalStepperWithComposable")
 @Composable
@@ -66,7 +111,10 @@ fun HorizontalStepper(
                 }
 
                 StepperType.DASHED -> {
-                    Log.d("HorizontalStepper", "Row Size: $size and totalSteps: $totalSteps and divided width: ${size.width / totalSteps}")
+                    Log.d(
+                        "HorizontalStepper",
+                        "Row Size: $size and totalSteps: $totalSteps and divided width: ${size.width / totalSteps}"
+                    )
                     HorizontalDashedStep(
                         stepStyle = stepStyle,
                         stepState = stepState,

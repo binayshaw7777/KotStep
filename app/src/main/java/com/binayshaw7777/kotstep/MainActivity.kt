@@ -52,6 +52,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.model.HorizontalStepperStyle
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.StepperType
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalIconStepper
@@ -364,11 +365,24 @@ fun MainPreview() {
 //                }
 
                 StepperOptions.HORIZONTAL_SOLID_STEPPER -> {
-                    HorizontalStepper(totalSteps = totalSteps, currentStep = currentStep, steps = getStepsComposable, stepStyle = stepStyle, stepperType = StepperType.SOLID)
+                    HorizontalStepper(
+                        totalSteps = totalSteps,
+                        currentStep = currentStep,
+                        steps = getStepsComposable,
+                        stepStyle = stepStyle,
+                        stepperType = StepperType.SOLID
+                    )
                 }
 
                 StepperOptions.HORIZONTAL_DASHED_STEPPER -> {
-                    HorizontalStepper(totalSteps = totalSteps, currentStep = currentStep, steps = getStepsComposable, stepStyle = stepStyle.copy(strokeCap = StrokeCap.Round), stepperType = StepperType.DASHED)
+//                    HorizontalStepper(totalSteps = totalSteps, currentStep = currentStep, steps = getStepsComposable, stepStyle = stepStyle.copy(strokeCap = StrokeCap.Round), stepperType = StepperType.DASHED)
+                    HorizontalStepper(
+                        style = HorizontalStepperStyle.Dashed(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
+                        )
+                    )
                 }
             }
 

@@ -73,7 +73,7 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
      * @param currentStep The current active step in the stepper (zero-based index).
      * @param dashThickness The thickness of the dashes in the stepper.
      */
-    class Dashed(totalSteps: Int, currentStep: Int, val dashThickness: Dp) :
+    class Dashed(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep)
 
     /**
