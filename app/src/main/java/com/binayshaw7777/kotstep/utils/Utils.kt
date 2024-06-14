@@ -3,9 +3,19 @@ package com.binayshaw7777.kotstep.utils
 import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.binayshaw7777.kotstep.model.Step
 import com.binayshaw7777.kotstep.model.StepComposable
 
@@ -94,5 +104,20 @@ object Utils {
             Step(text = "Step 3"),
             Step(text = "Step 4"),
         )
+    }
+
+    fun getIcons(limit: Int): List<ImageVector> {
+        return listOf(
+            Icons.Default.AccountCircle,
+            Icons.Default.Place,
+            Icons.Default.Favorite,
+            Icons.Default.Search,
+            Icons.Default.Face,
+            Icons.Default.Build,
+            Icons.Default.Check,
+            Icons.Default.Create,
+            Icons.Default.DateRange,
+            Icons.Default.MailOutline
+        ).subList(0, limit)
     }
 }

@@ -26,6 +26,7 @@ data class StepStyle(
     val stepSize: Dp = 36.dp,
     val stepShape: Shape = CircleShape,
     val textSize: TextUnit = 16.sp,
+    val iconSize: Dp = 24.dp,
     val lineThickness: Dp = 1.dp,
     val lineStyle: LineStyle = LineStyle.SOLID,
     val showCheckMarkOnDone: Boolean = true,

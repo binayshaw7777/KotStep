@@ -17,6 +17,14 @@ import com.binayshaw7777.kotstep.components.horizontal.HorizontalNumberedStep
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
+/**
+ * Render the horizontal stepper with numbers
+ *
+ * @param modifier Modifier
+ * @param totalSteps Int
+ * @param currentStep Int
+ * @param stepStyle StepStyle
+ */
 @Composable
 fun RenderHorizontalNumber(
     modifier: Modifier = Modifier,

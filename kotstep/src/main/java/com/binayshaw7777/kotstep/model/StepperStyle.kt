@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep.model
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 
@@ -37,8 +38,14 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
      * @param iconSize The size of the icons in the stepper.
+     * @param icons The list of icons to be displayed in the stepper.
      */
-    class Icon(totalSteps: Int, currentStep: Int, val iconSize: Dp) :
+    class Icon(
+        totalSteps: Int,
+        currentStep: Int,
+        val icons: List<ImageVector>,
+        val stepStyle: StepStyle
+    ) :
         HorizontalStepperStyle(totalSteps, currentStep)
 
     /**

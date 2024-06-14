@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -33,14 +34,17 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepStyle
@@ -94,6 +98,14 @@ fun MainPreview() {
             mutableIntStateOf(3)
         }
 
+        val icons = remember { mutableStateListOf<ImageVector>() }
+
+        LaunchedEffect(totalSteps) {
+            icons.clear()
+            icons.addAll(Utils.getIcons(totalSteps))
+            Log.d("Total Steps", "Total Steps: $totalSteps and icons: ${icons.size}")
+        }
+
 //        val getSteps = Utils.getSteps()
         val getSteps = Utils.getStepsWithSupportingContent()
         val getStepsComposable = Utils.getStepComposables(totalSteps)
@@ -124,9 +136,21 @@ fun MainPreview() {
                         onDismissRequest = { expanded = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("Horizontal SOLID Stepper") },
+                            text = { Text("Horizontal NUMBERED Stepper") },
                             onClick = {
-                                currentStepperType = StepperOptions.HORIZONTAL_SOLID_STEPPER
+                                currentStepperType = StepperOptions.HORIZONTAL_NUMBERED_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Horizontal ICON Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.HORIZONTAL_ICON_STEPPER
                             },
                             leadingIcon = {
                                 Icon(
@@ -184,11 +208,21 @@ fun MainPreview() {
 
             when (currentStepperType) {
 
-                StepperOptions.HORIZONTAL_SOLID_STEPPER -> {
+                StepperOptions.HORIZONTAL_NUMBERED_STEPPER -> {
                     HorizontalStepper(
                         style = numbered(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.HORIZONTAL_ICON_STEPPER -> {
+                    HorizontalStepper(
+                        style = icon(
+                            currentStep = currentStep,
+                            icons = icons,
                             stepStyle = stepStyle
                         )
                     )
