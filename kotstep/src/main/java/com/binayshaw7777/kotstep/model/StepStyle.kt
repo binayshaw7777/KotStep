@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /**
- * A data class for StepStyle
+ * A data class for StepStyle which represents the style of the step (Item) in the stepper
  *
  * @param colors The colors for the step
  * @param lineThickness The thickness of the line
@@ -28,6 +28,8 @@ data class StepStyle(
     val textSize: TextUnit = 16.sp,
     val iconSize: Dp = 24.dp,
     val lineThickness: Dp = 6.dp,
+    val lineSize: Dp = 20.dp,
+    val stepPadding: Dp = 0.dp,
     val lineStyle: LineStyle = LineStyle.SOLID,
     val showCheckMarkOnDone: Boolean = true,
     val showStrokeOnCurrent: Boolean = true,

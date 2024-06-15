@@ -116,6 +116,7 @@ fun HorizontalIconStep(
         // Display is continuous line if not completed
         if (!isLastStep) {
             HorizontalDivider(
+                modifier = Modifier.widthIn(max = stepStyle.lineSize),
                 thickness = stepStyle.lineThickness,
                 color = containerColor
             )

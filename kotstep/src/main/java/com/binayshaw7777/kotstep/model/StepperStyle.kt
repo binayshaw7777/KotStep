@@ -37,8 +37,8 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
      *
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
-     * @param iconSize The size of the icons in the stepper.
      * @param icons The list of icons to be displayed in the stepper.
+     * @param stepStyle The style for the step numbers.
      */
     class Icon(
         totalSteps: Int,
@@ -120,9 +120,9 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
      *
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
-     * @param textStyle The text style for the step numbers.
+     * @param stepStyle The style for the step numbers.
      */
-    class Number(totalSteps: Int, currentStep: Int, val textStyle: TextStyle) :
+    class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         VerticalStepperStyle(totalSteps, currentStep)
 
     /**
@@ -145,9 +145,13 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
      *
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
-     * @param iconSize The size of the icons in the stepper.
+     * @param icons The list of icons to be displayed in the stepper.
      */
-    class Icon(totalSteps: Int, currentStep: Int, val iconSize: Dp) :
+    class Icon(
+        totalSteps: Int, currentStep: Int,
+        val icons: List<ImageVector>,
+        val stepStyle: StepStyle
+    ) :
         VerticalStepperStyle(totalSteps, currentStep)
 
     /**
@@ -167,7 +171,6 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
 }
 
 
-
 /**
  * Represents the style for a step in a stepper component.
  *
@@ -181,7 +184,7 @@ fun dashed(
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle = StepStyle()
-) : HorizontalStepperStyle.Dashed {
+): HorizontalStepperStyle.Dashed {
     return HorizontalStepperStyle.Dashed(
         totalSteps = totalSteps,
         currentStep = currentStep,
@@ -203,7 +206,7 @@ fun numbered(
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle = StepStyle()
-) : HorizontalStepperStyle.Number {
+): HorizontalStepperStyle.Number {
     return HorizontalStepperStyle.Number(
         totalSteps = totalSteps,
         currentStep = currentStep,
@@ -221,12 +224,34 @@ fun numbered(
  *
  * @return A icon-based horizontal stepper style.
  */
-fun icon(
+fun iconHorizontal(
     currentStep: Int,
     icons: List<ImageVector>,
     stepStyle: StepStyle = StepStyle()
-) : HorizontalStepperStyle.Icon {
+): HorizontalStepperStyle.Icon {
     return HorizontalStepperStyle.Icon(
+        totalSteps = icons.size,
+        currentStep = currentStep,
+        icons = icons,
+        stepStyle = stepStyle
+    )
+}
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param currentStep The current active step in the stepper (zero-based index).
+ * @param icons The list of icons to be displayed in the stepper.
+ * @param stepStyle The style for the step numbers.
+ *
+ * @return A icon-based vertical stepper style.
+ */
+fun iconVertical(
+    currentStep: Int,
+    icons: List<ImageVector>,
+    stepStyle: StepStyle = StepStyle()
+): VerticalStepperStyle.Icon {
+    return VerticalStepperStyle.Icon(
         totalSteps = icons.size,
         currentStep = currentStep,
         icons = icons,

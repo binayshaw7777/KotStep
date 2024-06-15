@@ -13,6 +13,12 @@ data class StepComposable(
     val supportingContent: @Composable (() -> Unit)? = null
 )
 
+/**
+ * A data class for Step
+ *
+ * @param text The main text of the step
+ * @param supportingContent The supporting content of the step
+ */
 data class Step(
     val text: String,
     val supportingContent: @Composable (() -> Unit)? = null
