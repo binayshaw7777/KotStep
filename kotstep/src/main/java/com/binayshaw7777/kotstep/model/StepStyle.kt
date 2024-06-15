@@ -27,7 +27,7 @@ data class StepStyle(
     val stepShape: Shape = CircleShape,
     val textSize: TextUnit = 16.sp,
     val iconSize: Dp = 24.dp,
-    val lineThickness: Dp = 1.dp,
+    val lineThickness: Dp = 6.dp,
     val lineStyle: LineStyle = LineStyle.SOLID,
     val showCheckMarkOnDone: Boolean = true,
     val showStrokeOnCurrent: Boolean = true,
@@ -67,48 +67,3 @@ data class StepDefaults(
         )
     }
 }
-
-//internal val todoContainerColor: Color = Color.Unspecified
-//internal val todoContentColor: Color = Color.Unspecified
-//internal val currentContainerColor: Color = Color.Unspecified
-//internal val currentContentColor: Color = Color.Unspecified
-//internal val doneContainerColor: Color = Color.Unspecified
-//internal val doneContentColor: Color = Color.Unspecified
-//
-//internal var stepColors: StepDefaults = StepDefaults(
-//    todoContainerColor = todoContainerColor,
-//    todoContentColor = todoContentColor,
-//    currentContainerColor = currentContainerColor,
-//    currentContentColor = currentContentColor,
-//    doneContainerColor = doneContainerColor,
-//    doneContentColor = doneContentColor
-//)
-//
-//@Immutable
-//data class StepStyle(
-//    val colors: StepDefaults = StepDefaults.stepColors()
-//)
-//
-//@Immutable
-//data class StepDefaults(
-//    val todoContainerColor: Color = Color.Unspecified,
-//    val todoContentColor: Color = Color.Unspecified,
-//    val currentContainerColor: Color = Color.Unspecified,
-//    val currentContentColor: Color = Color.Unspecified,
-//    val doneContainerColor: Color = Color.Unspecified,
-//    val doneContentColor: Color = Color.Unspecified
-//) {
-//    companion object {
-//        fun stepColors(): StepDefaults {
-//            stepColors = stepColors.copy(
-//                todoContainerColor = todoContainerColor,
-//                todoContentColor = todoContentColor,
-//                currentContainerColor = currentContainerColor,
-//                currentContentColor = currentContentColor,
-//                doneContainerColor = doneContainerColor,
-//                doneContentColor = doneContentColor
-//            )
-//            return stepColors
-//        }
-//    }
-//}

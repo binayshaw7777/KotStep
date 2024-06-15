@@ -95,7 +95,7 @@ fun MainPreview() {
         }
 
         var lineThickness by rememberSaveable {
-            mutableIntStateOf(3)
+            mutableIntStateOf(6)
         }
 
         val icons = remember { mutableStateListOf<ImageVector>() }
@@ -255,6 +255,11 @@ fun MainPreview() {
                     value = totalSteps.toFloat(),
                     onValueChange = { newValue ->
                         totalSteps = newValue.toInt()
+
+                        // Because the current step should be less than the total steps
+                        if (currentStep >= totalSteps) {
+                            currentStep = totalSteps - 1
+                        }
                     },
                     valueRange = 1f..10f, // Set the range of Total Steps
                     steps = 10, // Divide the range into 10 steps
@@ -288,8 +293,8 @@ fun MainPreview() {
                     onValueChange = { newValue ->
                         lineThickness = newValue.toInt()
                     },
-                    valueRange = 1f..10f, // Set the range of Line Thickness
-                    steps = 10, // Divide the range into 10 steps
+                    valueRange = 3f..10f, // Set the range of Line Thickness
+                    steps = 7, // Divide the range into 7 steps
                     modifier = Modifier.fillMaxWidth()
                 )
             }

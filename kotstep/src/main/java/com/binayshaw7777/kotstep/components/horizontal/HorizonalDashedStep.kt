@@ -1,9 +1,11 @@
 package com.binayshaw7777.kotstep.components.horizontal
 
+import android.util.Log
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.LinearProgressIndicator
@@ -35,6 +37,8 @@ fun HorizontalDashedStep(
     size: IntSize
 ) {
 
+    Log.d("Line thickness", stepStyle.lineThickness.toString())
+
     val transition = updateTransition(targetState = stepState, label = "")
 
     val containerColor: Color by transition.animateColor(label = "itemColor") {
@@ -56,6 +60,7 @@ fun HorizontalDashedStep(
     LinearProgressIndicator(
         progress = { progressState },
         modifier = Modifier
+            .height(stepStyle.lineThickness)
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {
