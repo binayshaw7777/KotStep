@@ -49,6 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
+import com.binayshaw7777.kotstep.model.horizontalTab
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
 import com.binayshaw7777.kotstep.model.numberedHorizontal
@@ -141,6 +142,18 @@ fun MainPreview() {
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
+                        DropdownMenuItem(
+                            text = { Text("Horizontal TAB Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.HORIZONTAL_TAB_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
                         DropdownMenuItem(
                             text = { Text("Horizontal NUMBERED Stepper") },
                             onClick = {
@@ -238,6 +251,16 @@ fun MainPreview() {
             }
 
             when (currentStepperType) {
+                StepperOptions.HORIZONTAL_TAB_STEPPER -> {
+
+                    HorizontalStepper(
+                        style = horizontalTab(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
 
                 StepperOptions.HORIZONTAL_NUMBERED_STEPPER -> {
                     HorizontalStepper(

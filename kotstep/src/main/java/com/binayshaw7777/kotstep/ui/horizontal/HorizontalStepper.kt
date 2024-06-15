@@ -19,8 +19,9 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
 fun HorizontalStepper(style: HorizontalStepperStyle) {
     when (style) {
         is HorizontalStepperStyle.Tab -> RenderHorizontalTab(
-            style.totalSteps,
-            style.currentStep
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
+            stepStyle = style.stepStyle
         )
 
         is HorizontalStepperStyle.Icon -> RenderHorizontalIcon(

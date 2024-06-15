@@ -29,8 +29,10 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
      *
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
+     * @param stepStyle The style for the step numbers.
      */
-    class Tab(totalSteps: Int, currentStep: Int) : HorizontalStepperStyle(totalSteps, currentStep)
+    class Tab(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+        HorizontalStepperStyle(totalSteps, currentStep)
 
     /**
      * An icon-based horizontal stepper style.
@@ -189,6 +191,47 @@ fun dashed(
         totalSteps = totalSteps,
         currentStep = currentStep,
         stepStyle = stepStyle
+    )
+}
+
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current active step in the stepper (zero-based index).
+ * @param stepStyle The style for the step numbers.
+ *
+ * @return A tab-based horizontal stepper style.
+ */
+fun horizontalTab(
+    totalSteps: Int,
+    currentStep: Int,
+    stepStyle: StepStyle = StepStyle()
+): HorizontalStepperStyle.Tab {
+    return HorizontalStepperStyle.Tab(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle
+    )
+}
+
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current active step in the stepper (zero-based index).
+ *
+ * @return A tab-based vertical stepper style.
+ */
+fun verticalTab(
+    totalSteps: Int,
+    currentStep: Int
+): VerticalStepperStyle.Tab {
+    return VerticalStepperStyle.Tab(
+        totalSteps = totalSteps,
+        currentStep = currentStep
     )
 }
 
