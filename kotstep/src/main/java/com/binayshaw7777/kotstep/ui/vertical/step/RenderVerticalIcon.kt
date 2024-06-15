@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.binayshaw7777.kotstep.components.VerticalIconStep
+import com.binayshaw7777.kotstep.components.vertical.VerticalIconStep
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 

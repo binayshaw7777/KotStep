@@ -1,4 +1,4 @@
-package com.binayshaw7777.kotstep.components
+package com.binayshaw7777.kotstep.components.vertical
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition

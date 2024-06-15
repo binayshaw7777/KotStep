@@ -202,7 +202,7 @@ fun dashed(
  *
  * @return A number-based horizontal stepper style.
  */
-fun numbered(
+fun numberedHorizontal(
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle = StepStyle()
@@ -214,6 +214,27 @@ fun numbered(
     )
 }
 
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current active step in the stepper (zero-based index).
+ * @param stepStyle The style for the step numbers.
+ *
+ * @return A number-based vertical stepper style.
+ */
+fun numberedVertical(
+    totalSteps: Int,
+    currentStep: Int,
+    stepStyle: StepStyle = StepStyle()
+): VerticalStepperStyle.Number {
+    return VerticalStepperStyle.Number(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle
+    )
+}
 
 /**
  * Represents the style for a step in a stepper component.

@@ -1,43 +1,39 @@
-package com.binayshaw7777.kotstep.components.horizontal
+package com.binayshaw7777.kotstep.components.vertical
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 @Composable
-fun HorizontalNumberedStep(
+fun VerticalNumberedStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
-    totalSteps: Int,
     stepNumber: Int,
     isLastStep: Boolean,
-    size: IntSize
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -64,21 +60,10 @@ fun HorizontalNumberedStep(
         BorderStroke(0.dp, Color.Unspecified)
     }
 
-    Row(
-        modifier = Modifier
-            .then(
-                with(LocalDensity.current) {
-                    if (totalSteps > 1) {
-                        Modifier
-                            .widthIn(max = size.width.toDp() / totalSteps)
-                    } else {
-                        Modifier
-                            .fillMaxWidth()
-                    }
-                }
-            )
-            .then(modifier),
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = Modifier.then(modifier),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         // Defines Text or Tick/Done Icon
         Box(
@@ -107,7 +92,8 @@ fun HorizontalNumberedStep(
 
         // Display is continuous line if not completed
         if (!isLastStep) {
-            HorizontalDivider(
+            VerticalDivider(
+                modifier = Modifier.heightIn(max = stepStyle.lineSize),
                 thickness = stepStyle.lineThickness,
                 color = containerColor
             )

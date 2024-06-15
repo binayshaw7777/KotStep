@@ -51,7 +51,8 @@ import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
-import com.binayshaw7777.kotstep.model.numbered
+import com.binayshaw7777.kotstep.model.numberedHorizontal
+import com.binayshaw7777.kotstep.model.numberedVertical
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
@@ -177,6 +178,19 @@ fun MainPreview() {
                             }
                         )
                         DropdownMenuItem(
+                            text = { Text("Vertical NUMBERED Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_NUMBERED_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
                             text = { Text("Vertical ICON Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_ICON_STEPPER
@@ -227,7 +241,7 @@ fun MainPreview() {
 
                 StepperOptions.HORIZONTAL_NUMBERED_STEPPER -> {
                     HorizontalStepper(
-                        style = numbered(
+                        style = numberedHorizontal(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             stepStyle = stepStyle
@@ -260,6 +274,16 @@ fun MainPreview() {
                         style = iconVertical(
                             currentStep = currentStep,
                             icons = icons,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_NUMBERED_STEPPER -> {
+                    VerticalStepper(
+                        style = numberedVertical(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
                             stepStyle = stepStyle
                         )
                     )
