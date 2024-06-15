@@ -48,6 +48,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.model.dashed
+import com.binayshaw7777.kotstep.model.icon
+import com.binayshaw7777.kotstep.model.numbered
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.utils.StepperItemShape

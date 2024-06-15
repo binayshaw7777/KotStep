@@ -165,3 +165,71 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
         val labelContent: @Composable () -> Unit
     ) : VerticalStepperStyle(totalSteps, currentStep)
 }
+
+
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current active step in the stepper (zero-based index).
+ * @param stepStyle The style for the step numbers.
+ *
+ * @return A dashed horizontal stepper style.
+ */
+fun dashed(
+    totalSteps: Int,
+    currentStep: Int,
+    stepStyle: StepStyle = StepStyle()
+) : HorizontalStepperStyle.Dashed {
+    return HorizontalStepperStyle.Dashed(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle
+    )
+}
+
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current active step in the stepper (zero-based index).
+ * @param stepStyle The style for the step numbers.
+ *
+ * @return A number-based horizontal stepper style.
+ */
+fun numbered(
+    totalSteps: Int,
+    currentStep: Int,
+    stepStyle: StepStyle = StepStyle()
+) : HorizontalStepperStyle.Number {
+    return HorizontalStepperStyle.Number(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle
+    )
+}
+
+
+/**
+ * Represents the style for a step in a stepper component.
+ *
+ * @param currentStep The current active step in the stepper (zero-based index).
+ * @param icons The list of icons to be displayed in the stepper.
+ * @param stepStyle The style for the step numbers.
+ *
+ * @return A icon-based horizontal stepper style.
+ */
+fun icon(
+    currentStep: Int,
+    icons: List<ImageVector>,
+    stepStyle: StepStyle = StepStyle()
+) : HorizontalStepperStyle.Icon {
+    return HorizontalStepperStyle.Icon(
+        totalSteps = icons.size,
+        currentStep = currentStep,
+        icons = icons,
+        stepStyle = stepStyle
+    )
+}
