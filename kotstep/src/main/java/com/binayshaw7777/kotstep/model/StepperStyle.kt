@@ -115,7 +115,8 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
      */
-    class Tab(totalSteps: Int, currentStep: Int) : VerticalStepperStyle(totalSteps, currentStep)
+    class Tab(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+        VerticalStepperStyle(totalSteps, currentStep)
 
     /**
      * A number-based vertical stepper style.
@@ -227,11 +228,13 @@ fun horizontalTab(
  */
 fun verticalTab(
     totalSteps: Int,
-    currentStep: Int
+    currentStep: Int,
+    stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.Tab {
     return VerticalStepperStyle.Tab(
         totalSteps = totalSteps,
-        currentStep = currentStep
+        currentStep = currentStep,
+        stepStyle = stepStyle
     )
 }
 

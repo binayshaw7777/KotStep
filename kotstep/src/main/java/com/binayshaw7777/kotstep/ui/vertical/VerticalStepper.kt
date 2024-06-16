@@ -20,8 +20,9 @@ fun VerticalStepper(style: VerticalStepperStyle) {
 
 
         is VerticalStepperStyle.Tab -> RenderVerticalTab(
-            totalStep = style.totalSteps,
-            currentStep = style.currentStep
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
+            stepStyle = style.stepStyle
         )
 
         is VerticalStepperStyle.Icon -> RenderVerticalIcon(

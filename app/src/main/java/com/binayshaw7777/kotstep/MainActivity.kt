@@ -54,6 +54,7 @@ import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
 import com.binayshaw7777.kotstep.model.numberedHorizontal
 import com.binayshaw7777.kotstep.model.numberedVertical
+import com.binayshaw7777.kotstep.model.verticalTab
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
@@ -190,6 +191,21 @@ fun MainPreview() {
                                 )
                             }
                         )
+
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical TAB Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_TAB_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
                         DropdownMenuItem(
                             text = { Text("Vertical NUMBERED Stepper") },
                             onClick = {
@@ -297,6 +313,17 @@ fun MainPreview() {
                         style = iconVertical(
                             currentStep = currentStep,
                             icons = icons,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_TAB_STEPPER -> {
+
+                    VerticalStepper(
+                        style = verticalTab(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
                             stepStyle = stepStyle
                         )
                     )
