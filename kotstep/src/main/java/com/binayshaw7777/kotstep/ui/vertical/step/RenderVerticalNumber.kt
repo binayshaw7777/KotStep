@@ -10,11 +10,12 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 /**
- * Render the vertical number
+ * Renders a vertical numbered stepper.
  *
- * @param totalSteps The total number of steps
- * @param currentStep The current step
- * @param stepStyle The style of the step
+ * @param modifier The modifier to be applied to the stepper.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current step in the stepper.
+ * @param stepStyle The style of the steps in the stepper.
  */
 @Composable
 fun RenderVerticalNumber(
@@ -24,7 +25,6 @@ fun RenderVerticalNumber(
     stepStyle: StepStyle
 ) {
 
-    Log.d("VerticalStepper", "Total Steps: $totalSteps and Current Step: $currentStep")
     require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
 
     Column(

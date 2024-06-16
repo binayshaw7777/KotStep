@@ -17,6 +17,14 @@ import com.binayshaw7777.kotstep.components.horizontal.HorizontalTabStep
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
+/**
+ * Renders a horizontal tab stepper.
+ *
+ * @param modifier The modifier to be applied to the stepper.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current step in the stepper.
+ * @param stepStyle The style of the steps in the stepper.
+ */
 @Composable
 fun RenderHorizontalTab(
     modifier: Modifier = Modifier,

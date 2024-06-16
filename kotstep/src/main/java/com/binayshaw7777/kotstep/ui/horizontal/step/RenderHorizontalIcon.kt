@@ -19,13 +19,13 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 /**
- * Render the horizontal icon stepper
+ * Renders a horizontal icon stepper.
  *
- * @param modifier The modifier for the stepper.
+ * @param modifier The modifier to be applied to the stepper.
  * @param totalSteps The total number of steps in the stepper.
- * @param currentStep The current active step in the stepper (zero-based index).
- * @param stepStyle The style for the step numbers.
- * @param icons The list of icons to be displayed in the stepper.
+ * @param currentStep The current step in the stepper.
+ * @param stepStyle The style of the steps in the stepper.
+ * @param icons The icons to be displayed in the steps.
  */
 @Composable
 fun RenderHorizontalIcon(

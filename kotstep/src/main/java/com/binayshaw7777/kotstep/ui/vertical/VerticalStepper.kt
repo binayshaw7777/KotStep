@@ -10,9 +10,9 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTab
 
 
 /**
- * Render the vertical stepper
+ * Render the vertical stepper based on the style
  *
- * @param style VerticalStepperStyle
+ * @param style The style of the vertical stepper
  */
 @Composable
 fun VerticalStepper(style: VerticalStepperStyle) {

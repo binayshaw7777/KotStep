@@ -11,14 +11,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /**
- * A data class for StepStyle which represents the style of the step (Item) in the stepper
+ * A data class for StepStyle
  *
- * @param colors The colors for the step
+ * @param colors The colors of the steps
+ * @param stepSize The size of the step
+ * @param stepShape The shape of the step
+ * @param textSize The size of the text
+ * @param iconSize The size of the icon
  * @param lineThickness The thickness of the line
+ * @param lineSize The size of the line
+ * @param stepPadding The padding of the step
  * @param lineStyle The style of the line
- * @param showCheckMarkOnDone Whether to show check mark on done step
- * @param showStrokeOnCurrent Whether to show stroke on current step
- * @param strokeCap The stroke cap of the line (default is round)
+ * @param showCheckMarkOnDone Whether to show the check mark on done
+ * @param showStrokeOnCurrent Whether to show the stroke on current
+ * @param strokeCap The cap of the stroke
  */
 @Immutable
 data class StepStyle(

@@ -7,6 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 
+/**
+ * Represents the current tab in a tab stepper.
+ *
+ * @param circleColor The color of the circle.
+ * @param outerCircleRadius The radius of the outer circle.
+ * @param innerCircleRadius The radius of the inner circle.
+ * @param strokeThickness The thickness of the stroke.
+ */
 @Composable
 internal fun CurrentTab(
     circleColor: Color = Color.Blue,

@@ -11,12 +11,13 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 /**
- * Render the vertical stepper with icons
+ * Renders a vertical icon stepper.
  *
- * @param totalSteps The total number of steps
- * @param currentStep The current step
- * @param icons The icons for the steps
- * @param stepStyle The style of the step
+ * @param modifier The modifier to be applied to the stepper.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current step in the stepper.
+ * @param stepStyle The style of the steps in the stepper.
+ * @param icons The icons to be displayed in the steps.
  */
 @Composable
 fun RenderVerticalIcon(
@@ -26,7 +27,6 @@ fun RenderVerticalIcon(
     stepStyle: StepStyle = StepStyle(),
     icons: List<ImageVector>
 ) {
-    Log.d("VerticalStepper", "Total Steps: $totalSteps and Current Step: $currentStep")
     require(icons.isNotEmpty()) { "Icons should not be empty" }
     require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
 
@@ -41,7 +41,6 @@ fun RenderVerticalIcon(
                 else -> StepState.TODO
             }
 
-            Log.d("VerticalStepper", "Step $i State: $stepState and totalSteps: ${icons.size}")
             VerticalIconStep(
                 stepStyle = stepStyle,
                 stepState = stepState,

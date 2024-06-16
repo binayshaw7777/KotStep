@@ -11,9 +11,9 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
 
 
 /**
- * Render the horizontal stepper
+ * Renders a horizontal stepper.
  *
- * @param style HorizontalStepperStyle
+ * @param style The style of the stepper.
  */
 @Composable
 fun HorizontalStepper(style: HorizontalStepperStyle) {

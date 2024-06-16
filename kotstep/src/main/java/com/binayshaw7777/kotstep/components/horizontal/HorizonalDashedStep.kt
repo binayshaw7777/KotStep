@@ -19,15 +19,16 @@ import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
-/**
- * Horizontal dashed step composable
- *
- * @param modifier Modifier
- * @param stepStyle StepStyle
- * @param stepState StepState
- * @param size IntSize
- */
 
+/**
+ * Represents a single step in a horizontal dashed stepper.
+ *
+ * @param modifier The modifier to be applied to the step.
+ * @param stepStyle The style of the step.
+ * @param stepState The current state of the step.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param size The size of the stepper.
+ */
 @Composable
 fun HorizontalDashedStep(
     modifier: Modifier = Modifier,
@@ -36,8 +37,6 @@ fun HorizontalDashedStep(
     totalSteps: Int,
     size: IntSize
 ) {
-
-    Log.d("Line thickness", stepStyle.lineThickness.toString())
 
     val transition = updateTransition(targetState = stepState, label = "")
 

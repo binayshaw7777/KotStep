@@ -21,6 +21,16 @@ import com.binayshaw7777.kotstep.components.tabs.TodoTab
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
+/**
+ * Represents a single step in a horizontal tab stepper.
+ *
+ * @param modifier The modifier to be applied to the step.
+ * @param stepStyle The style of the step.
+ * @param stepState The current state of the step.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param isLastStep Whether the step is the last step in the stepper.
+ * @param size The size of the stepper.
+ */
 @Composable
 fun HorizontalTabStep(
     modifier: Modifier = Modifier,

@@ -6,7 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
-
+/**
+ * Represents the done tab in a tab stepper.
+ *
+ * @param circleColor The color of the circle.
+ * @param circleRadius The radius of the circle.
+ */
 @Composable
 internal fun DoneTab(
     circleColor: Color = Color.Green,

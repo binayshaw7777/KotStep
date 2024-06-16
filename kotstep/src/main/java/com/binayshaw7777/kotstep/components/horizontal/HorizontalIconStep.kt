@@ -28,15 +28,15 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 /**
- * Horizontal Icon Step
+ * Represents a single step in a horizontal icon stepper.
  *
- * @param modifier Modifier
- * @param stepStyle StepStyle
- * @param stepState StepState
- * @param totalSteps Int
- * @param stepIcon ImageVector
- * @param isLastStep Boolean
- * @param size IntSize
+ * @param modifier The modifier to be applied to the step.
+ * @param stepStyle The style of the step.
+ * @param stepState The current state of the step.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param stepIcon The icon to be displayed in the step.
+ * @param isLastStep Whether the step is the last step in the stepper.
+ * @param size The size of the stepper.
  */
 @Composable
 fun HorizontalIconStep(
