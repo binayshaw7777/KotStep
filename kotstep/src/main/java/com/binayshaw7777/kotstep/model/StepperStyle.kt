@@ -60,20 +60,20 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
     class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep)
 
-    /**
-     * A number-with-label horizontal stepper style.
-     *
-     * @param totalSteps The total number of steps in the stepper.
-     * @param currentStep The current active step in the stepper (zero-based index).
-     * @param textStyle The text style for the step numbers.
-     * @param labelTextStyle The text style for the step labels.
-     */
-    class NumberWithLabel(
-        totalSteps: Int,
-        currentStep: Int,
-        val textStyle: TextStyle,
-        val labelTextStyle: TextStyle
-    ) : HorizontalStepperStyle(totalSteps, currentStep)
+//    /**
+//     * A number-with-label horizontal stepper style.
+//     *
+//     * @param totalSteps The total number of steps in the stepper.
+//     * @param currentStep The current active step in the stepper (zero-based index).
+//     * @param textStyle The text style for the step numbers.
+//     * @param labelTextStyle The text style for the step labels.
+//     */
+//    class NumberWithLabel(
+//        totalSteps: Int,
+//        currentStep: Int,
+//        val textStyle: TextStyle,
+//        val labelTextStyle: TextStyle
+//    ) : HorizontalStepperStyle(totalSteps, currentStep)
 
     /**
      * A dashed horizontal stepper style.
@@ -85,18 +85,18 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
     class Dashed(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep)
 
-    /**
-     * A fleet-style horizontal stepper.
-     *
-     * @param totalSteps The total number of steps in the stepper.
-     * @param currentStep The current active step in the stepper (zero-based index).
-     * @param fleetItemContent The composable content for each fleet item.
-     */
-    class Fleet(
-        totalSteps: Int,
-        currentStep: Int,
-        val fleetItemContent: @Composable (Step, StepState) -> Unit
-    ) : HorizontalStepperStyle(totalSteps, currentStep)
+//    /**
+//     * A fleet-style horizontal stepper.
+//     *
+//     * @param totalSteps The total number of steps in the stepper.
+//     * @param currentStep The current active step in the stepper (zero-based index).
+//     * @param fleetItemContent The composable content for each fleet item.
+//     */
+//    class Fleet(
+//        totalSteps: Int,
+//        currentStep: Int,
+//        val fleetItemContent: @Composable (Step, StepState) -> Unit
+//    ) : HorizontalStepperStyle(totalSteps, currentStep)
 }
 
 
@@ -128,20 +128,20 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
     class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         VerticalStepperStyle(totalSteps, currentStep)
 
-    /**
-     * A number-with-label vertical stepper style.
-     *
-     * @param totalSteps The total number of steps in the stepper.
-     * @param currentStep The current active step in the stepper (zero-based index).
-     * @param textStyle The text style for the step numbers.
-     * @param labelTextStyle The text style for the step labels.
-     */
-    class NumberWithLabel(
-        totalSteps: Int,
-        currentStep: Int,
-        val textStyle: TextStyle,
-        val labelTextStyle: TextStyle
-    ) : VerticalStepperStyle(totalSteps, currentStep)
+//    /**
+//     * A number-with-label vertical stepper style.
+//     *
+//     * @param totalSteps The total number of steps in the stepper.
+//     * @param currentStep The current active step in the stepper (zero-based index).
+//     * @param textStyle The text style for the step numbers.
+//     * @param labelTextStyle The text style for the step labels.
+//     */
+//    class NumberWithLabel(
+//        totalSteps: Int,
+//        currentStep: Int,
+//        val textStyle: TextStyle,
+//        val labelTextStyle: TextStyle
+//    ) : VerticalStepperStyle(totalSteps, currentStep)
 
     /**
      * An icon-based vertical stepper style.
@@ -157,20 +157,20 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
     ) :
         VerticalStepperStyle(totalSteps, currentStep)
 
-    /**
-     * A number-with-composable-label vertical stepper style.
-     *
-     * @param totalSteps The total number of steps in the stepper.
-     * @param currentStep The current active step in the stepper (zero-based index).
-     * @param textStyle The text style for the step numbers.
-     * @param labelContent The composable content for the step labels.
-     */
-    class NumberWithComposableLabel(
-        totalSteps: Int,
-        currentStep: Int,
-        val textStyle: TextStyle,
-        val labelContent: @Composable () -> Unit
-    ) : VerticalStepperStyle(totalSteps, currentStep)
+//    /**
+//     * A number-with-composable-label vertical stepper style.
+//     *
+//     * @param totalSteps The total number of steps in the stepper.
+//     * @param currentStep The current active step in the stepper (zero-based index).
+//     * @param textStyle The text style for the step numbers.
+//     * @param labelContent The composable content for the step labels.
+//     */
+//    class NumberWithComposableLabel(
+//        totalSteps: Int,
+//        currentStep: Int,
+//        val textStyle: TextStyle,
+//        val labelContent: @Composable () -> Unit
+//    ) : VerticalStepperStyle(totalSteps, currentStep)
 }
 
 

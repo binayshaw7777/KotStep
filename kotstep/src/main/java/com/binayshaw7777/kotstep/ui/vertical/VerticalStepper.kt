@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import com.binayshaw7777.kotstep.model.VerticalStepperStyle
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalIcon
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumber
-import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumberWithComposableLabel
-import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumberWithLabel
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTab
 
 
@@ -38,18 +36,18 @@ fun VerticalStepper(style: VerticalStepperStyle) {
             stepStyle = style.stepStyle
         )
 
-        is VerticalStepperStyle.NumberWithLabel -> RenderVerticalNumberWithLabel(
-            totalSteps = style.totalSteps,
-            currentStep = style.currentStep,
-            textStyle = style.textStyle,
-            labelTextStyle = style.labelTextStyle
-        )
-
-        is VerticalStepperStyle.NumberWithComposableLabel -> RenderVerticalNumberWithComposableLabel(
-            totalSteps = style.totalSteps,
-            currentStep = style.currentStep,
-            textStyle = style.textStyle,
-            labelContent = style.labelContent
-        )
+//        is VerticalStepperStyle.NumberWithLabel -> RenderVerticalNumberWithLabel(
+//            totalSteps = style.totalSteps,
+//            currentStep = style.currentStep,
+//            textStyle = style.textStyle,
+//            labelTextStyle = style.labelTextStyle
+//        )
+//
+//        is VerticalStepperStyle.NumberWithComposableLabel -> RenderVerticalNumberWithComposableLabel(
+//            totalSteps = style.totalSteps,
+//            currentStep = style.currentStep,
+//            textStyle = style.textStyle,
+//            labelContent = style.labelContent
+//        )
     }
 }
