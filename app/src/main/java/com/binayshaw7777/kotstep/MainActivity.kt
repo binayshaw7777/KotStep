@@ -415,6 +415,8 @@ fun MainPreview() {
                         Text(text = "Previous")
                     }
                 }
+                
+                Spacer(Modifier.weight(1f))
 
                 AnimatedVisibility(
                     visible = currentStep < totalSteps,
