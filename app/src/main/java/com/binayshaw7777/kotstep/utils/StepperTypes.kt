@@ -1,9 +1,15 @@
 package com.binayshaw7777.kotstep.utils
 
 
-enum class StepperTypes {
-    HORIZONTAL_SEQUENCED_STEPPER,
-    VERTICAL_SEQUENCED_STEPPER,
+/**
+ * Enum class to define the different types of steppers available.
+ */
+enum class StepperOptions {
+    HORIZONTAL_NUMBERED_STEPPER,
+    HORIZONTAL_TAB_STEPPER,
     HORIZONTAL_ICON_STEPPER,
-    VERTICAL_ICON_STEPPER
+    HORIZONTAL_DASHED_STEPPER,
+    VERTICAL_ICON_STEPPER,
+    VERTICAL_TAB_STEPPER,
+    VERTICAL_NUMBERED_STEPPER
 }

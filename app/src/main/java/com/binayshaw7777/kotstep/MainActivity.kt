@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -17,18 +18,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -40,25 +34,33 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.binayshaw7777.kotstep.ui.horizontal.HorizontalIconStepper
-import com.binayshaw7777.kotstep.ui.horizontal.HorizontalSequencedStepper
+import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.model.dashed
+import com.binayshaw7777.kotstep.model.horizontalTab
+import com.binayshaw7777.kotstep.model.iconHorizontal
+import com.binayshaw7777.kotstep.model.iconVertical
+import com.binayshaw7777.kotstep.model.numberedHorizontal
+import com.binayshaw7777.kotstep.model.numberedVertical
+import com.binayshaw7777.kotstep.model.verticalTab
+import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
-import com.binayshaw7777.kotstep.ui.vertical.VerticalIconStepper
-import com.binayshaw7777.kotstep.ui.vertical.VerticalSequencedStepper
+import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
-import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
-import com.binayshaw7777.kotstep.utils.StepperTypes
+import com.binayshaw7777.kotstep.utils.StepperOptions
+import com.binayshaw7777.kotstep.utils.Utils
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,14 +84,14 @@ fun MainPreview() {
             mutableIntStateOf(5)
         }
 
-        var currentStep by rememberSaveable { mutableIntStateOf(0) }
+        var currentStep by rememberSaveable { mutableIntStateOf(-1) }
 
         var expanded by remember { mutableStateOf(false) }
 
         var expandedShapeMenu by remember { mutableStateOf(false) }
 
         var currentStepperType by remember {
-            mutableStateOf(StepperTypes.HORIZONTAL_SEQUENCED_STEPPER)
+            mutableStateOf(StepperOptions.HORIZONTAL_DASHED_STEPPER)
         }
 
         var currentStepperItemShape by remember {
@@ -101,9 +103,26 @@ fun MainPreview() {
         }
 
         var lineThickness by rememberSaveable {
-            mutableIntStateOf(3)
+            mutableIntStateOf(6)
         }
 
+        val icons = remember { mutableStateListOf<ImageVector>() }
+
+        LaunchedEffect(totalSteps) {
+            icons.clear()
+            icons.addAll(Utils.getIcons(totalSteps))
+            Log.d("Total Steps", "Total Steps: $totalSteps and icons: ${icons.size}")
+        }
+
+//        val getSteps = Utils.getSteps()
+        val getSteps = Utils.getStepsWithSupportingContent()
+        val getStepsComposable = Utils.getStepComposables(totalSteps)
+        val stepStyle = StepStyle(
+            lineThickness = lineThickness.dp,
+            showCheckMarkOnDone = true,
+            showStrokeOnCurrent = true,
+            stepSize = stepItemSize.dp
+        )
 
         Column(
             modifier = Modifier
@@ -125,45 +144,93 @@ fun MainPreview() {
                         onDismissRequest = { expanded = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("Horizontal Sequenced Stepper") },
+                            text = { Text("Horizontal TAB Stepper") },
                             onClick = {
-                                currentStepperType = StepperTypes.HORIZONTAL_SEQUENCED_STEPPER
+                                currentStepperType = StepperOptions.HORIZONTAL_TAB_STEPPER
                             },
                             leadingIcon = {
                                 Icon(
                                     Icons.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
-                            })
+                            }
+                        )
                         DropdownMenuItem(
-                            text = { Text("Vertical Sequenced Stepper") },
+                            text = { Text("Horizontal NUMBERED Stepper") },
                             onClick = {
-                                currentStepperType = StepperTypes.VERTICAL_SEQUENCED_STEPPER
+                                currentStepperType = StepperOptions.HORIZONTAL_NUMBERED_STEPPER
                             },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.KeyboardArrowDown,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("Horizontal Icon Stepper") },
-                            onClick = { currentStepperType = StepperTypes.HORIZONTAL_ICON_STEPPER },
                             leadingIcon = {
                                 Icon(
                                     Icons.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
-                            })
+                            }
+                        )
                         DropdownMenuItem(
-                            text = { Text("Vertical Icon Stepper") },
-                            onClick = { currentStepperType = StepperTypes.VERTICAL_ICON_STEPPER },
+                            text = { Text("Horizontal ICON Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.HORIZONTAL_ICON_STEPPER
+                            },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowDown,
+                                    Icons.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
-                            })
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Horizontal DASHED Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.HORIZONTAL_DASHED_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical TAB Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_TAB_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical NUMBERED Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_NUMBERED_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical ICON Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_ICON_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
                     }
                 }
 
@@ -200,86 +267,74 @@ fun MainPreview() {
             }
 
             when (currentStepperType) {
-                StepperTypes.HORIZONTAL_SEQUENCED_STEPPER -> {
-                    HorizontalSequencedStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepNameOnIncompleteColor = Color.White,
-                        stepNameOnCompleteColor = Color.White
-                    )
-                }
+                StepperOptions.HORIZONTAL_TAB_STEPPER -> {
 
-                StepperTypes.VERTICAL_SEQUENCED_STEPPER -> {
-                    VerticalSequencedStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepNameOnIncompleteColor = Color.White,
-                        stepNameOnCompleteColor = Color.White
-                    )
-                }
-
-                StepperTypes.HORIZONTAL_ICON_STEPPER -> {
-                    HorizontalIconStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepIconsColorOnIncomplete = Color.White,
-                        stepIconsColorOnComplete = Color.White,
-                        stepIconsList = listOf(
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home,
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home
+                    HorizontalStepper(
+                        style = horizontalTab(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
                         )
                     )
                 }
 
-                else -> {
-                    VerticalIconStepper(
-                        totalSteps = totalSteps,
-                        currentStep = currentStep,
-                        stepSize = stepItemSize.dp,
-                        stepShape = getShapeFromEnum(currentStepperItemShape),
-                        lineThickness = lineThickness.dp,
-                        completedColor = MaterialTheme.colorScheme.primary,
-                        incompleteColor = Color.Gray,
-                        checkMarkColor = Color.White,
-                        stepIconsColorOnIncomplete = Color.White,
-                        stepIconsColorOnComplete = Color.White,
-                        stepIconsList = listOf(
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home,
-                            Icons.Default.AccountBox,
-                            Icons.Default.AddCircle,
-                            Icons.Default.Build,
-                            Icons.Default.Face,
-                            Icons.Default.Home
+                StepperOptions.HORIZONTAL_NUMBERED_STEPPER -> {
+                    HorizontalStepper(
+                        style = numberedHorizontal(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.HORIZONTAL_ICON_STEPPER -> {
+                    HorizontalStepper(
+                        style = iconHorizontal(
+                            currentStep = currentStep,
+                            icons = icons,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.HORIZONTAL_DASHED_STEPPER -> {
+                    HorizontalStepper(
+                        style = dashed(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_ICON_STEPPER -> {
+                    VerticalStepper(
+                        style = iconVertical(
+                            currentStep = currentStep,
+                            icons = icons,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_TAB_STEPPER -> {
+
+                    VerticalStepper(
+                        style = verticalTab(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_NUMBERED_STEPPER -> {
+                    VerticalStepper(
+                        style = numberedVertical(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle
                         )
                     )
                 }
@@ -301,6 +356,11 @@ fun MainPreview() {
                     value = totalSteps.toFloat(),
                     onValueChange = { newValue ->
                         totalSteps = newValue.toInt()
+
+                        // Because the current step should be less than the total steps
+                        if (currentStep >= totalSteps) {
+                            currentStep = totalSteps - 1
+                        }
                     },
                     valueRange = 1f..10f, // Set the range of Total Steps
                     steps = 10, // Divide the range into 10 steps
@@ -334,8 +394,8 @@ fun MainPreview() {
                     onValueChange = { newValue ->
                         lineThickness = newValue.toInt()
                     },
-                    valueRange = 1f..10f, // Set the range of Line Thickness
-                    steps = 10, // Divide the range into 10 steps
+                    valueRange = 3f..10f, // Set the range of Line Thickness
+                    steps = 7, // Divide the range into 7 steps
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -344,30 +404,32 @@ fun MainPreview() {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
 
                 AnimatedVisibility(
-                    visible = currentStep >= 1,
+                    visible = currentStep >= 0,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
                         onClick = { currentStep-- },
-                        enabled = currentStep >= 1
+                        enabled = currentStep >= 0
                     ) {
                         Text(text = "Previous")
                     }
                 }
+                
+                Spacer(Modifier.weight(1f))
 
                 AnimatedVisibility(
-                    visible = currentStep <= totalSteps,
+                    visible = currentStep < totalSteps,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
                         onClick = { currentStep++ },
-                        enabled = currentStep <= totalSteps
+                        enabled = currentStep < totalSteps
                     ) {
                         Text(
                             text =
-                            if (currentStep == 0) "Start"
+                            if (currentStep == -1) "Start"
                             else if (currentStep >= totalSteps) "Finish"
                             else "Next"
                         )
