@@ -150,7 +150,8 @@ HorizontalStepper(
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/3b4d84e1-e2c6-4305-95dd-8cf1bc1dc1ee" width="280"/>
+![Horizontal Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/44b36c90-5321-4111-afac-bf8c609c2452)
+
 
 ---
 
@@ -176,7 +177,7 @@ HorizontalStepper(
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/3b4d84e1-e2c6-4305-95dd-8cf1bc1dc1ee" width="280"/>
+![Horizontal Stepper - Dashed](https://github.com/binayshaw7777/KotStep/assets/62587060/df826be7-ecb2-4944-8fcc-7726190a03b1)
 
 ---
 
