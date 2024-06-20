@@ -215,22 +215,23 @@ VerticalIconStepper(
 <b>Example:</b><br>
 <img src="https://github.com/binayshaw7777/KotStep/assets/62587060/63ba0fab-038d-4b8d-83a2-44554a783aa9" width="280"/>
 
-### `StepStyle` Parameters
+## `StepStyle` Parameters
 
-|       Property      |	   Data Type	|           Default Value	 |			         Description	                        |
-|---------------------|-----------------|-------------------------------------------------------------------------------------------------------|
-|`colors`             |	 StepDefaults	|  `StepDefaults.defaultColors()`|	Colors for the step indicator					|
-|`stepSize`           |	 Dp             |  `36.dp`	     		 |	Size of the step indicator					|
-|`stepShape`          |	 Shape          |  `CircleShape`     		 |	Shape of the step indicator					|
-|`textSize`           |	 TextUnit	|  `16.sp`	     		 |	Text size for the step indicator				|
-|`iconSize`	      |  Dp	        |  `24.dp`	    		 |	Icon size for the step indicator				|
-|`lineThickness`      |	 Dp             |  `6.dp`	     		 |	Thickness of the line connecting steps				|
-|`lineSize`           |	 Dp             |  `20.dp`	     		 |	Length of the line connecting steps				|
-|`stepPadding`        |	 Dp	        | `0.dp`	     		 |	Padding around the step indicator				|
-|`lineStyle`          |	 LineStyle      |  `LineStyle.SOLID` 		 |  Style of the line connecting steps (SOLID, DASHED, DOTTED)  	|
-|`showCheckMarkOnDone`|	 Boolean        |  `true`	     		 |	Whether to show a checkmark on completed steps 			|
-|`showStrokeOnCurrent`|	 Boolean        |  `true`	     	 	 |	Whether to show a stroke around the current step		|
-|`strokeCap`          |	 StrokeCap      |  `StrokeCap.Square`		 |	Style of the ends of the line connecting steps (ROUNDED, SQUARE)|
+
+|Property|    Data Type|    Default Value|    Description|
+|----------------------------------|---------|------------------------------------------------------------------------------------------------------|---------------------|
+|colors    |StepDefaults    |StepDefaults.defaultColors()|    Colors for the step indicator|
+|stepSize|    Dp|    36.dp|    Size of the step indicator|
+|stepShape|    Shape|    CircleShape|    Shape of the step indicator|
+|textSize|    TextUnit    |16.sp|    Text size for the step indicator|
+|iconSize    |Dp    |24.dp|    Icon size for the step indicator|
+|lineThickness|    Dp|    6.dp|    Thickness of the line connecting steps|
+|lineSize|    Dp|    20.dp|    Length of the line connecting steps|
+|stepPadding|    Dp    |0.dp|    Padding around the step indicator|
+|lineStyle|    LineStyle|    LineStyle.SOLID    |Style of the line connecting steps (SOLID, DASHED, DOTTED)|
+|showCheckMarkOnDone|    Boolean|    true|    Whether to show a checkmark on completed steps|
+|showStrokeOnCurrent|    Boolean|    true|    Whether to show a stroke around the current step|
+|strokeCap|    StrokeCap|    StrokeCap.Square|    Style of the ends of the line connecting steps (ROUNDED, SQUARE)|
 ---
 
 ## Reporting Issues and Requesting Features✨
