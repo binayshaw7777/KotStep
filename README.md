@@ -87,7 +87,6 @@ HorizontalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
@@ -117,7 +116,6 @@ HorizontalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`           |
 | `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
@@ -143,7 +141,6 @@ HorizontalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
@@ -170,7 +167,6 @@ HorizontalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
@@ -196,14 +192,13 @@ VerticalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/3b4d84e1-e2c6-4305-95dd-8cf1bc1dc1ee" width="280"/>
+![Vertical Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/d875ce8f-b8a3-4941-8c16-50c866071374)
 
 ---
 
@@ -227,14 +222,13 @@ VerticalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`           |
 | `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/3b4d84e1-e2c6-4305-95dd-8cf1bc1dc1ee" width="280"/>
+![Vertical Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/adc67265-8325-4297-a856-dfe088d7650d)
 
 ---
 
@@ -253,14 +247,14 @@ VerticalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/3b4d84e1-e2c6-4305-95dd-8cf1bc1dc1ee" width="280"/>
+![Vertical Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/b79afbef-4f9d-4942-a0db-23003c956a8e)
+
 
 ---
 
