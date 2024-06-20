@@ -111,7 +111,6 @@ fun MainPreview() {
         LaunchedEffect(totalSteps) {
             icons.clear()
             icons.addAll(Utils.getIcons(totalSteps))
-            Log.d("Total Steps", "Total Steps: $totalSteps and icons: ${icons.size}")
         }
 
 //        val getSteps = Utils.getSteps()

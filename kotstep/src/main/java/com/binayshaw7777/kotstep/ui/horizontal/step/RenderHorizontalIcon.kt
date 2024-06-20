@@ -35,7 +35,7 @@ fun RenderHorizontalIcon(
     stepStyle: StepStyle = StepStyle(),
     icons: List<ImageVector>
 ) {
-    Log.d("HorizontalStepper", "Total Steps: $totalSteps and Current Step: $currentStep")
+
     require(icons.isNotEmpty()) { "Icons should not be empty" }
     require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
 
@@ -57,7 +57,6 @@ fun RenderHorizontalIcon(
                 else -> StepState.TODO
             }
 
-            Log.d("HorizontalStepper", "Step $i State: $stepState and totalSteps: ${icons.size}")
             HorizontalIconStep(
                 stepStyle = stepStyle,
                 stepState = stepState,

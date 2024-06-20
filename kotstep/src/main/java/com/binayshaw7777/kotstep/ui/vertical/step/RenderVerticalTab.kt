@@ -24,7 +24,7 @@ fun RenderVerticalTab(
     currentStep: Int,
     stepStyle: StepStyle = StepStyle()
 ) {
-    Log.d("HorizontalStepper", "Total Steps: $totalSteps and Current Step: $currentStep")
+
     require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
 
     Column(
