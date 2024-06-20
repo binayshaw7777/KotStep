@@ -205,7 +205,7 @@ fun dashed(
  *
  * @return A tab-based horizontal stepper style.
  */
-fun horizontalTab(
+fun tabHorizontal(
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle = StepStyle()
@@ -226,7 +226,7 @@ fun horizontalTab(
  *
  * @return A tab-based vertical stepper style.
  */
-fun verticalTab(
+fun tabVertical(
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle = StepStyle()

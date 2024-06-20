@@ -49,12 +49,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
-import com.binayshaw7777.kotstep.model.horizontalTab
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
 import com.binayshaw7777.kotstep.model.numberedHorizontal
 import com.binayshaw7777.kotstep.model.numberedVertical
-import com.binayshaw7777.kotstep.model.verticalTab
+import com.binayshaw7777.kotstep.model.tabHorizontal
+import com.binayshaw7777.kotstep.model.tabVertical
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
@@ -270,7 +270,7 @@ fun MainPreview() {
                 StepperOptions.HORIZONTAL_TAB_STEPPER -> {
 
                     HorizontalStepper(
-                        style = horizontalTab(
+                        style = tabHorizontal(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             stepStyle = stepStyle
@@ -321,7 +321,7 @@ fun MainPreview() {
                 StepperOptions.VERTICAL_TAB_STEPPER -> {
 
                     VerticalStepper(
-                        style = verticalTab(
+                        style = tabVertical(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             stepStyle = stepStyle
