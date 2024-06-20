@@ -17,12 +17,19 @@
 
 ## Features
 
-- Vertical and horizontal stepper components.
-- Customizable colors, icons, and labels for each step.
-- Support for both text labels and icon-based steps.
+- Multiple stepper styles:
+  - Horizontal Numbered Stepper
+  - Horizontal Tab Stepper
+  - Horizontal Icon Stepper
+  - Horizontal Dashed Stepper
+  - Vertical Icon Stepper
+  - Vertical Tab Stepper
+  - Vertical Numbered Stepper
+- Easy integration with Jetpack Compose
 - Optional checkmark icons for completed steps.
-- Easily integrate step-by-step user interfaces into your Jetpack Compose apps.
+- Highly customizable appearance and behavior
 
+  
 ## Installation
 
 [![](https://jitpack.io/v/binayshaw7777/KotStep.svg)](https://jitpack.io/#binayshaw7777/KotStep)
@@ -65,158 +72,209 @@ dependencies {
 
 # Usage
 
-- <b>Horizontal Sequenced Stepper</b>
+## <b>Horizontal Stepper - Tab</b>
 
 ```kotlin
-HorizontalSequencedStepper(
-    totalSteps = 5,
-    currentStep = 1
-)
-```
-
-### `HorizontalSequencedStepper` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the horizontal sequenced stepper.                                      | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `1`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepNameOnIncompleteColor`      | The color of step names on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepNameOnCompleteColor`        | The color of step names on completed steps.                                                         | `completedColor`    |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
-
-
-<b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/d2681946-d827-4c1d-ac6f-95b162e64009" width="280"/>
-
----
-
-- <b>Horizontal Icons Stepper</b>
-
-```kotlin
-HorizontalIconStepper(
-    totalSteps = 5,
-    currentStep = 1,
-    stepIconsList = listOf(
-        Icons.Default.AccountBox,
-        Icons.Default.AddCircle,
-        Icons.Default.Build,
-        Icons.Default.Face,
-        Icons.Default.Home
+HorizontalStepper(
+    style = tabHorizontal(
+        totalSteps = 3,
+        currentStep = 1
     )
 )
 ```
 
-### `HorizontalIconStepper` Parameters
+### `tabHorizontal` Parameters
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the horizontal icon stepper.                                           | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `1`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
-| `stepIconsList`                  | A list of ImageVectors representing icons for each step.                                             | -                   |
-| `stepIconsColorOnIncomplete`     | The color of step icons on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepIconsColorOnComplete`       | The color of step icons on completed steps.                                                         | `incompleteColor`   |
-| `showCheckMarkOnDone`           | Whether to display a checkmark icon for completed steps.                                             | `false`             |
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/160962f6-7f5c-476c-b688-a4eded2712d9" width="280"/>
+![Horizontal Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/595c1c2a-dd51-478b-9398-f46ac4725b28)
 
 ---
 
-- <b>Vertical Sequenced Stepper</b>
+## <b>Horizontal Stepper - Icon</b>
 
 ```kotlin
-VerticalSequencedStepper(
-    totalSteps = 5,
-    currentStep = 1
-)       
-```
-
-### `VerticalSequencedStepper` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the vertical sequenced stepper.                                        | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `0`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepNameOnIncompleteColor`      | The color of step names on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepNameOnCompleteColor`        | The color of step names on completed steps.                                                         | `completedColor`    |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
-
-
-<b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/3b4d84e1-e2c6-4305-95dd-8cf1bc1dc1ee" width="280"/>
-
----
-
-- <b>Vertical Icon Stepper</b>
-
-```kotlin
-VerticalIconStepper(
-    totalSteps = 5,
-    currentStep = 1,
-    stepIconsList = listOf(
-        Icons.Default.AccountBox,
-        Icons.Default.AddCircle,
-        Icons.Default.Build,
-        Icons.Default.Face,
-        Icons.Default.Home
+HorizontalStepper(
+    style = iconHorizontal(
+	currentStep = 1,
+        icons = listOf(
+            Icons.Default.AccountCircle,
+	    ...
+            Icons.Default.DateRange
+        )
     )
 )
 ```
 
-### `VerticalIconStepper` Parameters
+### `iconHorizontal` Parameters
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the vertical icon stepper.                                             | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `0`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepIconsList`                  | A list of ImageVectors representing icons for each step.                                             | -                   |
-| `stepIconsColorOnIncomplete`     | The color of step icons on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepIconsColorOnComplete`       | The color of step icons on completed steps.                                                         | `incompleteColor`   |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
-| `showCheckMarkOnDone`           | Whether to display a checkmark icon for completed steps.                                             | `false`             |
+| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/63ba0fab-038d-4b8d-83a2-44554a783aa9" width="280"/>
+![Horizontal Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/67df5304-dd3c-45f4-b631-5f05440fe429)
 
+---
+
+## <b>Horizontal Stepper - Numbered</b>
+
+```kotlin
+HorizontalStepper(
+  style = numberedHorizontal(
+    totalSteps = 5,
+    currentStep = 1
+  )
+)      
+```
+
+### `numberedHorizontal` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+
+
+<b>Example:</b><br>
+![Horizontal Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/44b36c90-5321-4111-afac-bf8c609c2452)
+
+
+---
+
+## <b>Horizontal Stepper - Dashed</b>
+
+```kotlin
+HorizontalStepper(
+  style = dashed(
+    totalSteps = 5,
+    currentStep = 1
+  )
+)    
+```
+
+### `dashed` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+
+
+<b>Example:</b><br>
+![Horizontal Stepper - Dashed](https://github.com/binayshaw7777/KotStep/assets/62587060/df826be7-ecb2-4944-8fcc-7726190a03b1)
+
+---
+
+## <b>Vertical Stepper - Tab</b>
+
+```kotlin
+VerticalStepper(
+  style = tabVertical(
+    totalSteps = 5,
+    currentStep = 1
+  )
+)    
+```
+
+### `tabVertical` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+
+
+<b>Example:</b><br>
+![Vertical Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/d875ce8f-b8a3-4941-8c16-50c866071374)
+
+---
+
+
+## <b>Vertical Stepper - Icon</b>
+
+```kotlin
+VerticalStepper(
+  style = iconVertical(
+    currentStep = 1,
+    icons = listOf(
+      Icons.Default.AccountCircle,
+      ...
+      Icons.Default.DateRange
+    )
+  )
+)    
+```
+
+### `iconVertical` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+
+
+<b>Example:</b><br>
+![Vertical Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/adc67265-8325-4297-a856-dfe088d7650d)
+
+---
+
+## <b>Vertical Stepper - Numbered</b>
+
+```kotlin
+VerticalStepper(
+  style = numberedVertical(
+    totalSteps = 5,
+    currentStep = 1
+  )
+)    
+```
+
+### `numberedVertical` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+
+
+<b>Example:</b><br>
+![Vertical Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/b79afbef-4f9d-4942-a0db-23003c956a8e)
+
+
+---
+
+## `StepStyle` Parameters
+
+
+|Property|    Data Type|    Default Value|    Description|
+|----------------------------------|---------|------------------------------------------------------------------------------------------------------|---------------------|
+|colors    |StepDefaults    |StepDefaults.defaultColors()|    Colors for the step indicator|
+|stepSize|    Dp|    36.dp|    Size of the step indicator|
+|stepShape|    Shape|    CircleShape|    Shape of the step indicator|
+|textSize|    TextUnit    |16.sp|    Text size for the step indicator|
+|iconSize    |Dp    |24.dp|    Icon size for the step indicator|
+|lineThickness|    Dp|    6.dp|    Thickness of the line connecting steps|
+|lineSize|    Dp|    20.dp|    Length of the line connecting steps|
+|stepPadding|    Dp    |0.dp|    Padding around the step indicator|
+|lineStyle|    LineStyle|    LineStyle.SOLID    |Style of the line connecting steps (SOLID, DASHED, DOTTED)|
+|showCheckMarkOnDone|    Boolean|    true|    Whether to show a checkmark on completed steps|
+|showStrokeOnCurrent|    Boolean|    true|    Whether to show a stroke around the current step|
+|strokeCap|    StrokeCap|    StrokeCap.Square|    Style of the ends of the line connecting steps (ROUNDED, SQUARE)|
 ---
 
 ## Reporting Issues and Requesting Features✨
