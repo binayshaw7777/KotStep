@@ -17,12 +17,19 @@
 
 ## Features
 
-- Vertical and horizontal stepper components.
-- Customizable colors, icons, and labels for each step.
-- Support for both text labels and icon-based steps.
+- Multiple stepper styles:
+  - Horizontal Numbered Stepper
+  - Horizontal Tab Stepper
+  - Horizontal Icon Stepper
+  - Horizontal Dashed Stepper
+  - Vertical Icon Stepper
+  - Vertical Tab Stepper
+  - Vertical Numbered Stepper
+- Easy integration with Jetpack Compose
 - Optional checkmark icons for completed steps.
-- Easily integrate step-by-step user interfaces into your Jetpack Compose apps.
+- Highly customizable appearance and behavior
 
+  
 ## Installation
 
 [![](https://jitpack.io/v/binayshaw7777/KotStep.svg)](https://jitpack.io/#binayshaw7777/KotStep)
@@ -65,33 +72,25 @@ dependencies {
 
 # Usage
 
-- <b>Horizontal Sequenced Stepper</b>
+## <b>Horizontal Stepper - Tab</b>
 
 ```kotlin
-HorizontalSequencedStepper(
-    totalSteps = 5,
-    currentStep = 1
+HorizontalStepper(
+    style = horizontalTab(
+        totalSteps = 3,
+        currentStep = 1
+    )
 )
 ```
 
-### `HorizontalSequencedStepper` Parameters
+### `horizontalTab` Parameters
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the horizontal sequenced stepper.                                      | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `1`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepNameOnIncompleteColor`      | The color of step names on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepNameOnCompleteColor`        | The color of step names on completed steps.                                                         | `completedColor`    |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
+| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`           |
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
@@ -99,18 +98,17 @@ HorizontalSequencedStepper(
 
 ---
 
-- <b>Horizontal Icons Stepper</b>
+- <b>Horizontal Stepper - Icon</b>
 
 ```kotlin
-HorizontalIconStepper(
-    totalSteps = 5,
-    currentStep = 1,
-    stepIconsList = listOf(
-        Icons.Default.AccountBox,
-        Icons.Default.AddCircle,
-        Icons.Default.Build,
-        Icons.Default.Face,
-        Icons.Default.Home
+HorizontalStepper(
+    style = iconHorizontal(
+	currentStep = 1,
+        icons = listOf(
+            Icons.Default.AccountCircle,
+	    ...
+            Icons.Default.DateRange
+        )
     )
 )
 ```
@@ -217,6 +215,22 @@ VerticalIconStepper(
 <b>Example:</b><br>
 <img src="https://github.com/binayshaw7777/KotStep/assets/62587060/63ba0fab-038d-4b8d-83a2-44554a783aa9" width="280"/>
 
+### `StepStyle` Parameters
+
+|       Property      |	   Data Type	|           Default Value	 |			         Description	                        |
+|---------------------|-----------------|-------------------------------------------------------------------------------------------------------|
+|`colors`             |	 StepDefaults	|  `StepDefaults.defaultColors()`|	Colors for the step indicator					|
+|`stepSize`           |	 Dp             |  `36.dp`	     		 |	Size of the step indicator					|
+|`stepShape`          |	 Shape          |  `CircleShape`     		 |	Shape of the step indicator					|
+|`textSize`           |	 TextUnit	|  `16.sp`	     		 |	Text size for the step indicator				|
+|`iconSize`	      |  Dp	        |  `24.dp`	    		 |	Icon size for the step indicator				|
+|`lineThickness`      |	 Dp             |  `6.dp`	     		 |	Thickness of the line connecting steps				|
+|`lineSize`           |	 Dp             |  `20.dp`	     		 |	Length of the line connecting steps				|
+|`stepPadding`        |	 Dp	        | `0.dp`	     		 |	Padding around the step indicator				|
+|`lineStyle`          |	 LineStyle      |  `LineStyle.SOLID` 		 |  Style of the line connecting steps (SOLID, DASHED, DOTTED)  	|
+|`showCheckMarkOnDone`|	 Boolean        |  `true`	     		 |	Whether to show a checkmark on completed steps 			|
+|`showStrokeOnCurrent`|	 Boolean        |  `true`	     	 	 |	Whether to show a stroke around the current step		|
+|`strokeCap`          |	 StrokeCap      |  `StrokeCap.Square`		 |	Style of the ends of the line connecting steps (ROUNDED, SQUARE)|
 ---
 
 ## Reporting Issues and Requesting Features✨
