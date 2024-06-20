@@ -87,7 +87,7 @@ HorizontalStepper(
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`           |
+| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
@@ -113,26 +113,14 @@ HorizontalStepper(
 )
 ```
 
-### `HorizontalIconStepper` Parameters
+### `iconHorizontal` Parameters
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the horizontal icon stepper.                                           | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `1`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
-| `stepIconsList`                  | A list of ImageVectors representing icons for each step.                                             | -                   |
-| `stepIconsColorOnIncomplete`     | The color of step icons on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepIconsColorOnComplete`       | The color of step icons on completed steps.                                                         | `incompleteColor`   |
-| `showCheckMarkOnDone`           | Whether to display a checkmark icon for completed steps.                                             | `false`             |
+| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`           |
+| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
@@ -140,33 +128,25 @@ HorizontalStepper(
 
 ---
 
-- <b>Vertical Sequenced Stepper</b>
+- <b>Horizontal Stepper - Numbered</b>
 
 ```kotlin
-VerticalSequencedStepper(
+HorizontalStepper(
+  style = numberedHorizontal(
     totalSteps = 5,
     currentStep = 1
-)       
+  )
+)      
 ```
 
-### `VerticalSequencedStepper` Parameters
+### `numberedHorizontal` Parameters
 
 | Parameter                       | Description                                                                                          | Default Value       |
 |----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `modifier`                       | The modifier for styling the composable. (Optional)                                                | `Modifier`          |
-| `totalSteps`                     | The total number of steps in the vertical sequenced stepper.                                        | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | `0`                 |
-| `lineThickness`                  | The thickness of the connecting line between steps.                                                 | `1.dp`              |
-| `stepSize`                       | The size of each step in the stepper.                                                               | `28.dp`             |
-| `stepShape`                      | The shape of each step in the stepper.                                                              | `CircleShape`       |
-| `completedColor`                 | The color for completed steps.                                                                      | `Color.Blue`        |
-| `incompleteColor`                | The color for incomplete steps.                                                                     | `Color.Gray`        |
-| `checkMarkColor`                 | The color of the checkmark symbol for completed steps.                                              | `Color.White`       |
-| `stepTitleOnIncompleteColor`     | The color of step titles on incomplete steps.                                                        | `checkMarkColor`    |
-| `stepTitleOnCompleteColor`       | The color of step titles on completed steps.                                                        | `completedColor`    |
-| `stepNameOnIncompleteColor`      | The color of step names on incomplete steps.                                                         | `checkMarkColor`    |
-| `stepNameOnCompleteColor`        | The color of step names on completed steps.                                                         | `completedColor`    |
-| `stepDescription`                | A list of step descriptions. The length should match `totalSteps`.                                   | `List(totalSteps) { "" }` |
+| `modifier`                       | The modifier for styling the Component. (Optional)                                                   | `Modifier`         	|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 
 
 <b>Example:</b><br>
