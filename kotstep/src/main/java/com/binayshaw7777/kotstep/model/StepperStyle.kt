@@ -121,7 +121,7 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
      *
      * @param totalSteps The total number of steps in the stepper.
      * @param currentStep The current active step in the stepper (zero-based index).
-     * @param supportingContent The composable content for the supporting content.
+     * @param label The composable content for the supporting content.
      *
      */
     class Label(
