@@ -124,10 +124,10 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
      * @param supportingContent The composable content for the supporting content.
      *
      */
-    class SupportingContent(
+    class Label(
         totalSteps: Int, currentStep: Int,
         val stepStyle: StepStyle,
-        val supportingContent: (@Composable () -> Unit)?
+        val label: (@Composable () -> Unit)?
     ) :
         VerticalStepperStyle(totalSteps, currentStep)
 
@@ -286,16 +286,16 @@ fun iconVertical(
     )
 }
 
-fun supportingContent(
+fun label(
     currentStep: Int,
     items: List<Composable?>,
     totalSteps: Int = items.size,
     stepStyle: StepStyle = StepStyle()
-): VerticalStepperStyle.SupportingContent {
-    return VerticalStepperStyle.SupportingContent(
+): VerticalStepperStyle.Label {
+    return VerticalStepperStyle.Label(
         totalSteps = totalSteps,
         currentStep = currentStep,
         stepStyle = stepStyle,
-        supportingContent = { items[currentStep] }
+        label = { items[currentStep] }
     )
 }
