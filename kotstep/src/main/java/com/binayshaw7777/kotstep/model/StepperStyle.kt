@@ -2,8 +2,6 @@ package com.binayshaw7777.kotstep.model
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
 
 
 /**
@@ -60,20 +58,6 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
     class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep)
 
-//    /**
-//     * A number-with-label horizontal stepper style.
-//     *
-//     * @param totalSteps The total number of steps in the stepper.
-//     * @param currentStep The current active step in the stepper (zero-based index).
-//     * @param textStyle The text style for the step numbers.
-//     * @param labelTextStyle The text style for the step labels.
-//     */
-//    class NumberWithLabel(
-//        totalSteps: Int,
-//        currentStep: Int,
-//        val textStyle: TextStyle,
-//        val labelTextStyle: TextStyle
-//    ) : HorizontalStepperStyle(totalSteps, currentStep)
 
     /**
      * A dashed horizontal stepper style.
@@ -85,18 +69,6 @@ sealed class HorizontalStepperStyle(totalSteps: Int, currentStep: Int) :
     class Dashed(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep)
 
-//    /**
-//     * A fleet-style horizontal stepper.
-//     *
-//     * @param totalSteps The total number of steps in the stepper.
-//     * @param currentStep The current active step in the stepper (zero-based index).
-//     * @param fleetItemContent The composable content for each fleet item.
-//     */
-//    class Fleet(
-//        totalSteps: Int,
-//        currentStep: Int,
-//        val fleetItemContent: @Composable (Step, StepState) -> Unit
-//    ) : HorizontalStepperStyle(totalSteps, currentStep)
 }
 
 
@@ -128,20 +100,6 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
     class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
         VerticalStepperStyle(totalSteps, currentStep)
 
-//    /**
-//     * A number-with-label vertical stepper style.
-//     *
-//     * @param totalSteps The total number of steps in the stepper.
-//     * @param currentStep The current active step in the stepper (zero-based index).
-//     * @param textStyle The text style for the step numbers.
-//     * @param labelTextStyle The text style for the step labels.
-//     */
-//    class NumberWithLabel(
-//        totalSteps: Int,
-//        currentStep: Int,
-//        val textStyle: TextStyle,
-//        val labelTextStyle: TextStyle
-//    ) : VerticalStepperStyle(totalSteps, currentStep)
 
     /**
      * An icon-based vertical stepper style.
@@ -157,20 +115,22 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
     ) :
         VerticalStepperStyle(totalSteps, currentStep)
 
-//    /**
-//     * A number-with-composable-label vertical stepper style.
-//     *
-//     * @param totalSteps The total number of steps in the stepper.
-//     * @param currentStep The current active step in the stepper (zero-based index).
-//     * @param textStyle The text style for the step numbers.
-//     * @param labelContent The composable content for the step labels.
-//     */
-//    class NumberWithComposableLabel(
-//        totalSteps: Int,
-//        currentStep: Int,
-//        val textStyle: TextStyle,
-//        val labelContent: @Composable () -> Unit
-//    ) : VerticalStepperStyle(totalSteps, currentStep)
+
+    /**
+     * A supporting content vertical stepper style.
+     *
+     * @param totalSteps The total number of steps in the stepper.
+     * @param currentStep The current active step in the stepper (zero-based index).
+     * @param supportingContent The composable content for the supporting content.
+     *
+     */
+    class SupportingContent(
+        totalSteps: Int, currentStep: Int,
+        val stepStyle: StepStyle,
+        val supportingContent: (@Composable () -> Unit)?
+    ) :
+        VerticalStepperStyle(totalSteps, currentStep)
+
 }
 
 
@@ -323,5 +283,19 @@ fun iconVertical(
         currentStep = currentStep,
         icons = icons,
         stepStyle = stepStyle
+    )
+}
+
+fun supportingContent(
+    currentStep: Int,
+    items: List<Composable?>,
+    totalSteps: Int = items.size,
+    stepStyle: StepStyle = StepStyle()
+): VerticalStepperStyle.SupportingContent {
+    return VerticalStepperStyle.SupportingContent(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle,
+        supportingContent = { items[currentStep] }
     )
 }
