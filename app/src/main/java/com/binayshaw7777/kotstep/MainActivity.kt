@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -51,6 +50,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
+import com.binayshaw7777.kotstep.model.label
 import com.binayshaw7777.kotstep.model.numberedHorizontal
 import com.binayshaw7777.kotstep.model.numberedVertical
 import com.binayshaw7777.kotstep.model.tabHorizontal
@@ -107,10 +107,15 @@ fun MainPreview() {
         }
 
         val icons = remember { mutableStateListOf<ImageVector>() }
+        val labels = remember {
+            mutableStateListOf<(@Composable () -> Unit)?>()
+        }
 
         LaunchedEffect(totalSteps) {
             icons.clear()
             icons.addAll(Utils.getIcons(totalSteps))
+            labels.clear()
+            labels.addAll(Utils.getLabels(totalSteps))
         }
 
 //        val getSteps = Utils.getSteps()
@@ -230,6 +235,20 @@ fun MainPreview() {
                                 )
                             }
                         )
+
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical LABEL Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_LABEL_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
                     }
                 }
 
@@ -337,6 +356,18 @@ fun MainPreview() {
                         )
                     )
                 }
+
+                StepperOptions.VERTICAL_LABEL_STEPPER -> {
+                    VerticalStepper(
+                        style =
+                        label(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            labels = labels,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
             }
 
             Column(
@@ -414,7 +445,7 @@ fun MainPreview() {
                         Text(text = "Previous")
                     }
                 }
-                
+
                 Spacer(Modifier.weight(1f))
 
                 AnimatedVisibility(
