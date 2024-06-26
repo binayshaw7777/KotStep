@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.binayshaw7777.kotstep.model.VerticalStepperStyle
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalIcon
+import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalIconWithLabel
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumber
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumberWithLabel
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTab
@@ -17,7 +18,6 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTab
 @Composable
 fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) {
     when (style) {
-
 
         is VerticalStepperStyle.Tab -> RenderVerticalTab(
             modifier = modifier,
@@ -45,6 +45,15 @@ fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) 
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
+            labels = style.labels,
+            stepStyle = style.stepStyle
+        )
+
+        is VerticalStepperStyle.IconWithLabel -> RenderVerticalIconWithLabel(
+            modifier = modifier,
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
+            icons = style.icons,
             labels = style.labels,
             stepStyle = style.stepStyle
         )

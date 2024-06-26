@@ -131,6 +131,24 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
     ) :
         VerticalStepperStyle(totalSteps, currentStep)
 
+
+    /**
+     * An icon-based vertical stepper style with labels.
+     *
+     * @param totalSteps The total number of steps in the stepper.
+     * @param currentStep The current active step in the stepper (zero-based index).
+     * @param icons The list of icons to be displayed in the stepper.
+     * @param labels The composable content for the supporting content.
+     *
+     */
+    class IconWithLabel(
+        totalSteps: Int, currentStep: Int,
+        val icons: List<ImageVector>,
+        val stepStyle: StepStyle,
+        val labels: List<(@Composable () -> Unit)?>
+    ) :
+        VerticalStepperStyle(totalSteps, currentStep)
+
 }
 
 
@@ -286,7 +304,23 @@ fun iconVertical(
     )
 }
 
-fun verticalNumberWithLabel(
+fun iconVerticalWithLabel(
+    currentStep: Int,
+    icons: List<ImageVector>,
+    labels: List<(@Composable () -> Unit)?>,
+    totalSteps: Int = icons.size,
+    stepStyle: StepStyle = StepStyle()
+): VerticalStepperStyle.IconWithLabel {
+    return VerticalStepperStyle.IconWithLabel(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle,
+        icons = icons,
+        labels = labels
+    )
+}
+
+fun numberedVerticalWithLabel(
     currentStep: Int,
     labels: List<(@Composable () -> Unit)?>,
     totalSteps: Int = labels.size,

@@ -50,11 +50,12 @@ import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
+import com.binayshaw7777.kotstep.model.iconVerticalWithLabel
 import com.binayshaw7777.kotstep.model.numberedHorizontal
 import com.binayshaw7777.kotstep.model.numberedVertical
+import com.binayshaw7777.kotstep.model.numberedVerticalWithLabel
 import com.binayshaw7777.kotstep.model.tabHorizontal
 import com.binayshaw7777.kotstep.model.tabVertical
-import com.binayshaw7777.kotstep.model.verticalNumberWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
@@ -239,7 +240,20 @@ fun MainPreview() {
                         DropdownMenuItem(
                             text = { Text("Vertical LABEL Stepper") },
                             onClick = {
-                                currentStepperType = StepperOptions.VERTICAL_LABEL_STEPPER
+                                currentStepperType = StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical LABEL Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_ICON_LABEL_STEPPER
                             },
                             leadingIcon = {
                                 Icon(
@@ -356,13 +370,26 @@ fun MainPreview() {
                     )
                 }
 
-                StepperOptions.VERTICAL_LABEL_STEPPER -> {
+                StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER -> {
                     VerticalStepper(
                         style =
-                        verticalNumberWithLabel(
+                        numberedVerticalWithLabel(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             labels = labels,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_ICON_LABEL_STEPPER -> {
+                    VerticalStepper(
+                        style =
+                        iconVerticalWithLabel(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            labels = labels,
+                            icons = icons,
                             stepStyle = stepStyle
                         )
                     )
