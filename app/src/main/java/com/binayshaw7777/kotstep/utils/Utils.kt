@@ -171,10 +171,6 @@ object Utils {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text("Step 6: Submit", style = MaterialTheme.typography.bodyLarge)
-                Switch(
-                    checked = remember { mutableStateOf(false) }.value,
-                    onCheckedChange = { /* Handle switch change */ }
-                )
             }
         },
         { Text("Step 1: Introduction") },
