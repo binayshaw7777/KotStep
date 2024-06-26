@@ -50,15 +50,16 @@ import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
-import com.binayshaw7777.kotstep.model.label
 import com.binayshaw7777.kotstep.model.numberedHorizontal
 import com.binayshaw7777.kotstep.model.numberedVertical
 import com.binayshaw7777.kotstep.model.tabHorizontal
 import com.binayshaw7777.kotstep.model.tabVertical
+import com.binayshaw7777.kotstep.model.verticalNumberWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
+import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
 import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils
 
@@ -118,14 +119,12 @@ fun MainPreview() {
             labels.addAll(Utils.getLabels(totalSteps))
         }
 
-//        val getSteps = Utils.getSteps()
-        val getSteps = Utils.getStepsWithSupportingContent()
-        val getStepsComposable = Utils.getStepComposables(totalSteps)
         val stepStyle = StepStyle(
             lineThickness = lineThickness.dp,
             showCheckMarkOnDone = true,
             showStrokeOnCurrent = true,
-            stepSize = stepItemSize.dp
+            stepSize = stepItemSize.dp,
+            stepShape = getShapeFromEnum(currentStepperItemShape)
         )
 
         Column(
@@ -360,7 +359,7 @@ fun MainPreview() {
                 StepperOptions.VERTICAL_LABEL_STEPPER -> {
                     VerticalStepper(
                         style =
-                        label(
+                        verticalNumberWithLabel(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             labels = labels,
