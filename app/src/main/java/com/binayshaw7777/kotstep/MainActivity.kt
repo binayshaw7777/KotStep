@@ -56,6 +56,7 @@ import com.binayshaw7777.kotstep.model.numberedVertical
 import com.binayshaw7777.kotstep.model.numberedVerticalWithLabel
 import com.binayshaw7777.kotstep.model.tabHorizontal
 import com.binayshaw7777.kotstep.model.tabVertical
+import com.binayshaw7777.kotstep.model.tabVerticalWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
@@ -236,9 +237,20 @@ fun MainPreview() {
                             }
                         )
 
-
                         DropdownMenuItem(
-                            text = { Text("Vertical LABEL Stepper") },
+                            text = { Text("Vertical Tab LABEL Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_TAB_LABEL_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Vertical Numbered LABEL Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER
                             },
@@ -251,7 +263,7 @@ fun MainPreview() {
                         )
 
                         DropdownMenuItem(
-                            text = { Text("Vertical LABEL Stepper") },
+                            text = { Text("Vertical Icon LABEL Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_ICON_LABEL_STEPPER
                             },
@@ -391,6 +403,18 @@ fun MainPreview() {
                             labels = labels,
                             icons = icons,
                             stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_TAB_LABEL_STEPPER -> {
+                    VerticalStepper(
+                        style =
+                        tabVerticalWithLabel(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle,
+                            labels = labels
                         )
                     )
                 }

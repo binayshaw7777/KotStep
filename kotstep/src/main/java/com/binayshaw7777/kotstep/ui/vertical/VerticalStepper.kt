@@ -8,6 +8,7 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalIconWithLabel
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumber
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalNumberWithLabel
 import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTab
+import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
 
 
 /**
@@ -54,6 +55,14 @@ fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) 
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
             icons = style.icons,
+            labels = style.labels,
+            stepStyle = style.stepStyle
+        )
+
+        is VerticalStepperStyle.TabWithLabel -> RenderVerticalTabWithLabel(
+            modifier = modifier,
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
             labels = style.labels,
             stepStyle = style.stepStyle
         )

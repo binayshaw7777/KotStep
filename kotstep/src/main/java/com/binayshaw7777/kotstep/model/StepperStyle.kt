@@ -149,6 +149,13 @@ sealed class VerticalStepperStyle(totalSteps: Int, currentStep: Int) :
     ) :
         VerticalStepperStyle(totalSteps, currentStep)
 
+
+    class TabWithLabel(
+        totalSteps: Int, currentStep: Int,
+        val stepStyle: StepStyle,
+        val labels: List<(@Composable () -> Unit)?>
+    ) :
+        VerticalStepperStyle(totalSteps, currentStep)
 }
 
 
@@ -213,6 +220,20 @@ fun tabVertical(
         totalSteps = totalSteps,
         currentStep = currentStep,
         stepStyle = stepStyle
+    )
+}
+
+fun tabVerticalWithLabel(
+    totalSteps: Int,
+    currentStep: Int,
+    labels: List<(@Composable () -> Unit)?>,
+    stepStyle: StepStyle = StepStyle()
+): VerticalStepperStyle.TabWithLabel {
+    return VerticalStepperStyle.TabWithLabel(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle,
+        labels = labels
     )
 }
 
