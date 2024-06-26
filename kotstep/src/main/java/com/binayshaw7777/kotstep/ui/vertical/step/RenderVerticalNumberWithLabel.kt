@@ -8,7 +8,7 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 @Composable
-fun RenderVerticalNumberWithLabel(
+internal fun RenderVerticalNumberWithLabel(
     modifier: Modifier,
     totalSteps: Int,
     currentStep: Int,

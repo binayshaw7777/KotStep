@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.vertical.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,7 +19,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param icons The icons to be displayed in the steps.
  */
 @Composable
-fun RenderVerticalIcon(
+internal fun RenderVerticalIcon(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,

@@ -32,7 +32,7 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 @Composable
-fun VerticalTabWithLabelStep(
+internal fun VerticalTabWithLabelStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,

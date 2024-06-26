@@ -8,7 +8,7 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 @Composable
-fun RenderVerticalTabWithLabel(
+internal fun RenderVerticalTabWithLabel(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,

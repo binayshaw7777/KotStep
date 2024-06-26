@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep.utils
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,104 +25,14 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.binayshaw7777.kotstep.model.Step
-import com.binayshaw7777.kotstep.model.StepComposable
 
 object Utils {
-
-    @Composable
-    fun getStepComposables(numberOfItems: Int = -1): List<StepComposable> {
-        return if (numberOfItems == -1) listOf(
-            StepComposable(
-                content = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
-                supportingContent = {
-                    Text(text = "Step 1 supporting content")
-                }
-            ),
-            StepComposable(
-                content = {
-                    Text(text = "Step 2")
-                },
-                supportingContent = {
-                    Text(text = "Step 2 supporting content")
-                }
-            ),
-            StepComposable(
-                content = {
-                    Text(text = "Step 3")
-                },
-                supportingContent = {
-                    Text(text = "Step 3 supporting")
-                }
-            ),
-            StepComposable(
-                content = {
-                    Text(text = "Step 4")
-                },
-                supportingContent = {
-                    Text(text = "Step 4 supporting")
-                }
-            ),
-            StepComposable(
-                content = {
-                    Text(text = "Step 4")
-                },
-                supportingContent = {
-                    Text(text = "Step 4 supporting")
-                }
-            ),
-        ) else {
-            val steps = mutableListOf<StepComposable>()
-            for (i in 1..numberOfItems) {
-                steps.add(
-                    StepComposable(
-                        content = {
-                            Text(text = "Step $i")
-                        },
-                        supportingContent = {
-                            Text(text = "Step $i supporting content")
-                        }
-                    )
-                )
-            }
-            steps
-        }
-    }
-
-    @Composable
-    fun getStepsWithSupportingContent(): List<Step> {
-        return listOf(
-            Step(text = "Step 1", supportingContent = {
-                Text(text = "1")
-            }),
-            Step(text = "Step 2 supporting"),
-            Step(text = "Step 3", supportingContent = {
-                Image(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-            }),
-            Step(text = "Step 4"),
-        )
-    }
-
-    @Composable
-    fun getSteps(): List<Step> {
-        return listOf(
-            Step(text = "Step 1"),
-            Step(text = "Step 2"),
-            Step(text = "Step 3"),
-            Step(text = "Step 4"),
-        )
-    }
 
     fun getIcons(limit: Int): List<ImageVector> {
         return listOf(

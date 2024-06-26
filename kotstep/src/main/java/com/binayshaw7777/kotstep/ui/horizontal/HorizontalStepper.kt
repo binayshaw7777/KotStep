@@ -46,14 +46,6 @@ fun HorizontalStepper(modifier: Modifier = Modifier, style: HorizontalStepperSty
             stepStyle = style.stepStyle
         )
 
-//        is HorizontalStepperStyle.NumberWithLabel -> RenderHorizontalNumberWithLabel(
-//            style.totalSteps,
-//            style.currentStep,
-//            style.textStyle,
-//            style.labelTextStyle
-//        )
-
-
 //        is HorizontalStepperStyle.Fleet -> RenderHorizontalFleet(
 //            style.totalSteps,
 //            style.currentStep,

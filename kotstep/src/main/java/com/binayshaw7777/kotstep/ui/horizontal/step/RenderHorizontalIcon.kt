@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.horizontal.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +27,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param icons The icons to be displayed in the steps.
  */
 @Composable
-fun RenderHorizontalIcon(
+internal fun RenderHorizontalIcon(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,

@@ -35,7 +35,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param isLastStep Whether the step is the last step in the stepper.
  */
 @Composable
-fun VerticalIconStep(
+internal fun VerticalIconStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,

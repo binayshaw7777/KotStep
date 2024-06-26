@@ -9,7 +9,7 @@ import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
 @Composable
-fun RenderVerticalIconWithLabel(
+internal fun RenderVerticalIconWithLabel(
     modifier: Modifier,
     totalSteps: Int,
     currentStep: Int,
