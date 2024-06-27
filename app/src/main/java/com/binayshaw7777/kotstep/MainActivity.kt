@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -51,14 +50,18 @@ import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
+import com.binayshaw7777.kotstep.model.iconVerticalWithLabel
 import com.binayshaw7777.kotstep.model.numberedHorizontal
 import com.binayshaw7777.kotstep.model.numberedVertical
+import com.binayshaw7777.kotstep.model.numberedVerticalWithLabel
 import com.binayshaw7777.kotstep.model.tabHorizontal
 import com.binayshaw7777.kotstep.model.tabVertical
+import com.binayshaw7777.kotstep.model.tabVerticalWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
+import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
 import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils
 
@@ -107,20 +110,23 @@ fun MainPreview() {
         }
 
         val icons = remember { mutableStateListOf<ImageVector>() }
+        val labels = remember {
+            mutableStateListOf<(@Composable () -> Unit)?>()
+        }
 
         LaunchedEffect(totalSteps) {
             icons.clear()
             icons.addAll(Utils.getIcons(totalSteps))
+            labels.clear()
+            labels.addAll(Utils.getLabels(totalSteps))
         }
 
-//        val getSteps = Utils.getSteps()
-        val getSteps = Utils.getStepsWithSupportingContent()
-        val getStepsComposable = Utils.getStepComposables(totalSteps)
         val stepStyle = StepStyle(
             lineThickness = lineThickness.dp,
             showCheckMarkOnDone = true,
             showStrokeOnCurrent = true,
-            stepSize = stepItemSize.dp
+            stepSize = stepItemSize.dp,
+            stepShape = getShapeFromEnum(currentStepperItemShape)
         )
 
         Column(
@@ -222,6 +228,44 @@ fun MainPreview() {
                             text = { Text("Vertical ICON Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_ICON_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical Tab LABEL Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_TAB_LABEL_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Vertical Numbered LABEL Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Vertical Icon LABEL Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.VERTICAL_ICON_LABEL_STEPPER
                             },
                             leadingIcon = {
                                 Icon(
@@ -337,6 +381,43 @@ fun MainPreview() {
                         )
                     )
                 }
+
+                StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER -> {
+                    VerticalStepper(
+                        style =
+                        numberedVerticalWithLabel(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            labels = labels,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_ICON_LABEL_STEPPER -> {
+                    VerticalStepper(
+                        style =
+                        iconVerticalWithLabel(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            labels = labels,
+                            icons = icons,
+                            stepStyle = stepStyle
+                        )
+                    )
+                }
+
+                StepperOptions.VERTICAL_TAB_LABEL_STEPPER -> {
+                    VerticalStepper(
+                        style =
+                        tabVerticalWithLabel(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle,
+                            labels = labels
+                        )
+                    )
+                }
             }
 
             Column(
@@ -414,7 +495,7 @@ fun MainPreview() {
                         Text(text = "Previous")
                     }
                 }
-                
+
                 Spacer(Modifier.weight(1f))
 
                 AnimatedVisibility(

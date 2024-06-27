@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.horizontal.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -25,7 +24,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepStyle The style of the steps in the stepper.
  */
 @Composable
-fun RenderHorizontalDashed(
+internal fun RenderHorizontalDashed(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,

@@ -30,7 +30,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param size The size of the stepper.
  */
 @Composable
-fun HorizontalDashedStep(
+internal fun HorizontalDashedStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,

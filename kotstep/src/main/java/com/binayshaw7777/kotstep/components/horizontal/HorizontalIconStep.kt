@@ -39,7 +39,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param size The size of the stepper.
  */
 @Composable
-fun HorizontalIconStep(
+internal fun HorizontalIconStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,

@@ -32,7 +32,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param size The size of the stepper.
  */
 @Composable
-fun HorizontalTabStep(
+internal fun HorizontalTabStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,

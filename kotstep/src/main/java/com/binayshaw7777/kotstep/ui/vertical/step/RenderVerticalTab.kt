@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.vertical.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +17,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepStyle The style of the steps in the stepper.
  */
 @Composable
-fun RenderVerticalTab(
+internal fun RenderVerticalTab(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,
