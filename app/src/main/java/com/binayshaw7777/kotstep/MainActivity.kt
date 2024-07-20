@@ -67,6 +67,7 @@ import com.binayshaw7777.kotstep.utils.StepperItemShape
 import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
 import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils
+import com.binayshaw7777.kotstep.utils.toast
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -292,21 +293,21 @@ fun MainPreview() {
                         onDismissRequest = { expandedShapeMenu = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("RectangleShape") },
-                            onClick = { currentStepperItemShape = StepperItemShape.RECTANGLE_SHAPE }
-                        )
-                        DropdownMenuItem(
-                            text = { Text("CircleShape") },
+                            text = { Text("Circle Shape") },
                             onClick = { currentStepperItemShape = StepperItemShape.CIRCLE_SHAPE }
                         )
                         DropdownMenuItem(
-                            text = { Text("CutCornerShape") },
+                            text = { Text("Rectangle Shape") },
+                            onClick = { currentStepperItemShape = StepperItemShape.RECTANGLE_SHAPE }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("CutCorner Shape") },
                             onClick = {
                                 currentStepperItemShape = StepperItemShape.CUT_CORNER_SHAPE
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("RoundedCornerShape") },
+                            text = { Text("RoundedCorner Shape") },
                             onClick = {
                                 currentStepperItemShape = StepperItemShape.ROUNDED_CORNER_SHAPE
                             }
@@ -324,13 +325,7 @@ fun MainPreview() {
                             currentStep = currentStep,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Horizontal Tab Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.HORIZONTAL_NUMBERED_STEPPER -> {
@@ -340,13 +335,7 @@ fun MainPreview() {
                             currentStep = currentStep,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Horizontal Numbered Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.HORIZONTAL_ICON_STEPPER -> {
@@ -356,13 +345,7 @@ fun MainPreview() {
                             icons = icons,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Horizontal Icon Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.HORIZONTAL_DASHED_STEPPER -> {
@@ -372,13 +355,7 @@ fun MainPreview() {
                             currentStep = currentStep,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Dashed Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.VERTICAL_ICON_STEPPER -> {
@@ -388,14 +365,7 @@ fun MainPreview() {
                             icons = icons,
                             stepStyle = stepStyle,
                         )
-                    ) {
-                        Log.d("", "Clicked at $it")
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Icon Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.VERTICAL_TAB_STEPPER -> {
@@ -406,13 +376,7 @@ fun MainPreview() {
                             currentStep = currentStep,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Tab Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.VERTICAL_NUMBERED_STEPPER -> {
@@ -422,13 +386,7 @@ fun MainPreview() {
                             currentStep = currentStep,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Numbered Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER -> {
@@ -440,13 +398,7 @@ fun MainPreview() {
                             labels = labels,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Numbered Label Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.VERTICAL_ICON_LABEL_STEPPER -> {
@@ -459,13 +411,7 @@ fun MainPreview() {
                             icons = icons,
                             stepStyle = stepStyle
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Icon Label Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
 
                 StepperOptions.VERTICAL_TAB_LABEL_STEPPER -> {
@@ -477,13 +423,7 @@ fun MainPreview() {
                             stepStyle = stepStyle,
                             labels = labels
                         )
-                    ) {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Vertical Tab Label Stepper: $it",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    ) { it.toast(context) }
                 }
             }
 

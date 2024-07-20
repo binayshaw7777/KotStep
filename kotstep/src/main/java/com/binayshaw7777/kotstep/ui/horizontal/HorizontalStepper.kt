@@ -42,21 +42,6 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  *
  * Usage example:
  * ```
- * // Naive way:
- * HorizontalStepper(
- *     modifier = Modifier.fillMaxWidth(),
- *     style = HorizontalStepperStyle.Number(
- *         totalSteps = 5,
- *         currentStep = 2, // Third step is active
- *         stepStyle = StepStyle(
- *             stepSize = 28.dp,
- *             lineSize = 2.dp,
- *             // ... other style properties
- *         )
- *     )
- * ) { // Do something }
- *
- * // Simpler way:
  * HorizontalStepper(
  *    style = numberedHorizontal(
  *        totalSteps = 5,

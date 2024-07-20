@@ -1,6 +1,8 @@
 package com.binayshaw7777.kotstep.utils
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -103,4 +105,8 @@ object Utils {
         null
     )
         .subList(0, limit)
+}
+
+fun Int.toast(context: Context) {
+    Toast.makeText(context, "Clicked on item: $this", Toast.LENGTH_SHORT).show()
 }
