@@ -30,7 +30,18 @@ import com.binayshaw7777.kotstep.components.tabs.DoneTab
 import com.binayshaw7777.kotstep.components.tabs.TodoTab
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
+/**
+ * A composable function that renders a vertical stepper with labels.
+ *
+ * @property modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
+ * @property stepStyle The style properties for the steps in the stepper.
+ * @property stepState The state of the step.
+ * @property label The label to be displayed for the step.
+ * @property isLastStep A flag indicating if the step is the last step in the stepper.
+ * @property onClick A callback that is invoked when the step is clicked.
+ */
 @Composable
 internal fun VerticalTabWithLabelStep(
     modifier: Modifier = Modifier,
@@ -38,6 +49,7 @@ internal fun VerticalTabWithLabelStep(
     stepState: StepState,
     label: (@Composable () -> Unit)?,
     isLastStep: Boolean,
+    onClick: () -> Unit
 ) {
     val context = LocalContext.current
     val displayMetrics = context.resources.displayMetrics
@@ -59,6 +71,7 @@ internal fun VerticalTabWithLabelStep(
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
+            .noRippleClickable { onClick() }
             .fillMaxWidth()
             .then(modifier)
     ) {

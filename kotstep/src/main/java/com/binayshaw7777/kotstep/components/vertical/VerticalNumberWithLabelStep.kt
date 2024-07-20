@@ -34,7 +34,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
+/**
+ * Represents a single step in a vertical numbered stepper.
+ *
+ * @param modifier The modifier to be applied to the step.
+ * @param stepStyle The style of the step.
+ * @param stepState The current state of the step.
+ * @param stepNumber The number to be displayed in the step.
+ * @param label The label to be displayed in the step.
+ * @param isLastStep Whether the step is the last step in the stepper.
+ * @param onClick A callback that is invoked when the step is clicked.
+ */
 @Composable
 internal fun VerticalNumberWithLabelStep(
     modifier: Modifier = Modifier,
@@ -43,6 +55,7 @@ internal fun VerticalNumberWithLabelStep(
     stepNumber: Int,
     label: (@Composable () -> Unit)?,
     isLastStep: Boolean,
+    onClick: () -> Unit
 ) {
 
     val context = LocalContext.current
@@ -78,7 +91,10 @@ internal fun VerticalNumberWithLabelStep(
 
     Row(
         verticalAlignment = Alignment.Top,
-        modifier = Modifier.fillMaxWidth().then(modifier)
+        modifier = Modifier
+            .noRippleClickable { onClick() }
+            .fillMaxWidth()
+            .then(modifier)
     ) {
 
         Column(

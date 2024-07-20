@@ -39,11 +39,6 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  *
  * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
  * @param style The [HorizontalStepperStyle] that defines the appearance and behavior of the stepper.
- *              This can be one of the following:
- *              - [HorizontalStepperStyle.Tab]: Renders a tab-style stepper.
- *              - [HorizontalStepperStyle.Icon]: Renders an icon-based stepper.
- *              - [HorizontalStepperStyle.Number]: Renders a numbered stepper.
- *              - [HorizontalStepperStyle.Dashed]: Renders a stepper with dashed lines.
  *
  * Usage example:
  * ```
@@ -59,7 +54,7 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  *             // ... other style properties
  *         )
  *     )
- * )
+ * ) { // Do something }
  *
  * // Simpler way:
  * HorizontalStepper(
@@ -72,7 +67,7 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  *            // ... other style properties
  *        )
  *    )
- *)
+ *) { // Do something }
  * ```
  *
  * @see HorizontalStepperStyle
@@ -82,13 +77,18 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  * @see RenderHorizontalDashed
  */
 @Composable
-fun HorizontalStepper(modifier: Modifier = Modifier, style: HorizontalStepperStyle) {
+fun HorizontalStepper(
+    modifier: Modifier = Modifier,
+    style: HorizontalStepperStyle,
+    onStepClick: (Int) -> Unit = {}
+) {
     when (style) {
         is HorizontalStepperStyle.Tab -> RenderHorizontalTab(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is HorizontalStepperStyle.Icon -> RenderHorizontalIcon(
@@ -96,21 +96,24 @@ fun HorizontalStepper(modifier: Modifier = Modifier, style: HorizontalStepperSty
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
             icons = style.icons,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is HorizontalStepperStyle.Number -> RenderHorizontalNumber(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is HorizontalStepperStyle.Dashed -> RenderHorizontalDashed(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
 //        is HorizontalStepperStyle.Fleet -> RenderHorizontalFleet(

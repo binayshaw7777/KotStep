@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
  * Represents a single step in a vertical icon stepper.
@@ -33,6 +34,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepState The current state of the step.
  * @param stepIcon The icon to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
+ * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
 internal fun VerticalIconStep(
@@ -40,7 +42,8 @@ internal fun VerticalIconStep(
     stepStyle: StepStyle,
     stepState: StepState,
     stepIcon: ImageVector,
-    isLastStep: Boolean
+    isLastStep: Boolean,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -68,7 +71,9 @@ internal fun VerticalIconStep(
     }
 
     Column(
-        modifier = Modifier.then(modifier),
+        modifier = Modifier
+            .noRippleClickable { onClick() }
+            .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
  * Represents a single step in a horizontal icon stepper.
@@ -37,6 +38,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepIcon The icon to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
  * @param size The size of the stepper.
+ * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
 internal fun HorizontalIconStep(
@@ -46,7 +48,8 @@ internal fun HorizontalIconStep(
     totalSteps: Int,
     stepIcon: ImageVector,
     isLastStep: Boolean,
-    size: IntSize
+    size: IntSize,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -75,6 +78,7 @@ internal fun HorizontalIconStep(
 
     Row(
         modifier = Modifier
+            .noRippleClickable { onClick() }
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {

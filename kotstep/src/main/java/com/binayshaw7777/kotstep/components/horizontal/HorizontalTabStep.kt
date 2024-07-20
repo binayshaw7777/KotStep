@@ -20,6 +20,7 @@ import com.binayshaw7777.kotstep.components.tabs.DoneTab
 import com.binayshaw7777.kotstep.components.tabs.TodoTab
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
  * Represents a single step in a horizontal tab stepper.
@@ -30,6 +31,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param totalSteps The total number of steps in the stepper.
  * @param isLastStep Whether the step is the last step in the stepper.
  * @param size The size of the stepper.
+ * @param onClick The callback to be invoked when the step is clicked.
  */
 @Composable
 internal fun HorizontalTabStep(
@@ -38,7 +40,8 @@ internal fun HorizontalTabStep(
     stepState: StepState,
     totalSteps: Int,
     isLastStep: Boolean,
-    size: IntSize
+    size: IntSize,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -53,6 +56,9 @@ internal fun HorizontalTabStep(
 
     Row(
         modifier = Modifier
+            .noRippleClickable {
+                onClick()
+            }
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {

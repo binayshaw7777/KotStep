@@ -41,13 +41,6 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
  *
  * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
  * @param style The [VerticalStepperStyle] that defines the appearance and behavior of the stepper.
- *              This can be one of the following:
- *              - [VerticalStepperStyle.Tab]: Renders a tab-style stepper.
- *              - [VerticalStepperStyle.Icon]: Renders an icon-based stepper.
- *              - [VerticalStepperStyle.Number]: Renders a numbered stepper.
- *              - [VerticalStepperStyle.NumberWithLabel]: Renders a numbered stepper with labels.
- *              - [VerticalStepperStyle.IconWithLabel]: Renders an icon-based stepper with labels.
- *              - [VerticalStepperStyle.TabWithLabel]: Renders a tab-style stepper with labels.
  *
  * Usage example:
  * ```
@@ -62,7 +55,7 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
  *             // ... other style properties
  *         )
  *     )
- * )
+ * ) { // Do something }
  *
  * // Simpler way:
  * VerticalStepper(
@@ -75,7 +68,7 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
  *             // ... other style properties
  *         )
  *     )
- * )
+ * ) { // Do something }
  * ```
  *
  * @see VerticalStepperStyle
@@ -87,14 +80,19 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
  * @see RenderVerticalTabWithLabel
  */
 @Composable
-fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) {
+fun VerticalStepper(
+    modifier: Modifier = Modifier,
+    style: VerticalStepperStyle,
+    onStepClick: (Int) -> Unit = {}
+) {
     when (style) {
 
         is VerticalStepperStyle.Tab -> RenderVerticalTab(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is VerticalStepperStyle.Icon -> RenderVerticalIcon(
@@ -102,14 +100,16 @@ fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) 
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
             icons = style.icons,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is VerticalStepperStyle.Number -> RenderVerticalNumber(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is VerticalStepperStyle.NumberWithLabel -> RenderVerticalNumberWithLabel(
@@ -117,7 +117,8 @@ fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) 
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
             labels = style.labels,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is VerticalStepperStyle.IconWithLabel -> RenderVerticalIconWithLabel(
@@ -126,7 +127,8 @@ fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) 
             currentStep = style.currentStep,
             icons = style.icons,
             labels = style.labels,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
 
         is VerticalStepperStyle.TabWithLabel -> RenderVerticalTabWithLabel(
@@ -134,7 +136,8 @@ fun VerticalStepper(modifier: Modifier = Modifier, style: VerticalStepperStyle) 
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
             labels = style.labels,
-            stepStyle = style.stepStyle
+            stepStyle = style.stepStyle,
+            onStepClick = { onStepClick(it) }
         )
     }
 }

@@ -34,7 +34,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
+/**
+ * Renders a single Vertical Icon Step with Label
+ *
+ * @param modifier The modifier to be applied to the step.
+ * @param stepStyle The style of the step.
+ * @param stepState The state of the step.
+ * @param stepIcon The icon to be displayed in the step.
+ * @param label The label to be displayed in the step.
+ * @param isLastStep A flag indicating if the step is the last step in the stepper.
+ * @param onClick A callback that is invoked when the step is clicked.
+ */
 @Composable
 internal fun VerticalIconWithLabelStep(
     modifier: Modifier = Modifier,
@@ -43,6 +55,7 @@ internal fun VerticalIconWithLabelStep(
     stepIcon: ImageVector,
     label: (@Composable () -> Unit)?,
     isLastStep: Boolean,
+    onClick: () -> Unit
 ) {
     val context = LocalContext.current
     val displayMetrics = context.resources.displayMetrics
@@ -78,6 +91,7 @@ internal fun VerticalIconWithLabelStep(
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
+            .noRippleClickable { onClick() }
             .fillMaxWidth()
             .then(modifier)
     ) {

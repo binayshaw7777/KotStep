@@ -7,13 +7,24 @@ import com.binayshaw7777.kotstep.components.vertical.VerticalNumberWithLabelStep
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
+/**
+ * Renders a vertical numbered stepper with labels.
+ *
+ * @param modifier The modifier to be applied to the stepper.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current step in the stepper.
+ * @param stepStyle The style of the steps in the stepper.
+ * @param labels The labels to be displayed in the steps.
+ * @param onStepClick A callback that is invoked when a step is clicked.
+ */
 @Composable
 internal fun RenderVerticalNumberWithLabel(
     modifier: Modifier,
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle,
-    labels: List<(@Composable () -> Unit)?>
+    labels: List<(@Composable () -> Unit)?>,
+    onStepClick: (Int) -> Unit = {}
 ) {
 
     require(labels.any { it != null }) {
@@ -38,7 +49,7 @@ internal fun RenderVerticalNumberWithLabel(
                 stepNumber = index + 1,
                 label = label,
                 isLastStep = index == labels.size - 1
-            )
+            ) { onStepClick(index) }
         }
     }
 }

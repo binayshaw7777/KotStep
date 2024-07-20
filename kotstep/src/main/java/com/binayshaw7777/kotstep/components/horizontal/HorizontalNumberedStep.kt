@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
  * Represents a single step in a horizontal numbered stepper.
@@ -39,6 +40,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepNumber The number to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
  * @param size The size of the stepper.
+ * @param onClick The callback to be invoked when the step is clicked.
  */
 @Composable
 internal fun HorizontalNumberedStep(
@@ -48,7 +50,8 @@ internal fun HorizontalNumberedStep(
     totalSteps: Int,
     stepNumber: Int,
     isLastStep: Boolean,
-    size: IntSize
+    size: IntSize,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -77,6 +80,7 @@ internal fun HorizontalNumberedStep(
 
     Row(
         modifier = Modifier
+            .noRippleClickable { onClick() }
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {

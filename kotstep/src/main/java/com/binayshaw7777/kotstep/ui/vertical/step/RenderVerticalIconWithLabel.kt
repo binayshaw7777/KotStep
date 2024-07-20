@@ -8,6 +8,17 @@ import com.binayshaw7777.kotstep.components.vertical.VerticalIconWithLabelStep
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
+/**
+ * Renders a vertical icon stepper with labels.
+ *
+ * @param modifier The modifier to be applied to the stepper.
+ * @param totalSteps The total number of steps in the stepper.
+ * @param currentStep The current step in the stepper.
+ * @param stepStyle The style of the steps in the stepper.
+ * @param icons The icons to be displayed in the steps.
+ * @param labels The labels to be displayed in the steps.
+ * @param onStepClick A callback that is invoked when a step is clicked.
+ */
 @Composable
 internal fun RenderVerticalIconWithLabel(
     modifier: Modifier,
@@ -15,7 +26,8 @@ internal fun RenderVerticalIconWithLabel(
     currentStep: Int,
     stepStyle: StepStyle,
     icons: List<ImageVector>,
-    labels: List<(@Composable () -> Unit)?>
+    labels: List<(@Composable () -> Unit)?>,
+    onStepClick: (Int) -> Unit = {}
 ) {
 
     require(icons.isNotEmpty()) { "Icons should not be empty" }
@@ -41,7 +53,7 @@ internal fun RenderVerticalIconWithLabel(
                 stepIcon = icons[index],
                 label = label,
                 isLastStep = index == labels.size - 1
-            )
+            ) { onStepClick(index) }
         }
     }
 }
