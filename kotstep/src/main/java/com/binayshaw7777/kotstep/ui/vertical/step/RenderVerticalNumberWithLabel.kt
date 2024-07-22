@@ -14,7 +14,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param totalSteps The total number of steps in the stepper.
  * @param currentStep The current step in the stepper.
  * @param stepStyle The style of the steps in the stepper.
- * @param labels The labels to be displayed in the steps.
+ * @param trailingLabels The labels to be displayed in right side of the steps. The size of this list should be equal to [totalSteps].
  * @param onStepClick A callback that is invoked when a step is clicked.
  */
 @Composable
@@ -23,11 +23,11 @@ internal fun RenderVerticalNumberWithLabel(
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle,
-    labels: List<(@Composable () -> Unit)?>,
+    trailingLabels: List<(@Composable () -> Unit)?>,
     onStepClick: (Int) -> Unit = {}
 ) {
 
-    require(labels.any { it != null }) {
+    require(trailingLabels.any { it != null }) {
         "At least one element in the contents list should be non-null. " +
                 "If all elements are null, consider using 'NumberedStepper' instead."
     }
@@ -36,7 +36,7 @@ internal fun RenderVerticalNumberWithLabel(
 
     Column(modifier = modifier) {
 
-        labels.forEachIndexed { index, label ->
+        trailingLabels.forEachIndexed { index, label ->
             val stepState = when {
                 index < currentStep -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
@@ -48,7 +48,7 @@ internal fun RenderVerticalNumberWithLabel(
                 stepState = stepState,
                 stepNumber = index + 1,
                 label = label,
-                isLastStep = index == labels.size - 1
+                isLastStep = index == trailingLabels.size - 1
             ) { onStepClick(index) }
         }
     }

@@ -157,29 +157,29 @@ sealed class VerticalStepperStyle(
 
 
     /**
-     * Represents a numbered vertical stepper with labels.
+     * Represents a numbered vertical stepper with trailingLabels.
      *
      * @property totalSteps The total number of steps in the stepper.
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style for the step numbers.
-     * @property labels The composable content for the supporting content.
+     * @property trailingLabels The composable content for the supporting content.
      *
      */
     class NumberWithLabel(
         totalSteps: Int, currentStep: Int,
         val stepStyle: StepStyle,
-        val labels: List<StepLabel>
+        val trailingLabels: List<StepLabel>
     ) :
         VerticalStepperStyle(totalSteps, currentStep, {})
 
 
     /**
-     * Represents an icon-based vertical stepper with labels.
+     * Represents an icon-based vertical stepper with trailingLabels.
      *
      * @property totalSteps The total number of steps in the stepper.
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property icons The list of icons to be displayed in the stepper.
-     * @property labels The composable content for the supporting content.
+     * @property trailingLabels The composable content for the supporting content.
      * @property stepStyle The style for the step numbers.
      *
      */
@@ -188,22 +188,22 @@ sealed class VerticalStepperStyle(
         currentStep: Int,
         val icons: List<ImageVector>,
         val stepStyle: StepStyle,
-        val labels: List<StepLabel>
+        val trailingLabels: List<StepLabel>
     ) :
         VerticalStepperStyle(totalSteps, currentStep, {})
 
     /**
-     * Represents a tab-style vertical stepper with labels.
+     * Represents a tab-style vertical stepper with trailingLabels.
      *
      * @property totalSteps The total number of steps in the stepper.
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style configuration for each step.
-     * @property labels List of optional composable functions to render labels for each step.
+     * @property trailingLabels List of optional composable functions to render trailingLabels for each step.
      */
     class TabWithLabel(
         totalSteps: Int, currentStep: Int,
         val stepStyle: StepStyle,
-        val labels: List<StepLabel>
+        val trailingLabels: List<StepLabel>
     ) :
         VerticalStepperStyle(totalSteps, currentStep, {})
 }
@@ -368,7 +368,7 @@ fun tabVertical(
 }
 
 /**
- * Creates a vertical stepper with a tab style and optional labels.
+ * Creates a vertical stepper with a tab style and optional trailingLabels.
  *
  * @param totalSteps The total number of steps in the stepper.
  *                   Must be greater than 0.
@@ -376,24 +376,24 @@ fun tabVertical(
  *                    Must be in the range [-1, N], where N is the total number of steps.
  *                    A value of -1 indicates that no step is currently active.
  *                    Values 1 to N represent the active step number.
- * @param labels A list of optional composable functions that render the labels for each step.
+ * @param trailingLabels A list of optional composable functions that render the trailingLabels for each step.
  *               Should have the same size as totalSteps.
  * @param stepStyle A StepStyle object that defines the visual appearance of the steps.
  *                  Uses default values if not provided.
  * @return A VerticalStepperStyle.TabWithLabel object representing the configured vertical stepper.
  *
  * @throws IllegalArgumentException if currentStep is out of the valid range, if totalSteps is less than 1,
- *         or if the size of labels doesn't match totalSteps.
+ *         or if the size of trailingLabels doesn't match totalSteps.
  *
  * This function creates a vertical stepper with the following features:
  * - Tab-style steps
- * - Optional labels for each step
+ * - Optional trailingLabels for each step
  * - Customizable step appearance through StepStyle
  * - Ability to highlight the current active step
  *
  * Usage Example:
  * ```
- * val labels = listOf<(@Composable () -> Unit)?>(
+ * val trailingLabels = listOf<(@Composable () -> Unit)?>(
  *     { Text(text = "Home") },
  *     ...
  *     { Text(text = "Complete") }
@@ -403,7 +403,7 @@ fun tabVertical(
  *     style = tabVerticalWithLabel(
  *         totalSteps = 5,
  *         currentStep = 2, // Third step is active
- *         labels = labels,
+ *         trailingLabels = trailingLabels,
  *         stepStyle = StepStyle(
  *             stepSize = 28.dp,
  *             lineSize = 2.dp
@@ -422,14 +422,14 @@ fun tabVertical(
 fun tabVerticalWithLabel(
     totalSteps: Int,
     currentStep: Int,
-    labels: List<(@Composable () -> Unit)?>,
+    trailingLabels: List<(@Composable () -> Unit)?>,
     stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.TabWithLabel {
     return VerticalStepperStyle.TabWithLabel(
         totalSteps = totalSteps,
         currentStep = currentStep,
         stepStyle = stepStyle,
-        labels = labels
+        trailingLabels = trailingLabels
     )
 }
 
@@ -662,7 +662,7 @@ fun iconVertical(
 }
 
 /**
- * Creates a composable function that renders a vertical stepper with icons and optional labels.
+ * Creates a composable function that renders a vertical stepper with icons and optional trailingLabels.
  *
  * @param currentStep The current active step in the stepper.
  *                    Must be in the range [-1, N], where N is the total number of steps.
@@ -670,7 +670,7 @@ fun iconVertical(
  *                    Values 1 to N represent the active step number.
  * @param icons A list of ImageVector objects representing the icons for each step.
  *              The size of this list determines the default value for totalSteps.
- * @param labels A list of optional composable functions that render the labels for each step.
+ * @param trailingLabels A list of optional composable functions that render the trailingLabels for each step.
  *               Should have the same size as the icons list.
  * @param totalSteps The total number of steps in the stepper. Defaults to the size of the icons list.
  *                   Must be greater than 0 and equal to the size of the icons list.
@@ -683,7 +683,7 @@ fun iconVertical(
  *
  * This function creates a vertical stepper with the following features:
  * - Custom icons for each step
- * - Optional labels for each step
+ * - Optional trailingLabels for each step
  * - Customizable step appearance through StepStyle
  * - Ability to highlight the current active step, including a "no active step" state
  *
@@ -695,7 +695,7 @@ fun iconVertical(
  *     Icons.Default.Done
  * )
  *
- * val labels = listOf<(@Composable () -> Unit)?>(
+ * val trailingLabels = listOf<(@Composable () -> Unit)?>(
  *     { Text(text = "Home") },
  *     ...
  *     { Text(text = "Complete") }
@@ -705,7 +705,7 @@ fun iconVertical(
  *     style = iconVerticalWithLabel(
  *         currentStep = 2, // Third step is active
  *         icons = icons, // Determines totalSteps
- *         labels = labels, // List size must be <= totalSteps
+ *         trailingLabels = trailingLabels, // List size must be <= totalSteps
  *         stepStyle = StepStyle(
  *             stepSize = 28.dp,
  *             lineSize = 8.dp
@@ -725,7 +725,7 @@ fun iconVertical(
 fun iconVerticalWithLabel(
     currentStep: Int,
     icons: List<ImageVector>,
-    labels: List<(@Composable () -> Unit)?>,
+    trailingLabels: List<(@Composable () -> Unit)?>,
     totalSteps: Int = icons.size,
     stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.IconWithLabel {
@@ -734,20 +734,20 @@ fun iconVerticalWithLabel(
         currentStep = currentStep,
         stepStyle = stepStyle,
         icons = icons,
-        labels = labels
+        trailingLabels = trailingLabels
     )
 }
 
 /**
- * Creates a composable function that renders a vertical stepper with numbered steps and optional labels.
+ * Creates a composable function that renders a vertical stepper with numbered steps and optional trailingLabels.
  *
  * @param currentStep The current active step in the stepper.
  *                    Must be in the range [-1, N], where N is the total number of steps.
  *                    A value of -1 indicates that no step is currently active.
  *                    Values 1 to N represent the active step number.
- * @param labels A list of optional composable functions that render the labels for each step.
+ * @param trailingLabels A list of optional composable functions that render the trailingLabels for each step.
  *               The size of this list determines the default value for totalSteps.
- * @param totalSteps The total number of steps in the stepper. Defaults to the size of the labels list.
+ * @param totalSteps The total number of steps in the stepper. Defaults to the size of the trailingLabels list.
  *                   Must be greater than 0.
  * @param stepStyle A StepStyle object that defines the visual appearance of the steps.
  *                  Uses default values if not provided.
@@ -757,13 +757,13 @@ fun iconVerticalWithLabel(
  *
  * This function creates a vertical stepper with the following features:
  * - Numbered steps from 1 to n, where n is the total number of steps
- * - Optional labels for each step
+ * - Optional trailingLabels for each step
  * - Customizable step appearance through StepStyle
  * - Ability to highlight the current active step
  *
  * Usage Example:
  * ```
- * val labels = listOf<(@Composable () -> Unit)?>(
+ * val trailingLabels = listOf<(@Composable () -> Unit)?>(
  *     { Text(text = "Step 1") },
  *     ...
  *     { Text(text = "Step 5") }
@@ -773,7 +773,7 @@ fun iconVerticalWithLabel(
  *     style = numberedVerticalWithLabel(
  *         totalSteps = 5,
  *         currentStep = 2, // Third step is active
- *         labels = labels, // List size must be <= totalSteps
+ *         trailingLabels = trailingLabels, // List size must be <= totalSteps
  *         stepStyle = StepStyle(
  *             stepSize = 28.dp,
  *             lineSize = 8.dp
@@ -791,14 +791,14 @@ fun iconVerticalWithLabel(
  */
 fun numberedVerticalWithLabel(
     currentStep: Int,
-    labels: List<(@Composable () -> Unit)?>,
-    totalSteps: Int = labels.size,
+    trailingLabels: List<(@Composable () -> Unit)?>,
+    totalSteps: Int = trailingLabels.size,
     stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.NumberWithLabel {
     return VerticalStepperStyle.NumberWithLabel(
         totalSteps = totalSteps,
         currentStep = currentStep,
         stepStyle = stepStyle,
-        labels = labels
+        trailingLabels = trailingLabels
     )
 }

@@ -79,12 +79,6 @@ internal fun VerticalIconWithLabelStep(
         }
     }
 
-    val borderStrokeColor: BorderStroke = if (stepState == StepState.CURRENT) {
-        BorderStroke(2.dp, stepStyle.colors.currentContainerColor)
-    } else {
-        BorderStroke(0.dp, Color.Unspecified)
-    }
-
     var labelHeight by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
 
@@ -108,7 +102,13 @@ internal fun VerticalIconWithLabelStep(
                     .size(stepStyle.stepSize)
                     .clip(stepStyle.stepShape)
                     .background(containerColor)
-                    .border(borderStrokeColor, shape = stepStyle.stepShape)
+                    .then(
+                        if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
+                            Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                        } else {
+                            Modifier
+                        }
+                    )
             ) {
                 if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {
                     Icon(

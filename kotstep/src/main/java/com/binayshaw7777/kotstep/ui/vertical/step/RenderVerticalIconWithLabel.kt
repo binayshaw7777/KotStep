@@ -16,7 +16,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param currentStep The current step in the stepper.
  * @param stepStyle The style of the steps in the stepper.
  * @param icons The icons to be displayed in the steps.
- * @param labels The labels to be displayed in the steps.
+ * @property trailingLabels The labels to be displayed in right side of the steps. The size of this list should be equal to [totalSteps].
  * @param onStepClick A callback that is invoked when a step is clicked.
  */
 @Composable
@@ -26,21 +26,21 @@ internal fun RenderVerticalIconWithLabel(
     currentStep: Int,
     stepStyle: StepStyle,
     icons: List<ImageVector>,
-    labels: List<(@Composable () -> Unit)?>,
+    trailingLabels: List<(@Composable () -> Unit)?>,
     onStepClick: (Int) -> Unit = {}
 ) {
 
     require(icons.isNotEmpty()) { "Icons should not be empty" }
-    require(labels.any { it != null }) {
+    require(trailingLabels.any { it != null }) {
         "At least one element in the contents list should be non-null. " +
                 "If all elements are null, consider using 'NumberedStepper' instead."
     }
-    require(icons.size >= labels.size) { "Icons should be equal to or greater than labels" }
+    require(icons.size >= trailingLabels.size) { "Icons should be equal to or greater than labels" }
     require(currentStep in -1..totalSteps) { "Current step should be between -1 and total steps" }
 
     Column(modifier = modifier) {
 
-        labels.forEachIndexed { index, label ->
+        trailingLabels.forEachIndexed { index, label ->
             val stepState = when {
                 index < currentStep -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
@@ -52,7 +52,7 @@ internal fun RenderVerticalIconWithLabel(
                 stepState = stepState,
                 stepIcon = icons[index],
                 label = label,
-                isLastStep = index == labels.size - 1
+                isLastStep = index == trailingLabels.size - 1
             ) { onStepClick(index) }
         }
     }

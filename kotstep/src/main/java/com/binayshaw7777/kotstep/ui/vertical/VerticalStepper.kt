@@ -116,7 +116,7 @@ fun VerticalStepper(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            labels = style.labels,
+            trailingLabels = style.trailingLabels,
             stepStyle = style.stepStyle,
             onStepClick = { onStepClick(it) }
         )
@@ -126,7 +126,7 @@ fun VerticalStepper(
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
             icons = style.icons,
-            labels = style.labels,
+            trailingLabels = style.trailingLabels,
             stepStyle = style.stepStyle,
             onStepClick = { onStepClick(it) }
         )
@@ -135,7 +135,7 @@ fun VerticalStepper(
             modifier = modifier,
             totalSteps = style.totalSteps,
             currentStep = style.currentStep,
-            labels = style.labels,
+            trailingLabels = style.trailingLabels,
             stepStyle = style.stepStyle,
             onStepClick = { onStepClick(it) }
         )

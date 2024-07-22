@@ -45,10 +45,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.model.StepDefaults
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
 import com.binayshaw7777.kotstep.model.iconHorizontal
@@ -96,6 +98,9 @@ fun MainPreview() {
 
         var currentStep by rememberSaveable { mutableIntStateOf(-1) }
 
+        var showCheckMark by remember { mutableStateOf(true) }
+        var showStepStroke by remember { mutableStateOf(true) }
+
         var expanded by remember { mutableStateOf(false) }
 
         var expandedShapeMenu by remember { mutableStateOf(false) }
@@ -117,23 +122,30 @@ fun MainPreview() {
         }
 
         val icons = remember { mutableStateListOf<ImageVector>() }
-        val labels = remember {
+        val trailingLabels = remember {
             mutableStateListOf<(@Composable () -> Unit)?>()
         }
 
         LaunchedEffect(totalSteps) {
             icons.clear()
             icons.addAll(Utils.getIcons(totalSteps))
-            labels.clear()
-            labels.addAll(Utils.getLabels(totalSteps))
+            trailingLabels.clear()
+            trailingLabels.addAll(Utils.getLabels(totalSteps))
         }
 
         val stepStyle = StepStyle(
             lineThickness = lineThickness.dp,
-            showCheckMarkOnDone = true,
-            showStrokeOnCurrent = true,
+            showCheckMarkOnDone = showCheckMark,
+            showStrokeOnCurrent = showStepStroke,
             stepSize = stepItemSize.dp,
-            stepShape = getShapeFromEnum(currentStepperItemShape)
+            stepShape = getShapeFromEnum(currentStepperItemShape),
+            colors = StepDefaults(
+                doneContainerColor = Color(0xFF00E676),
+                doneContentColor = Color(0xFF212121),
+                currentContainerColor = Color(0xFF4B81F4),
+                todoContainerColor = Color(0xFF50596C),
+                todoContentColor = Color.White
+            )
         )
 
         Column(
@@ -159,6 +171,7 @@ fun MainPreview() {
                             text = { Text("Horizontal TAB Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.HORIZONTAL_TAB_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -171,6 +184,7 @@ fun MainPreview() {
                             text = { Text("Horizontal NUMBERED Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.HORIZONTAL_NUMBERED_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -183,6 +197,7 @@ fun MainPreview() {
                             text = { Text("Horizontal ICON Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.HORIZONTAL_ICON_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -195,6 +210,7 @@ fun MainPreview() {
                             text = { Text("Horizontal DASHED Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.HORIZONTAL_DASHED_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -209,6 +225,7 @@ fun MainPreview() {
                             text = { Text("Vertical TAB Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_TAB_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -222,6 +239,7 @@ fun MainPreview() {
                             text = { Text("Vertical NUMBERED Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_NUMBERED_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -235,6 +253,7 @@ fun MainPreview() {
                             text = { Text("Vertical ICON Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_ICON_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -248,6 +267,7 @@ fun MainPreview() {
                             text = { Text("Vertical Tab LABEL Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_TAB_LABEL_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -260,6 +280,7 @@ fun MainPreview() {
                             text = { Text("Vertical Numbered LABEL Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_NUMBERED_LABEL_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -273,6 +294,7 @@ fun MainPreview() {
                             text = { Text("Vertical Icon LABEL Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.VERTICAL_ICON_LABEL_STEPPER
+                                expanded = false
                             },
                             leadingIcon = {
                                 Icon(
@@ -294,22 +316,47 @@ fun MainPreview() {
                     ) {
                         DropdownMenuItem(
                             text = { Text("Circle Shape") },
-                            onClick = { currentStepperItemShape = StepperItemShape.CIRCLE_SHAPE }
+                            onClick = {
+                                currentStepperItemShape = StepperItemShape.CIRCLE_SHAPE
+                                expandedShapeMenu = false
+                            }
                         )
                         DropdownMenuItem(
                             text = { Text("Rectangle Shape") },
-                            onClick = { currentStepperItemShape = StepperItemShape.RECTANGLE_SHAPE }
+                            onClick = {
+                                currentStepperItemShape = StepperItemShape.RECTANGLE_SHAPE
+                                expandedShapeMenu = false
+                            }
                         )
                         DropdownMenuItem(
                             text = { Text("CutCorner Shape") },
                             onClick = {
                                 currentStepperItemShape = StepperItemShape.CUT_CORNER_SHAPE
+                                expandedShapeMenu = false
                             }
                         )
                         DropdownMenuItem(
                             text = { Text("RoundedCorner Shape") },
                             onClick = {
                                 currentStepperItemShape = StepperItemShape.ROUNDED_CORNER_SHAPE
+                                expandedShapeMenu = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(if (showCheckMark) "Hide Check Mark" else "Show Check Mark")
+                            },
+                            onClick = {
+                                showCheckMark = showCheckMark.not()
+                                expandedShapeMenu = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(if (showStepStroke) "Hide Step Stroke" else "Show Step Stroke")
+                            }, onClick = {
+                                showStepStroke = showStepStroke.not()
+                                expandedShapeMenu = false
                             }
                         )
                     }
@@ -395,7 +442,7 @@ fun MainPreview() {
                         numberedVerticalWithLabel(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
-                            labels = labels,
+                            trailingLabels = trailingLabels,
                             stepStyle = stepStyle
                         )
                     ) { it.toast(context) }
@@ -407,7 +454,7 @@ fun MainPreview() {
                         iconVerticalWithLabel(
                             totalSteps = totalSteps,
                             currentStep = currentStep,
-                            labels = labels,
+                            trailingLabels = trailingLabels,
                             icons = icons,
                             stepStyle = stepStyle
                         )
@@ -421,7 +468,7 @@ fun MainPreview() {
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             stepStyle = stepStyle,
-                            labels = labels
+                            trailingLabels = trailingLabels
                         )
                     ) { it.toast(context) }
                 }

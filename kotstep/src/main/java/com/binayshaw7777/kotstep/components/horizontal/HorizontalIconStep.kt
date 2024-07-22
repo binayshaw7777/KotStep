@@ -70,12 +70,6 @@ internal fun HorizontalIconStep(
         }
     }
 
-    val borderStrokeColor: BorderStroke = if (stepState == StepState.CURRENT) {
-        BorderStroke(2.dp, stepStyle.colors.currentContainerColor)
-    } else {
-        BorderStroke(0.dp, Color.Unspecified)
-    }
-
     Row(
         modifier = Modifier
             .noRippleClickable { onClick() }
@@ -99,7 +93,13 @@ internal fun HorizontalIconStep(
             modifier = Modifier
                 .size(stepStyle.stepSize)
                 .clip(stepStyle.stepShape)
-                .border(borderStrokeColor, shape = stepStyle.stepShape)
+                .then(
+                    if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
+                        Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                    } else {
+                        Modifier
+                    }
+                )
                 .background(containerColor)
         ) {
             if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {
