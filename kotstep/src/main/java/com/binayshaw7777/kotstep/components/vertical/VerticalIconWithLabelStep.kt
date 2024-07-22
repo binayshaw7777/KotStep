@@ -43,7 +43,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param stepStyle The style of the step.
  * @param stepState The state of the step.
  * @param stepIcon The icon to be displayed in the step.
- * @param label The label to be displayed in the step.
+ * @param trailingLabel The label to be displayed on the right side for each step.
  * @param isLastStep A flag indicating if the step is the last step in the stepper.
  * @param onClick A callback that is invoked when the step is clicked.
  */
@@ -53,7 +53,7 @@ internal fun VerticalIconWithLabelStep(
     stepStyle: StepStyle,
     stepState: StepState,
     stepIcon: ImageVector,
-    label: (@Composable () -> Unit)?,
+    trailingLabel: (@Composable () -> Unit)?,
     isLastStep: Boolean,
     onClick: () -> Unit
 ) {
@@ -137,7 +137,7 @@ internal fun VerticalIconWithLabelStep(
             }
         }
 
-        label?.let { labelContent ->
+        trailingLabel?.let { labelContent ->
             Box(
                 modifier = Modifier
                     .weight(1f)

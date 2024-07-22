@@ -40,7 +40,7 @@ internal fun RenderVerticalIconWithLabel(
 
     Column(modifier = modifier) {
 
-        trailingLabels.forEachIndexed { index, label ->
+        trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
                 index < currentStep -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
@@ -51,7 +51,7 @@ internal fun RenderVerticalIconWithLabel(
                 stepStyle = stepStyle,
                 stepState = stepState,
                 stepIcon = icons[index],
-                label = label,
+                trailingLabel = trailingLabel,
                 isLastStep = index == trailingLabels.size - 1
             ) { onStepClick(index) }
         }

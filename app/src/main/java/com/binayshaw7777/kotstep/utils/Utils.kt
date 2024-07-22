@@ -1,15 +1,8 @@
 package com.binayshaw7777.kotstep.utils
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Build
@@ -18,21 +11,13 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object Utils {
 
@@ -52,55 +37,29 @@ object Utils {
     }
 
     fun getLabels(limit: Int) = listOf<@Composable (() -> Unit)?>(
-        { Text("Step 1: Introduction") },
+        { Text("Ordered") },
         {
             Column {
-                Text("Step 2: Personal Info")
-                Text("Fill in your details")
+                Text("Shipped")
+                Text("Reached the facility X.", fontSize = 14.sp)
             }
         },
         {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Step 5: Review", style = MaterialTheme.typography.bodyLarge)
-                    Text("Check your information", style = MaterialTheme.typography.bodyMedium)
-                    Button(onClick = { Log.d(this@Utils.toString(), "Button clicked!") }) {
-                        Text("Review Now")
-                    }
-                }
-            }
+            Text("Reached the facility Y.", fontSize = 14.sp)
         },
         null,
         null,
         {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Step 6: Submit", style = MaterialTheme.typography.bodyLarge)
-            }
+
+            Text("Reached the facility Z", fontSize = 14.sp)
+            
         },
-        { Text("Step 1: Introduction") },
+        { Text("Out for Delivery", fontSize = 14.sp) },
         {
-            Column {
-                Text("Step 2: Personal Info")
-                Text("Fill in your details")
-            }
+            Text("Delivery delayed due to rain", fontSize = 14.sp)
         },
         {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    Icons.Default.Info,
-                    contentDescription = "Info",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Step 3: Preferences", style = MaterialTheme.typography.bodyLarge)
-            }
+            Text(text = "Item delivered.")
         },
         null
     )

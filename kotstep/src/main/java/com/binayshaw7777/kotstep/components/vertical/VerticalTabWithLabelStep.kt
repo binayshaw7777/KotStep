@@ -38,7 +38,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @property modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
  * @property stepStyle The style properties for the steps in the stepper.
  * @property stepState The state of the step.
- * @property label The label to be displayed for the step.
+ * @property trailingLabel The label to be displayed on the right side for the step.
  * @property isLastStep A flag indicating if the step is the last step in the stepper.
  * @property onClick A callback that is invoked when the step is clicked.
  */
@@ -47,7 +47,7 @@ internal fun VerticalTabWithLabelStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
-    label: (@Composable () -> Unit)?,
+    trailingLabel: (@Composable () -> Unit)?,
     isLastStep: Boolean,
     onClick: () -> Unit
 ) {
@@ -121,7 +121,7 @@ internal fun VerticalTabWithLabelStep(
             }
         }
 
-        label?.let { labelContent ->
+        trailingLabel?.let { labelContent ->
             Box(
                 modifier = Modifier
                     .weight(1f)

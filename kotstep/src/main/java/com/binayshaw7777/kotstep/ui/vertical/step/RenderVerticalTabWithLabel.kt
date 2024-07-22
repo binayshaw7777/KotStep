@@ -35,7 +35,7 @@ internal fun RenderVerticalTabWithLabel(
 
     Column(modifier = modifier) {
 
-        trailingLabels.forEachIndexed { index, label ->
+        trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
                 index < currentStep -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
@@ -45,7 +45,7 @@ internal fun RenderVerticalTabWithLabel(
             VerticalTabWithLabelStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
-                label = label,
+                trailingLabel = trailingLabel,
                 isLastStep = index == trailingLabels.size - 1
             ) { onStepClick(index) }
         }

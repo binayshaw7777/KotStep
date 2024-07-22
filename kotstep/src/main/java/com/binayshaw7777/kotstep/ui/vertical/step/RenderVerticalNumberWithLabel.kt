@@ -36,7 +36,7 @@ internal fun RenderVerticalNumberWithLabel(
 
     Column(modifier = modifier) {
 
-        trailingLabels.forEachIndexed { index, label ->
+        trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
                 index < currentStep -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
@@ -47,7 +47,7 @@ internal fun RenderVerticalNumberWithLabel(
                 stepStyle = stepStyle,
                 stepState = stepState,
                 stepNumber = index + 1,
-                label = label,
+                trailingLabel = trailingLabel,
                 isLastStep = index == trailingLabels.size - 1
             ) { onStepClick(index) }
         }

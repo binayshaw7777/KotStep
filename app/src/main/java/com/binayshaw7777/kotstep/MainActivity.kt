@@ -46,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -137,6 +138,7 @@ fun MainPreview() {
             lineThickness = lineThickness.dp,
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
+            strokeCap = StrokeCap.Round,
             stepSize = stepItemSize.dp,
             stepShape = getShapeFromEnum(currentStepperItemShape),
             colors = StepDefaults(
