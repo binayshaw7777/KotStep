@@ -80,7 +80,9 @@ HorizontalStepper(
         totalSteps = 3,
         currentStep = 1
     )
-)
+) {
+	// Do something...
+}
 ```
 
 ### `tabHorizontal` Parameters
@@ -90,6 +92,7 @@ HorizontalStepper(
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
@@ -109,7 +112,9 @@ HorizontalStepper(
             Icons.Default.DateRange
         )
     )
-)
+) {
+	// Do something...
+}
 ```
 
 ### `iconHorizontal` Parameters
@@ -119,6 +124,7 @@ HorizontalStepper(
 | `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
@@ -134,7 +140,9 @@ HorizontalStepper(
     totalSteps = 5,
     currentStep = 1
   )
-)      
+) {
+	// Do something...
+}      
 ```
 
 ### `numberedHorizontal` Parameters
@@ -144,6 +152,7 @@ HorizontalStepper(
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
@@ -160,7 +169,9 @@ HorizontalStepper(
     totalSteps = 5,
     currentStep = 1
   )
-)    
+) {
+	// Do something...
+}    
 ```
 
 ### `dashed` Parameters
@@ -170,6 +181,7 @@ HorizontalStepper(
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
@@ -185,7 +197,9 @@ VerticalStepper(
     totalSteps = 5,
     currentStep = 1
   )
-)    
+) {
+	// Do something...
+} 
 ```
 
 ### `tabVertical` Parameters
@@ -195,6 +209,7 @@ VerticalStepper(
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
@@ -202,6 +217,37 @@ VerticalStepper(
 
 ---
 
+## <b>Vertical Stepper - Tab with Label</b>
+
+```kotlin
+VerticalStepper(
+  style = tabVerticalWithLabel(
+    totalSteps = 2,
+    currentStep = 1,
+    trailingLabels = listOf(
+    	{ Text("Hello") },
+        { Text("World") }
+    )
+  )
+) {
+	// Do something...
+}
+```
+
+### `tabVerticalWithLabel` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
+
+
+<b>Example:</b><br>
+![Vertical Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/d875ce8f-b8a3-4941-8c16-50c866071374)
+
+---
 
 ## <b>Vertical Stepper - Icon</b>
 
@@ -215,7 +261,9 @@ VerticalStepper(
       Icons.Default.DateRange
     )
   )
-)    
+) {
+	// Do something...
+}    
 ```
 
 ### `iconVertical` Parameters
@@ -225,6 +273,42 @@ VerticalStepper(
 | `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
+
+
+<b>Example:</b><br>
+![Vertical Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/adc67265-8325-4297-a856-dfe088d7650d)
+
+---
+
+## <b>Vertical Stepper - Icon with label</b>
+
+```kotlin
+VerticalStepper(
+  style = iconVerticalWithLabel(
+    currentStep = 1,
+    icons = listOf(
+      Icons.Default.AccountCircle,
+      Icons.Default.DateRange
+    ),
+    trailingLabels = listOf(
+    	{ Text("Hello") },
+        { Text("World") }
+    )
+  )
+) {
+	// Do something...
+}    
+```
+
+### `iconVerticalWithLabel` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
@@ -240,7 +324,9 @@ VerticalStepper(
     totalSteps = 5,
     currentStep = 1
   )
-)    
+) {
+	// Do something...
+}    
 ```
 
 ### `numberedVertical` Parameters
@@ -250,13 +336,45 @@ VerticalStepper(
 | `totalSteps`                     | The total number of steps.                           				                 | -                   |
 | `currentStep`                    | The current step that is active.                                                                    | -                   |
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
+
+
+<b>Example:</b><br>
+![Vertical Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/b79afbef-4f9d-4942-a0db-23003c956a8e)
+
+---
+
+## <b>Vertical Stepper - Numbered with Label</b>
+
+```kotlin
+VerticalStepper(
+  style = numberedVerticalWithLabel(
+    totalSteps = 2,
+    currentStep = 1,
+    trailingLabels = listOf(
+    	{ Text("Hello") },
+        { Text("World") }
+    )
+  )
+) {
+	// Do something...
+}    
+```
+
+### `numberedVerticalWithLabel` Parameters
+
+| Parameter                       | Description                                                                                          | Default Value       |
+|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
+| `totalSteps`                     | The total number of steps.                           				                 | -                   |
+| `currentStep`                    | The current step that is active.                                                                    | -                   |
+| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
+| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
 
 <b>Example:</b><br>
 ![Vertical Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/b79afbef-4f9d-4942-a0db-23003c956a8e)
 
 
----
 
 ## `StepStyle` Parameters
 
