@@ -39,6 +39,7 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  *
  * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
  * @param style The [HorizontalStepperStyle] that defines the appearance and behavior of the stepper.
+ * @param onStepClick A lambda function that is invoked when a step is clicked. Defaults to an empty lambda.
  *
  * Usage example:
  * ```

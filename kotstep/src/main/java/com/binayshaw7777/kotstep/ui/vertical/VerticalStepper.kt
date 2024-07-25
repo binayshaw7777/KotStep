@@ -41,23 +41,10 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
  *
  * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
  * @param style The [VerticalStepperStyle] that defines the appearance and behavior of the stepper.
+ * @param onStepClick A lambda function that is invoked when a step is clicked. Defaults to an empty lambda.
  *
  * Usage example:
  * ```
- * // Naive way:
- * VerticalStepper(
- *     style = VerticalStepperStyle.Number(
- *         totalSteps = 5,
- *         currentStep = 2, // Third step is active
- *         stepStyle = StepStyle(
- *             stepSize = 28.dp,
- *             lineSize = 2.dp
- *             // ... other style properties
- *         )
- *     )
- * ) { // Do something }
- *
- * // Simpler way:
  * VerticalStepper(
  *     style = numberedVertical(
  *         totalSteps = 5,

@@ -1,8 +1,6 @@
 package com.binayshaw7777.kotstep
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -37,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -127,6 +126,10 @@ fun MainPreview() {
             mutableStateListOf<(@Composable () -> Unit)?>()
         }
 
+        var lineSize by remember {
+            mutableIntStateOf(20)
+        }
+
         LaunchedEffect(totalSteps) {
             icons.clear()
             icons.addAll(Utils.getIcons(totalSteps))
@@ -138,6 +141,7 @@ fun MainPreview() {
             lineThickness = lineThickness.dp,
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
+            lineSize = lineSize.dp,
             strokeCap = StrokeCap.Round,
             stepSize = stepItemSize.dp,
             stepShape = getShapeFromEnum(currentStepperItemShape),
@@ -478,7 +482,7 @@ fun MainPreview() {
 
             Column(
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+//                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
@@ -486,7 +490,7 @@ fun MainPreview() {
             ) {
                 Text(
                     text = "Total Steps: : $totalSteps",
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 2.dp)
                 )
                 Slider(
                     value = totalSteps.toFloat(),
@@ -507,15 +511,31 @@ fun MainPreview() {
 
                 Text(
                     text = "Step Item Size in DP: $stepItemSize",
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Slider(
                     value = stepItemSize.toFloat(),
                     onValueChange = { newValue ->
                         stepItemSize = newValue.toInt()
                     },
-                    valueRange = 35f..55f, // Set the range of Step Item size
-                    steps = 20, // Divide the range into 20 steps
+                    valueRange = 32f..55f, // Set the range of Step Item size
+                    steps = 30, // Divide the range into 20 steps
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Line Size in DP: $lineSize",
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Slider(
+                    value = lineSize.toFloat(),
+                    onValueChange = { newValue ->
+                        lineSize = newValue.toInt()
+                    },
+                    valueRange = 20f..50f, // Set the range of Step Item size
+                    steps = 30, // Divide the range into 20 steps
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -523,7 +543,7 @@ fun MainPreview() {
 
                 Text(
                     text = "Line Thickness in DP: $lineThickness",
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Slider(
                     value = lineThickness.toFloat(),
