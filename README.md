@@ -243,9 +243,8 @@ VerticalStepper(
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 | `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
-
 <b>Example:</b><br>
-![Vertical Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/d875ce8f-b8a3-4941-8c16-50c866071374)
+![Vertical Stepper - Tab with Label](https://github.com/user-attachments/assets/31f99b69-01fa-49a9-9ee8-df7d85addf11)
 
 ---
 
@@ -312,7 +311,7 @@ VerticalStepper(
 
 
 <b>Example:</b><br>
-![Vertical Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/adc67265-8325-4297-a856-dfe088d7650d)
+![Vertical Stepper - Icon](https://github.com/user-attachments/assets/9aa2968f-11f9-414e-bde9-af9f6ac91324)
 
 ---
 
@@ -370,9 +369,8 @@ VerticalStepper(
 | `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
 | `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
 
-
 <b>Example:</b><br>
-![Vertical Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/b79afbef-4f9d-4942-a0db-23003c956a8e)
+![Vertical Stepper - Numbered](https://github.com/user-attachments/assets/0d3de86b-e56c-4e4f-8f4c-21d42181699d)
 
 
 
