@@ -128,7 +128,7 @@ internal fun VerticalNumberWithLabelStep(
 
             if (!isLastStep) {
                 val measuredLabelHeight =
-                    if (isLabelMeasured) labelHeight else stepStyle.lineSize
+                    if (isLabelMeasured) maxOf(labelHeight, stepStyle.lineSize) else stepStyle.lineSize
                 VerticalDivider(
                     modifier = Modifier
                         .height(measuredLabelHeight + 8.dp)

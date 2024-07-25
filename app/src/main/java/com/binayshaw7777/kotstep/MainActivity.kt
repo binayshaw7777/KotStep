@@ -482,7 +482,6 @@ fun MainPreview() {
 
             Column(
                 horizontalAlignment = Alignment.Start,
-//                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
