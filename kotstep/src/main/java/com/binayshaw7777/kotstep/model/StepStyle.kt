@@ -11,20 +11,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /**
- * A data class for StepStyle
+ * A data class that defines the style of a step in a stepper component.
  *
- * @param colors The colors of the steps
- * @param stepSize The size of the step
- * @param stepShape The shape of the step
- * @param textSize The size of the text
- * @param iconSize The size of the icon
- * @param lineThickness The thickness of the line
- * @param lineSize The size of the line
- * @param stepPadding The padding of the step
- * @param lineStyle The style of the line
- * @param showCheckMarkOnDone Whether to show the check mark on done
- * @param showStrokeOnCurrent Whether to show the stroke on current
- * @param strokeCap The cap of the stroke
+ * @property colors The colors of the steps.
+ * @property stepSize The size of the step.
+ * @property stepShape The shape of the step.
+ * @property textSize The size of the text.
+ * @property iconSize The size of the icon.
+ * @property lineThickness The thickness of the line.
+ * @property lineSize The size of the line.
+ * @property stepPadding The padding of the step.
+ * @property lineStyle The style of the line.
+ * @property showCheckMarkOnDone Whether to show the check mark on done.
+ * @property showStrokeOnCurrent Whether to show the stroke on current.
+ * @property strokeCap The cap of the stroke.
  */
 @Immutable
 data class StepStyle(
@@ -43,14 +43,14 @@ data class StepStyle(
 )
 
 /**
- * A data class for StepDefaults
+ * A data class that defines the default colors for the steps.
  *
- * @param todoContainerColor The color of the todo container
- * @param todoContentColor The color of the todo content
- * @param currentContainerColor The color of the current container
- * @param currentContentColor The color of the current content
- * @param doneContainerColor The color of the done container
- * @param doneContentColor The color of the done content
+ * @property todoContainerColor The color of the todo container.
+ * @property todoContentColor The color of the todo content.
+ * @property currentContainerColor The color of the current container.
+ * @property currentContentColor The color of the current content.
+ * @property doneContainerColor The color of the done container.
+ * @property doneContentColor The color of the done content.
  */
 @Immutable
 data class StepDefaults(
@@ -63,7 +63,9 @@ data class StepDefaults(
 ) {
     companion object {
         /**
-         * Returns the default colors for the steps
+         * Returns the default colors for the steps.
+         *
+         * @return The default [StepDefaults] instance.
          */
         fun defaultColors() = StepDefaults(
             todoContainerColor = Color.Gray,

@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.horizontal.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,14 +25,16 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param currentStep The current step in the stepper.
  * @param stepStyle The style of the steps in the stepper.
  * @param icons The icons to be displayed in the steps.
+ * @param onStepClick A callback that is invoked when a step is clicked.
  */
 @Composable
-fun RenderHorizontalIcon(
+internal fun RenderHorizontalIcon(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,
     stepStyle: StepStyle = StepStyle(),
-    icons: List<ImageVector>
+    icons: List<ImageVector>,
+    onStepClick: (Int) -> Unit = {}
 ) {
 
     require(icons.isNotEmpty()) { "Icons should not be empty" }
@@ -64,7 +65,7 @@ fun RenderHorizontalIcon(
                 stepIcon = icons[i],
                 isLastStep = i == totalSteps - 1,
                 size = size
-            )
+            ) { onStepClick(i) }
         }
     }
 }

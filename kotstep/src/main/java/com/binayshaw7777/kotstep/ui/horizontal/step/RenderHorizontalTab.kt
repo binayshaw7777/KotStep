@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.horizontal.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,13 +23,15 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param totalSteps The total number of steps in the stepper.
  * @param currentStep The current step in the stepper.
  * @param stepStyle The style of the steps in the stepper.
+ * @param onStepClick The callback to be invoked when a step is clicked.
  */
 @Composable
-fun RenderHorizontalTab(
+internal fun RenderHorizontalTab(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,
-    stepStyle: StepStyle = StepStyle()
+    stepStyle: StepStyle = StepStyle(),
+    onStepClick: (Int) -> Unit = {}
 ) {
 
     require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
@@ -59,7 +60,7 @@ fun RenderHorizontalTab(
                 totalSteps = totalSteps,
                 isLastStep = i == totalSteps - 1,
                 size = size
-            )
+            ) { onStepClick(i) }
         }
     }
 }

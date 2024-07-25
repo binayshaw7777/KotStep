@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.ui.vertical.step
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,13 +15,15 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param totalSteps The total number of steps in the stepper.
  * @param currentStep The current step in the stepper.
  * @param stepStyle The style of the steps in the stepper.
+ * @param onStepClick A callback that is invoked when a step is clicked.
  */
 @Composable
-fun RenderVerticalNumber(
+internal fun RenderVerticalNumber(
     modifier: Modifier = Modifier,
     totalSteps: Int,
     currentStep: Int,
-    stepStyle: StepStyle
+    stepStyle: StepStyle,
+    onStepClick: (Int) -> Unit = {}
 ) {
 
     require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
@@ -44,7 +45,7 @@ fun RenderVerticalNumber(
                 stepState = stepState,
                 stepNumber = i + 1,
                 isLastStep = i == totalSteps - 1,
-            )
+            ) { onStepClick(i) }
         }
     }
 }
