@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 
 /**
@@ -28,14 +29,16 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepState The current state of the step.
  * @param totalSteps The total number of steps in the stepper.
  * @param size The size of the stepper.
+ * @param onClick The callback to be invoked when the step is clicked.
  */
 @Composable
-fun HorizontalDashedStep(
+internal fun HorizontalDashedStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
     totalSteps: Int,
-    size: IntSize
+    size: IntSize,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -59,6 +62,7 @@ fun HorizontalDashedStep(
     LinearProgressIndicator(
         progress = { progressState },
         modifier = Modifier
+            .noRippleClickable { onClick() }
             .height(stepStyle.lineThickness)
             .then(
                 with(LocalDensity.current) {

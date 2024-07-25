@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
  * Represents a single step in a horizontal numbered stepper.
@@ -39,16 +40,18 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepNumber The number to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
  * @param size The size of the stepper.
+ * @param onClick The callback to be invoked when the step is clicked.
  */
 @Composable
-fun HorizontalNumberedStep(
+internal fun HorizontalNumberedStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
     totalSteps: Int,
     stepNumber: Int,
     isLastStep: Boolean,
-    size: IntSize
+    size: IntSize,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -69,14 +72,9 @@ fun HorizontalNumberedStep(
         }
     }
 
-    val borderStrokeColor: BorderStroke = if (stepState == StepState.CURRENT) {
-        BorderStroke(2.dp, stepStyle.colors.currentContainerColor)
-    } else {
-        BorderStroke(0.dp, Color.Unspecified)
-    }
-
     Row(
         modifier = Modifier
+            .noRippleClickable { onClick() }
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {
@@ -97,7 +95,13 @@ fun HorizontalNumberedStep(
             modifier = Modifier
                 .size(stepStyle.stepSize)
                 .clip(stepStyle.stepShape)
-                .border(borderStrokeColor, shape = stepStyle.stepShape)
+                .then(
+                    if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
+                        Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                    } else {
+                        Modifier
+                    }
+                )
                 .background(containerColor)
         ) {
             if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {

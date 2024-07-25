@@ -18,13 +18,24 @@ import com.binayshaw7777.kotstep.components.tabs.DoneTab
 import com.binayshaw7777.kotstep.components.tabs.TodoTab
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
+/**
+ * Renders a vertical tab step.
+ *
+ * @param modifier The modifier to be applied to the step.
+ * @param stepStyle The style of the step.
+ * @param stepState The state of the step.
+ * @param isLastStep A flag indicating whether the step is the last step in the stepper.
+ * @param onClick A callback that is invoked when the step is clicked.
+ */
 @Composable
-fun VerticalTabStep(
+internal fun VerticalTabStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
     isLastStep: Boolean,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -38,7 +49,9 @@ fun VerticalTabStep(
     }
 
     Column(
-        modifier = Modifier.then(modifier),
+        modifier = Modifier
+            .noRippleClickable { onClick() }
+            .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

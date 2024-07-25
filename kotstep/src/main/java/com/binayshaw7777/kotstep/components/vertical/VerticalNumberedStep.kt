@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
  * Represents a single step in a vertical numbered stepper.
@@ -35,14 +36,16 @@ import com.binayshaw7777.kotstep.model.StepStyle
  * @param stepState The current state of the step.
  * @param stepNumber The number to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
+ * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
-fun VerticalNumberedStep(
+internal fun VerticalNumberedStep(
     modifier: Modifier = Modifier,
     stepStyle: StepStyle,
     stepState: StepState,
     stepNumber: Int,
     isLastStep: Boolean,
+    onClick: () -> Unit
 ) {
 
     val transition = updateTransition(targetState = stepState, label = "")
@@ -63,14 +66,10 @@ fun VerticalNumberedStep(
         }
     }
 
-    val borderStrokeColor: BorderStroke = if (stepState == StepState.CURRENT) {
-        BorderStroke(2.dp, stepStyle.colors.currentContainerColor)
-    } else {
-        BorderStroke(0.dp, Color.Unspecified)
-    }
-
     Column(
-        modifier = Modifier.then(modifier),
+        modifier = Modifier
+            .noRippleClickable { onClick() }
+            .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -80,7 +79,13 @@ fun VerticalNumberedStep(
             modifier = Modifier
                 .size(stepStyle.stepSize)
                 .clip(stepStyle.stepShape)
-                .border(borderStrokeColor, shape = stepStyle.stepShape)
+                .then(
+                    if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
+                        Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                    } else {
+                        Modifier
+                    }
+                )
                 .background(containerColor)
         ) {
             if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {
