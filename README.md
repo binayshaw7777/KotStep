@@ -25,6 +25,9 @@
   - Vertical Icon Stepper
   - Vertical Tab Stepper
   - Vertical Numbered Stepper
+  - Vertical Icon Stepper with Label
+  - Vertical Tab Stepper with Label
+  - Vertical Numbered Stepper with Label
 - Easy integration with Jetpack Compose
 - Optional checkmark icons for completed steps.
 - Highly customizable appearance and behavior
