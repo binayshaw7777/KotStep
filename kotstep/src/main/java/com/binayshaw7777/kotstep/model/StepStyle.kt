@@ -47,19 +47,25 @@ data class StepStyle(
  *
  * @property todoContainerColor The color of the todo container.
  * @property todoContentColor The color of the todo content.
+ * @property todoLineColor The color of the todo line.
  * @property currentContainerColor The color of the current container.
  * @property currentContentColor The color of the current content.
+ * @property currentLineColor The color of the current line.
  * @property doneContainerColor The color of the done container.
  * @property doneContentColor The color of the done content.
+ * @property doneLineColor The color of the done line.
  */
 @Immutable
 data class StepDefaults(
     val todoContainerColor: Color = Color.Gray,
     val todoContentColor: Color = Color.DarkGray,
+    val todoLineColor: Color = Color.Gray,
     val currentContainerColor: Color = Color.Blue,
     val currentContentColor: Color = Color.White,
+    val currentLineColor: Color = Color.Blue,
     val doneContainerColor: Color = Color.Green,
-    val doneContentColor: Color = Color.White
+    val doneContentColor: Color = Color.White,
+    val doneLineColor: Color = Color.Green
 ) {
     companion object {
         /**
@@ -70,10 +76,13 @@ data class StepDefaults(
         fun defaultColors() = StepDefaults(
             todoContainerColor = Color.Gray,
             todoContentColor = Color.DarkGray,
+            todoLineColor = Color.Gray,
             currentContainerColor = Color.Blue,
             currentContentColor = Color.White,
+            currentLineColor = Color.Blue,
             doneContainerColor = Color.Green,
-            doneContentColor = Color.White
+            doneContentColor = Color.White,
+            doneLineColor = Color.Green
         )
     }
 }

@@ -79,6 +79,14 @@ internal fun VerticalIconWithLabelStep(
         }
     }
 
+    val lineColor: Color by transition.animateColor(label = "lineColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoLineColor
+            StepState.CURRENT -> stepStyle.colors.currentLineColor
+            StepState.DONE -> stepStyle.colors.doneLineColor
+        }
+    }
+
     var labelHeight by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
 
@@ -132,7 +140,7 @@ internal fun VerticalIconWithLabelStep(
                     modifier = Modifier
                         .height(measuredLabelHeight + 8.dp)
                         .width(stepStyle.lineThickness)
-                        .background(containerColor)
+                        .background(lineColor)
                 )
             }
         }

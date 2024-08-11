@@ -148,9 +148,12 @@ fun MainPreview() {
             colors = StepDefaults(
                 doneContainerColor = Color(0xFF00E676),
                 doneContentColor = Color(0xFF212121),
+                doneLineColor = Color(0xFF50596C),
                 currentContainerColor = Color(0xFF4B81F4),
+                currentLineColor = Color(0xFF50596C),
                 todoContainerColor = Color(0xFF50596C),
-                todoContentColor = Color.White
+                todoContentColor = Color.White,
+                todoLineColor = Color(0xFF50596C)
             )
         )
 

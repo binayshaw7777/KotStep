@@ -70,6 +70,14 @@ internal fun HorizontalIconStep(
         }
     }
 
+    val lineColor: Color by transition.animateColor(label = "lineColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoLineColor
+            StepState.CURRENT -> stepStyle.colors.currentLineColor
+            StepState.DONE -> stepStyle.colors.doneLineColor
+        }
+    }
+
     Row(
         modifier = Modifier
             .noRippleClickable { onClick() }
@@ -122,7 +130,7 @@ internal fun HorizontalIconStep(
             HorizontalDivider(
                 modifier = Modifier.widthIn(max = stepStyle.lineSize),
                 thickness = stepStyle.lineThickness,
-                color = containerColor
+                color = lineColor
             )
         }
     }

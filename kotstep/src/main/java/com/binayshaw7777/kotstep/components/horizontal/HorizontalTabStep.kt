@@ -54,6 +54,14 @@ internal fun HorizontalTabStep(
         }
     }
 
+    val lineColor: Color by transition.animateColor(label = "lineColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoLineColor
+            StepState.CURRENT -> stepStyle.colors.currentLineColor
+            StepState.DONE -> stepStyle.colors.doneLineColor
+        }
+    }
+
     Row(
         modifier = Modifier
             .noRippleClickable {
@@ -104,7 +112,7 @@ internal fun HorizontalTabStep(
         if (!isLastStep) {
             HorizontalDivider(
                 thickness = stepStyle.lineThickness,
-                color = containerColor
+                color = lineColor
             )
         }
     }
