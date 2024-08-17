@@ -22,6 +22,10 @@ import androidx.compose.ui.unit.sp
  * @property lineSize The size of the line.
  * @property stepPadding The padding of the step.
  * @property lineStyle The style of the line.
+ * @property linePaddingStart The start padding of the line (Applied only to Horizontal Steppers).
+ * @property linePaddingEnd The end padding of the line (Applied only to Horizontal Steppers).
+ * @property linePaddingTop The top padding of the line (Applied only to Vertical Steppers).
+ * @property linePaddingBottom The bottom padding of the line (Applied only to Vertical Steppers).
  * @property showCheckMarkOnDone Whether to show the check mark on done.
  * @property showStrokeOnCurrent Whether to show the stroke on current.
  * @property strokeCap The cap of the stroke.
@@ -37,6 +41,10 @@ data class StepStyle(
     val lineSize: Dp = 20.dp,
     val stepPadding: Dp = 0.dp,
     val lineStyle: LineStyle = LineStyle.SOLID,
+    val linePaddingStart: Dp = 0.dp,
+    val linePaddingEnd: Dp = 0.dp,
+    val linePaddingTop: Dp = 0.dp,
+    val linePaddingBottom: Dp = 0.dp,
     val showCheckMarkOnDone: Boolean = true,
     val showStrokeOnCurrent: Boolean = true,
     val strokeCap: StrokeCap = StrokeCap.Square

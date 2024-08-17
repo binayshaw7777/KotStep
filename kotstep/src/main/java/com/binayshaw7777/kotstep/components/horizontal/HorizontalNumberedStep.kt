@@ -8,6 +8,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
@@ -132,7 +133,8 @@ internal fun HorizontalNumberedStep(
         if (!isLastStep) {
             HorizontalDivider(
                 thickness = stepStyle.lineThickness,
-                color = lineColor
+                color = lineColor,
+                modifier = Modifier.padding(start = stepStyle.linePaddingStart, end = stepStyle.linePaddingEnd)
             )
         }
     }

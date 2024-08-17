@@ -2,17 +2,11 @@ package com.binayshaw7777.kotstep.components.vertical
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.binayshaw7777.kotstep.components.tabs.CurrentTab
 import com.binayshaw7777.kotstep.components.tabs.DoneTab
 import com.binayshaw7777.kotstep.components.tabs.TodoTab
@@ -76,70 +71,81 @@ internal fun VerticalTabWithLabelStep(
     var labelHeight by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
 
-    Row(
-        verticalAlignment = Alignment.Top,
+    ConstraintLayout(
         modifier = Modifier
             .noRippleClickable { onClick() }
             .fillMaxWidth()
             .then(modifier)
     ) {
+        val (iconBox, divider, labelBox) = createRefs()
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
-            modifier = Modifier.wrapContentHeight()
-        ) {
-
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.size(stepStyle.stepSize)
-            ) {
-                when (stepState) {
-                    StepState.TODO -> {
-                        TodoTab(
-                            strokeColor = containerColor,
-                            strokeThickness = stepStyle.lineThickness.value
-                        )
-                    }
-
-                    StepState.CURRENT -> {
-                        CurrentTab(
-                            circleColor = containerColor,
-                            strokeThickness = stepStyle.lineThickness.value
-                        )
-                    }
-
-                    StepState.DONE -> {
-                        DoneTab(
-                            circleColor = containerColor,
-                        )
-                    }
+        // Icon Box
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(stepStyle.stepSize)
+                .constrainAs(iconBox) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
                 }
-            }
+        ) {
+            when (stepState) {
+                StepState.TODO -> {
+                    TodoTab(
+                        strokeColor = containerColor,
+                        strokeThickness = stepStyle.lineThickness.value
+                    )
+                }
 
-            if (!isLastStep) {
-                val measuredLabelHeight =
-                    if (isLabelMeasured) maxOf(labelHeight, stepStyle.lineSize) else stepStyle.lineSize
+                StepState.CURRENT -> {
+                    CurrentTab(
+                        circleColor = containerColor,
+                        strokeThickness = stepStyle.lineThickness.value
+                    )
+                }
 
-                VerticalDivider(
-                    modifier = Modifier
-                        .height(measuredLabelHeight + 8.dp)
-                        .width(stepStyle.lineThickness)
-                        .background(lineColor)
-                )
+                StepState.DONE -> {
+                    DoneTab(
+                        circleColor = containerColor,
+                    )
+                }
             }
         }
 
+        // Vertical Divider (Line)
+        if (!isLastStep) {
+            val measuredLabelHeight =
+                if (isLabelMeasured) maxOf(labelHeight, stepStyle.lineSize) else stepStyle.lineSize
+            VerticalDivider(
+                modifier = Modifier
+                    .height(measuredLabelHeight)
+                    .constrainAs(divider) {
+                        top.linkTo(iconBox.bottom, margin = stepStyle.linePaddingTop)
+                        start.linkTo(iconBox.start)
+                        end.linkTo(iconBox.end)
+                        bottom.linkTo(parent.bottom, margin = stepStyle.linePaddingBottom)
+                    },
+                thickness = stepStyle.lineThickness,
+                color = lineColor
+            )
+        }
+
+        // Trailing Label
         trailingLabel?.let { labelContent ->
             Box(
                 modifier = Modifier
-                    .weight(1f)
                     .padding(start = 16.dp)
                     .onGloballyPositioned { coordinates ->
                         if (!isLabelMeasured) {
                             labelHeight = (coordinates.size.height.toFloat() / density).dp
                             isLabelMeasured = true
                         }
+                    }
+                    .constrainAs(labelBox) {
+                        top.linkTo(iconBox.top)
+                        start.linkTo(iconBox.end)
+                        end.linkTo(parent.end)
+                        width = androidx.constraintlayout.compose.Dimension.fillToConstraints
                     },
                 contentAlignment = Alignment.TopStart
             ) {

@@ -144,6 +144,10 @@ fun MainPreview() {
             lineSize = lineSize.dp,
             strokeCap = StrokeCap.Round,
             stepSize = stepItemSize.dp,
+            linePaddingStart = 2.dp,
+            linePaddingEnd = 2.dp,
+            linePaddingBottom = 5.dp,
+            linePaddingTop = 5.dp,
             stepShape = getShapeFromEnum(currentStepperItemShape),
             colors = StepDefaults(
                 doneContainerColor = Color(0xFF00E676),
