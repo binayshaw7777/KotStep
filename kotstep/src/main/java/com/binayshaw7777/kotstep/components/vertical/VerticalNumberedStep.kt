@@ -116,8 +116,8 @@ internal fun VerticalNumberedStep(
         // Display is continuous line if not completed
         if (!isLastStep) {
             VerticalDivider(
-                modifier = Modifier.heightIn(max = stepStyle.lineSize).padding(top = stepStyle.linePaddingStart, bottom = stepStyle.linePaddingEnd),
-                thickness = stepStyle.lineThickness,
+                modifier = Modifier.heightIn(max = stepStyle.lineStyle.lineSize).padding(top = stepStyle.lineStyle.linePaddingStart, bottom = stepStyle.lineStyle.linePaddingEnd),
+                thickness = stepStyle.lineStyle.lineThickness,
                 color = lineColor
             )
         }

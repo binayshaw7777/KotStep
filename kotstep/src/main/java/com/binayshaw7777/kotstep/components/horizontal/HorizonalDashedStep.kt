@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.components.horizontal
 
-import android.util.Log
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
@@ -63,7 +62,7 @@ internal fun HorizontalDashedStep(
         progress = { progressState },
         modifier = Modifier
             .noRippleClickable { onClick() }
-            .height(stepStyle.lineThickness)
+            .height(stepStyle.lineStyle.lineThickness)
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {
@@ -80,6 +79,6 @@ internal fun HorizontalDashedStep(
             .then(modifier),
         color = containerColor,
         trackColor = containerColor,
-        strokeCap = stepStyle.strokeCap
+        strokeCap = stepStyle.lineStyle.strokeCap
     )
 }

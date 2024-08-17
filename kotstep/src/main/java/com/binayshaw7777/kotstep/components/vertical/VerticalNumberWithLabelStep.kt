@@ -136,17 +136,17 @@ internal fun VerticalNumberWithLabelStep(
         // Vertical Divider (Line)
         if (!isLastStep) {
             val measuredLabelHeight =
-                if (isLabelMeasured) maxOf(labelHeight, stepStyle.lineSize) else stepStyle.lineSize
+                if (isLabelMeasured) maxOf(labelHeight, stepStyle.lineStyle.lineSize) else stepStyle.lineStyle.lineSize
             VerticalDivider(
                 modifier = Modifier
                     .height(measuredLabelHeight)
                     .constrainAs(divider) {
-                        top.linkTo(iconBox.bottom, margin = stepStyle.linePaddingTop)
+                        top.linkTo(iconBox.bottom, margin = stepStyle.lineStyle.linePaddingTop)
                         start.linkTo(iconBox.start)
                         end.linkTo(iconBox.end)
-                        bottom.linkTo(parent.bottom, margin = stepStyle.linePaddingBottom)
+                        bottom.linkTo(parent.bottom, margin = stepStyle.lineStyle.linePaddingBottom)
                     },
-                thickness = stepStyle.lineThickness,
+                thickness = stepStyle.lineStyle.lineThickness,
                 color = lineColor
             )
         }

@@ -104,7 +104,10 @@ internal fun HorizontalIconStep(
                 .clip(stepStyle.stepShape)
                 .then(
                     if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
-                        Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                        Modifier.border(
+                            BorderStroke(2.dp, stepStyle.colors.currentContainerColor),
+                            shape = stepStyle.stepShape
+                        )
                     } else {
                         Modifier
                     }
@@ -129,8 +132,13 @@ internal fun HorizontalIconStep(
         // Display is continuous line if not completed
         if (!isLastStep) {
             HorizontalDivider(
-                modifier = Modifier.widthIn(max = stepStyle.lineSize).padding(start = stepStyle.linePaddingStart, end = stepStyle.linePaddingEnd),
-                thickness = stepStyle.lineThickness,
+                modifier = Modifier
+                    .widthIn(max = stepStyle.lineStyle.lineSize)
+                    .padding(
+                        start = stepStyle.lineStyle.linePaddingStart,
+                        end = stepStyle.lineStyle.linePaddingEnd
+                    ),
+                thickness = stepStyle.lineStyle.lineThickness,
                 color = lineColor
             )
         }

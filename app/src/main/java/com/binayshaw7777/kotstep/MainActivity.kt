@@ -50,6 +50,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.model.LineDefault
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepDefaults
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
@@ -138,16 +140,21 @@ fun MainPreview() {
         }
 
         val stepStyle = StepStyle(
-            lineThickness = lineThickness.dp,
+            lineStyle = LineDefault(
+                lineThickness = lineThickness.dp,
+                lineSize = lineSize.dp,
+                linePaddingStart = 2.dp,
+                linePaddingEnd = 2.dp,
+                linePaddingTop = 5.dp,
+                linePaddingBottom = 5.dp,
+                strokeCap = StrokeCap.Square,
+                todoLineStep = LineStyle.SOLID,
+                currentLineStyle = LineStyle.SOLID,
+                doneLineStyle = LineStyle.SOLID
+            ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
-            lineSize = lineSize.dp,
-            strokeCap = StrokeCap.Round,
             stepSize = stepItemSize.dp,
-            linePaddingStart = 2.dp,
-            linePaddingEnd = 2.dp,
-            linePaddingBottom = 5.dp,
-            linePaddingTop = 5.dp,
             stepShape = getShapeFromEnum(currentStepperItemShape),
             colors = StepDefaults(
                 doneContainerColor = Color(0xFF00E676),

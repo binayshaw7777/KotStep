@@ -99,14 +99,14 @@ internal fun HorizontalTabStep(
                 StepState.TODO -> {
                     TodoTab(
                         strokeColor = containerColor,
-                        strokeThickness = stepStyle.lineThickness.value
+                        strokeThickness = stepStyle.lineStyle.lineThickness.value
                     )
                 }
 
                 StepState.CURRENT -> {
                     CurrentTab(
                         circleColor = containerColor,
-                        strokeThickness = stepStyle.lineThickness.value
+                        strokeThickness = stepStyle.lineStyle.lineThickness.value
                     )
                 }
 
@@ -122,9 +122,9 @@ internal fun HorizontalTabStep(
 
         if (!isLastStep) {
             HorizontalDivider(
-                thickness = stepStyle.lineThickness,
+                thickness = stepStyle.lineStyle.lineThickness,
                 color = lineColor,
-                modifier = Modifier.padding(start = stepStyle.linePaddingStart, end = stepStyle.linePaddingEnd)
+                modifier = Modifier.padding(start = stepStyle.lineStyle.linePaddingStart, end = stepStyle.lineStyle.linePaddingEnd)
             )
         }
     }
