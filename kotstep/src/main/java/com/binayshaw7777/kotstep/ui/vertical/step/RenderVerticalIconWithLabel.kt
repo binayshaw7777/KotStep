@@ -23,7 +23,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderVerticalIconWithLabel(
     modifier: Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle,
     icons: List<ImageVector>,
     trailingLabels: List<(@Composable () -> Unit)?>,
@@ -42,7 +42,7 @@ internal fun RenderVerticalIconWithLabel(
 
         trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
-                index < currentStep -> StepState.DONE
+                index < currentStep.toInt() -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
                 else -> StepState.TODO
             }

@@ -29,7 +29,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderHorizontalNumber(
     modifier: Modifier = Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle,
     onStepClick: (Int) -> Unit = {}
 ) {
@@ -49,7 +49,7 @@ internal fun RenderHorizontalNumber(
 
         for (i in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep -> StepState.DONE
+                i < currentStep.toInt() -> StepState.DONE
                 i == currentStep -> StepState.CURRENT
                 else -> StepState.TODO
             }

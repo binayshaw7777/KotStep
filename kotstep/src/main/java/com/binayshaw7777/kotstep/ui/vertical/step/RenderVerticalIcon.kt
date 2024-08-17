@@ -23,7 +23,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderVerticalIcon(
     modifier: Modifier = Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle(),
     icons: List<ImageVector>,
     onStepClick: (Int) -> Unit = {}
@@ -37,7 +37,7 @@ internal fun RenderVerticalIcon(
     ) {
         for (i in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep -> StepState.DONE
+                i < currentStep.toInt() -> StepState.DONE
                 i == currentStep -> StepState.CURRENT
                 else -> StepState.TODO
             }

@@ -28,7 +28,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderHorizontalDashed(
     modifier: Modifier = Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle(),
     onStepClick: (Int) -> Unit = {}
 ) {
@@ -47,7 +47,7 @@ internal fun RenderHorizontalDashed(
 
         for (i in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep -> StepState.DONE
+                i < currentStep.toInt() -> StepState.DONE
                 i == currentStep -> StepState.CURRENT
                 else -> StepState.TODO
             }

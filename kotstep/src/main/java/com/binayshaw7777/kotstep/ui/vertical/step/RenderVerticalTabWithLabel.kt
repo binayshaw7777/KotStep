@@ -21,7 +21,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderVerticalTabWithLabel(
     modifier: Modifier = Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle,
     trailingLabels: List<(@Composable () -> Unit)?>,
     onStepClick: (Int) -> Unit = {}
@@ -37,7 +37,7 @@ internal fun RenderVerticalTabWithLabel(
 
         trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
-                index < currentStep -> StepState.DONE
+                index < currentStep.toInt() -> StepState.DONE
                 index == currentStep -> StepState.CURRENT
                 else -> StepState.TODO
             }
