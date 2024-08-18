@@ -148,8 +148,8 @@ fun MainPreview() {
                 linePaddingTop = 5.dp,
                 linePaddingBottom = 5.dp,
                 strokeCap = StrokeCap.Square,
-                todoLineStep = LineStyle.SOLID,
-                currentLineStyle = LineStyle.SOLID,
+                todoLineStyle = LineStyle.DOTTED,
+                currentLineStyle = LineStyle.DASHED,
                 doneLineStyle = LineStyle.SOLID
             ),
             showCheckMarkOnDone = showCheckMark,
@@ -159,9 +159,9 @@ fun MainPreview() {
             colors = StepDefaults(
                 doneContainerColor = Color(0xFF00E676),
                 doneContentColor = Color(0xFF212121),
-                doneLineColor = Color(0xFF50596C),
+                doneLineColor = Color(0xFF00E676),
                 currentContainerColor = Color(0xFF4B81F4),
-                currentLineColor = Color(0xFF50596C),
+                currentLineColor = Color(0xFF4B81F4),
                 todoContainerColor = Color(0xFF50596C),
                 todoContentColor = Color.White,
                 todoLineColor = Color(0xFF50596C)

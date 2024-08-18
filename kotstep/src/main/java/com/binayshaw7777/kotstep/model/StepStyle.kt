@@ -59,7 +59,7 @@ data class LineDefault(
     val linePaddingTop: Dp = 0.dp,
     val linePaddingBottom: Dp = 0.dp,
     val strokeCap: StrokeCap = StrokeCap.Square,
-    val todoLineStep: LineStyle = LineStyle.SOLID,
+    val todoLineStyle: LineStyle = LineStyle.SOLID,
     val currentLineStyle: LineStyle = LineStyle.SOLID,
     val doneLineStyle: LineStyle = LineStyle.SOLID
 ) {

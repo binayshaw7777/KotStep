@@ -8,13 +8,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,6 +21,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -73,6 +73,12 @@ internal fun VerticalIconStep(
         }
     }
 
+    val lineStyle: LineStyle = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
+        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
+    }
+
     Column(
         modifier = Modifier
             .noRippleClickable { onClick() }
@@ -112,10 +118,14 @@ internal fun VerticalIconStep(
 
         // Display is continuous line if not completed
         if (!isLastStep) {
-            VerticalDivider(
-                modifier = Modifier.heightIn(max = stepStyle.lineStyle.lineSize).padding(top = stepStyle.lineStyle.linePaddingStart, bottom = stepStyle.lineStyle.linePaddingEnd),
-                thickness = stepStyle.lineStyle.lineThickness,
-                color = lineColor
+            KotStepVerticalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                height = stepStyle.lineStyle.lineSize,
+                width = stepStyle.lineStyle.lineThickness,
+                lineTrackColor = stepStyle.colors.todoLineColor,
+                lineProgressColor = lineColor,
+                lineStyle = lineStyle,
+                progress = 0f
             )
         }
     }
