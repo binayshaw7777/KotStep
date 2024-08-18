@@ -36,7 +36,7 @@ internal fun RenderVerticalIconWithLabel(
                 "If all elements are null, consider using 'NumberedStepper' instead."
     }
     require(icons.size >= trailingLabels.size) { "Icons should be equal to or greater than labels" }
-    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between -1 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between -1 and total steps but it was ${currentStep.toFloat()}" }
 
     Column(modifier = modifier) {
 

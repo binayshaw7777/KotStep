@@ -33,7 +33,7 @@ internal fun RenderHorizontalDashed(
     onStepClick: (Int) -> Unit = {}
 ) {
 
-    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()}" }
 
     var size by remember { mutableStateOf(IntSize.Zero) }
 
@@ -45,18 +45,19 @@ internal fun RenderHorizontalDashed(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        for (i in 0 until totalSteps) {
+        for (index in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep.toInt() -> StepState.DONE
-                i == currentStep.toInt() -> StepState.CURRENT
+                index < currentStep.toInt() -> StepState.DONE
+                index == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
             }
+
             HorizontalDashedStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
                 totalSteps = totalSteps,
-                size = size
-            ) { onStepClick(i) }
+                size = size,
+            ) { onStepClick(index) }
         }
     }
 }

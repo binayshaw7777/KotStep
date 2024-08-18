@@ -29,22 +29,22 @@ internal fun RenderVerticalIcon(
     onStepClick: (Int) -> Unit = {}
 ) {
     require(icons.isNotEmpty()) { "Icons should not be empty" }
-    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()}" }
 
     Column(
         modifier = Modifier.then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        for (i in 0 until totalSteps) {
+        for (index in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep.toInt() -> StepState.DONE
-                i == currentStep.toInt() -> StepState.CURRENT
+                index < currentStep.toInt() -> StepState.DONE
+                index == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
             }
 
-            val lineProgress = if (i == currentStep.toInt()) {
+            val lineProgress = if (index == currentStep.toInt()) {
                 currentStep.toFloat() - currentStep.toInt()
-            } else if (i < currentStep.toInt()) {
+            } else if (index < currentStep.toInt()) {
                 1f
             } else {
                 0f
@@ -53,10 +53,10 @@ internal fun RenderVerticalIcon(
             VerticalIconStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
-                stepIcon = icons[i],
-                isLastStep = i == totalSteps - 1,
+                stepIcon = icons[index],
+                isLastStep = index == totalSteps - 1,
                 lineProgress = lineProgress,
-                onClick = { onStepClick(i) }
+                onClick = { onStepClick(index) }
             )
         }
     }

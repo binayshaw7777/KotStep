@@ -38,7 +38,7 @@ internal fun RenderHorizontalIcon(
 ) {
 
     require(icons.isNotEmpty()) { "Icons should not be empty" }
-    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()}" }
 
     var size by remember { mutableStateOf(IntSize.Zero) }
 
@@ -51,21 +51,30 @@ internal fun RenderHorizontalIcon(
         horizontalArrangement = Arrangement.Center
     ) {
 
-        for (i in 0 until totalSteps) {
+        for (index in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep.toInt() -> StepState.DONE
-                i == currentStep.toInt() -> StepState.CURRENT
+                index < currentStep.toInt() -> StepState.DONE
+                index == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
+            }
+
+            val lineProgress = if (index == currentStep.toInt()) {
+                currentStep.toFloat() - currentStep.toInt()
+            } else if (index < currentStep.toInt()) {
+                1f
+            } else {
+                0f
             }
 
             HorizontalIconStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
                 totalSteps = totalSteps,
-                stepIcon = icons[i],
-                isLastStep = i == totalSteps - 1,
-                size = size
-            ) { onStepClick(i) }
+                stepIcon = icons[index],
+                isLastStep = index == totalSteps - 1,
+                size = size,
+                lineProgress = lineProgress,
+            ) { onStepClick(index) }
         }
     }
 }

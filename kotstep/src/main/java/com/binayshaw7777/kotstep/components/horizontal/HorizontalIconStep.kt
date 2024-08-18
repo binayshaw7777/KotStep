@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +24,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.components.divider.KotStepHorizontalDivider
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -39,6 +40,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param stepIcon The icon to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
  * @param size The size of the stepper.
+ * @param lineProgress The progress of the line (fractional value).
  * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
@@ -50,6 +52,7 @@ internal fun HorizontalIconStep(
     stepIcon: ImageVector,
     isLastStep: Boolean,
     size: IntSize,
+    lineProgress: Float,
     onClick: () -> Unit
 ) {
 
@@ -77,6 +80,12 @@ internal fun HorizontalIconStep(
             StepState.CURRENT -> stepStyle.colors.currentLineColor
             StepState.DONE -> stepStyle.colors.doneLineColor
         }
+    }
+
+    val lineStyle: LineStyle = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
+        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
     }
 
     Row(
@@ -131,15 +140,17 @@ internal fun HorizontalIconStep(
 
         // Display is continuous line if not completed
         if (!isLastStep) {
-            HorizontalDivider(
-                modifier = Modifier
-                    .widthIn(max = stepStyle.lineStyle.lineSize)
-                    .padding(
-                        start = stepStyle.lineStyle.linePaddingStart,
-                        end = stepStyle.lineStyle.linePaddingEnd
-                    ),
-                thickness = stepStyle.lineStyle.lineThickness,
-                color = lineColor
+            KotStepHorizontalDivider(
+                modifier = Modifier.padding(
+                    start = stepStyle.lineStyle.linePaddingStart,
+                    end = stepStyle.lineStyle.linePaddingEnd
+                ),
+                height = stepStyle.lineStyle.lineThickness,
+                width = stepStyle.lineStyle.lineSize,
+                lineTrackColor = stepStyle.colors.todoLineColor,
+                lineProgressColor = lineColor,
+                lineStyle = lineStyle,
+                progress = lineProgress
             )
         }
     }

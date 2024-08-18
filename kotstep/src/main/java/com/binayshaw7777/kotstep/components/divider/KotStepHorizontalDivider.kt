@@ -16,10 +16,10 @@ import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.LineStyle
 
 @Composable
-internal fun KotStepVerticalDivider(
+fun KotStepHorizontalDivider(
     modifier: Modifier = Modifier,
-    height: Dp,
-    width: Dp = 1.dp,
+    width: Dp,
+    height: Dp = 1.dp,
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
     lineStyle: LineStyle = LineStyle.SOLID,
@@ -47,32 +47,32 @@ internal fun KotStepVerticalDivider(
             // Draw background line
             drawLine(
                 color = lineTrackColor,
-                start = Offset(size.width / 2, 0f),
-                end = Offset(size.width / 2, size.height),
-                strokeWidth = width.toPx(),
+                start = Offset(0f, size.height / 2),
+                end = Offset(size.width, size.height / 2),
+                strokeWidth = height.toPx(),
                 pathEffect = pathEffect
             )
 
             // Draw progress line
             drawLine(
                 color = lineProgressColor,
-                start = Offset(size.width / 2, 0f),
-                end = Offset(size.width / 2, size.height * animatedProgress),
-                strokeWidth = width.toPx(),
+                start = Offset(0f, size.height / 2),
+                end = Offset(size.width * animatedProgress, size.height / 2),
+                strokeWidth = height.toPx(),
                 pathEffect = pathEffect
             )
         } else {
-            val dotRadius = width.toPx() / 2
+            val dotRadius = height.toPx() / 2
             val spaceBetweenDots = dotRadius * 4
-            val totalDots = (size.height / spaceBetweenDots).toInt()
+            val totalDots = (size.width / spaceBetweenDots).toInt()
 
             for (i in 0 until totalDots) {
-                val y = i * spaceBetweenDots + dotRadius
+                val x = i * spaceBetweenDots + dotRadius
 
                 drawCircle(
-                    color = lineProgressColor,
+                    color = if (x <= size.width * animatedProgress) lineProgressColor else lineTrackColor,
                     radius = dotRadius,
-                    center = Offset(size.width / 2, y)
+                    center = Offset(x, size.height / 2)
                 )
             }
         }

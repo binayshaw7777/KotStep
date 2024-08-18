@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -16,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
+import com.binayshaw7777.kotstep.components.divider.KotStepHorizontalDivider
 import com.binayshaw7777.kotstep.components.tabs.CurrentTab
 import com.binayshaw7777.kotstep.components.tabs.DoneTab
 import com.binayshaw7777.kotstep.components.tabs.TodoTab
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -32,6 +33,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param totalSteps The total number of steps in the stepper.
  * @param isLastStep Whether the step is the last step in the stepper.
  * @param size The size of the stepper.
+ * @param lineProgress The progress of the line (fractional value).
  * @param onClick The callback to be invoked when the step is clicked.
  */
 @Composable
@@ -42,6 +44,7 @@ internal fun HorizontalTabStep(
     totalSteps: Int,
     isLastStep: Boolean,
     size: IntSize,
+    lineProgress: Float,
     onClick: () -> Unit
 ) {
 
@@ -69,6 +72,12 @@ internal fun HorizontalTabStep(
             StepState.CURRENT -> stepStyle.colors.currentLineColor
             StepState.DONE -> stepStyle.colors.doneLineColor
         }
+    }
+
+    val lineStyle: LineStyle = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
+        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
     }
 
     Row(
@@ -121,10 +130,17 @@ internal fun HorizontalTabStep(
         }
 
         if (!isLastStep) {
-            HorizontalDivider(
-                thickness = stepStyle.lineStyle.lineThickness,
-                color = lineColor,
-                modifier = Modifier.padding(start = stepStyle.lineStyle.linePaddingStart, end = stepStyle.lineStyle.linePaddingEnd)
+            KotStepHorizontalDivider(
+                modifier = Modifier.padding(
+                    start = stepStyle.lineStyle.linePaddingStart,
+                    end = stepStyle.lineStyle.linePaddingEnd
+                ),
+                height = stepStyle.lineStyle.lineThickness,
+                width = stepStyle.lineStyle.lineSize,
+                lineTrackColor = stepStyle.colors.todoLineColor,
+                lineProgressColor = lineColor,
+                lineStyle = lineStyle,
+                progress = lineProgress
             )
         }
     }

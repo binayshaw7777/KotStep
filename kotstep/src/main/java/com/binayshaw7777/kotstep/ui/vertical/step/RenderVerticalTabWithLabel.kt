@@ -31,7 +31,7 @@ internal fun RenderVerticalTabWithLabel(
                 "If all elements are null, consider using 'NumberedStepper' instead."
     }
 
-    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between -1 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between -1 and total steps but it was ${currentStep.toFloat()}" }
 
     Column(modifier = modifier) {
 
