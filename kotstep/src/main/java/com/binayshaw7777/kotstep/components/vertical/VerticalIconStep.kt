@@ -35,6 +35,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param stepState The current state of the step.
  * @param stepIcon The icon to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
+ * @param lineProgress The progress of the line (fractional value).
  * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
@@ -44,6 +45,7 @@ internal fun VerticalIconStep(
     stepState: StepState,
     stepIcon: ImageVector,
     isLastStep: Boolean,
+    lineProgress: Float,
     onClick: () -> Unit
 ) {
 
@@ -94,7 +96,10 @@ internal fun VerticalIconStep(
                 .clip(stepStyle.stepShape)
                 .then(
                     if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
-                        Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                        Modifier.border(
+                            BorderStroke(2.dp, stepStyle.colors.currentContainerColor),
+                            shape = stepStyle.stepShape
+                        )
                     } else {
                         Modifier
                     }
@@ -119,13 +124,16 @@ internal fun VerticalIconStep(
         // Display is continuous line if not completed
         if (!isLastStep) {
             KotStepVerticalDivider(
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = Modifier.padding(
+                    top = stepStyle.lineStyle.linePaddingTop,
+                    bottom = stepStyle.lineStyle.linePaddingBottom
+                ),
                 height = stepStyle.lineStyle.lineSize,
                 width = stepStyle.lineStyle.lineThickness,
                 lineTrackColor = stepStyle.colors.todoLineColor,
                 lineProgressColor = lineColor,
                 lineStyle = lineStyle,
-                progress = 0f
+                progress = lineProgress
             )
         }
     }

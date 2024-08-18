@@ -7,13 +7,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +27,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension.Companion.fillToConstraints
+import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -42,6 +42,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param stepIcon The icon to be displayed in the step.
  * @param trailingLabel The label to be displayed on the right side for each step.
  * @param isLastStep A flag indicating if the step is the last step in the stepper.
+ * @param lineProgress The progress of the line (fractional value).
  * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
@@ -52,6 +53,7 @@ internal fun VerticalIconWithLabelStep(
     stepIcon: ImageVector,
     trailingLabel: (@Composable () -> Unit)?,
     isLastStep: Boolean,
+    lineProgress: Float,
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -82,6 +84,12 @@ internal fun VerticalIconWithLabelStep(
             StepState.CURRENT -> stepStyle.colors.currentLineColor
             StepState.DONE -> stepStyle.colors.doneLineColor
         }
+    }
+
+    val lineStyle: LineStyle = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
+        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
     }
 
     var labelHeight by remember { mutableStateOf(0.dp) }
@@ -135,18 +143,29 @@ internal fun VerticalIconWithLabelStep(
         // Vertical Divider (Line)
         if (!isLastStep) {
             val measuredLabelHeight =
-                if (isLabelMeasured) maxOf(labelHeight, stepStyle.lineStyle.lineSize) else stepStyle.lineStyle.lineSize
-            VerticalDivider(
+                if (isLabelMeasured) maxOf(
+                    labelHeight,
+                    stepStyle.lineStyle.lineSize
+                ) else stepStyle.lineStyle.lineSize
+
+            KotStepVerticalDivider(
                 modifier = Modifier
-                    .height(measuredLabelHeight)
+                    .padding(
+                        top = stepStyle.lineStyle.linePaddingTop,
+                        bottom = stepStyle.lineStyle.linePaddingBottom
+                    )
                     .constrainAs(divider) {
                         top.linkTo(iconBox.bottom, margin = stepStyle.lineStyle.linePaddingTop)
                         start.linkTo(iconBox.start)
                         end.linkTo(iconBox.end)
                         bottom.linkTo(parent.bottom, margin = stepStyle.lineStyle.linePaddingBottom)
                     },
-                thickness = stepStyle.lineStyle.lineThickness,
-                color = lineColor
+                height = measuredLabelHeight,
+                width = stepStyle.lineStyle.lineThickness,
+                lineTrackColor = stepStyle.colors.todoLineColor,
+                lineProgressColor = lineColor,
+                lineStyle = lineStyle,
+                progress = lineProgress
             )
         }
 

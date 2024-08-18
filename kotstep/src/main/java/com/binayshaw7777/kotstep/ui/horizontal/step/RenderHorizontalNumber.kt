@@ -34,7 +34,7 @@ internal fun RenderHorizontalNumber(
     onStepClick: (Int) -> Unit = {}
 ) {
 
-    require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps" }
 
     var size by remember { mutableStateOf(IntSize.Zero) }
 
@@ -50,7 +50,7 @@ internal fun RenderHorizontalNumber(
         for (i in 0 until totalSteps) {
             val stepState = when {
                 i < currentStep.toInt() -> StepState.DONE
-                i == currentStep -> StepState.CURRENT
+                i == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
             }
             HorizontalNumberedStep(

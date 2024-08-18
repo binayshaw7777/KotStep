@@ -26,7 +26,7 @@ internal fun RenderVerticalTab(
     onStepClick: (Int) -> Unit = {}
 ) {
 
-    require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps" }
 
     Column(
         modifier = Modifier.then(modifier),
@@ -36,14 +36,23 @@ internal fun RenderVerticalTab(
         for (i in 0 until totalSteps) {
             val stepState = when {
                 i < currentStep.toInt() -> StepState.DONE
-                i == currentStep -> StepState.CURRENT
+                i == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
+            }
+
+            val lineProgress = if (i == currentStep.toInt()) {
+                currentStep.toFloat() - currentStep.toInt()
+            } else if (i < currentStep.toInt()) {
+                1f
+            } else {
+                0f
             }
 
             VerticalTabStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
                 isLastStep = i == totalSteps - 1,
+                lineProgress = lineProgress,
             ) { onStepClick(i) }
         }
     }

@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.LineDefault
@@ -98,7 +99,7 @@ fun MainPreview() {
             mutableIntStateOf(5)
         }
 
-        var currentStep by rememberSaveable { mutableIntStateOf(-1) }
+        var currentStep by rememberSaveable { mutableFloatStateOf(-1f) }
 
         var showCheckMark by remember { mutableStateOf(true) }
         var showStepStroke by remember { mutableStateOf(true) }
@@ -139,6 +140,10 @@ fun MainPreview() {
             trailingLabels.addAll(Utils.getLabels(totalSteps))
         }
 
+        LaunchedEffect(currentStep) {
+            println("Current Step: $currentStep")
+        }
+
         val stepStyle = StepStyle(
             lineStyle = LineDefault(
                 lineThickness = lineThickness.dp,
@@ -177,7 +182,9 @@ fun MainPreview() {
         ) {
 
             Row(
-                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Box {
                     IconButton(onClick = { expanded = true }) {
@@ -325,6 +332,11 @@ fun MainPreview() {
                         )
                     }
                 }
+
+                Text(
+                    text = "Current Step: $currentStep",
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium)
+                )
 
                 Box {
                     IconButton(onClick = { expandedShapeMenu = true }) {
@@ -512,7 +524,7 @@ fun MainPreview() {
 
                         // Because the current step should be less than the total steps
                         if (currentStep >= totalSteps) {
-                            currentStep = totalSteps - 1
+                            currentStep = newValue - 1f
                         }
                     },
                     valueRange = 1f..10f, // Set the range of Total Steps
@@ -573,13 +585,14 @@ fun MainPreview() {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
 
                 AnimatedVisibility(
-                    visible = currentStep >= 0,
+                    visible = currentStep >= -0.75f,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
-                        onClick = { currentStep-- },
-                        enabled = currentStep >= 0
+                        onClick = {
+                            currentStep -= 0.25f
+                        }
                     ) {
                         Text(text = "Previous")
                     }
@@ -588,17 +601,16 @@ fun MainPreview() {
                 Spacer(Modifier.weight(1f))
 
                 AnimatedVisibility(
-                    visible = currentStep < totalSteps,
+                    visible = currentStep < totalSteps.toFloat(),
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
-                        onClick = { currentStep++ },
-                        enabled = currentStep < totalSteps
+                        onClick = { currentStep += 0.25f }
                     ) {
                         Text(
                             text =
-                            if (currentStep == -1) "Start"
+                            if (currentStep == -1f) "Start"
                             else if (currentStep >= totalSteps) "Finish"
                             else "Next"
                         )
