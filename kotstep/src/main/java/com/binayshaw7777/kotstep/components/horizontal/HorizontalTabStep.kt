@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import com.binayshaw7777.kotstep.components.divider.KotStepHorizontalDivider
@@ -80,6 +81,12 @@ internal fun HorizontalTabStep(
         StepState.DONE -> stepStyle.lineStyle.doneLineStyle
     }
 
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
+    }
+
     Row(
         modifier = Modifier
             .noRippleClickable {
@@ -140,7 +147,8 @@ internal fun HorizontalTabStep(
                 lineTrackColor = stepStyle.colors.todoLineColor,
                 lineProgressColor = lineColor,
                 lineStyle = lineStyle,
-                progress = lineProgress
+                progress = lineProgress,
+                strokeCap = strokeCap
             )
         }
     }

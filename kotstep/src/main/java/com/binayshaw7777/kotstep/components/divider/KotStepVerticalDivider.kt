@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.LineStyle
@@ -23,7 +24,8 @@ internal fun KotStepVerticalDivider(
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
     lineStyle: LineStyle = LineStyle.SOLID,
-    progress: Float = 1f
+    progress: Float = 1f,
+    strokeCap: StrokeCap = StrokeCap.Round
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress.coerceIn(0f, 1f),
@@ -50,7 +52,8 @@ internal fun KotStepVerticalDivider(
                 start = Offset(size.width / 2, 0f),
                 end = Offset(size.width / 2, size.height),
                 strokeWidth = width.toPx(),
-                pathEffect = pathEffect
+                pathEffect = pathEffect,
+                cap = strokeCap
             )
 
             // Draw progress line
@@ -59,7 +62,8 @@ internal fun KotStepVerticalDivider(
                 start = Offset(size.width / 2, 0f),
                 end = Offset(size.width / 2, size.height * animatedProgress),
                 strokeWidth = width.toPx(),
-                pathEffect = pathEffect
+                pathEffect = pathEffect,
+                cap = strokeCap
             )
         } else {
             val dotRadius = width.toPx() / 2

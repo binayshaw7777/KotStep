@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
@@ -81,6 +82,12 @@ internal fun VerticalIconStep(
         StepState.DONE -> stepStyle.lineStyle.doneLineStyle
     }
 
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
+    }
+
     Column(
         modifier = Modifier
             .noRippleClickable { onClick() }
@@ -133,7 +140,8 @@ internal fun VerticalIconStep(
                 lineTrackColor = stepStyle.colors.todoLineColor,
                 lineProgressColor = lineColor,
                 lineStyle = lineStyle,
-                progress = lineProgress
+                progress = lineProgress,
+                strokeCap = strokeCap
             )
         }
     }

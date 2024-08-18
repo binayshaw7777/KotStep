@@ -152,7 +152,7 @@ fun MainPreview() {
                 linePaddingEnd = 2.dp,
                 linePaddingTop = 5.dp,
                 linePaddingBottom = 5.dp,
-                strokeCap = StrokeCap.Square,
+                strokeCap = StrokeCap.Round,
                 todoLineStyle = LineStyle.DOTTED,
                 currentLineStyle = LineStyle.DASHED,
                 doneLineStyle = LineStyle.SOLID

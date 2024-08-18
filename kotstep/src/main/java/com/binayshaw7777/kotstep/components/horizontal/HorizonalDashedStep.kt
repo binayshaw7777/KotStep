@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -58,6 +59,12 @@ internal fun HorizontalDashedStep(
         }
     }
 
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
+    }
+
     LinearProgressIndicator(
         progress = { progressState },
         modifier = Modifier
@@ -79,6 +86,6 @@ internal fun HorizontalDashedStep(
             .then(modifier),
         color = containerColor,
         trackColor = containerColor,
-        strokeCap = stepStyle.lineStyle.strokeCap
+        strokeCap = strokeCap
     )
 }

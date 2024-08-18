@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -82,6 +83,12 @@ internal fun VerticalTabWithLabelStep(
         StepState.TODO -> stepStyle.lineStyle.todoLineStyle
         StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
         StepState.DONE -> stepStyle.lineStyle.doneLineStyle
+    }
+
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
     }
 
     var labelHeight by remember { mutableStateOf(0.dp) }
@@ -155,7 +162,8 @@ internal fun VerticalTabWithLabelStep(
                 lineTrackColor = stepStyle.colors.todoLineColor,
                 lineProgressColor = lineColor,
                 lineStyle = lineStyle,
-                progress = lineProgress
+                progress = lineProgress,
+                strokeCap = strokeCap
             )
         }
 
