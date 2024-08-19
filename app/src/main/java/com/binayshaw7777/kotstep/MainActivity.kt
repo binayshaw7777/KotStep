@@ -285,8 +285,9 @@ fun MainPreview() {
                                             onOptionSelected(text)
                                             strokeCap = strokeCapOptionsMapped[index]
                                         }
-                                    )
-                                    .padding(horizontal = 16.dp)
+                                    ),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Start
                             ) {
                                 RadioButton(
                                     selected = (text == selectedStrokeCapOption),
@@ -298,7 +299,7 @@ fun MainPreview() {
                                 Text(
                                     text = text,
                                     style = MaterialTheme.typography.bodySmall,
-                                    modifier = Modifier.padding(start = 16.dp)
+                                    modifier = Modifier.padding(start = 8.dp)
                                 )
                             }
                         }
