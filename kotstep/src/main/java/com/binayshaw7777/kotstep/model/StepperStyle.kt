@@ -38,7 +38,7 @@ typealias StepLabel = (@Composable () -> Unit)?
  */
 sealed class BaseStepperStyle(
     val totalSteps: Int,
-    val currentStep: Int,
+    val currentStep: Number,
     val onStepClick: (StepIndex) -> Unit = {}
 )
 
@@ -51,7 +51,7 @@ sealed class BaseStepperStyle(
  */
 sealed class HorizontalStepperStyle(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: kotlin.Number,
     onStepClick: (StepIndex) -> Unit
 ) :
     BaseStepperStyle(totalSteps, currentStep, onStepClick) {
@@ -63,7 +63,7 @@ sealed class HorizontalStepperStyle(
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style for the step numbers.
      */
-    class Tab(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+    class Tab(totalSteps: Int, currentStep: kotlin.Number, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep, {})
 
     /**
@@ -76,7 +76,7 @@ sealed class HorizontalStepperStyle(
      */
     class Icon(
         totalSteps: Int,
-        currentStep: Int,
+        currentStep: kotlin.Number,
         val icons: List<ImageVector>,
         val stepStyle: StepStyle
     ) :
@@ -89,7 +89,7 @@ sealed class HorizontalStepperStyle(
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style for the step numbers.
      */
-    class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+    class Number(totalSteps: Int, currentStep: kotlin.Number, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep, {})
 
 
@@ -100,7 +100,7 @@ sealed class HorizontalStepperStyle(
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style for the step numbers.
      */
-    class Dashed(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+    class Dashed(totalSteps: Int, currentStep: kotlin.Number, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep, {})
 
 }
@@ -115,7 +115,7 @@ sealed class HorizontalStepperStyle(
  */
 sealed class VerticalStepperStyle(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: kotlin.Number,
     onStepClick: (StepIndex) -> Unit
 ) :
     BaseStepperStyle(totalSteps, currentStep, onStepClick) {
@@ -127,7 +127,7 @@ sealed class VerticalStepperStyle(
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style for the step numbers.
      */
-    class Tab(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+    class Tab(totalSteps: Int, currentStep: kotlin.Number, val stepStyle: StepStyle) :
         VerticalStepperStyle(totalSteps, currentStep, {})
 
     /**
@@ -137,7 +137,7 @@ sealed class VerticalStepperStyle(
      * @property currentStep The current active step in the stepper (-1 .. totalSteps).
      * @property stepStyle The style for the step numbers.
      */
-    class Number(totalSteps: Int, currentStep: Int, val stepStyle: StepStyle) :
+    class Number(totalSteps: Int, currentStep: kotlin.Number, val stepStyle: StepStyle) :
         VerticalStepperStyle(totalSteps, currentStep, {})
 
 
@@ -149,7 +149,7 @@ sealed class VerticalStepperStyle(
      * @property icons The list of icons to be displayed in the stepper.
      */
     class Icon(
-        totalSteps: Int, currentStep: Int,
+        totalSteps: Int, currentStep: kotlin.Number,
         val icons: List<ImageVector>,
         val stepStyle: StepStyle,
     ) :
@@ -166,7 +166,7 @@ sealed class VerticalStepperStyle(
      *
      */
     class NumberWithLabel(
-        totalSteps: Int, currentStep: Int,
+        totalSteps: Int, currentStep: kotlin.Number,
         val stepStyle: StepStyle,
         val trailingLabels: List<StepLabel>
     ) :
@@ -185,7 +185,7 @@ sealed class VerticalStepperStyle(
      */
     class IconWithLabel(
         totalSteps: Int,
-        currentStep: Int,
+        currentStep: kotlin.Number,
         val icons: List<ImageVector>,
         val stepStyle: StepStyle,
         val trailingLabels: List<StepLabel>
@@ -201,7 +201,7 @@ sealed class VerticalStepperStyle(
      * @property trailingLabels List of optional composable functions to render trailingLabels for each step.
      */
     class TabWithLabel(
-        totalSteps: Int, currentStep: Int,
+        totalSteps: Int, currentStep: kotlin.Number,
         val stepStyle: StepStyle,
         val trailingLabels: List<StepLabel>
     ) :
@@ -251,7 +251,7 @@ sealed class VerticalStepperStyle(
  */
 fun dashed(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle()
 ): HorizontalStepperStyle.Dashed {
     return HorizontalStepperStyle.Dashed(
@@ -304,7 +304,7 @@ fun dashed(
  */
 fun tabHorizontal(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle()
 ): HorizontalStepperStyle.Tab {
     return HorizontalStepperStyle.Tab(
@@ -357,7 +357,7 @@ fun tabHorizontal(
  */
 fun tabVertical(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.Tab {
     return VerticalStepperStyle.Tab(
@@ -421,7 +421,7 @@ fun tabVertical(
  */
 fun tabVerticalWithLabel(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     trailingLabels: List<(@Composable () -> Unit)?>,
     stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.TabWithLabel {
@@ -476,7 +476,7 @@ fun tabVerticalWithLabel(
  */
 fun numberedHorizontal(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle()
 ): HorizontalStepperStyle.Number {
     return HorizontalStepperStyle.Number(
@@ -529,7 +529,7 @@ fun numberedHorizontal(
  */
 fun numberedVertical(
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle()
 ): VerticalStepperStyle.Number {
     return VerticalStepperStyle.Number(
@@ -588,7 +588,7 @@ fun numberedVertical(
  * @since 2.0.2
  */
 fun iconHorizontal(
-    currentStep: Int,
+    currentStep: Number,
     icons: List<ImageVector>,
     stepStyle: StepStyle = StepStyle()
 ): HorizontalStepperStyle.Icon {
@@ -649,7 +649,7 @@ fun iconHorizontal(
  * @since 2.0.2
  */
 fun iconVertical(
-    currentStep: Int,
+    currentStep: Number,
     icons: List<ImageVector>,
     stepStyle: StepStyle = StepStyle(),
 ): VerticalStepperStyle.Icon {
@@ -723,7 +723,7 @@ fun iconVertical(
  * @since 2.1.0
  */
 fun iconVerticalWithLabel(
-    currentStep: Int,
+    currentStep: Number,
     icons: List<ImageVector>,
     trailingLabels: List<(@Composable () -> Unit)?>,
     totalSteps: Int = icons.size,
@@ -790,7 +790,7 @@ fun iconVerticalWithLabel(
  * @since 2.1.0
  */
 fun numberedVerticalWithLabel(
-    currentStep: Int,
+    currentStep: Number,
     trailingLabels: List<(@Composable () -> Unit)?>,
     totalSteps: Int = trailingLabels.size,
     stepStyle: StepStyle = StepStyle()

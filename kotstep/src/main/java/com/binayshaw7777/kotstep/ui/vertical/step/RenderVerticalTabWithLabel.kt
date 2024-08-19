@@ -21,7 +21,7 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderVerticalTabWithLabel(
     modifier: Modifier = Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle,
     trailingLabels: List<(@Composable () -> Unit)?>,
     onStepClick: (Int) -> Unit = {}
@@ -31,22 +31,31 @@ internal fun RenderVerticalTabWithLabel(
                 "If all elements are null, consider using 'NumberedStepper' instead."
     }
 
-    require(currentStep in -1..totalSteps) { "Current step should be between -1 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between -1 and total steps but it was ${currentStep.toFloat()}" }
 
     Column(modifier = modifier) {
 
         trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
-                index < currentStep -> StepState.DONE
-                index == currentStep -> StepState.CURRENT
+                index < currentStep.toInt() -> StepState.DONE
+                index == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
+            }
+
+            val lineProgress = if (index == currentStep.toInt()) {
+                currentStep.toFloat() - currentStep.toInt()
+            } else if (index < currentStep.toInt()) {
+                1f
+            } else {
+                0f
             }
 
             VerticalTabWithLabelStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
                 trailingLabel = trailingLabel,
-                isLastStep = index == trailingLabels.size - 1
+                isLastStep = index == trailingLabels.size - 1,
+                lineProgress = lineProgress
             ) { onStepClick(index) }
         }
     }

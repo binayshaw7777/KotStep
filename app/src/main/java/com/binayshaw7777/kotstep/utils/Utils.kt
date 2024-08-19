@@ -2,6 +2,7 @@ package com.binayshaw7777.kotstep.utils
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -39,8 +40,12 @@ object Utils {
     fun getLabels(limit: Int) = listOf<@Composable (() -> Unit)?>(
         { Text("Ordered") },
         {
-            Column {
+            Column(verticalArrangement = Arrangement.Top) {
                 Text("Shipped")
+                Text("Reached the facility X.", fontSize = 14.sp)
+                Text("Reached the facility X.", fontSize = 14.sp)
+                Text("Reached the facility X.", fontSize = 14.sp)
+                Text("Reached the facility X.", fontSize = 14.sp)
                 Text("Reached the facility X.", fontSize = 14.sp)
             }
         },
