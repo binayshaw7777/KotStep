@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
-import com.binayshaw7777.kotstep.model.LineStyle
+import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -78,10 +78,10 @@ internal fun VerticalNumberedStep(
         }
     }
 
-    val lineStyle: LineStyle = when (stepState) {
-        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
-        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
-        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
+    val lineStyle: LineType = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineType
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineType
+        StepState.DONE -> stepStyle.lineStyle.doneLineType
     }
 
     val strokeCap: StrokeCap = when (stepState) {

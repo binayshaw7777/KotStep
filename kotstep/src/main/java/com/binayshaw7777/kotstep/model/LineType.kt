@@ -1,7 +1,7 @@
 package com.binayshaw7777.kotstep.model
 
 /**
- * An Enum class for LineStyle
+ * An Enum class for LineType
  *
  * SOLID -> Solid Line without any breaks (Default)
  *
@@ -10,7 +10,7 @@ package com.binayshaw7777.kotstep.model
  * DASHED -> Dashed Line with larger breaks
  *
  */
-enum class LineStyle {
+enum class LineType {
     SOLID,
     DOTTED,
     DASHED
