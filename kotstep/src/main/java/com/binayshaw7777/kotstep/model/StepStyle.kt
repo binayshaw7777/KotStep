@@ -46,9 +46,9 @@ data class StepStyle(
  * @property linePaddingTop The top padding of the line.
  * @property linePaddingBottom The bottom padding of the line.
  * @property strokeCap The cap of the line.
- * @property todoLineStyle The style of the todo line.
- * @property currentLineStyle The style of the current line.
- * @property doneLineStyle The style of the done line.
+ * @property todoLineType The style of the todo line.
+ * @property currentLineType The style of the current line.
+ * @property doneLineType The style of the done line.
  */
 @Immutable
 data class LineDefault(
@@ -59,9 +59,9 @@ data class LineDefault(
     val linePaddingTop: Dp = 0.dp,
     val linePaddingBottom: Dp = 0.dp,
     val strokeCap: StrokeCap = StrokeCap.Square,
-    val todoLineStyle: LineStyle = LineStyle.SOLID,
-    val currentLineStyle: LineStyle = LineStyle.SOLID,
-    val doneLineStyle: LineStyle = LineStyle.SOLID
+    val todoLineType: LineType = LineType.SOLID,
+    val currentLineType: LineType = LineType.SOLID,
+    val doneLineType: LineType = LineType.SOLID
 ) {
     companion object {
         fun defaultLine() = LineDefault(
@@ -82,30 +82,24 @@ data class LineDefault(
  * @property todoContainerColor The color of the todo container.
  * @property todoContentColor The color of the todo content.
  * @property todoLineColor The color of the todo line.
- * @property todoLineStep The style of the todo line.
  * @property currentContainerColor The color of the current container.
  * @property currentContentColor The color of the current content.
  * @property currentLineColor The color of the current line.
- * @property currentLineStyle The style of the current line.
  * @property doneContainerColor The color of the done container.
  * @property doneContentColor The color of the done content.
  * @property doneLineColor The color of the done line.
- * @property doneLineStyle The style of the done line.
  */
 @Immutable
 data class StepDefaults(
     val todoContainerColor: Color = Color.Gray,
     val todoContentColor: Color = Color.DarkGray,
     val todoLineColor: Color = Color.Gray,
-    val todoLineStep: LineStyle = LineStyle.SOLID,
     val currentContainerColor: Color = Color.Blue,
     val currentContentColor: Color = Color.White,
     val currentLineColor: Color = Color.Blue,
-    val currentLineStyle: LineStyle = LineStyle.SOLID,
     val doneContainerColor: Color = Color.Green,
     val doneContentColor: Color = Color.White,
     val doneLineColor: Color = Color.Green,
-    val doneLineStyle: LineStyle = LineStyle.SOLID
 ) {
     companion object {
         /**

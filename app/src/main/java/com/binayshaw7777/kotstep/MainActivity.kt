@@ -57,7 +57,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.LineDefault
-import com.binayshaw7777.kotstep.model.LineStyle
+import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepDefaults
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
@@ -145,9 +145,9 @@ fun MainPreview() {
                 linePaddingTop = lineTopPadding.dp,
                 linePaddingBottom = lineBottomPadding.dp,
                 strokeCap = strokeCap,
-                todoLineStyle = LineStyle.DOTTED,
-                currentLineStyle = LineStyle.DASHED,
-                doneLineStyle = LineStyle.SOLID
+                todoLineType = LineType.DOTTED,
+                currentLineType = LineType.DASHED,
+                doneLineType = LineType.SOLID
             ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,

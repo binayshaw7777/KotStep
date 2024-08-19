@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.binayshaw7777.kotstep.model.LineStyle
+import com.binayshaw7777.kotstep.model.LineType
 
 @Composable
 internal fun KotStepVerticalDivider(
@@ -23,7 +23,7 @@ internal fun KotStepVerticalDivider(
     width: Dp = 1.dp,
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
-    lineStyle: LineStyle = LineStyle.SOLID,
+    lineStyle: LineType = LineType.SOLID,
     progress: Float = 1f,
     strokeCap: StrokeCap = StrokeCap.Round
 ) {
@@ -40,12 +40,12 @@ internal fun KotStepVerticalDivider(
             .height(height)
     ) {
         val pathEffect = when (lineStyle) {
-            LineStyle.SOLID -> null
-            LineStyle.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-            LineStyle.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+            LineType.SOLID -> null
+            LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+            LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
         }
 
-        if (lineStyle != LineStyle.DOTTED) {
+        if (lineStyle != LineType.DOTTED) {
             // Draw background line
             drawLine(
                 color = lineTrackColor,
