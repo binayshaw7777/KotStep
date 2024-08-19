@@ -5,17 +5,19 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
 import com.binayshaw7777.kotstep.components.tabs.CurrentTab
 import com.binayshaw7777.kotstep.components.tabs.DoneTab
 import com.binayshaw7777.kotstep.components.tabs.TodoTab
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -27,6 +29,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param stepStyle The style of the step.
  * @param stepState The state of the step.
  * @param isLastStep A flag indicating whether the step is the last step in the stepper.
+ * @param lineProgress The progress of the line connecting the step to the next step.
  * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
@@ -35,6 +38,7 @@ internal fun VerticalTabStep(
     stepStyle: StepStyle,
     stepState: StepState,
     isLastStep: Boolean,
+    lineProgress: Float,
     onClick: () -> Unit
 ) {
 
@@ -46,6 +50,34 @@ internal fun VerticalTabStep(
             StepState.CURRENT -> stepStyle.colors.currentContainerColor
             StepState.DONE -> stepStyle.colors.doneContainerColor
         }
+    }
+
+    val contentColor: Color by transition.animateColor(label = "contentColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoContentColor
+            StepState.CURRENT -> stepStyle.colors.currentContentColor
+            StepState.DONE -> stepStyle.colors.doneContentColor
+        }
+    }
+
+    val lineColor: Color by transition.animateColor(label = "lineColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoLineColor
+            StepState.CURRENT -> stepStyle.colors.currentLineColor
+            StepState.DONE -> stepStyle.colors.doneLineColor
+        }
+    }
+
+    val lineStyle: LineStyle = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
+        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
+    }
+
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
     }
 
     Column(
@@ -63,30 +95,40 @@ internal fun VerticalTabStep(
                 StepState.TODO -> {
                     TodoTab(
                         strokeColor = containerColor,
-                        strokeThickness = stepStyle.lineThickness.value
+                        strokeThickness = stepStyle.lineStyle.lineThickness.value
                     )
                 }
 
                 StepState.CURRENT -> {
                     CurrentTab(
                         circleColor = containerColor,
-                        strokeThickness = stepStyle.lineThickness.value
+                        strokeThickness = stepStyle.lineStyle.lineThickness.value
                     )
                 }
 
                 StepState.DONE -> {
                     DoneTab(
                         circleColor = containerColor,
+                        showTick = stepStyle.showCheckMarkOnDone,
+                        tickColor = contentColor
                     )
                 }
             }
         }
 
         if (!isLastStep) {
-            VerticalDivider(
-                modifier = Modifier.heightIn(max = stepStyle.lineSize),
-                thickness = stepStyle.lineThickness,
-                color = containerColor
+            KotStepVerticalDivider(
+                modifier = Modifier.padding(
+                    top = stepStyle.lineStyle.linePaddingTop,
+                    bottom = stepStyle.lineStyle.linePaddingBottom
+                ),
+                height = stepStyle.lineStyle.lineSize,
+                width = stepStyle.lineStyle.lineThickness,
+                lineTrackColor = stepStyle.colors.todoLineColor,
+                lineProgressColor = lineColor,
+                lineStyle = lineStyle,
+                progress = lineProgress,
+                strokeCap = strokeCap
             )
         }
     }

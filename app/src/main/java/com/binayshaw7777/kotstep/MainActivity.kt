@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -26,12 +27,16 @@ import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -48,8 +53,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.model.LineDefault
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepDefaults
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
@@ -82,6 +90,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun MainPreview() {
@@ -92,43 +101,29 @@ fun MainPreview() {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        var totalSteps by rememberSaveable {
-            mutableIntStateOf(5)
-        }
 
-        var currentStep by rememberSaveable { mutableIntStateOf(-1) }
-
+        var totalSteps by rememberSaveable { mutableIntStateOf(5) }
+        var currentStep by rememberSaveable { mutableFloatStateOf(-1f) }
         var showCheckMark by remember { mutableStateOf(true) }
         var showStepStroke by remember { mutableStateOf(true) }
-
         var expanded by remember { mutableStateOf(false) }
-
         var expandedShapeMenu by remember { mutableStateOf(false) }
-
-        var currentStepperType by remember {
-            mutableStateOf(StepperOptions.HORIZONTAL_DASHED_STEPPER)
-        }
-
-        var currentStepperItemShape by remember {
-            mutableStateOf(StepperItemShape.CIRCLE_SHAPE)
-        }
-
-        var stepItemSize by remember {
-            mutableIntStateOf(35)
-        }
-
-        var lineThickness by rememberSaveable {
-            mutableIntStateOf(6)
-        }
-
+        var currentStepperType by remember { mutableStateOf(StepperOptions.HORIZONTAL_DASHED_STEPPER) }
+        var currentStepperItemShape by remember { mutableStateOf(StepperItemShape.CIRCLE_SHAPE) }
+        var stepItemSize by remember { mutableIntStateOf(35) }
+        var lineThickness by rememberSaveable { mutableIntStateOf(6) }
         val icons = remember { mutableStateListOf<ImageVector>() }
-        val trailingLabels = remember {
-            mutableStateListOf<(@Composable () -> Unit)?>()
-        }
-
-        var lineSize by remember {
-            mutableIntStateOf(20)
-        }
+        val trailingLabels = remember { mutableStateListOf<(@Composable () -> Unit)?>() }
+        var lineSize by remember { mutableIntStateOf(20) }
+        var showLineStyleSheet by remember { mutableStateOf(false) }
+        var lineTopPadding by remember { mutableIntStateOf(0) }
+        var lineBottomPadding by remember { mutableIntStateOf(0) }
+        var lineStartPadding by remember { mutableIntStateOf(0) }
+        var lineEndPadding by remember { mutableIntStateOf(0) }
+        val strokeCapOptions = listOf("Rounded", "Butt", "Solid")
+        val strokeCapOptionsMapped = listOf(StrokeCap.Round, StrokeCap.Butt, StrokeCap.Square)
+        var strokeCap by remember { mutableStateOf(strokeCapOptionsMapped[0]) }
+        val (selectedStrokeCapOption, onOptionSelected) = remember { mutableStateOf(strokeCapOptions[0] ) }
 
         LaunchedEffect(totalSteps) {
             icons.clear()
@@ -137,22 +132,181 @@ fun MainPreview() {
             trailingLabels.addAll(Utils.getLabels(totalSteps))
         }
 
+        LaunchedEffect(currentStep) {
+            println("Current Step: $currentStep")
+        }
+
         val stepStyle = StepStyle(
-            lineThickness = lineThickness.dp,
+            lineStyle = LineDefault(
+                lineThickness = lineThickness.dp,
+                lineSize = lineSize.dp,
+                linePaddingStart = lineStartPadding.dp,
+                linePaddingEnd = lineEndPadding.dp,
+                linePaddingTop = lineTopPadding.dp,
+                linePaddingBottom = lineBottomPadding.dp,
+                strokeCap = strokeCap,
+                todoLineStyle = LineStyle.DOTTED,
+                currentLineStyle = LineStyle.DASHED,
+                doneLineStyle = LineStyle.SOLID
+            ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
-            lineSize = lineSize.dp,
-            strokeCap = StrokeCap.Round,
             stepSize = stepItemSize.dp,
             stepShape = getShapeFromEnum(currentStepperItemShape),
             colors = StepDefaults(
                 doneContainerColor = Color(0xFF00E676),
                 doneContentColor = Color(0xFF212121),
+                doneLineColor = Color(0xFF00E676),
                 currentContainerColor = Color(0xFF4B81F4),
+                currentLineColor = Color(0xFF4B81F4),
                 todoContainerColor = Color(0xFF50596C),
-                todoContentColor = Color.White
+                todoContentColor = Color.White,
+                todoLineColor = Color(0xFF50596C)
             )
         )
+
+        if (showLineStyleSheet) {
+            ModalBottomSheet(
+                onDismissRequest = { showLineStyleSheet = false },
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+            ) {
+                Column(Modifier.padding(16.dp).verticalScroll(rememberScrollState())) {
+                    Text(
+                        text = "Line Size in DP: $lineSize",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Slider(
+                        value = lineSize.toFloat(),
+                        onValueChange = { newValue ->
+                            lineSize = newValue.toInt()
+                        },
+                        valueRange = 20f..50f, // Set the range of Step Item size
+                        steps = 30, // Divide the range into 20 steps
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Line Thickness in DP: $lineThickness",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Slider(
+                        value = lineThickness.toFloat(),
+                        onValueChange = { newValue ->
+                            lineThickness = newValue.toInt()
+                        },
+                        valueRange = 1f..10f, // Set the range of Line Thickness
+                        steps = 10, // Divide the range into 7 steps
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+
+                    Text(
+                        text = "Line Padding Top in DP: $lineTopPadding",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Slider(
+                        value = lineTopPadding.toFloat(),
+                        onValueChange = { newValue ->
+                            lineTopPadding = newValue.toInt()
+                        },
+                        valueRange = 0f..10f,
+                        steps = 10,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+
+                    Text(
+                        text = "Line Padding Bottom in DP: $lineBottomPadding",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Slider(
+                        value = lineBottomPadding.toFloat(),
+                        onValueChange = { newValue ->
+                            lineBottomPadding = newValue.toInt()
+                        },
+                        valueRange = 0f..10f, // Set the range of Line Thickness
+                        steps = 11, // Divide the range into 7 steps
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Line Padding Start in DP: $lineStartPadding",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Slider(
+                        value = lineStartPadding.toFloat(),
+                        onValueChange = { newValue ->
+                            lineStartPadding = newValue.toInt()
+                        },
+                        valueRange = 0f..10f,
+                        steps = 11,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+
+                    Text(
+                        text = "Line Padding End in DP: $lineEndPadding",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Slider(
+                        value = lineEndPadding.toFloat(),
+                        onValueChange = { newValue ->
+                            lineEndPadding = newValue.toInt()
+                        },
+                        valueRange = 0f..10f, // Set the range of Line Thickness
+                        steps = 11, // Divide the range into 7 steps
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Stroke Cap: $selectedStrokeCapOption",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Column {
+                        strokeCapOptions.forEachIndexed { index, text ->
+                            Row(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .selectable(
+                                        selected = (text == selectedStrokeCapOption),
+                                        onClick = {
+                                            onOptionSelected(text)
+                                            strokeCap = strokeCapOptionsMapped[index]
+                                        }
+                                    ),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                RadioButton(
+                                    selected = (text == selectedStrokeCapOption),
+                                    onClick = {
+                                        onOptionSelected(text)
+                                        strokeCap = strokeCapOptionsMapped[index]
+                                    }
+                                )
+                                Text(
+                                    text = text,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         Column(
             modifier = Modifier
@@ -163,7 +317,9 @@ fun MainPreview() {
         ) {
 
             Row(
-                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Box {
                     IconButton(onClick = { expanded = true }) {
@@ -311,6 +467,11 @@ fun MainPreview() {
                         )
                     }
                 }
+
+                Text(
+                    text = "Current Step: $currentStep",
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium)
+                )
 
                 Box {
                     IconButton(onClick = { expandedShapeMenu = true }) {
@@ -498,7 +659,7 @@ fun MainPreview() {
 
                         // Because the current step should be less than the total steps
                         if (currentStep >= totalSteps) {
-                            currentStep = totalSteps - 1
+                            currentStep = newValue - 1f
                         }
                     },
                     valueRange = 1f..10f, // Set the range of Total Steps
@@ -524,48 +685,23 @@ fun MainPreview() {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
-                    text = "Line Size in DP: $lineSize",
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
-                Slider(
-                    value = lineSize.toFloat(),
-                    onValueChange = { newValue ->
-                        lineSize = newValue.toInt()
-                    },
-                    valueRange = 20f..50f, // Set the range of Step Item size
-                    steps = 30, // Divide the range into 20 steps
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "Line Thickness in DP: $lineThickness",
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
-                Slider(
-                    value = lineThickness.toFloat(),
-                    onValueChange = { newValue ->
-                        lineThickness = newValue.toInt()
-                    },
-                    valueRange = 3f..10f, // Set the range of Line Thickness
-                    steps = 7, // Divide the range into 7 steps
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Button(onClick = { showLineStyleSheet = true }) {
+                    Text("Modify Line Style")
+                }
             }
 
 
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
 
                 AnimatedVisibility(
-                    visible = currentStep >= 0,
+                    visible = currentStep >= -0.75f,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
-                        onClick = { currentStep-- },
-                        enabled = currentStep >= 0
+                        onClick = {
+                            currentStep -= 0.25f
+                        }
                     ) {
                         Text(text = "Previous")
                     }
@@ -574,17 +710,22 @@ fun MainPreview() {
                 Spacer(Modifier.weight(1f))
 
                 AnimatedVisibility(
-                    visible = currentStep < totalSteps,
+                    visible = currentStep < totalSteps.toFloat(),
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
-                        onClick = { currentStep++ },
-                        enabled = currentStep < totalSteps
+                        onClick = {
+                            if (currentStep == -1f) {
+                                currentStep = 0f
+                            } else {
+                                currentStep += 0.25f
+                            }
+                        }
                     ) {
                         Text(
                             text =
-                            if (currentStep == -1) "Start"
+                            if (currentStep == -1f) "Start"
                             else if (currentStep >= totalSteps) "Finish"
                             else "Next"
                         )

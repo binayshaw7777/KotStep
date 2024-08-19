@@ -23,31 +23,40 @@ import com.binayshaw7777.kotstep.model.StepStyle
 internal fun RenderVerticalIcon(
     modifier: Modifier = Modifier,
     totalSteps: Int,
-    currentStep: Int,
+    currentStep: Number,
     stepStyle: StepStyle = StepStyle(),
     icons: List<ImageVector>,
     onStepClick: (Int) -> Unit = {}
 ) {
     require(icons.isNotEmpty()) { "Icons should not be empty" }
-    require(currentStep in -1..totalSteps) { "Current step should be between 0 and total steps" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()}" }
 
     Column(
         modifier = Modifier.then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        for (i in 0 until totalSteps) {
+        for (index in 0 until totalSteps) {
             val stepState = when {
-                i < currentStep -> StepState.DONE
-                i == currentStep -> StepState.CURRENT
+                index < currentStep.toInt() -> StepState.DONE
+                index == currentStep.toInt() -> StepState.CURRENT
                 else -> StepState.TODO
+            }
+
+            val lineProgress = if (index == currentStep.toInt()) {
+                currentStep.toFloat() - currentStep.toInt()
+            } else if (index < currentStep.toInt()) {
+                1f
+            } else {
+                0f
             }
 
             VerticalIconStep(
                 stepStyle = stepStyle,
                 stepState = stepState,
-                stepIcon = icons[i],
-                isLastStep = i == totalSteps - 1,
-                onClick = { onStepClick(i) }
+                stepIcon = icons[index],
+                isLastStep = index == totalSteps - 1,
+                lineProgress = lineProgress,
+                onClick = { onStepClick(index) }
             )
         }
     }

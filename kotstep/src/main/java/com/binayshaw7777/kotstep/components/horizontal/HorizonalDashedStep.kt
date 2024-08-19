@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.components.horizontal
 
-import android.util.Log
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
@@ -13,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -59,11 +59,17 @@ internal fun HorizontalDashedStep(
         }
     }
 
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
+    }
+
     LinearProgressIndicator(
         progress = { progressState },
         modifier = Modifier
             .noRippleClickable { onClick() }
-            .height(stepStyle.lineThickness)
+            .height(stepStyle.lineStyle.lineThickness)
             .then(
                 with(LocalDensity.current) {
                     if (totalSteps > 1) {
@@ -80,6 +86,6 @@ internal fun HorizontalDashedStep(
             .then(modifier),
         color = containerColor,
         trackColor = containerColor,
-        strokeCap = stepStyle.strokeCap
+        strokeCap = strokeCap
     )
 }

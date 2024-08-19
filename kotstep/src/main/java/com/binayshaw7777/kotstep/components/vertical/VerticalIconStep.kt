@@ -8,20 +8,22 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
+import com.binayshaw7777.kotstep.model.LineStyle
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.util.noRippleClickable
@@ -34,6 +36,7 @@ import com.binayshaw7777.kotstep.util.noRippleClickable
  * @param stepState The current state of the step.
  * @param stepIcon The icon to be displayed in the step.
  * @param isLastStep Whether the step is the last step in the stepper.
+ * @param lineProgress The progress of the line (fractional value).
  * @param onClick A callback that is invoked when the step is clicked.
  */
 @Composable
@@ -43,6 +46,7 @@ internal fun VerticalIconStep(
     stepState: StepState,
     stepIcon: ImageVector,
     isLastStep: Boolean,
+    lineProgress: Float,
     onClick: () -> Unit
 ) {
 
@@ -64,6 +68,26 @@ internal fun VerticalIconStep(
         }
     }
 
+    val lineColor: Color by transition.animateColor(label = "lineColor") {
+        when (it) {
+            StepState.TODO -> stepStyle.colors.todoLineColor
+            StepState.CURRENT -> stepStyle.colors.currentLineColor
+            StepState.DONE -> stepStyle.colors.doneLineColor
+        }
+    }
+
+    val lineStyle: LineStyle = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineStyle
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineStyle
+        StepState.DONE -> stepStyle.lineStyle.doneLineStyle
+    }
+
+    val strokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.strokeCap
+    }
+
     Column(
         modifier = Modifier
             .noRippleClickable { onClick() }
@@ -79,7 +103,10 @@ internal fun VerticalIconStep(
                 .clip(stepStyle.stepShape)
                 .then(
                     if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
-                        Modifier.border(BorderStroke(2.dp, stepStyle.colors.currentContainerColor), shape = stepStyle.stepShape)
+                        Modifier.border(
+                            BorderStroke(2.dp, stepStyle.colors.currentContainerColor),
+                            shape = stepStyle.stepShape
+                        )
                     } else {
                         Modifier
                     }
@@ -103,10 +130,18 @@ internal fun VerticalIconStep(
 
         // Display is continuous line if not completed
         if (!isLastStep) {
-            VerticalDivider(
-                modifier = Modifier.heightIn(max = stepStyle.lineSize),
-                thickness = stepStyle.lineThickness,
-                color = containerColor
+            KotStepVerticalDivider(
+                modifier = Modifier.padding(
+                    top = stepStyle.lineStyle.linePaddingTop,
+                    bottom = stepStyle.lineStyle.linePaddingBottom
+                ),
+                height = stepStyle.lineStyle.lineSize,
+                width = stepStyle.lineStyle.lineThickness,
+                lineTrackColor = stepStyle.colors.todoLineColor,
+                lineProgressColor = lineColor,
+                lineStyle = lineStyle,
+                progress = lineProgress,
+                strokeCap = strokeCap
             )
         }
     }
