@@ -46,7 +46,7 @@ data class StepStyle(
  * @property linePaddingTop The top padding of the line.
  * @property linePaddingBottom The bottom padding of the line.
  * @property strokeCap The cap of the line.
- * @property todoLineStep The style of the todo line.
+ * @property todoLineStyle The style of the todo line.
  * @property currentLineStyle The style of the current line.
  * @property doneLineStyle The style of the done line.
  */
