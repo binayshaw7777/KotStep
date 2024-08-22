@@ -46,9 +46,12 @@ data class StepStyle(
  * @property linePaddingTop The top padding of the line.
  * @property linePaddingBottom The bottom padding of the line.
  * @property strokeCap The cap of the line.
- * @property todoLineType The style of the todo line.
- * @property currentLineType The style of the current line.
- * @property doneLineType The style of the done line.
+ * @property todoLineTrackType The track type of the todo line.
+ * @property currentLineTrackType The track type of the current line.
+ * @property doneLineTrackType The track type of the done line.
+ * @property todoLineProgressType The progress type of the todo line.
+ * @property currentLineProgressType The progress type of the current line.
+ * @property doneLineProgressType The progress type of the done line.
  */
 @Immutable
 data class LineDefault(
@@ -59,9 +62,12 @@ data class LineDefault(
     val linePaddingTop: Dp = 0.dp,
     val linePaddingBottom: Dp = 0.dp,
     val strokeCap: StrokeCap = StrokeCap.Square,
-    val todoLineType: LineType = LineType.SOLID,
-    val currentLineType: LineType = LineType.SOLID,
-    val doneLineType: LineType = LineType.SOLID
+    val todoLineTrackType: LineType = LineType.SOLID,
+    val currentLineTrackType: LineType = LineType.SOLID,
+    val doneLineTrackType: LineType = LineType.SOLID,
+    val todoLineProgressType: LineType = LineType.SOLID,
+    val currentLineProgressType: LineType = LineType.SOLID,
+    val doneLineProgressType: LineType = LineType.SOLID
 ) {
     companion object {
         fun defaultLine() = LineDefault(

@@ -145,9 +145,12 @@ fun MainPreview() {
                 linePaddingTop = lineTopPadding.dp,
                 linePaddingBottom = lineBottomPadding.dp,
                 strokeCap = strokeCap,
-                todoLineType = LineType.DOTTED,
-                currentLineType = LineType.DASHED,
-                doneLineType = LineType.SOLID
+                todoLineTrackType = LineType.DOTTED,
+                currentLineTrackType = LineType.DASHED,
+                doneLineTrackType = LineType.SOLID,
+                todoLineProgressType = LineType.DOTTED,
+                currentLineProgressType = LineType.SOLID,
+                doneLineProgressType = LineType.SOLID
             ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,

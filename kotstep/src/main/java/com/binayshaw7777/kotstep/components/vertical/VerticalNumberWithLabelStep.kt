@@ -87,10 +87,16 @@ internal fun VerticalNumberWithLabelStep(
         }
     }
 
-    val lineStyle: LineType = when (stepState) {
-        StepState.TODO -> stepStyle.lineStyle.todoLineType
-        StepState.CURRENT -> stepStyle.lineStyle.currentLineType
-        StepState.DONE -> stepStyle.lineStyle.doneLineType
+    val lineTrackStyle: LineType = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineTrackType
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineTrackType
+        StepState.DONE -> stepStyle.lineStyle.doneLineTrackType
+    }
+
+    val lineProgressStyle: LineType = when (stepState) {
+        StepState.TODO -> stepStyle.lineStyle.todoLineProgressType
+        StepState.CURRENT -> stepStyle.lineStyle.currentLineProgressType
+        StepState.DONE -> stepStyle.lineStyle.doneLineProgressType
     }
 
     val strokeCap: StrokeCap = when (stepState) {
@@ -172,7 +178,8 @@ internal fun VerticalNumberWithLabelStep(
                 width = stepStyle.lineStyle.lineThickness,
                 lineTrackColor = stepStyle.colors.todoLineColor,
                 lineProgressColor = lineColor,
-                lineStyle = lineStyle,
+                lineTrackStyle = lineTrackStyle,
+                lineProgressStyle = lineProgressStyle,
                 progress = lineProgress,
                 strokeCap = strokeCap
             )
