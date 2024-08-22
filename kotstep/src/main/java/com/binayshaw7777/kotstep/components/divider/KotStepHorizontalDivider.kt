@@ -23,9 +23,11 @@ internal fun KotStepHorizontalDivider(
     height: Dp = 1.dp,
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
-    lineStyle: LineType = LineType.SOLID,
+    lineTrackStyle: LineType = LineType.SOLID,
+    lineProgressStyle: LineType = LineType.SOLID,
     progress: Float = 1f,
-    strokeCap: StrokeCap = StrokeCap.Round  // New parameter
+    trackStrokeCap: StrokeCap = StrokeCap.Round,
+    progressStrokeCap: StrokeCap = StrokeCap.Round
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress.coerceIn(0f, 1f),
@@ -39,31 +41,52 @@ internal fun KotStepHorizontalDivider(
             .width(width)
             .height(height)
     ) {
-        val pathEffect = when (lineStyle) {
+        val trackPathEffect = when (lineTrackStyle) {
+            LineType.SOLID -> null
+            LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+            LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+        }
+        val progressPathEffect = when (lineProgressStyle) {
             LineType.SOLID -> null
             LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
             LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
         }
 
-        if (lineStyle != LineType.DOTTED) {
-            // Draw background line
+        // Draw background line
+        if (lineTrackStyle != LineType.DOTTED) {
             drawLine(
                 color = lineTrackColor,
                 start = Offset(0f, size.height / 2),
                 end = Offset(size.width, size.height / 2),
                 strokeWidth = height.toPx(),
-                pathEffect = pathEffect,
-                cap = strokeCap
+                pathEffect = trackPathEffect,
+                cap = trackStrokeCap
             )
+        } else {
+            val dotRadius = height.toPx() / 2
+            val spaceBetweenDots = dotRadius * 4
+            val totalDots = (size.width / spaceBetweenDots).toInt()
 
-            // Draw progress line
+            for (i in 0 until totalDots) {
+                val x = i * spaceBetweenDots + dotRadius
+
+                drawCircle(
+                    color = if (x <= size.width * animatedProgress) lineProgressColor else lineTrackColor,
+                    radius = dotRadius,
+                    center = Offset(x, size.height / 2)
+                )
+            }
+        }
+
+        // Draw progress line
+        if (lineProgressStyle != LineType.DOTTED) {
             drawLine(
                 color = lineProgressColor,
                 start = Offset(0f, size.height / 2),
                 end = Offset(size.width * animatedProgress, size.height / 2),
                 strokeWidth = height.toPx(),
-                pathEffect = pathEffect,
-                cap = strokeCap
+                pathEffect = progressPathEffect,
+                cap = progressStrokeCap
             )
         } else {
             val dotRadius = height.toPx() / 2

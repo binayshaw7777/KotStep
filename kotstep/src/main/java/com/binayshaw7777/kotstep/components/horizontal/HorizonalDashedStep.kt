@@ -59,10 +59,16 @@ internal fun HorizontalDashedStep(
         }
     }
 
-    val strokeCap: StrokeCap = when (stepState) {
+    val trackStrokeCap: StrokeCap = when (stepState) {
         StepState.TODO -> StrokeCap.Round
         StepState.CURRENT -> StrokeCap.Square
-        StepState.DONE -> stepStyle.lineStyle.strokeCap
+        StepState.DONE -> stepStyle.lineStyle.trackStrokeCap
+    }
+
+    val progressStrokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.progressStrokeCap
     }
 
     LinearProgressIndicator(
@@ -86,6 +92,6 @@ internal fun HorizontalDashedStep(
             .then(modifier),
         color = containerColor,
         trackColor = containerColor,
-        strokeCap = strokeCap
+        strokeCap = if (progressState == 0f) trackStrokeCap else progressStrokeCap,
     )
 }

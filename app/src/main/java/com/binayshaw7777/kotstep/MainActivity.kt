@@ -122,8 +122,18 @@ fun MainPreview() {
         var lineEndPadding by remember { mutableIntStateOf(0) }
         val strokeCapOptions = listOf("Rounded", "Butt", "Solid")
         val strokeCapOptionsMapped = listOf(StrokeCap.Round, StrokeCap.Butt, StrokeCap.Square)
-        var strokeCap by remember { mutableStateOf(strokeCapOptionsMapped[0]) }
-        val (selectedStrokeCapOption, onOptionSelected) = remember { mutableStateOf(strokeCapOptions[0] ) }
+        var trackStrokeCap by remember { mutableStateOf(strokeCapOptionsMapped[0]) }
+        val (selectedTrackStrokeCapOption, onOptionTrackSelected) = remember {
+            mutableStateOf(
+                strokeCapOptions[0]
+            )
+        }
+        var progressStrokeCap by remember { mutableStateOf(strokeCapOptionsMapped[0]) }
+        val (selectedProgressStrokeCapOption, onOptionProgressSelected) = remember {
+            mutableStateOf(
+                strokeCapOptions[0]
+            )
+        }
 
         LaunchedEffect(totalSteps) {
             icons.clear()
@@ -144,10 +154,14 @@ fun MainPreview() {
                 linePaddingEnd = lineEndPadding.dp,
                 linePaddingTop = lineTopPadding.dp,
                 linePaddingBottom = lineBottomPadding.dp,
-                strokeCap = strokeCap,
-                todoLineType = LineType.DOTTED,
-                currentLineType = LineType.DASHED,
-                doneLineType = LineType.SOLID
+                trackStrokeCap = trackStrokeCap,
+                progressStrokeCap = progressStrokeCap,
+                todoLineTrackType = LineType.DOTTED,
+                currentLineTrackType = LineType.DASHED,
+                doneLineTrackType = LineType.SOLID,
+                todoLineProgressType = LineType.DOTTED,
+                currentLineProgressType = LineType.SOLID,
+                doneLineProgressType = LineType.SOLID
             ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
@@ -170,7 +184,10 @@ fun MainPreview() {
                 onDismissRequest = { showLineStyleSheet = false },
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
             ) {
-                Column(Modifier.padding(16.dp).verticalScroll(rememberScrollState())) {
+                Column(
+                    Modifier
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState())) {
                     Text(
                         text = "Line Size in DP: $lineSize",
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -271,7 +288,7 @@ fun MainPreview() {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Stroke Cap: $selectedStrokeCapOption",
+                        text = "Track Stroke Cap: $selectedTrackStrokeCapOption",
                         modifier = Modifier.padding(vertical = 4.dp)
                     )
                     Column {
@@ -280,20 +297,58 @@ fun MainPreview() {
                                 Modifier
                                     .fillMaxWidth()
                                     .selectable(
-                                        selected = (text == selectedStrokeCapOption),
+                                        selected = (text == selectedTrackStrokeCapOption),
                                         onClick = {
-                                            onOptionSelected(text)
-                                            strokeCap = strokeCapOptionsMapped[index]
+                                            onOptionTrackSelected(text)
+                                            trackStrokeCap = strokeCapOptionsMapped[index]
                                         }
                                     ),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Start
                             ) {
                                 RadioButton(
-                                    selected = (text == selectedStrokeCapOption),
+                                    selected = (text == selectedTrackStrokeCapOption),
                                     onClick = {
-                                        onOptionSelected(text)
-                                        strokeCap = strokeCapOptionsMapped[index]
+                                        onOptionTrackSelected(text)
+                                        trackStrokeCap = strokeCapOptionsMapped[index]
+                                    }
+                                )
+                                Text(
+                                    text = text,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                            }
+                        }
+                    }
+
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Progress Stroke Cap: $selectedProgressStrokeCapOption",
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                    Column {
+                        strokeCapOptions.forEachIndexed { index, text ->
+                            Row(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .selectable(
+                                        selected = (text == selectedProgressStrokeCapOption),
+                                        onClick = {
+                                            onOptionProgressSelected(text)
+                                            progressStrokeCap = strokeCapOptionsMapped[index]
+                                        }
+                                    ),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                RadioButton(
+                                    selected = (text == selectedProgressStrokeCapOption),
+                                    onClick = {
+                                        onOptionProgressSelected(text)
+                                        progressStrokeCap = strokeCapOptionsMapped[index]
                                     }
                                 )
                                 Text(
