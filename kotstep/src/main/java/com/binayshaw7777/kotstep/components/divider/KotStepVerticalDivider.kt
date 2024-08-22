@@ -26,7 +26,8 @@ internal fun KotStepVerticalDivider(
     lineTrackStyle: LineType = LineType.SOLID,
     lineProgressStyle: LineType = LineType.SOLID,
     progress: Float = 1f,
-    strokeCap: StrokeCap = StrokeCap.Round
+    trackStrokeCap: StrokeCap = StrokeCap.Round,
+    progressStrokeCap: StrokeCap = StrokeCap.Round
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress.coerceIn(0f, 1f),
@@ -61,7 +62,7 @@ internal fun KotStepVerticalDivider(
                 end = Offset(size.width / 2, size.height),
                 strokeWidth = width.toPx(),
                 pathEffect = trackPathEffect,
-                cap = strokeCap
+                cap = trackStrokeCap
             )
 
         } else {
@@ -88,7 +89,7 @@ internal fun KotStepVerticalDivider(
                 end = Offset(size.width / 2, size.height * animatedProgress),
                 strokeWidth = width.toPx(),
                 pathEffect = progressPathEffect,
-                cap = strokeCap
+                cap = progressStrokeCap
             )
         } else {
             val dotRadius = width.toPx() / 2

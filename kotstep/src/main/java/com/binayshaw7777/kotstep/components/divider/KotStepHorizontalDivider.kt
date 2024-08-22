@@ -26,7 +26,8 @@ internal fun KotStepHorizontalDivider(
     lineTrackStyle: LineType = LineType.SOLID,
     lineProgressStyle: LineType = LineType.SOLID,
     progress: Float = 1f,
-    strokeCap: StrokeCap = StrokeCap.Round
+    trackStrokeCap: StrokeCap = StrokeCap.Round,
+    progressStrokeCap: StrokeCap = StrokeCap.Round
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress.coerceIn(0f, 1f),
@@ -59,7 +60,7 @@ internal fun KotStepHorizontalDivider(
                 end = Offset(size.width, size.height / 2),
                 strokeWidth = height.toPx(),
                 pathEffect = trackPathEffect,
-                cap = strokeCap
+                cap = trackStrokeCap
             )
         } else {
             val dotRadius = height.toPx() / 2
@@ -85,7 +86,7 @@ internal fun KotStepHorizontalDivider(
                 end = Offset(size.width * animatedProgress, size.height / 2),
                 strokeWidth = height.toPx(),
                 pathEffect = progressPathEffect,
-                cap = strokeCap
+                cap = progressStrokeCap
             )
         } else {
             val dotRadius = height.toPx() / 2

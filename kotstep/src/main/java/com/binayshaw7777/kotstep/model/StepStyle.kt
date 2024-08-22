@@ -61,7 +61,8 @@ data class LineDefault(
     val linePaddingEnd: Dp = 0.dp,
     val linePaddingTop: Dp = 0.dp,
     val linePaddingBottom: Dp = 0.dp,
-    val strokeCap: StrokeCap = StrokeCap.Square,
+    val trackStrokeCap: StrokeCap = StrokeCap.Square,
+    val progressStrokeCap: StrokeCap = StrokeCap.Square,
     val todoLineTrackType: LineType = LineType.SOLID,
     val currentLineTrackType: LineType = LineType.SOLID,
     val doneLineTrackType: LineType = LineType.SOLID,
@@ -77,7 +78,8 @@ data class LineDefault(
             linePaddingEnd = 0.dp,
             linePaddingTop = 0.dp,
             linePaddingBottom = 0.dp,
-            strokeCap = StrokeCap.Square
+            trackStrokeCap = StrokeCap.Square,
+            progressStrokeCap = StrokeCap.Square
         )
     }
 }

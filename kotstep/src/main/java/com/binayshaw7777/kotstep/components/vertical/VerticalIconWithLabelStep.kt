@@ -99,10 +99,16 @@ internal fun VerticalIconWithLabelStep(
         StepState.DONE -> stepStyle.lineStyle.doneLineProgressType
     }
 
-    val strokeCap: StrokeCap = when (stepState) {
+    val trackStrokeCap: StrokeCap = when (stepState) {
         StepState.TODO -> StrokeCap.Round
         StepState.CURRENT -> StrokeCap.Square
-        StepState.DONE -> stepStyle.lineStyle.strokeCap
+        StepState.DONE -> stepStyle.lineStyle.trackStrokeCap
+    }
+
+    val progressStrokeCap: StrokeCap = when (stepState) {
+        StepState.TODO -> StrokeCap.Round
+        StepState.CURRENT -> StrokeCap.Square
+        StepState.DONE -> stepStyle.lineStyle.progressStrokeCap
     }
 
     var labelHeight by remember { mutableStateOf(0.dp) }
@@ -180,7 +186,8 @@ internal fun VerticalIconWithLabelStep(
                 lineTrackStyle = lineTrackStyle,
                 lineProgressStyle = lineProgressStyle,
                 progress = lineProgress,
-                strokeCap = strokeCap
+                trackStrokeCap = trackStrokeCap,
+                progressStrokeCap = progressStrokeCap
             )
         }
 
