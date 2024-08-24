@@ -135,7 +135,7 @@ internal fun HorizontalNumberedStep(
                 .then(
                     if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
                         Modifier.border(
-                            BorderStroke(2.dp, stepStyle.colors.currentContainerColor),
+                            BorderStroke(stepStyle.stepStroke.dp, stepStyle.colors.currentContainerColor),
                             shape = stepStyle.stepShape
                         )
                     } else {

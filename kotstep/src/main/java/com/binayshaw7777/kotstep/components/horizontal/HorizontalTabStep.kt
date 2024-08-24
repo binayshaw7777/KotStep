@@ -127,14 +127,14 @@ internal fun HorizontalTabStep(
                 StepState.TODO -> {
                     TodoTab(
                         strokeColor = containerColor,
-                        strokeThickness = stepStyle.lineStyle.lineThickness.value
+                        strokeThickness = stepStyle.stepStroke
                     )
                 }
 
                 StepState.CURRENT -> {
                     CurrentTab(
                         circleColor = containerColor,
-                        strokeThickness = stepStyle.lineStyle.lineThickness.value
+                        strokeThickness = stepStyle.stepStroke
                     )
                 }
 
