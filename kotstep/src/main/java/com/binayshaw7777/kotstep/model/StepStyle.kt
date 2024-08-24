@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
  * @property colors The colors of the steps.
  * @property stepSize The size of the step.
  * @property stepShape The shape of the step.
+ * @property stepStroke The stroke of the step.
  * @property textSize The size of the text.
  * @property iconSize The size of the icon.
  * @property stepPadding The padding of the step.
@@ -28,6 +29,7 @@ data class StepStyle(
     val lineStyle: LineDefault = LineDefault.defaultLine(),
     val stepSize: Dp = 36.dp,
     val stepShape: Shape = CircleShape,
+    val stepStroke: Float = 2f,
     val textSize: TextUnit = 16.sp,
     val iconSize: Dp = 24.dp,
     val stepPadding: Dp = 0.dp,
@@ -45,7 +47,8 @@ data class StepStyle(
  * @property linePaddingEnd The end padding of the line.
  * @property linePaddingTop The top padding of the line.
  * @property linePaddingBottom The bottom padding of the line.
- * @property strokeCap The cap of the line.
+ * @property trackStrokeCap The stroke cap of the track.
+ * @property progressStrokeCap The stroke cap of the progress.
  * @property todoLineTrackType The track type of the todo line.
  * @property currentLineTrackType The track type of the current line.
  * @property doneLineTrackType The track type of the done line.
@@ -96,6 +99,7 @@ data class LineDefault(
  * @property doneContainerColor The color of the done container.
  * @property doneContentColor The color of the done content.
  * @property doneLineColor The color of the done line.
+ * @property checkMarkColor The color of the check mark.
  */
 @Immutable
 data class StepDefaults(
@@ -108,6 +112,7 @@ data class StepDefaults(
     val doneContainerColor: Color = Color.Green,
     val doneContentColor: Color = Color.White,
     val doneLineColor: Color = Color.Green,
+    val checkMarkColor: Color = Color.Black
 ) {
     companion object {
         /**
@@ -124,7 +129,8 @@ data class StepDefaults(
             currentLineColor = Color.Blue,
             doneContainerColor = Color.Green,
             doneContentColor = Color.White,
-            doneLineColor = Color.Green
+            doneLineColor = Color.Green,
+            checkMarkColor = Color.Black
         )
     }
 }

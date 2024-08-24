@@ -133,7 +133,7 @@ internal fun VerticalNumberWithLabelStep(
                 .then(
                     if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
                         Modifier.border(
-                            BorderStroke(2.dp, stepStyle.colors.currentContainerColor),
+                            BorderStroke(stepStyle.stepStroke.dp, stepStyle.colors.currentContainerColor),
                             shape = stepStyle.stepShape
                         )
                     } else {
@@ -148,7 +148,7 @@ internal fun VerticalNumberWithLabelStep(
             if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {
                 Icon(
                     imageVector = Icons.Default.Done,
-                    tint = contentColor,
+                    tint = stepStyle.colors.checkMarkColor,
                     contentDescription = "Done"
                 )
             } else {
