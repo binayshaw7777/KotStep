@@ -63,14 +63,6 @@ internal fun VerticalTabWithLabelStep(
         }
     }
 
-    val contentColor: Color by transition.animateColor(label = "contentColor") {
-        when (it) {
-            StepState.TODO -> stepStyle.colors.todoContentColor
-            StepState.CURRENT -> stepStyle.colors.currentContentColor
-            StepState.DONE -> stepStyle.colors.doneContentColor
-        }
-    }
-
     val lineColor: Color by transition.animateColor(label = "lineColor") {
         when (it) {
             StepState.TODO -> stepStyle.colors.todoLineColor
@@ -128,14 +120,16 @@ internal fun VerticalTabWithLabelStep(
                 StepState.TODO -> {
                     TodoTab(
                         strokeColor = containerColor,
-                        strokeThickness = stepStyle.lineStyle.lineThickness.value
+                        strokeThickness = stepStyle.stepStroke,
+                        stepShape = stepStyle.stepShape
                     )
                 }
 
                 StepState.CURRENT -> {
                     CurrentTab(
                         circleColor = containerColor,
-                        strokeThickness = stepStyle.lineStyle.lineThickness.value
+                        strokeThickness = stepStyle.stepStroke,
+                        stepShape = stepStyle.stepShape
                     )
                 }
 
@@ -143,7 +137,8 @@ internal fun VerticalTabWithLabelStep(
                     DoneTab(
                         circleColor = containerColor,
                         showTick = stepStyle.showCheckMarkOnDone,
-                        tickColor = contentColor
+                        checkMarkColor = stepStyle.colors.checkMarkColor,
+                        stepShape = stepStyle.stepShape
                     )
                 }
             }

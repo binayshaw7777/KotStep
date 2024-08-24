@@ -120,6 +120,7 @@ fun MainPreview() {
         var lineBottomPadding by remember { mutableIntStateOf(0) }
         var lineStartPadding by remember { mutableIntStateOf(0) }
         var lineEndPadding by remember { mutableIntStateOf(0) }
+        var stepStroke by remember { mutableFloatStateOf(2f) }
         val strokeCapOptions = listOf("Rounded", "Butt", "Solid")
         val strokeCapOptionsMapped = listOf(StrokeCap.Round, StrokeCap.Butt, StrokeCap.Square)
         var trackStrokeCap by remember { mutableStateOf(strokeCapOptionsMapped[0]) }
@@ -166,6 +167,7 @@ fun MainPreview() {
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
             stepSize = stepItemSize.dp,
+            stepStroke = stepStroke,
             stepShape = getShapeFromEnum(currentStepperItemShape),
             colors = StepDefaults(
                 doneContainerColor = Color(0xFF00E676),
@@ -739,6 +741,20 @@ fun MainPreview() {
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Step Stroke: $stepStroke",
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Slider(
+                    value = stepStroke,
+                    onValueChange = { newValue ->
+                        stepStroke = newValue
+                    },
+                    valueRange = 1f..10f, // Set the range of Step Item size
+                    steps = 10, // Divide the range into 20 steps
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 Button(onClick = { showLineStyleSheet = true }) {
                     Text("Modify Line Style")
