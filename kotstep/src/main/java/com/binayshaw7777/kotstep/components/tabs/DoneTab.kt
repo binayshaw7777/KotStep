@@ -24,14 +24,14 @@ import androidx.compose.ui.unit.dp
  *
  * @param circleColor The color of the circle.
  * @param showTick Whether to show the tick icon.
- * @param tickColor The color of the tick icon.
+ * @param checkMarkColor The color of the tick icon.
  * @param stepShape The shape of the step.
  */
 @Composable
 internal fun DoneTab(
     circleColor: Color = Color.Green,
     showTick: Boolean = false,
-    tickColor: Color = Color.White,
+    checkMarkColor: Color = Color.White,
     stepShape: Shape = CircleShape
 ) {
     val painter = rememberVectorPainter(Icons.Default.Done)
@@ -60,7 +60,7 @@ internal fun DoneTab(
                     draw(
                         size = Size(iconSize, iconSize),
                         alpha = 1f,
-                        colorFilter = ColorFilter.tint(tickColor)
+                        colorFilter = ColorFilter.tint(checkMarkColor)
                     )
                 }
             }

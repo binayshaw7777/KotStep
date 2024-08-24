@@ -99,6 +99,7 @@ data class LineDefault(
  * @property doneContainerColor The color of the done container.
  * @property doneContentColor The color of the done content.
  * @property doneLineColor The color of the done line.
+ * @property checkMarkColor The color of the check mark.
  */
 @Immutable
 data class StepDefaults(
@@ -111,7 +112,7 @@ data class StepDefaults(
     val doneContainerColor: Color = Color.Green,
     val doneContentColor: Color = Color.White,
     val doneLineColor: Color = Color.Green,
-    val tickColor: Color = Color.Black
+    val checkMarkColor: Color = Color.Black
 ) {
     companion object {
         /**
@@ -129,7 +130,7 @@ data class StepDefaults(
             doneContainerColor = Color.Green,
             doneContentColor = Color.White,
             doneLineColor = Color.Green,
-            tickColor = Color.Black
+            checkMarkColor = Color.Black
         )
     }
 }

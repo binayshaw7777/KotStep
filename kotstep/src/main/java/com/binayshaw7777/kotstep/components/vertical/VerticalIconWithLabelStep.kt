@@ -147,7 +147,7 @@ internal fun VerticalIconWithLabelStep(
             if (stepState == StepState.DONE && stepStyle.showCheckMarkOnDone) {
                 Icon(
                     imageVector = Icons.Default.Done,
-                    tint = contentColor,
+                    tint = stepStyle.colors.checkMarkColor,
                     contentDescription = "Done"
                 )
             } else {
