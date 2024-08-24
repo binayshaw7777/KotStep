@@ -107,14 +107,16 @@ internal fun VerticalTabStep(
                 StepState.TODO -> {
                     TodoTab(
                         strokeColor = containerColor,
-                        strokeThickness = stepStyle.stepStroke
+                        strokeThickness = stepStyle.stepStroke,
+                        stepShape = stepStyle.stepShape
                     )
                 }
 
                 StepState.CURRENT -> {
                     CurrentTab(
                         circleColor = containerColor,
-                        strokeThickness = stepStyle.stepStroke
+                        strokeThickness = stepStyle.stepStroke,
+                        stepShape = stepStyle.stepShape,
                     )
                 }
 
@@ -122,7 +124,8 @@ internal fun VerticalTabStep(
                     DoneTab(
                         circleColor = containerColor,
                         showTick = stepStyle.showCheckMarkOnDone,
-                        tickColor = contentColor
+                        tickColor = contentColor,
+                        stepShape = stepStyle.stepShape
                     )
                 }
             }

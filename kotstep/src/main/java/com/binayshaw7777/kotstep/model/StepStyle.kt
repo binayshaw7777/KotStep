@@ -111,6 +111,7 @@ data class StepDefaults(
     val doneContainerColor: Color = Color.Green,
     val doneContentColor: Color = Color.White,
     val doneLineColor: Color = Color.Green,
+    val tickColor: Color = Color.Black
 ) {
     companion object {
         /**
@@ -127,7 +128,8 @@ data class StepDefaults(
             currentLineColor = Color.Blue,
             doneContainerColor = Color.Green,
             doneContentColor = Color.White,
-            doneLineColor = Color.Green
+            doneLineColor = Color.Green,
+            tickColor = Color.Black
         )
     }
 }
