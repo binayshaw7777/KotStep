@@ -46,11 +46,19 @@ internal fun RenderHorizontalDashed(
     ) {
 
         for (index in 0 until totalSteps) {
-            val stepState = when {
-                index < currentStep.toInt() -> StepState.DONE
-                index == currentStep.toInt() -> StepState.CURRENT
-                else -> StepState.TODO
-            }
+            val stepState =
+                when {
+                    stepStyle.showDoneOnPartialCompletion -> {
+                        if (currentStep.toFloat() >= index.toFloat()) StepState.DONE else StepState.TODO
+                    }
+                    else -> {
+                        when {
+                            index < currentStep.toInt() -> StepState.DONE
+                            index == currentStep.toInt() -> StepState.CURRENT
+                            else -> StepState.TODO
+                        }
+                    }
+                }
 
             HorizontalDashedStep(
                 stepStyle = stepStyle,
