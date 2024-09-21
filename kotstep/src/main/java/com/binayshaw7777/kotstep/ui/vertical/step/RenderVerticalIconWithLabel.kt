@@ -42,9 +42,16 @@ internal fun RenderVerticalIconWithLabel(
 
         trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
-                index < currentStep.toInt() -> StepState.DONE
-                index == currentStep.toInt() -> StepState.CURRENT
-                else -> StepState.TODO
+                stepStyle.ignoreCurrentState -> {
+                    if (currentStep.toFloat() >= index.toFloat()) StepState.DONE else StepState.TODO
+                }
+                else -> {
+                    when {
+                        index < currentStep.toInt() -> StepState.DONE
+                        index == currentStep.toInt() -> StepState.CURRENT
+                        else -> StepState.TODO
+                    }
+                }
             }
 
             val lineProgress = if (index == currentStep.toInt()) {

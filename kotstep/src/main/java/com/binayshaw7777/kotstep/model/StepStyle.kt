@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
  * @property stepPadding The padding of the step.
  * @property showCheckMarkOnDone Whether to show the check mark on done.
  * @property showStrokeOnCurrent Whether to show the stroke on current.
+ * @property ignoreCurrentState If set to true, shows DONE instead of CURRENT state.
  */
 @Immutable
 data class StepStyle(
@@ -34,7 +35,8 @@ data class StepStyle(
     val iconSize: Dp = 24.dp,
     val stepPadding: Dp = 0.dp,
     val showCheckMarkOnDone: Boolean = true,
-    val showStrokeOnCurrent: Boolean = true
+    val showStrokeOnCurrent: Boolean = true,
+    val ignoreCurrentState: Boolean = false
 )
 
 
