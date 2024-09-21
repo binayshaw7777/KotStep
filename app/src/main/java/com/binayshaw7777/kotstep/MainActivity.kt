@@ -106,6 +106,7 @@ fun MainPreview() {
         var currentStep by rememberSaveable { mutableFloatStateOf(-1f) }
         var showCheckMark by remember { mutableStateOf(true) }
         var showStepStroke by remember { mutableStateOf(true) }
+        var showDoneOnPartialCompletion by remember { mutableStateOf(true) }
         var expanded by remember { mutableStateOf(false) }
         var expandedShapeMenu by remember { mutableStateOf(false) }
         var currentStepperType by remember { mutableStateOf(StepperOptions.HORIZONTAL_DASHED_STEPPER) }
@@ -166,6 +167,7 @@ fun MainPreview() {
             ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
+            ignoreCurrentState = showDoneOnPartialCompletion,
             stepSize = stepItemSize.dp,
             stepStroke = stepStroke,
             stepShape = getShapeFromEnum(currentStepperItemShape),
@@ -580,6 +582,14 @@ fun MainPreview() {
                                 Text(if (showStepStroke) "Hide Step Stroke" else "Show Step Stroke")
                             }, onClick = {
                                 showStepStroke = showStepStroke.not()
+                                expandedShapeMenu = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(if (showDoneOnPartialCompletion) "CURRENT -> Partially Completed" else "DONE -> Partially Completed")
+                            }, onClick = {
+                                showDoneOnPartialCompletion = showDoneOnPartialCompletion.not()
                                 expandedShapeMenu = false
                             }
                         )
