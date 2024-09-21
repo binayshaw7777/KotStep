@@ -42,7 +42,7 @@ internal fun RenderVerticalIconWithLabel(
 
         trailingLabels.forEachIndexed { index, trailingLabel ->
             val stepState = when {
-                stepStyle.showDoneOnPartialCompletion -> {
+                stepStyle.ignoreCurrentState -> {
                     if (currentStep.toFloat() >= index.toFloat()) StepState.DONE else StepState.TODO
                 }
                 else -> {

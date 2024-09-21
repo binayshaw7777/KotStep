@@ -167,7 +167,7 @@ fun MainPreview() {
             ),
             showCheckMarkOnDone = showCheckMark,
             showStrokeOnCurrent = showStepStroke,
-            showDoneOnPartialCompletion = showDoneOnPartialCompletion,
+            ignoreCurrentState = showDoneOnPartialCompletion,
             stepSize = stepItemSize.dp,
             stepStroke = stepStroke,
             stepShape = getShapeFromEnum(currentStepperItemShape),
