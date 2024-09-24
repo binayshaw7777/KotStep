@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
  * @property iconSize The size of the icon.
  * @property stepPadding The padding of the step.
  * @property showCheckMarkOnDone Whether to show the check mark on done.
- * @property showStrokeOnCurrent Whether to show the stroke on current.
  * @property ignoreCurrentState If set to true, shows DONE instead of CURRENT state.
  */
 @Immutable
@@ -35,7 +34,6 @@ data class StepStyle(
     val iconSize: Dp = 24.dp,
     val stepPadding: Dp = 0.dp,
     val showCheckMarkOnDone: Boolean = true,
-    val showStrokeOnCurrent: Boolean = true,
     val ignoreCurrentState: Boolean = false
 )
 
@@ -95,12 +93,15 @@ data class LineDefault(
  * @property todoContainerColor The color of the todo container.
  * @property todoContentColor The color of the todo content.
  * @property todoLineColor The color of the todo line.
+ * @property todoStepStrokeColor The color of the todo step stroke.
  * @property currentContainerColor The color of the current container.
  * @property currentContentColor The color of the current content.
  * @property currentLineColor The color of the current line.
+ * @property currentStepStrokeColor The color of the current step stroke.
  * @property doneContainerColor The color of the done container.
  * @property doneContentColor The color of the done content.
  * @property doneLineColor The color of the done line.
+ * @property doneStepStrokeColor The color of the done step stroke.
  * @property checkMarkColor The color of the check mark.
  */
 @Immutable
@@ -108,12 +109,15 @@ data class StepDefaults(
     val todoContainerColor: Color = Color.Gray,
     val todoContentColor: Color = Color.DarkGray,
     val todoLineColor: Color = Color.Gray,
+    val todoStepStrokeColor: Color? = null,
     val currentContainerColor: Color = Color.Blue,
     val currentContentColor: Color = Color.White,
     val currentLineColor: Color = Color.Blue,
+    val currentStepStrokeColor: Color? = null,
     val doneContainerColor: Color = Color.Green,
     val doneContentColor: Color = Color.White,
     val doneLineColor: Color = Color.Green,
+    val doneStepStrokeColor: Color? = null,
     val checkMarkColor: Color = Color.Black
 ) {
     companion object {
@@ -126,12 +130,15 @@ data class StepDefaults(
             todoContainerColor = Color.Gray,
             todoContentColor = Color.DarkGray,
             todoLineColor = Color.Gray,
+            todoStepStrokeColor = null,
             currentContainerColor = Color.Blue,
             currentContentColor = Color.White,
             currentLineColor = Color.Blue,
+            currentStepStrokeColor = null,
             doneContainerColor = Color.Green,
             doneContentColor = Color.White,
             doneLineColor = Color.Green,
+            doneStepStrokeColor = null,
             checkMarkColor = Color.Black
         )
     }

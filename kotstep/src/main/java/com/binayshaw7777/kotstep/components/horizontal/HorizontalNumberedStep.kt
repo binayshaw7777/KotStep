@@ -2,9 +2,7 @@ package com.binayshaw7777.kotstep.components.horizontal
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +23,12 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.components.divider.KotStepHorizontalDivider
 import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.maybeApplyBorder
 import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
@@ -132,15 +130,14 @@ internal fun HorizontalNumberedStep(
             modifier = Modifier
                 .size(stepStyle.stepSize)
                 .clip(stepStyle.stepShape)
-                .then(
-                    if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
-                        Modifier.border(
-                            BorderStroke(stepStyle.stepStroke.dp, stepStyle.colors.currentContainerColor),
-                            shape = stepStyle.stepShape
-                        )
-                    } else {
-                        Modifier
-                    }
+                .maybeApplyBorder(
+                    strokeColor = when (stepState) {
+                        StepState.TODO -> stepStyle.colors.todoStepStrokeColor
+                        StepState.CURRENT -> stepStyle.colors.currentStepStrokeColor
+                        StepState.DONE -> stepStyle.colors.doneStepStrokeColor
+                    },
+                    strokeThickness = stepStyle.stepStroke,
+                    shape = stepStyle.stepShape
                 )
                 .background(containerColor)
         ) {

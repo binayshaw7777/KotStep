@@ -105,7 +105,6 @@ fun MainPreview() {
         var totalSteps by rememberSaveable { mutableIntStateOf(5) }
         var currentStep by rememberSaveable { mutableFloatStateOf(-1f) }
         var showCheckMark by remember { mutableStateOf(true) }
-        var showStepStroke by remember { mutableStateOf(true) }
         var showDoneOnPartialCompletion by remember { mutableStateOf(true) }
         var expanded by remember { mutableStateOf(false) }
         var expandedShapeMenu by remember { mutableStateOf(false) }
@@ -166,7 +165,6 @@ fun MainPreview() {
                 doneLineProgressType = LineType.SOLID
             ),
             showCheckMarkOnDone = showCheckMark,
-            showStrokeOnCurrent = showStepStroke,
             ignoreCurrentState = showDoneOnPartialCompletion,
             stepSize = stepItemSize.dp,
             stepStroke = stepStroke,
@@ -177,6 +175,7 @@ fun MainPreview() {
                 doneLineColor = Color(0xFF00E676),
                 currentContainerColor = Color(0xFF4B81F4),
                 currentLineColor = Color(0xFF4B81F4),
+                currentStepStrokeColor = Color(0xFF4B81F4),
                 todoContainerColor = Color(0xFF50596C),
                 todoContentColor = Color.White,
                 todoLineColor = Color(0xFF50596C)
@@ -191,7 +190,8 @@ fun MainPreview() {
                 Column(
                     Modifier
                         .padding(16.dp)
-                        .verticalScroll(rememberScrollState())) {
+                        .verticalScroll(rememberScrollState())
+                ) {
                     Text(
                         text = "Line Size in DP: $lineSize",
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -574,14 +574,6 @@ fun MainPreview() {
                             },
                             onClick = {
                                 showCheckMark = showCheckMark.not()
-                                expandedShapeMenu = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = {
-                                Text(if (showStepStroke) "Hide Step Stroke" else "Show Step Stroke")
-                            }, onClick = {
-                                showStepStroke = showStepStroke.not()
                                 expandedShapeMenu = false
                             }
                         )

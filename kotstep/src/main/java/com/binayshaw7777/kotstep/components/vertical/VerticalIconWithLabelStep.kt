@@ -2,9 +2,7 @@ package com.binayshaw7777.kotstep.components.vertical
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,6 +30,7 @@ import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
 import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.maybeApplyBorder
 import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
@@ -129,15 +128,14 @@ internal fun VerticalIconWithLabelStep(
                 .size(stepStyle.stepSize)
                 .clip(stepStyle.stepShape)
                 .background(containerColor)
-                .then(
-                    if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
-                        Modifier.border(
-                            BorderStroke(stepStyle.stepStroke.dp, stepStyle.colors.currentContainerColor),
-                            shape = stepStyle.stepShape
-                        )
-                    } else {
-                        Modifier
-                    }
+                .maybeApplyBorder(
+                    strokeColor = when (stepState) {
+                        StepState.TODO -> stepStyle.colors.todoStepStrokeColor
+                        StepState.CURRENT -> stepStyle.colors.currentStepStrokeColor
+                        StepState.DONE -> stepStyle.colors.doneStepStrokeColor
+                    },
+                    strokeThickness = stepStyle.stepStroke,
+                    shape = stepStyle.stepShape
                 )
                 .constrainAs(iconBox) {
                     top.linkTo(parent.top)
