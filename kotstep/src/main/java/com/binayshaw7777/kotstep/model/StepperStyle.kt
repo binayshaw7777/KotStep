@@ -66,6 +66,26 @@ sealed class HorizontalStepperStyle(
     class Tab(totalSteps: Int, currentStep: kotlin.Number, val stepStyle: StepStyle) :
         HorizontalStepperStyle(totalSteps, currentStep, {})
 
+
+    /**
+     * Represents a fleet-style horizontal stepper.
+     *
+     * @property totalSteps The total number of steps in the stepper.
+     * @property currentStep The current active step in the stepper (-1 .. totalSteps).
+     * @property stepStyle The style for the step numbers.
+     * @property duration A list of durations for each step in the fleet.
+     */
+    class Fleet(
+        totalSteps: Int,
+        currentStep: kotlin.Number,
+        val stepStyle: StepStyle,
+        val duration: List<Long>,
+        var isPlaying: Boolean = true,
+        val onStepComplete: (Int) -> Unit = {}
+    ) :
+        HorizontalStepperStyle(totalSteps, currentStep, {})
+
+
     /**
      * Represents an icon-based horizontal stepper.
      *
@@ -364,6 +384,70 @@ fun tabVertical(
         totalSteps = totalSteps,
         currentStep = currentStep,
         stepStyle = stepStyle
+    )
+}
+
+
+/**
+ * Creates a horizontal stepper with a fleet style.
+ *
+ * @param totalSteps The total number of steps in the stepper.
+ *                  Must be greater than 0.
+ * @param currentStep The current active step in the stepper.
+ *                  Must be in the range [-1, N], where N is the total number of steps.
+ *                  A value of -1 indicates that no step is currently active.
+ *                  Values 1 to N represent the active step number.
+ * @param stepStyle A StepStyle object that defines the visual appearance of the steps.
+ *                 Uses default values if not provided.
+ * @param duration A list of durations for each step in the fleet.
+ *                Must have the same size as totalSteps.
+ *                Each duration must be greater than 0.
+ *
+ *  @return A HorizontalStepperStyle.Fleet object representing the configured horizontal stepper.
+ *
+ *  @throws IllegalArgumentException if currentStep is out of the valid range, if totalSteps is less than 1,
+ *
+ *  This function creates a horizontal stepper with the following features:
+ *  - Fleet-style steps
+ *  - Customizable step appearance through StepStyle
+ *  - Ability to highlight the current active step
+ *  - Customizable duration for each step in the fleet
+ *
+ *  Usage Example:
+ *  ```
+ *  HorizontalStepper(
+ *    style = fleet(
+ *      totalSteps = 5,
+ *      currentStep = 2, // Third step is active
+ *      stepStyle = StepStyle(
+ *        stepSize = 28.dp,
+ *        lineSize = 2.dp
+ *        // ... other style properties
+ *      ),
+ *      duration = listOf(1000, 2000, 3000, 4000, 5000)
+ *    )
+ *  )
+ *  ```
+ *
+ * @see HorizontalStepperStyle.Fleet
+ * @see StepStyle
+ * @see List
+ */
+fun fleet(
+    totalSteps: Int,
+    currentStep: Number,
+    stepStyle: StepStyle = StepStyle(),
+    duration: List<Long>,
+    isPlaying: Boolean = true,
+    onStepComplete: (Int) -> Unit = {}
+): HorizontalStepperStyle.Fleet {
+    return HorizontalStepperStyle.Fleet(
+        totalSteps = totalSteps,
+        currentStep = currentStep,
+        stepStyle = stepStyle,
+        duration = duration,
+        isPlaying = isPlaying,
+        onStepComplete = onStepComplete
     )
 }
 

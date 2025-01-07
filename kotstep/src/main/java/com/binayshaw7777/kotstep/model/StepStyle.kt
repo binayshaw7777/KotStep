@@ -60,7 +60,7 @@ data class StepStyle(
  */
 @Immutable
 data class LineDefault(
-    val lineThickness: Dp = 6.dp,
+    val lineThickness: Dp = 4.dp,
     val lineSize: Dp = 20.dp,
     val linePaddingStart: Dp = 0.dp,
     val linePaddingEnd: Dp = 0.dp,

@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,6 +54,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,6 +64,7 @@ import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepDefaults
 import com.binayshaw7777.kotstep.model.StepStyle
 import com.binayshaw7777.kotstep.model.dashed
+import com.binayshaw7777.kotstep.model.fleet
 import com.binayshaw7777.kotstep.model.iconHorizontal
 import com.binayshaw7777.kotstep.model.iconVertical
 import com.binayshaw7777.kotstep.model.iconVerticalWithLabel
@@ -104,16 +108,19 @@ fun MainPreview() {
 
         var totalSteps by rememberSaveable { mutableIntStateOf(5) }
         var currentStep by rememberSaveable { mutableFloatStateOf(-1f) }
+        var isPlaying by remember { mutableStateOf(true) }
+
         var showCheckMark by remember { mutableStateOf(true) }
         var showStepStroke by remember { mutableStateOf(true) }
         var showDoneOnPartialCompletion by remember { mutableStateOf(true) }
         var expanded by remember { mutableStateOf(false) }
         var expandedShapeMenu by remember { mutableStateOf(false) }
-        var currentStepperType by remember { mutableStateOf(StepperOptions.HORIZONTAL_DASHED_STEPPER) }
+        var currentStepperType by remember { mutableStateOf(StepperOptions.HORIZONTAL_FLEET_STEPPER) }
         var currentStepperItemShape by remember { mutableStateOf(StepperItemShape.CIRCLE_SHAPE) }
         var stepItemSize by remember { mutableIntStateOf(35) }
         var lineThickness by rememberSaveable { mutableIntStateOf(6) }
         val icons = remember { mutableStateListOf<ImageVector>() }
+        val durations = remember { mutableStateListOf<Long>() }
         val trailingLabels = remember { mutableStateListOf<(@Composable () -> Unit)?>() }
         var lineSize by remember { mutableIntStateOf(20) }
         var showLineStyleSheet by remember { mutableStateOf(false) }
@@ -140,6 +147,8 @@ fun MainPreview() {
         LaunchedEffect(totalSteps) {
             icons.clear()
             icons.addAll(Utils.getIcons(totalSteps))
+            durations.clear()
+            durations.addAll(Utils.getDuration(totalSteps))
             trailingLabels.clear()
             trailingLabels.addAll(Utils.getLabels(totalSteps))
         }
@@ -191,7 +200,18 @@ fun MainPreview() {
                 Column(
                     Modifier
                         .padding(16.dp)
-                        .verticalScroll(rememberScrollState())) {
+                        .pointerInput(Unit) {
+                            awaitEachGesture {
+                                awaitFirstDown()
+                                isPlaying = false
+                                do {
+                                    val event = awaitPointerEvent()
+                                } while (event.changes.any { it.pressed })
+                                isPlaying = true
+                            }
+                        }
+                        .verticalScroll(rememberScrollState())
+                ) {
                     Text(
                         text = "Line Size in DP: $lineSize",
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -392,6 +412,19 @@ fun MainPreview() {
                             text = { Text("Horizontal TAB Stepper") },
                             onClick = {
                                 currentStepperType = StepperOptions.HORIZONTAL_TAB_STEPPER
+                                expanded = false
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Horizontal Fleet Stepper") },
+                            onClick = {
+                                currentStepperType = StepperOptions.HORIZONTAL_FLEET_STEPPER
                                 expanded = false
                             },
                             leadingIcon = {
@@ -607,6 +640,24 @@ fun MainPreview() {
                             stepStyle = stepStyle
                         )
                     ) { it.toast(context) }
+                }
+
+                StepperOptions.HORIZONTAL_FLEET_STEPPER -> {
+                    HorizontalStepper(
+                        style = fleet(
+                            totalSteps = totalSteps,
+                            currentStep = currentStep,
+                            stepStyle = stepStyle,
+                            duration = Utils.getDuration(totalSteps),
+                            onStepComplete = {
+                                if (it < totalSteps) {
+                                    currentStep++
+                                }
+                            }
+                        )
+                    ) {
+                        it.toast(context)
+                    }
                 }
 
                 StepperOptions.HORIZONTAL_NUMBERED_STEPPER -> {

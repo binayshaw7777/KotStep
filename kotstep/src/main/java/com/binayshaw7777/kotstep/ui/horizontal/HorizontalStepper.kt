@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.binayshaw7777.kotstep.model.HorizontalStepperStyle
 import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalDashed
+import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalFleet
 import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalIcon
 import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalNumber
 import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
@@ -75,6 +76,17 @@ fun HorizontalStepper(
             currentStep = style.currentStep,
             stepStyle = style.stepStyle,
             onStepClick = { onStepClick(it) }
+        )
+
+        is HorizontalStepperStyle.Fleet -> RenderHorizontalFleet(
+            modifier = modifier,
+            totalSteps = style.totalSteps,
+            currentStep = style.currentStep,
+            stepStyle = style.stepStyle,
+            duration = style.duration,
+            isPlaying = style.isPlaying,
+            onStepComplete = style.onStepComplete,
+            onStepClick = { onStepClick(it) },
         )
 
         is HorizontalStepperStyle.Icon -> RenderHorizontalIcon(
