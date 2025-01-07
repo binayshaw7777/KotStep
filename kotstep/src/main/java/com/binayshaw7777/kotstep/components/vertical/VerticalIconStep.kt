@@ -2,9 +2,7 @@ package com.binayshaw7777.kotstep.components.vertical
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,11 +19,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
 import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
+import com.binayshaw7777.kotstep.util.maybeApplyBorder
 import com.binayshaw7777.kotstep.util.noRippleClickable
 
 /**
@@ -113,15 +111,14 @@ internal fun VerticalIconStep(
             modifier = Modifier
                 .size(stepStyle.stepSize)
                 .clip(stepStyle.stepShape)
-                .then(
-                    if (stepState == StepState.CURRENT && stepStyle.showStrokeOnCurrent) {
-                        Modifier.border(
-                            BorderStroke(stepStyle.stepStroke.dp, stepStyle.colors.currentContainerColor),
-                            shape = stepStyle.stepShape
-                        )
-                    } else {
-                        Modifier
-                    }
+                .maybeApplyBorder(
+                    strokeColor = when (stepState) {
+                        StepState.TODO -> stepStyle.colors.todoStepStrokeColor
+                        StepState.CURRENT -> stepStyle.colors.currentStepStrokeColor
+                        StepState.DONE -> stepStyle.colors.doneStepStrokeColor
+                    },
+                    strokeThickness = stepStyle.stepStroke,
+                    shape = stepStyle.stepShape
                 )
                 .background(containerColor)
         ) {
