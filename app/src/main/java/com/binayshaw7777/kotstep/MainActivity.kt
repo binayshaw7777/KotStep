@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -650,6 +651,7 @@ fun MainPreview() {
                             stepStyle = stepStyle,
                             duration = Utils.getDuration(totalSteps),
                             onStepComplete = {
+                                Log.d("Tag", "Step Completed and Current Step is $currentStep")
                                 if (currentStep < totalSteps) {
                                     currentStep++
                                 }

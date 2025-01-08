@@ -81,7 +81,7 @@ sealed class HorizontalStepperStyle(
         val stepStyle: StepStyle,
         val duration: List<Long>,
         var isPlaying: Boolean = true,
-        val onStepComplete: (Int) -> Unit = {}
+        val onStepComplete: () -> Unit = {}
     ) :
         HorizontalStepperStyle(totalSteps, currentStep, {})
 
@@ -439,7 +439,7 @@ fun fleet(
     stepStyle: StepStyle = StepStyle(),
     duration: List<Long>,
     isPlaying: Boolean = true,
-    onStepComplete: (Int) -> Unit = {}
+    onStepComplete: () -> Unit = {}
 ): HorizontalStepperStyle.Fleet {
     return HorizontalStepperStyle.Fleet(
         totalSteps = totalSteps,

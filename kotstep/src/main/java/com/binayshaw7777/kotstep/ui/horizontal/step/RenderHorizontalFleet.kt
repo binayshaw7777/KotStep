@@ -35,7 +35,7 @@ internal fun RenderHorizontalFleet(
     duration: List<Long>,
     isPlaying: Boolean = true,
     onStepClick: (Int) -> Unit = {},
-    onStepComplete: (Int) -> Unit = {}
+    onStepComplete: () -> Unit = {}
 ) {
 
     require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()} and totalStep was: $totalSteps" }

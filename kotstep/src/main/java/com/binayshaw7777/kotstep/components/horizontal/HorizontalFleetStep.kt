@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
@@ -32,7 +35,7 @@ internal fun HorizontalFleetStep(
     stepState: StepState,
     size: IntSize,
     onClick: () -> Unit,
-    onStepComplete: (Int) -> Unit
+    onStepComplete: () -> Unit
 ) {
     val containerColor: Color = when (stepState) {
         StepState.TODO -> stepStyle.colors.todoContainerColor
@@ -43,12 +46,14 @@ internal fun HorizontalFleetStep(
 
     val progress = remember { Animatable(0f) }
 
+    var hasCompleted by remember { mutableStateOf(false) }
+
     LaunchedEffect(currentStep) {
+        hasCompleted = false
         when {
             index < currentStep -> {
                 progress.snapTo(1f)
             }
-
             index == currentStep -> {
                 progress.snapTo(0f)
                 progress.animateTo(
@@ -59,7 +64,6 @@ internal fun HorizontalFleetStep(
                     )
                 )
             }
-
             else -> {
                 progress.snapTo(0f)
             }
@@ -67,11 +71,11 @@ internal fun HorizontalFleetStep(
     }
 
     LaunchedEffect(progress.value) {
-        if (progress.value == 1f) {
-            onStepComplete(currentStep)
+        if (progress.value == 1f && index == currentStep && !hasCompleted) {
+            hasCompleted = true
+            onStepComplete()
         }
     }
-
 
     LaunchedEffect(currentStep, isPlaying) {
         when {
