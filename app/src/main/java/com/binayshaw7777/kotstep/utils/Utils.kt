@@ -37,6 +37,21 @@ object Utils {
         ).subList(0, limit)
     }
 
+    fun getDuration(limit: Int) : List<Long> {
+        return listOf(
+            5_000L,
+            10_000L,
+            5_000,
+            25_000L,
+            12_000L,
+            26_000L,
+            15_000L,
+            11_000L,
+            26_000L,
+            18_000L
+        ).subList(0, limit)
+    }
+
     fun getLabels(limit: Int) = listOf<@Composable (() -> Unit)?>(
         { Text("Ordered") },
         {
