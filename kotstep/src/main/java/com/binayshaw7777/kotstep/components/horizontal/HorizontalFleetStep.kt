@@ -45,24 +45,37 @@ internal fun HorizontalFleetStep(
     val density = LocalDensity.current
 
     val progress = remember { Animatable(0f) }
-
+    
     var hasCompleted by remember { mutableStateOf(false) }
 
     LaunchedEffect(currentStep) {
+        progress.snapTo(0f)
+    }
+
+    LaunchedEffect(currentStep, isPlaying) {
         hasCompleted = false
         when {
             index < currentStep -> {
                 progress.snapTo(1f)
             }
             index == currentStep -> {
-                progress.snapTo(0f)
-                progress.animateTo(
-                    targetValue = 1f,
-                    animationSpec = tween(
-                        durationMillis = duration.toInt(),
-                        easing = LinearEasing
+                if (progress.value == 0f) {
+                    progress.snapTo(0f)
+                }
+
+                if (isPlaying) {
+                    val remainingDuration = (duration * (1f - progress.value)).toLong()
+
+                    progress.animateTo(
+                        targetValue = 1f,
+                        animationSpec = tween(
+                            durationMillis = remainingDuration.toInt(),
+                            easing = LinearEasing
+                        )
                     )
-                )
+                } else {
+                    progress.stop()
+                }
             }
             else -> {
                 progress.snapTo(0f)

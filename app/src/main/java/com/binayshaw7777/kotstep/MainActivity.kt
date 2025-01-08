@@ -26,6 +26,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -154,6 +155,10 @@ fun MainPreview() {
             trailingLabels.addAll(Utils.getLabels(totalSteps))
         }
 
+        LaunchedEffect(isPlaying) {
+            Log.d("MainActivity", "Is Playing: $isPlaying")
+        }
+
         LaunchedEffect(currentStep) {
             println("Current Step: $currentStep")
         }
@@ -201,16 +206,16 @@ fun MainPreview() {
                 Column(
                     Modifier
                         .padding(16.dp)
-                        .pointerInput(Unit) {
-                            awaitEachGesture {
-                                awaitFirstDown()
-                                isPlaying = false
-                                do {
-                                    val event = awaitPointerEvent()
-                                } while (event.changes.any { it.pressed })
-                                isPlaying = true
-                            }
-                        }
+//                        .pointerInput(Unit) {
+//                            awaitEachGesture {
+//                                awaitFirstDown()
+//                                isPlaying = false
+//                                do {
+//                                    val event = awaitPointerEvent()
+//                                } while (event.changes.any { it.pressed })
+//                                isPlaying = true
+//                            }
+//                        }
                         .verticalScroll(rememberScrollState())
                 ) {
                     Text(
@@ -649,9 +654,9 @@ fun MainPreview() {
                             totalSteps = totalSteps,
                             currentStep = currentStep,
                             stepStyle = stepStyle,
+                            isPlaying = isPlaying,
                             duration = Utils.getDuration(totalSteps),
                             onStepComplete = {
-                                Log.d("Tag", "Step Completed and Current Step is $currentStep")
                                 if (currentStep < totalSteps) {
                                     currentStep++
                                 }
@@ -842,6 +847,29 @@ fun MainPreview() {
                     ) {
                         Text(text = "Previous")
                     }
+                }
+
+                Spacer(Modifier.weight(1f))
+
+                IconButton(
+                    onClick = {
+                        isPlaying = isPlaying.not()
+                    },
+//                    modifier = Modifier
+//                        .pointerInput(Unit) {
+//                            awaitEachGesture {
+//                                awaitFirstDown()
+//                                isPlaying = false
+//
+//                                do {
+//                                    val event = awaitPointerEvent()
+//                                } while (event.changes.any { it.pressed })
+//
+//                                isPlaying = true
+//                            }
+//                        }
+                ) {
+                    Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
                 }
 
                 Spacer(Modifier.weight(1f))
