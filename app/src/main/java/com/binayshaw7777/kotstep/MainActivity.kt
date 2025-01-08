@@ -650,7 +650,7 @@ fun MainPreview() {
                             stepStyle = stepStyle,
                             duration = Utils.getDuration(totalSteps),
                             onStepComplete = {
-                                if (it < totalSteps) {
+                                if (currentStep < totalSteps) {
                                     currentStep++
                                 }
                             }
@@ -826,13 +826,16 @@ fun MainPreview() {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
 
                 AnimatedVisibility(
-                    visible = currentStep >= -0.75f,
+                    visible = if (currentStepperType == StepperOptions.HORIZONTAL_FLEET_STEPPER) currentStep >= 1 else currentStep >= -0.75f,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
                     Button(
                         onClick = {
-                            currentStep -= 0.25f
+                            currentStep -= if (currentStepperType == StepperOptions.HORIZONTAL_FLEET_STEPPER)
+                                1f
+                            else
+                                0.25f
                         }
                     ) {
                         Text(text = "Previous")
@@ -848,7 +851,9 @@ fun MainPreview() {
                 ) {
                     Button(
                         onClick = {
-                            if (currentStep == -1f) {
+                            if (currentStepperType == StepperOptions.HORIZONTAL_FLEET_STEPPER) {
+                                currentStep += 1f
+                            } else if (currentStep == -1f) {
                                 currentStep = 0f
                             } else {
                                 currentStep += 0.25f

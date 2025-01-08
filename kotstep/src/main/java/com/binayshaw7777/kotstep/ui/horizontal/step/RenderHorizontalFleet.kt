@@ -38,7 +38,7 @@ internal fun RenderHorizontalFleet(
     onStepComplete: (Int) -> Unit = {}
 ) {
 
-    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()}" }
+    require(currentStep.toFloat() in -1f..totalSteps.toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep.toFloat()} and totalStep was: $totalSteps" }
     require(duration.size == totalSteps) { "Duration list should be equal to total steps. Total steps: $totalSteps and duration list size: ${duration.size}" }
 
     var size by remember { mutableStateOf(IntSize.Zero) }
