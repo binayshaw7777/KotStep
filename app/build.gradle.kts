@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.binayshaw7777.kotstep"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.binayshaw7777.kotstep"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
