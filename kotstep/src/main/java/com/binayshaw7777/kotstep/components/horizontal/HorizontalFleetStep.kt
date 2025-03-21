@@ -45,7 +45,7 @@ internal fun HorizontalFleetStep(
     val density = LocalDensity.current
 
     val progress = remember { Animatable(0f) }
-    
+
     var hasCompleted by remember { mutableStateOf(false) }
 
     LaunchedEffect(currentStep) {
@@ -58,6 +58,7 @@ internal fun HorizontalFleetStep(
             index < currentStep -> {
                 progress.snapTo(1f)
             }
+
             index == currentStep -> {
                 if (progress.value == 0f) {
                     progress.snapTo(0f)
@@ -77,6 +78,7 @@ internal fun HorizontalFleetStep(
                     progress.stop()
                 }
             }
+
             else -> {
                 progress.snapTo(0f)
             }
@@ -140,6 +142,9 @@ internal fun HorizontalFleetStep(
         modifier = stepModifier.then(modifier),
         color = containerColor,
         trackColor = stepStyle.colors.todoLineColor,
-        strokeCap = stepStyle.lineStyle.progressStrokeCap
+        strokeCap = stepStyle.lineStyle.progressStrokeCap,
+        gapSize = (-15).dp,
+        drawStopIndicator = {}
+
     )
 }
