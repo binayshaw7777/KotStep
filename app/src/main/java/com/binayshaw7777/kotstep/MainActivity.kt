@@ -84,13 +84,15 @@ import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEn
 import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils
 import com.binayshaw7777.kotstep.utils.toast
+import com.binayshaw7777.kotstep.v2.component.KotStepPreview
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             KotStepTheme(darkTheme = false) {
-                MainPreview()
+//                MainPreview()
+                KotStepPreview()
             }
         }
     }
