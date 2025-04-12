@@ -20,8 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class Step(
     var title: String?,
     var content: (@Composable () -> Unit)?,
-//    var painterIcon: Painter?,
-    var imageVectorIcon: ImageVector?,
+    var icon: ImageVector?,
     var onClick: (() -> Unit)?,
     var label: (@Composable () -> Unit)?,
     var onDone: () -> Unit = {}
@@ -57,7 +56,7 @@ data class Step(
         label: (@Composable () -> Unit)? = null,
         onDone: () -> Unit = {}
     ) : this(null, null, imageVectorIcon, onClick, label, onDone) {
-        this.imageVectorIcon = imageVectorIcon
+        this.icon = imageVectorIcon
         this.onClick = onClick
         this.label = label
         this.onDone = onDone

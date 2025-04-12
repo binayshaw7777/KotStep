@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep.v2.component
 
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -17,13 +19,22 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.components.divider.KotStepVerticalDivider
+import com.binayshaw7777.kotstep.components.tabs.CurrentTab
+import com.binayshaw7777.kotstep.components.tabs.DoneTab
+import com.binayshaw7777.kotstep.components.tabs.TodoTab
 import com.binayshaw7777.kotstep.util.noRippleClickable
 import com.binayshaw7777.kotstep.v2.model.KotStepScope
 import com.binayshaw7777.kotstep.v2.model.step.Step
@@ -75,10 +86,8 @@ fun VerticalKotStep(
     steps: List<Step>,
     onClick: (Int) -> Unit = {}
 ) {
-
-
-    require(steps.isNotEmpty()) { "Icons should not be empty" }
-    require(currentStep() in -1f..(steps.size).toFloat()) { "Current step should be between 0 and total steps but it was ${currentStep()}" }
+    require(steps.isNotEmpty()) { "Steps should not be empty" }
+    require(currentStep() in -1f..(steps.size).toFloat()) { "Current step should be between 0 and total steps: ${steps.size} but it was ${currentStep()}" }
 
     if (style.isScrollable) {
         LazyColumn(
@@ -86,7 +95,7 @@ fun VerticalKotStep(
                 .fillMaxHeight()
                 .then(modifier)
         ) {
-            itemsIndexed(steps) { index, step ->
+            itemsIndexed(steps, key = { index, _ -> index }) { index, step ->
 
                 val progress = if (index == currentStep().toInt()) {
                     currentStep() - currentStep().toInt()
@@ -172,7 +181,21 @@ fun VerticalStepItem(
     isLastStep: Boolean,
     onClick: () -> Unit = {}
 ) {
+
+    LaunchedEffect(stepState) {
+        println("Step State: $stepState")
+    }
     val transition = updateTransition(targetState = stepState, label = "")
+
+    var maxWidth by remember { mutableStateOf(0.dp) }
+
+    LaunchedEffect(style.stepStyle) {
+        maxWidth = maxOf(
+            style.stepStyle.onTodo.stepSize,
+            style.stepStyle.onCurrent.stepSize,
+            style.stepStyle.onDone.stepSize
+        )
+    }
 
     val containerColor: Color by transition.animateColor(label = "itemColor") {
         when (it) {
@@ -195,6 +218,14 @@ fun VerticalStepItem(
             StepState.Todo -> style.lineStyle.onTodo.progressColor
             StepState.Current -> style.lineStyle.onCurrent.progressColor
             StepState.Done -> style.lineStyle.onDone.progressColor
+        }
+    }
+
+    val stepSize: Dp by transition.animateDp(label = "stepSize") {
+        when (it) {
+            StepState.Todo -> style.stepStyle.onTodo.stepSize
+            StepState.Current -> style.stepStyle.onCurrent.stepSize
+            StepState.Done -> style.stepStyle.onDone.stepSize
         }
     }
 
@@ -236,6 +267,7 @@ fun VerticalStepItem(
 
     Column(
         modifier = Modifier
+            .width(maxWidth)
             .noRippleClickable { onClick() }
             .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -244,10 +276,14 @@ fun VerticalStepItem(
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(stepStyle.stepSize)
+                .size(stepSize)
                 .clip(stepStyle.stepShape)
                 .background(containerColor)
-                .border(stepStyle.border)
+                .border(
+                    width = stepStyle.borderStyle.width,
+                    shape = stepStyle.borderStyle.shape,
+                    color = stepStyle.borderStyle.color
+                )
                 .then(modifier)
         ) {
             if (stepState == StepState.Done && style.showCheckMarkOnDone) {
@@ -265,21 +301,10 @@ fun VerticalStepItem(
                         }
                     }
 
-//                    step.painterIcon != null -> {
-//                        step.painterIcon?.let { painter ->
-//                            Icon(
-//                                painter = painter,
-//                                contentDescription = null,
-//                                modifier = Modifier.size(stepStyle.iconStyle.iconSize),
-//                                tint = stepStyle.iconStyle.iconTint
-//                            )
-//                        }
-//                    }
-
-                    step.imageVectorIcon != null -> {
-                        step.imageVectorIcon?.let { imageVector ->
+                    step.icon != null -> {
+                        step.icon?.let { icon ->
                             Icon(
-                                imageVector = imageVector,
+                                imageVector = icon,
                                 contentDescription = null,
                                 modifier = Modifier.size(stepStyle.iconStyle.iconSize),
                                 tint = stepStyle.iconStyle.iconTint
@@ -294,7 +319,32 @@ fun VerticalStepItem(
                     }
 
                     else -> {
-                        // TODO -> Tab
+                        when (stepState) {
+                            StepState.Todo -> {
+                                TodoTab(
+                                    strokeColor = containerColor,
+                                    strokeThickness = stepStyle.borderStyle.width.value,
+                                    stepShape = stepStyle.stepShape
+                                )
+                            }
+
+                            StepState.Current -> {
+                                CurrentTab(
+                                    circleColor = containerColor,
+                                    strokeThickness = stepStyle.borderStyle.width.value,
+                                    stepShape = stepStyle.stepShape
+                                )
+                            }
+
+                            StepState.Done -> {
+                                DoneTab(
+                                    circleColor = containerColor,
+                                    showTick = style.showCheckMarkOnDone,
+                                    checkMarkColor = stepStyle.iconStyle.iconTint,
+                                    stepShape = stepStyle.stepShape
+                                )
+                            }
+                        }
                     }
                 }
             }

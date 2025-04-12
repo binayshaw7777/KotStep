@@ -3,6 +3,7 @@ package com.binayshaw7777.kotstep.v2.model.style
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.StrokeCap
@@ -22,15 +23,21 @@ data class IconStyle(
     val iconSize: Dp = 16.dp
 )
 
+data class BorderStyle(
+    val width: Dp = 1.dp,
+    val color: Color = Color.Unspecified,
+    val shape: Shape = CircleShape
+)
+
 // Font size <= Step Size * 0.75f
 // Icon size <= Step Size * 0.75f
 data class StepStyle(
     val stepColor: Color = Color.Gray,
     val stepSize: Dp = 24.dp,
     val stepShape: Shape = CircleShape,
-    val textStyle: TextStyle = TextStyle(color = Color.Gray, fontSize = 16.sp),
+    val textStyle: TextStyle = TextStyle(color = Color.Black, fontSize = 16.sp),
     val iconStyle: IconStyle = IconStyle(),
-    val border: BorderStroke = BorderStroke(width = 1.dp, color = Color.DarkGray)
+    val borderStyle: BorderStyle = BorderStyle()
 ) {
     companion object {
         fun defaultTodo() = StepStyle(stepColor = Color.Gray.copy(alpha = 0.3f))

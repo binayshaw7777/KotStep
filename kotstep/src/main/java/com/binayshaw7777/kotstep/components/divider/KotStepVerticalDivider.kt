@@ -34,7 +34,7 @@ internal fun KotStepVerticalDivider(
         animationSpec = tween(300), label = "line_progress_animation"
     )
 
-    println("Animated progress value is: $animatedProgress")
+//    println("Animated progress value is: $animatedProgress")
 
     Canvas(
         modifier = modifier
@@ -128,7 +128,7 @@ internal fun KotStepVerticalDivider(
         animationSpec = tween(300), label = "line_progress_animation"
     )
 
-    println("Animated progress value is: $animatedProgress")
+//    println("Animated progress value is: $animatedProgress")
 
     Canvas(
         modifier = modifier

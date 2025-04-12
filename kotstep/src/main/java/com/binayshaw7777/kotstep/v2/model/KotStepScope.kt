@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep.v2.model
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.binayshaw7777.kotstep.v2.model.step.Step
 
@@ -34,25 +33,6 @@ class KotStepScope {
         }
         steps.add(Step(title = title, onClick = onClick, label = label, onDone = onDone))
     }
-
-
-//    /**
-//     * Adds a step with a painter icon.
-//     * @param icon The painter icon for the step.
-//     * @param onClick Callback invoked when the step is clicked.
-//     * @param onDone Callback invoked when the step is completed.
-//     * @param label Composable content for the step's label.
-//     *
-//     * @sample com.binayshaw7777.kotstep.v2.samples.StepWithPainterIcon
-//     */
-//    fun step(
-//        icon: Painter,
-//        onClick: (() -> Unit) = {},
-//        onDone: () -> Unit = {},
-//        label: @Composable () -> Unit = {}
-//    ) {
-//        steps.add(Step(painterIcon = icon, onClick = onClick, label = label, onDone = onDone))
-//    }
 
 
     /**
