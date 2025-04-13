@@ -1,6 +1,5 @@
 package com.binayshaw7777.kotstep.v2.component
 
-import android.widget.Space
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -15,9 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,6 +60,7 @@ fun KotStepPreview() {
         Spacer(Modifier.height(50.dp))
 
         KotStep(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
             currentStep = { currentStep },
             style = stepStyle
         ) {
@@ -76,7 +79,25 @@ fun KotStepPreview() {
                     modifier = Modifier.size(16.dp)
                 )
             })
-            step(title = "3")
+            step(title = "3", label = {
+                Card {
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                }
+            })
             step(title = "4")
             step(title = "5")
             step(title = "6")
@@ -93,7 +114,7 @@ private fun Counter(
     totalSteps: Int,
     onChange: (Float) -> Unit
 ) {
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+    Row(Modifier.fillMaxWidth().then(modifier), horizontalArrangement = Arrangement.SpaceAround) {
 
         AnimatedVisibility(
             visible = currentStep() >= -0.75f,

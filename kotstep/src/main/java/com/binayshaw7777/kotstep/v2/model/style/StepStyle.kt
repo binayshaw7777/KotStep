@@ -1,33 +1,12 @@
 package com.binayshaw7777.kotstep.v2.model.style
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-enum class LineType {
-    SOLID,
-    DOTTED,
-    DASHED
-}
-
-data class IconStyle(
-    val iconTint: Color = Color.Unspecified,
-    val iconSize: Dp = 16.dp
-)
-
-data class BorderStyle(
-    val width: Dp = 1.dp,
-    val color: Color = Color.Unspecified,
-    val shape: Shape = CircleShape
-)
 
 // Font size <= Step Size * 0.75f
 // Icon size <= Step Size * 0.75f
@@ -46,25 +25,6 @@ data class StepStyle(
     }
 }
 
-data class LineStyle(
-    val lineColor: Color = Color.Gray,
-    val progressColor: Color = Color.Green,
-    val lineLength: Dp = 16.dp,
-    val lineThickness: Dp = 2.dp,
-    val linePadding: PaddingValues = PaddingValues(0.dp),
-    val lineStrokeCap: StrokeCap = StrokeCap.Square,
-    val progressStrokeCap: StrokeCap = StrokeCap.Square,
-    val lineType: LineType = LineType.SOLID,
-    val progressType: LineType = LineType.SOLID,
-) {
-    companion object {
-        fun defaultTodo() = LineStyle(lineColor = Color.Gray.copy(alpha = 0.3f))
-        fun defaultCurrent() = LineStyle(lineColor = Color.Blue)
-        fun defaultDone() = LineStyle(lineColor = Color.Green)
-    }
-}
-
-
 data class StepStyles(
     val onTodo: StepStyle,
     val onCurrent: StepStyle,
@@ -75,20 +35,6 @@ data class StepStyles(
             onTodo = StepStyle.defaultTodo(),
             onCurrent = StepStyle.defaultCurrent(),
             onDone = StepStyle.defaultDone()
-        )
-    }
-}
-
-data class LineStyles(
-    val onTodo: LineStyle,
-    val onCurrent: LineStyle,
-    val onDone: LineStyle
-) {
-    companion object {
-        fun default() = LineStyles(
-            onTodo = LineStyle.defaultTodo(),
-            onCurrent = LineStyle.defaultCurrent(),
-            onDone = LineStyle.defaultDone()
         )
     }
 }
