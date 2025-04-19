@@ -69,7 +69,7 @@ fun VerticalKotStep(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             for (index in steps.indices) {
-
+                // TODO: Key(...)
                 val progress = when {
                     index == currentStep().toInt() -> currentStep() - currentStep().toInt()
                     index < currentStep().toInt() -> 1f

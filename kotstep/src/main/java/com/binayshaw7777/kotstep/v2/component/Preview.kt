@@ -5,6 +5,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -28,12 +31,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.R
+import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v2.util.Util.getKotStepStyle
+import com.binayshaw7777.kotstep.v2.util.Util.onClick
 
 @Preview(showBackground = true, backgroundColor = 0xFF1C2526)
 @Composable
@@ -41,6 +47,7 @@ fun KotStepPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+//            .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
 
@@ -60,6 +67,50 @@ fun KotStepPreview() {
         )
 
         Spacer(Modifier.height(50.dp))
+
+        KotStep(
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            currentStep = { currentStep },
+            style = stepStyle.copy(stepLayoutStyle = StepLayoutStyle.Horizontal)
+        ) {
+            step(
+                title = "1",
+                onClick = {
+                    Toast.makeText(context, "Hi there", Toast.LENGTH_SHORT).show()
+                }
+            )
+            step(title = "2")
+            step(icon = Icons.Default.Star)
+            step(content = {
+                Image(
+                    painter = painterResource(R.drawable.kotlin),
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp)
+                )
+            })
+            step(title = "3", label = {
+                Row(
+                    Modifier
+                        .background(Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
+                        .onClick { showMoreItem = showMoreItem.not() }
+                ) {
+                    Text("Hello World")
+                    AnimatedVisibility(showMoreItem) {
+                        Row {
+                            Text("Hello World")
+                            Text("Hello World")
+                        }
+                    }
+                }
+            }, onClick = {
+                showMoreItem = showMoreItem.not()
+            })
+            step(title = "4")
+            step(title = "5")
+            step(title = "6")
+            step(title = "7")
+            step()
+        }
 
         KotStep(
             modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -82,7 +133,7 @@ fun KotStepPreview() {
                 )
             })
             step(title = "3", label = {
-                Card {
+                Card(Modifier.onClick { showMoreItem = showMoreItem.not() }) {
                     Text("Hello World")
                     Text("Hello World")
                     Text("Hello World")
@@ -123,9 +174,11 @@ private fun Counter(
     totalSteps: Int,
     onChange: (Float) -> Unit
 ) {
-    Row(Modifier
-        .fillMaxWidth()
-        .then(modifier), horizontalArrangement = Arrangement.SpaceAround) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .then(modifier), horizontalArrangement = Arrangement.SpaceAround
+    ) {
 
         AnimatedVisibility(
             visible = currentStep() >= -0.75f,

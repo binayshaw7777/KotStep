@@ -152,7 +152,7 @@ fun LineStyles.getLineColorForState(stepState: StepState): Color {
 @Composable
 fun LineStyles.getProgressColorForState(stepState: StepState): Color {
     return when (stepState) {
-        StepState.Todo -> this@getProgressColorForState.onTodo.progressColor
+        StepState.Todo -> this.onTodo.progressColor
         StepState.Current -> this.onCurrent.progressColor
         StepState.Done -> this.onDone.progressColor
     }

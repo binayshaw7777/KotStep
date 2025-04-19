@@ -14,7 +14,7 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyle
 /**
  * Represents the properties that define the visual appearance of a step in a stepper or similar component.
  *
- * @property maxWidth The maximum width allocated for the step and its associated line.
+ * @property maxSize The maximum width allocated for the step and its associated line.
  *                   This helps in controlling the overall size and layout of the steps.
  * @property stepStyle The style properties for the step's circular or custom shape.
  *                     This includes color, size, and any other visual aspects of the step itself.
@@ -30,7 +30,7 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyle
  *                            This controls the shape of the line's end, e.g., round, square, or butt. See [StrokeCap].
  */
 data class StaticStepProperties(
-    val maxWidth: Dp,
+    val maxSize: Dp,
     val stepStyle: StepStyle,
     val lineStyle: LineStyle,
     val lineTrackType: LineType,
@@ -61,7 +61,7 @@ fun calculateStaticStepProperties(style: KotStepStyle, stepState: StepState): St
     return remember(style.stepStyle, style.lineStyle, stepState) {
         derivedStateOf {
             StaticStepProperties(
-                maxWidth = maxOf(
+                maxSize = maxOf(
                     style.stepStyle.onTodo.stepSize,
                     style.stepStyle.onCurrent.stepSize,
                     style.stepStyle.onDone.stepSize

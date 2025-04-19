@@ -99,7 +99,7 @@ fun VerticalStepItem(
 
         Column(
             modifier = Modifier
-                .width(staticProperties.maxWidth)
+                .width(staticProperties.maxSize)
                 .onClick { onClick() }
                 .constrainAs(stepContent) {
                     top.linkTo(parent.top)

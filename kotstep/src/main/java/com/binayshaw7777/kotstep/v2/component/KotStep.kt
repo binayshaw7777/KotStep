@@ -35,7 +35,10 @@ fun KotStep(
                 modifier = modifier,
                 currentStep = currentStep,
                 style = style,
-                steps = steps
+                steps = steps,
+                onClick = { index ->
+                    steps[index].onClick?.invoke()
+                }
             )
         }
     }
