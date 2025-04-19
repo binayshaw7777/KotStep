@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -46,6 +47,7 @@ fun KotStepPreview() {
         val stepStyle = getKotStepStyle()
         var currentStep by remember { mutableFloatStateOf(0f) }
         val context = LocalContext.current
+        var showMoreItem by remember { mutableStateOf(false) }
 
         Counter(
             currentStep = { currentStep },
@@ -91,12 +93,19 @@ fun KotStepPreview() {
                     Text("Hello World")
                     Text("Hello World")
                     Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
+
+                    AnimatedVisibility(showMoreItem) {
+                        Column {
+                            Text("Hello World")
+                            Text("Hello World")
+                            Text("Hello World")
+                            Text("Hello World")
+                            Text("Hello World")
+                        }
+                    }
                 }
+            }, onClick = {
+                showMoreItem = showMoreItem.not()
             })
             step(title = "4")
             step(title = "5")
@@ -114,7 +123,9 @@ private fun Counter(
     totalSteps: Int,
     onChange: (Float) -> Unit
 ) {
-    Row(Modifier.fillMaxWidth().then(modifier), horizontalArrangement = Arrangement.SpaceAround) {
+    Row(Modifier
+        .fillMaxWidth()
+        .then(modifier), horizontalArrangement = Arrangement.SpaceAround) {
 
         AnimatedVisibility(
             visible = currentStep() >= -0.75f,

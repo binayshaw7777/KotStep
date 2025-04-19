@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.v2.model.style.LineType
 
 @Composable
 internal fun KotStepVerticalProgress(
@@ -22,8 +23,8 @@ internal fun KotStepVerticalProgress(
     width: Dp = 1.dp,
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
-    lineTrackStyle: com.binayshaw7777.kotstep.v2.model.style.LineType,
-    lineProgressStyle: com.binayshaw7777.kotstep.v2.model.style.LineType,
+    lineTrackStyle: LineType,
+    lineProgressStyle: LineType,
     progress: () -> Float = { 1f },
     trackStrokeCap: StrokeCap = StrokeCap.Round,
     progressStrokeCap: StrokeCap = StrokeCap.Round
@@ -40,33 +41,33 @@ internal fun KotStepVerticalProgress(
     ) {
 
         val trackPathEffect = when (lineTrackStyle) {
-            com.binayshaw7777.kotstep.v2.model.style.LineType.SOLID -> null
-            com.binayshaw7777.kotstep.v2.model.style.LineType.DASHED -> PathEffect.dashPathEffect(
+            LineType.SOLID -> null
+            LineType.DASHED -> PathEffect.dashPathEffect(
                 floatArrayOf(10f, 10f),
                 0f
             )
 
-            com.binayshaw7777.kotstep.v2.model.style.LineType.DOTTED -> PathEffect.dashPathEffect(
+            LineType.DOTTED -> PathEffect.dashPathEffect(
                 floatArrayOf(5f, 5f),
                 0f
             )
         }
 
         val progressPathEffect = when (lineProgressStyle) {
-            com.binayshaw7777.kotstep.v2.model.style.LineType.SOLID -> null
-            com.binayshaw7777.kotstep.v2.model.style.LineType.DASHED -> PathEffect.dashPathEffect(
+            LineType.SOLID -> null
+            LineType.DASHED -> PathEffect.dashPathEffect(
                 floatArrayOf(10f, 10f),
                 0f
             )
 
-            com.binayshaw7777.kotstep.v2.model.style.LineType.DOTTED -> PathEffect.dashPathEffect(
+            LineType.DOTTED -> PathEffect.dashPathEffect(
                 floatArrayOf(5f, 5f),
                 0f
             )
         }
 
         // Draw background line
-        if (lineTrackStyle != com.binayshaw7777.kotstep.v2.model.style.LineType.DOTTED) {
+        if (lineTrackStyle != LineType.DOTTED) {
             drawLine(
                 color = lineTrackColor,
                 start = Offset(size.width / 2, 0f),
@@ -93,15 +94,19 @@ internal fun KotStepVerticalProgress(
         }
 
         // Draw progress line
-        if (lineProgressStyle != com.binayshaw7777.kotstep.v2.model.style.LineType.DOTTED) {
-            drawLine(
-                color = lineProgressColor,
-                start = Offset(size.width / 2, 0f),
-                end = Offset(size.width / 2, size.height * animatedProgress),
-                strokeWidth = width.toPx(),
-                pathEffect = progressPathEffect,
-                cap = progressStrokeCap
-            )
+        if (lineProgressStyle != LineType.DOTTED) {
+            val startY = 0f
+            val endY = size.height * animatedProgress
+            if (endY > startY) {
+                drawLine(
+                    color = lineProgressColor,
+                    start = Offset(size.width / 2, startY),
+                    end = Offset(size.width / 2, endY),
+                    strokeWidth = width.toPx(),
+                    pathEffect = progressPathEffect,
+                    cap = progressStrokeCap
+                )
+            }
         } else {
             val dotRadius = width.toPx() / 2
             val spaceBetweenDots = dotRadius * 4

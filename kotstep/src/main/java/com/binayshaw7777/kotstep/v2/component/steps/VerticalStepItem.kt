@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -101,6 +101,14 @@ fun VerticalStepItem(
         }
     }
 
+    val lineLength: Dp by transition.animateDp(label = "lineLength") {
+        when (it) {
+            StepState.Todo -> style.lineStyle.onTodo.lineLength
+            StepState.Current -> style.lineStyle.onCurrent.lineLength
+            StepState.Done -> style.lineStyle.onDone.lineLength
+        }
+    }
+
     val stepStyle: StepStyle = when (stepState) {
         StepState.Todo -> style.stepStyle.onTodo
         StepState.Current -> style.stepStyle.onCurrent
@@ -140,6 +148,14 @@ fun VerticalStepItem(
     var labelHeight by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
     val density = LocalDensity.current
+    val labelMeasureTransition = updateTransition(targetState = isLabelMeasured, label = "")
+
+    val lineHeight: Dp by labelMeasureTransition.animateDp(label = "lineHeight") {
+        when (it) {
+            true -> maxOf(labelHeight - stepSize, lineLength)
+            false -> lineLength
+        }
+    }
 
     ConstraintLayout(
         modifier = Modifier
@@ -155,7 +171,6 @@ fun VerticalStepItem(
                 .constrainAs(stepContent) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
-                    bottom.linkTo(parent.bottom)
                 },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -214,20 +229,13 @@ fun VerticalStepItem(
             }
 
             if (!isLastStep) {
-
-                val measuredLabelHeight = if (isLabelMeasured) maxOf(
-                    labelHeight - stepSize,
-                    lineStyle.lineLength
-                ) else lineStyle.lineLength
-
                 KotStepVerticalProgress(
                     modifier = Modifier
                         .padding(
                             top = lineStyle.linePadding.calculateTopPadding(),
                             bottom = lineStyle.linePadding.calculateBottomPadding()
-                        )
-                        .zIndex(1f),
-                    height = measuredLabelHeight,
+                        ),
+                    height = lineHeight,
                     width = lineStyle.lineThickness,
                     lineTrackColor = lineColor,
                     lineProgressColor = progressColor,
@@ -244,11 +252,9 @@ fun VerticalStepItem(
             Box(
                 modifier = Modifier
                     .padding(start = 16.dp)
-                    .onGloballyPositioned { coordinates ->
-                        if (!isLabelMeasured) {
-                            labelHeight = with(density) { coordinates.size.height.toDp() }
-                            isLabelMeasured = true
-                        }
+                    .onSizeChanged {
+                        labelHeight = with(density) { it.height.toDp() }
+                        isLabelMeasured = true
                     }
                     .constrainAs(labelContent) {
                         top.linkTo(stepContent.top)
