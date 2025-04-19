@@ -79,6 +79,7 @@ data class LineStyle(
     }
 }
 
+
 /**
  * Represents the styling for lines in different states (todo, current, done).
  *
@@ -127,6 +128,7 @@ fun LineStyles.getLineColorForState(stepState: StepState): Color {
     }
 }
 
+
 /**
  * Retrieves the appropriate progress color based on the given [StepState].
  *
@@ -157,7 +159,6 @@ fun LineStyles.getProgressColorForState(stepState: StepState): Color {
 }
 
 
-
 /**
  * Retrieves the line length (in Dp) associated with a given [StepState].
  *
@@ -178,4 +179,3 @@ fun LineStyles.getLineLengthForState(stepState: StepState): Dp {
         StepState.Done -> this.onDone.lineLength
     }
 }
-
