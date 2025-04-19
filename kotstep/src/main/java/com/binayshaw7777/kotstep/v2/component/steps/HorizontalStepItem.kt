@@ -1,5 +1,6 @@
 package com.binayshaw7777.kotstep.v2.component.steps
 
+import android.util.Log
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -87,10 +89,14 @@ fun HorizontalStepItem(
     var isLabelMeasured by remember { mutableStateOf(false) }
     val density = LocalDensity.current
 
+
     val lineWidth by remember {
         derivedStateOf {
             if (isLabelMeasured) maxOf(labelWidth - stepSize, lineLength) else lineLength
         }
+    }
+    LaunchedEffect(isLabelMeasured) {
+        Log.d("", "isLabelMeasured: $isLabelMeasured labelWidth: $labelWidth lineLength: $lineLength lineWidth: $lineWidth")
     }
 
     ConstraintLayout(
@@ -109,7 +115,7 @@ fun HorizontalStepItem(
                     start.linkTo(parent.start)
                 },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Start
         ) {
             StepIndicator(
                 size = stepSize,
@@ -125,8 +131,8 @@ fun HorizontalStepItem(
                 KotStepHorizontalProgress(
                     modifier = Modifier
                         .padding(
-                            start = staticProperties.lineStyle.linePadding.calculateStartPadding(LayoutDirection.Ltr),
-                            end = staticProperties.lineStyle.linePadding.calculateEndPadding(LayoutDirection.Ltr)
+                            start = staticProperties.lineStyle.linePadding.calculateStartPadding(LayoutDirection.Rtl) + staticProperties.stepStyle.borderStyle.width,
+                            end = staticProperties.lineStyle.linePadding.calculateEndPadding(LayoutDirection.Rtl)
                         ),
                     width = { lineWidth },
                     height = { staticProperties.lineStyle.lineThickness },
@@ -145,9 +151,8 @@ fun HorizontalStepItem(
             LabelContent(
                 modifier = Modifier.constrainAs(labelContent) {
                     top.linkTo(stepContent.bottom)
-                    start.linkTo(stepContent.start)
-                    end.linkTo(parent.end)
-                    width = Dimension.fillToConstraints
+                    start.linkTo(parent.start)
+                    width = Dimension.wrapContent
                 },
                 label = label,
                 onSizeChanged = { size ->

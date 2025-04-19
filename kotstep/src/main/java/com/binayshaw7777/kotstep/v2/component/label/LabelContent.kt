@@ -2,6 +2,7 @@ package com.binayshaw7777.kotstep.v2.component.label
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,7 @@ fun LabelContent(
     Box(
         modifier = Modifier
             .padding(start = 16.dp)
+            .wrapContentSize()
             .onSizeChanged { onSizeChanged(it) }
             .then(modifier),
         contentAlignment = Alignment.Center

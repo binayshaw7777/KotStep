@@ -20,9 +20,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -94,11 +96,10 @@ fun KotStepPreview() {
                         .background(Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
                         .onClick { showMoreItem = showMoreItem.not() }
                 ) {
-                    Text("Hello World")
+                    Text("Hello World This is not a joke")
                     AnimatedVisibility(showMoreItem) {
                         Row {
-                            Text("Hello World")
-                            Text("Hello World")
+                            Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(64.dp))
                         }
                     }
                 }

@@ -92,7 +92,7 @@ fun VerticalStepItem(
 
     ConstraintLayout(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth() // TODO: Wrap
             .then(modifier)
     ) {
         val (stepContent, labelContent) = createRefs()
@@ -123,7 +123,7 @@ fun VerticalStepItem(
                 KotStepVerticalProgress(
                     modifier = Modifier
                         .padding(
-                            top = staticProperties.lineStyle.linePadding.calculateTopPadding(),
+                            top = staticProperties.lineStyle.linePadding.calculateTopPadding() + staticProperties.stepStyle.borderStyle.width,
                             bottom = staticProperties.lineStyle.linePadding.calculateBottomPadding()
                         ),
                     height = { lineHeight },
