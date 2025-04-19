@@ -5,6 +5,24 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
 
+/**
+ * Defines the style for the KotStep component, providing customization options for layout,
+ * padding, checkmark visibility, scroll behavior, state handling, step appearance, and line appearance.
+ *
+ * @property stepLayoutStyle The layout style for the steps. Defaults to [StepLayoutStyle.VerticalCentered].
+ * @property itemPadding The padding around each step item. Defaults to 8.dp.
+ * @property showCheckMarkOnDone Whether to show a checkmark icon when a step is marked as done.
+ *   Defaults to `true`.
+ * @property isScrollable Whether the step list should be scrollable if it exceeds the available space.
+ *   Defaults to `false`.
+ * @property ignoreCurrentState Whether to ignore the `currentStep` state and display all steps as
+ *   enabled. This is useful for displaying a static step flow where the current step
+ *   doesn't matter. Defaults to `false`.
+ * @property stepStyle The style for the individual steps. Allows customizing the appearance of the step
+ *   number, title, and other step-related elements. Defaults to [StepStyles.default].
+ * @property lineStyle The style for the lines connecting the steps. Allows customizing the color,
+ *   thickness, and other attributes of the lines. Defaults to [LineStyles.default].
+ */
 @Immutable
 data class KotStepStyle(
     val stepLayoutStyle: StepLayoutStyle = StepLayoutStyle.VerticalCentered,
