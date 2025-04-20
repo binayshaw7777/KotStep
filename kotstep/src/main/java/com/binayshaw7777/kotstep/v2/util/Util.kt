@@ -22,7 +22,7 @@ object Util {
         return KotStepStyle(
             stepLayoutStyle = StepLayoutStyle.Vertical,
             isScrollable = false,
-            showCheckMarkOnDone = true,
+            showCheckMarkOnDone = false,
             ignoreCurrentState = false,
             stepStyle = StepStyles.default().copy(
                 onTodo = StepStyle.defaultTodo().copy(

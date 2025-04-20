@@ -10,6 +10,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +28,9 @@ import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.BorderStyle
 import com.binayshaw7777.kotstep.v2.model.style.StepStyle
 
+private const val DEFAULT_INDICATOR_SCALE = 0.6f
+private const val BORDER_SCALE_FACTOR = 0.1f
+private const val STEP_INDICATOR_DESCRIPTION = "Step Indicator"
 
 /**
  * A composable function that represents a step indicator in a multi-step process.
@@ -63,31 +69,42 @@ fun StepIndicator(
     borderStyle: BorderStyle,
     stepState: () -> StepState,
     step: () -> Step,
-    stepStyle: () -> StepStyle
+    stepStyle: () -> StepStyle,
+    showCheckMark: () -> Boolean
 ) {
+
+    val isDefaultIndicator by remember(step) {
+        derivedStateOf { step().title.isNullOrEmpty() && step().icon == null && step().content == null }
+    }
+
+    val baseModifier = Modifier
+        .size(size)
+        .clip(shape)
+        .zIndex(1f)
+        .semantics { contentDescription = STEP_INDICATOR_DESCRIPTION }
+
+    val styledModifier = if (isDefaultIndicator) {
+        baseModifier
+            .background(Color.Transparent)
+            .border(width = size * BORDER_SCALE_FACTOR, color = containerColor, shape = shape)
+    } else {
+        baseModifier
+            .background(containerColor)
+            .border(width = borderStyle.width, color = borderStyle.color, shape = borderStyle.shape)
+    }
+
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .size(size)
-            .clip(shape)
-            .background(containerColor)
-            .border(
-                width = borderStyle.width,
-                color = borderStyle.color,
-                shape = borderStyle.shape
-            )
-            .zIndex(1f)
-            .semantics { contentDescription = "Step Indicator" }
+        modifier = styledModifier
             .then(modifier)
     ) {
         when {
-            stepState() == StepState.Done && step().title == null &&
-                    step().icon == null && step().content == null -> {
+            stepState() == StepState.Done && showCheckMark() -> {
                 Icon(
                     imageVector = Icons.Default.Done,
                     contentDescription = "Done",
                     modifier = Modifier.size(stepStyle().iconStyle.iconSize),
-                    tint = Color.White
+                    tint = stepStyle().iconStyle.iconTint
                 )
             }
 
@@ -111,12 +128,24 @@ fun StepIndicator(
             }
 
             else -> {
-                Box(
-                    modifier = Modifier
-                        .size((size.value * 0.75f).dp)
-                        .background(stepStyle().iconStyle.iconTint)
-                )
+                DefaultIndicator(size, containerColor, shape)
             }
         }
     }
+}
+
+/**
+ * Renders the default indicator for a step when no specific content is provided.
+ *
+ * @param size The size of the indicator.
+ * @param color The background color of the indicator.
+ * @param shape The shape of the indicator.
+ */
+@Composable
+private fun DefaultIndicator(size: Dp, color: Color, shape: Shape) {
+    Box(
+        modifier = Modifier
+            .size((size.value * DEFAULT_INDICATOR_SCALE).dp)
+            .background(color, shape)
+    )
 }

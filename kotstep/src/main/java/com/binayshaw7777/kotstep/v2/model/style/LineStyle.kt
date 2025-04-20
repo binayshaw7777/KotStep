@@ -2,6 +2,7 @@ package com.binayshaw7777.kotstep.v2.model.style
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
@@ -90,6 +91,7 @@ data class LineStyle(
  * @property onCurrent The [LineStyle] to apply to lines that represent the "current" item.
  * @property onDone The [LineStyle] to apply to lines that represent "done" items.
  */
+@Immutable
 data class LineStyles(
     val onTodo: LineStyle,
     val onCurrent: LineStyle,

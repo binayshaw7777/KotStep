@@ -2,6 +2,7 @@ package com.binayshaw7777.kotstep.v2.model.style
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -56,6 +57,7 @@ data class StepStyle(
  * @property onCurrent The style applied to the currently active step.
  * @property onDone The style applied to a step that has been completed.
  */
+@Immutable
 data class StepStyles(
     val onTodo: StepStyle,
     val onCurrent: StepStyle,

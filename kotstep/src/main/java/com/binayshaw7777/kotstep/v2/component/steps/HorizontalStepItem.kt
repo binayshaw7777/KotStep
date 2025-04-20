@@ -124,7 +124,8 @@ fun HorizontalStepItem(
                 borderStyle = staticProperties.stepStyle.borderStyle,
                 stepState = { stepState },
                 step = { step },
-                stepStyle = { staticProperties.stepStyle }
+                stepStyle = { staticProperties.stepStyle },
+                showCheckMark = { style.showCheckMarkOnDone }
             )
 
             if (!isLastStep) {

@@ -1,5 +1,7 @@
 package com.binayshaw7777.kotstep.v2.model.step
 
+import androidx.compose.runtime.Immutable
+
 /**
  * [StepLayoutStyle] is an enum class used to define the layout style of the KotStep.
  *
@@ -10,6 +12,7 @@ package com.binayshaw7777.kotstep.v2.model.step
  *
  * @since 2.4.0
  */
+@Immutable
 enum class StepLayoutStyle {
     VerticalCentered,
     Vertical,
