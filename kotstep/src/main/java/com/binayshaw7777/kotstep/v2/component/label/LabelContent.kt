@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.IntSize
  *      }
  *  )
  * ```
+ *
+ * @since 2.4.0
  */
 @Composable
 fun LabelContent(

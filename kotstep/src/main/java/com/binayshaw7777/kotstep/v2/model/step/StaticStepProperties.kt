@@ -28,6 +28,8 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyle
  *                         This controls the shape of the line's end, e.g., round, square, or butt. See [StrokeCap].
  * @property progressStrokeCap The type of stroke cap applied to the end of the line progress (completed portion).
  *                            This controls the shape of the line's end, e.g., round, square, or butt. See [StrokeCap].
+ *
+ * @since 2.4.0
  */
 data class StaticStepProperties(
     val maxSize: Dp,

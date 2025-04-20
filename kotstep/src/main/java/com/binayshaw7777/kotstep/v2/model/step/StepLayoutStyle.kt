@@ -5,17 +5,15 @@ import androidx.compose.runtime.Immutable
 /**
  * [StepLayoutStyle] is an enum class used to define the layout style of the KotStep.
  *
- * @property VerticalCentered: Is a vertical orientation stepper where the step circle is in the center
  * @property Vertical: Is a vertical orientation stepper where the step circle is in the top
  * @property Horizontal: Is a horizontal orientation stepper where the step circle is in the start
- * @property HorizontalCentered: Is a horizontal orientation stepper where the step circle is in the center
  *
  * @since 2.4.0
  */
 @Immutable
 enum class StepLayoutStyle {
-    VerticalCentered,
+//    VerticalCentered,
     Vertical,
-    HorizontalCentered,
+//    HorizontalCentered,
     Horizontal,
 }

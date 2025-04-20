@@ -32,7 +32,10 @@ import com.binayshaw7777.kotstep.v2.model.step.StepState
  * @property textStyle The style of any text displayed within the step. Defaults to black text with a font size of 16sp.
  * @property iconStyle The style of any icon displayed within the step. Defaults to an empty `IconStyle`.
  * @property borderStyle The style of the border around the step indicator. Defaults to an empty `BorderStyle`.
+ *
+ * @since 2.4.0
  */
+@Immutable
 data class StepStyle(
     val stepColor: Color = Color.Gray,
     val stepSize: Dp = 24.dp,
@@ -56,6 +59,8 @@ data class StepStyle(
  * @property onTodo The style applied to a step that is in the "todo" state (not yet reached).
  * @property onCurrent The style applied to the currently active step.
  * @property onDone The style applied to a step that has been completed.
+ *
+ * @since 2.4.0
  */
 @Immutable
 data class StepStyles(
@@ -78,6 +83,8 @@ data class StepStyles(
          * @see StepStyle.defaultTodo
          * @see StepStyle.defaultCurrent
          * @see StepStyle.defaultDone
+         *
+         * @since 2.4.0
          */
         fun default() = StepStyles(
             onTodo = StepStyle.defaultTodo(),
@@ -98,10 +105,6 @@ data class StepStyles(
  * @param stepState The current [StepState] of the step (Todo, Current, or Done).
  * @return The [Color] associated with the given [stepState].
  *
- * @see StepState
- * @see StepStyles
- * @see StepStyle
- * @sample
  * ```
  * val myStepStyles = StepStyles(
  *     onTodo = StepStyle(Color.Gray),
@@ -113,6 +116,13 @@ data class StepStyles(
  * val currentColor = myStepStyles.getColorForState(StepState.Current) // Returns Color.Blue
  * val doneColor = myStepStyles.getColorForState(StepState.Done) // Returns Color.Green
  * ```
+ *
+ *
+ * @see StepState
+ * @see StepStyles
+ * @see StepStyle
+ *
+ * @since 2.4.0
  */
 @Composable
 fun StepStyles.getColorForState(stepState: StepState): Color {
@@ -125,6 +135,8 @@ fun StepStyles.getColorForState(stepState: StepState): Color {
 
 /**
  * Represents the different states a step in a multi-step process can have.
+ *
+ * @since 2.4.0
  */
 @Composable
 fun StepStyles.getSizeForState(stepState: StepState): Dp {

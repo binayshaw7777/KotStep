@@ -13,6 +13,30 @@ import com.binayshaw7777.kotstep.v2.model.step.Step
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
 
+/**
+ * A composable function that displays a vertical step indicator.
+ *
+ * This function renders a series of steps vertically, visually indicating the progress
+ * and state of each step. It supports both scrollable and non-scrollable layouts,
+ * customizable styles, and step-specific click actions.
+ *
+ * @param modifier Modifier for styling and layout adjustments of the step indicator.
+ * @param currentStep A lambda function that provides the current step as a float.
+ *                    The value should be between -1 and the total number of steps.
+ *                    -1 means that no step has been started.
+ *                    Values between 0 and `steps.size - 1` represent a step that is currently in progress.
+ *                    `steps.size` represents a completed step.
+ *                    Fractional parts indicate the progress within the current step (e.g., 0.5 means 50% complete).
+ * @param style The style configuration for the step indicator, determining its appearance and behavior.
+ * @param steps A list of [Step] objects, each representing a single step in the sequence.
+ * @param onClick A lambda function that is invoked when a step is clicked.
+ *                It receives the index of the clicked step.
+ *
+ * @throws IllegalArgumentException If the `steps` list is empty.
+ * @throws IllegalArgumentException If the `currentStep` value is outside the valid range of -1 to `steps.size`.
+ *
+ * @since 2.4.0
+ * */
 @Composable
 fun VerticalKotStep(
     modifier: Modifier = Modifier,

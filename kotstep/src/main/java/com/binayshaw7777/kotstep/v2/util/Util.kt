@@ -18,7 +18,7 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyles
 
 object Util {
 
-    fun getKotStepStyle(): KotStepStyle {
+    internal fun getKotStepStyle(): KotStepStyle {
         return KotStepStyle(
             stepLayoutStyle = StepLayoutStyle.Vertical,
             isScrollable = false,

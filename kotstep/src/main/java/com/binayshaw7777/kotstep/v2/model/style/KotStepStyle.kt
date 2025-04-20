@@ -9,7 +9,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
  * Defines the style for the KotStep component, providing customization options for layout,
  * padding, checkmark visibility, scroll behavior, state handling, step appearance, and line appearance.
  *
- * @property stepLayoutStyle The layout style for the steps. Defaults to [StepLayoutStyle.VerticalCentered].
+ * @property stepLayoutStyle The layout style for the steps. Defaults to [StepLayoutStyle.Vertical].
  * @property itemPadding The padding around each step item. Defaults to 8.dp.
  * @property showCheckMarkOnDone Whether to show a checkmark icon when a step is marked as done.
  *   Defaults to `true`.
@@ -22,10 +22,12 @@ import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
  *   number, title, and other step-related elements. Defaults to [StepStyles.default].
  * @property lineStyle The style for the lines connecting the steps. Allows customizing the color,
  *   thickness, and other attributes of the lines. Defaults to [LineStyles.default].
+ *
+ * @since 2.4.0
  */
 @Immutable
 data class KotStepStyle(
-    val stepLayoutStyle: StepLayoutStyle = StepLayoutStyle.VerticalCentered,
+    val stepLayoutStyle: StepLayoutStyle = StepLayoutStyle.Vertical,
     val itemPadding: Dp = 8.dp,
     val showCheckMarkOnDone: Boolean = true,
     val isScrollable: Boolean = false,

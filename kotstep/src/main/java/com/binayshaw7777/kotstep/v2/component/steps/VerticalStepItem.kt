@@ -48,6 +48,8 @@ import com.binayshaw7777.kotstep.v2.util.Util.onClick
  * @param stepState The [StepState] indicating the current state of the step (Todo, Current, or Done).
  * @param isLastStep Boolean flag that indicates if it's the last step in the sequence.
  * @param onClick A callback function invoked when the step item is clicked. Defaults to an empty function.
+ *
+ * @since 2.4.0
  */
 @Composable
 fun VerticalStepItem(

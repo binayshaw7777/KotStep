@@ -13,6 +13,35 @@ import com.binayshaw7777.kotstep.v2.model.step.Step
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
 
+/**
+ * A composable function that displays a horizontal step indicator with customizable styling and behavior.
+ *
+ * This function renders a sequence of steps in a horizontal layout, visually representing the progress
+ * through a multi-step process. It supports both scrollable and non-scrollable modes, defined by
+ * [KotStepStyle.isScrollable]. The appearance and behavior of the steps can be customized via the
+ * provided parameters.
+ *
+ * @param modifier Modifier to be applied to the container of the steps. This allows for customization
+ *        of the layout and appearance of the entire step indicator.
+ * @param currentStep A lambda that returns the current step as a Float. This determines the current
+ *        progress in the step sequence.
+ *        - Values from 0 to `steps.size` indicate the current step being in progress.
+ *        - Integer values represent completed steps.
+ *        - Fractional values (e.g., 1.5) represent progress between two steps (1 and 2).
+ *        - -1 will mean that the indicator will show all steps as not started.
+ * @param style The style configuration for the steps, defining colors, sizes, and other visual
+ *        attributes. This [KotStepStyle] object controls the look and feel of the step indicator.
+ * @param steps A list of [Step] objects, each representing a single step in the sequence. Each step
+ *        can have its own label, icon, and other properties.
+ * @param onClick A lambda that is invoked when a step is clicked, providing the index of the clicked
+ *        step. This allows for interactive behavior when a user interacts with the steps.
+ *
+ * @throws IllegalArgumentException If the `steps` list is empty.
+ * @throws IllegalArgumentException If the `currentStep` value is outside the valid range of -1 to `steps.size`.
+ *
+ * @since 2.4.0
+ *
+ * */
 @Composable
 fun HorizontalKotstep(
     modifier: Modifier = Modifier,

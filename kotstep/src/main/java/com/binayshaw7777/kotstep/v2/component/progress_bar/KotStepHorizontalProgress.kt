@@ -42,6 +42,8 @@ import com.binayshaw7777.kotstep.v2.model.style.LineType
  * @param progress A lambda function that returns the progress value (0.0 to 1.0).
  * @param trackStrokeCap The stroke cap style for the background/track line.
  * @param progressStrokeCap The stroke cap style for the progress line.
+ *
+ * @since 2.4.0
  */
 @Composable
 internal fun KotStepHorizontalProgress(

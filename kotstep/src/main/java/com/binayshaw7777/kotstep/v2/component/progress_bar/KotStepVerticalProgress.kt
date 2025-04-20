@@ -43,6 +43,8 @@ import com.binayshaw7777.kotstep.v2.model.style.LineType
  * @param trackStrokeCap The stroke cap style for the background/track line.
  * @param progressStrokeCap The stroke cap style for the progress line.
  *
+ * @since 2.4.0
+ *
  * */
 @Composable
 internal fun KotStepVerticalProgress(
