@@ -150,8 +150,8 @@ fun HorizontalStepItem(
         step.label?.let { label ->
             LabelContent(
                 modifier = Modifier.constrainAs(labelContent) {
-                    top.linkTo(stepContent.bottom)
                     start.linkTo(parent.start)
+                    top.linkTo(stepContent.bottom)
                     width = Dimension.wrapContent
                 },
                 label = label,
