@@ -1,0 +1,28 @@
+name: "Slack Compose Linting"
+
+on:
+  push:
+    branches: [ "*" ]  # Runs on every push to any branch
+  pull_request:
+    branches: [ "*" ]  # Runs on every pull request to any branch
+
+jobs:
+  lint:
+    name: Run Slack Compose Linting
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run Android Lint with Slack Compose Lints
+        run: ./gradlew lint --stacktrace
+        continue-on-error: true  # Does not fail the pipeline if linting fails

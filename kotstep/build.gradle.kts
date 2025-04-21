@@ -38,6 +38,9 @@ android {
             withJavadocJar()
         }
     }
+    lint {
+        abortOnError = false
+    }
 }
 
 dependencies {
@@ -52,6 +55,9 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.compose.constraintlayout)
     debugImplementation(libs.androidx.ui.tooling)
+
+    // Slack Compose Lints (Android Lint checks)
+    lintChecks(libs.compose.lint.checks)
 }
 
 publishing {
