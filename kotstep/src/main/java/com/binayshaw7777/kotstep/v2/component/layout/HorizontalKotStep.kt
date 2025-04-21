@@ -43,7 +43,7 @@ import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
  *
  * */
 @Composable
-fun HorizontalKotstep(
+fun HorizontalKotStep(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     style: KotStepStyle,

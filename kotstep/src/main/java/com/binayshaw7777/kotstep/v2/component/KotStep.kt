@@ -2,7 +2,7 @@ package com.binayshaw7777.kotstep.v2.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.binayshaw7777.kotstep.v2.component.layout.HorizontalKotstep
+import com.binayshaw7777.kotstep.v2.component.layout.HorizontalKotStep
 import com.binayshaw7777.kotstep.v2.component.layout.VerticalKotStep
 import com.binayshaw7777.kotstep.v2.model.KotStepScope
 import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
@@ -54,7 +54,7 @@ fun KotStep(
         }
 
         StepLayoutStyle.Horizontal -> {
-            HorizontalKotstep(
+            HorizontalKotStep(
                 modifier = modifier,
                 currentStep = currentStep,
                 style = style,
