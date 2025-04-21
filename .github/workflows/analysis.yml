@@ -1,38 +1,45 @@
-name: "Analysis"
+name: "CodeQL Analysis"
+
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  schedule:
+    - cron: '0 0 * * 1'  # Runs every Monday at 00:00 UTC
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
+      actions: read
       contents: read
       security-events: write
 
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java-kotlin' ]
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
         with:
-          dotnet-version: |
-            6.x
-            8.x
+          languages: ${{ matrix.language }}
+          build-mode: manual
 
-      - name: Run .NET Code Analysis
-        uses: dotnet/code-analysis@main
-        id: code-analysis
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          project: ClickHouse.Client\ClickHouse.Client.csproj
-          build-breaking: false
-          all-categories: all
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          path: ${{ steps.code-analysis.outputs.sarifFile }}
-          wait-for-processing: true
+      - name: Build project
+        run: ./gradlew build --no-daemon
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
