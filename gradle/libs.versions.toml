@@ -1,5 +1,4 @@
 [versions]
-androidDocumentationPlugin = "1.9.20"
 kotlin = "2.1.10"
 coreKtx = "1.13.1"
 agp = "8.3.2"
@@ -10,7 +9,6 @@ lifecycleRuntimeKtx = "2.8.7"
 uiTooling = "1.7.8"
 
 [libraries]
-android-documentation-plugin = { module = "org.jetbrains.dokka:android-documentation-plugin", version.ref = "androidDocumentationPlugin" }
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
