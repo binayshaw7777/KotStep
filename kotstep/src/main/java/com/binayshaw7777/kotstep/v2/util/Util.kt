@@ -21,7 +21,6 @@ object Util {
     internal fun getKotStepStyle(): KotStepStyle {
         return KotStepStyle(
             stepLayoutStyle = StepLayoutStyle.Vertical,
-            isScrollable = false,
             showCheckMarkOnDone = false,
             ignoreCurrentState = false,
             stepStyle = StepStyles.default().copy(
