@@ -13,8 +13,6 @@ import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
  * @property itemPadding The padding around each step item. Defaults to 8.dp.
  * @property showCheckMarkOnDone Whether to show a checkmark icon when a step is marked as done.
  *   Defaults to `true`.
- * @property isScrollable Whether the step list should be scrollable if it exceeds the available space.
- *   Defaults to `false`.
  * @property ignoreCurrentState Whether to ignore the `currentStep` state and display all steps as
  *   enabled. This is useful for displaying a static step flow where the current step
  *   doesn't matter. Defaults to `false`.
@@ -30,7 +28,6 @@ data class KotStepStyle(
     val stepLayoutStyle: StepLayoutStyle = StepLayoutStyle.Vertical,
     val itemPadding: Dp = 8.dp,
     val showCheckMarkOnDone: Boolean = true,
-    val isScrollable: Boolean = false,
     val ignoreCurrentState: Boolean = false,
     val stepStyle: StepStyles = StepStyles.default(),
     val lineStyle: LineStyles = LineStyles.default()

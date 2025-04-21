@@ -2,8 +2,6 @@ package com.binayshaw7777.kotstep.v2.component.layout
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
@@ -18,8 +16,7 @@ import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
  *
  * This function renders a sequence of steps in a horizontal layout, visually representing the progress
  * through a multi-step process. It supports both scrollable and non-scrollable modes, defined by
- * [KotStepStyle.isScrollable]. The appearance and behavior of the steps can be customized via the
- * provided parameters.
+ * adding ```.horizontalScroll(rememberScrollState())``` in the Modifier code
  *
  * @param modifier Modifier to be applied to the container of the steps. This allows for customization
  *        of the layout and appearance of the entire step indicator.
@@ -53,14 +50,12 @@ fun HorizontalKotStep(
     require(steps.isNotEmpty()) { "Steps should not be empty" }
     require(currentStep() in -1f..(steps.size).toFloat()) { "Current step should be between 0 and total steps: ${steps.size} but it was ${currentStep()}" }
 
-    if (style.isScrollable) {
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .then(modifier)
-        ) {
-            itemsIndexed(steps, key = { index, _ -> index }) { index, step ->
-
+    Row(
+        modifier = Modifier.fillMaxWidth().then(modifier),
+        verticalAlignment = Alignment.Top
+    ) {
+        steps.forEachIndexed { index, step ->
+            key(index) {
                 val progress = when {
                     index == currentStep().toInt() -> currentStep() - currentStep().toInt()
                     index < currentStep().toInt() -> 1f
@@ -85,40 +80,6 @@ fun HorizontalKotStep(
                     step = step,
                     onClick = { onClick(index) }
                 )
-            }
-        }
-    } else {
-        Row(
-            modifier = Modifier.fillMaxWidth().then(modifier),
-            verticalAlignment = Alignment.Top
-        ) {
-            steps.forEachIndexed { index, step ->
-                key(index) {
-                    val progress = when {
-                        index == currentStep().toInt() -> currentStep() - currentStep().toInt()
-                        index < currentStep().toInt() -> 1f
-                        else -> 0f
-                    }
-
-                    val stepState = if (style.ignoreCurrentState) {
-                        if (currentStep() >= index.toFloat()) StepState.Done else StepState.Todo
-                    } else {
-                        when {
-                            index < currentStep().toInt() -> StepState.Done
-                            index == currentStep().toInt() -> StepState.Current
-                            else -> StepState.Todo
-                        }
-                    }
-
-                    HorizontalStepItem(
-                        style = style,
-                        stepState = stepState,
-                        progress = { progress },
-                        isLastStep = index == steps.size - 1,
-                        step = step,
-                        onClick = { onClick(index) }
-                    )
-                }
             }
         }
     }
