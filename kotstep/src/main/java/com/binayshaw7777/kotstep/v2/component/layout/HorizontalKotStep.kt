@@ -10,6 +10,7 @@ import com.binayshaw7777.kotstep.v2.component.steps.HorizontalStepItem
 import com.binayshaw7777.kotstep.v2.model.step.Step
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
+import kotlinx.collections.immutable.PersistentList
 
 /**
  * A composable function that displays a horizontal step indicator with customizable styling and behavior.
@@ -44,7 +45,7 @@ fun HorizontalKotStep(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     style: KotStepStyle,
-    steps: List<Step>,
+    steps: PersistentList<Step>,
     onClick: (Int) -> Unit = {}
 ) {
     require(steps.isNotEmpty()) { "Steps should not be empty" }

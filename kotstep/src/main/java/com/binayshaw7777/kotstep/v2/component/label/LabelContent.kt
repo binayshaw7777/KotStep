@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.IntSize
  */
 @Composable
 fun LabelContent(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     label: @Composable () -> Unit,
     onSizeChanged: (IntSize) -> Unit
 ) {

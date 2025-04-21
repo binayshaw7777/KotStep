@@ -1,3 +1,6 @@
+import com.android.build.api.dsl.Lint
+import com.android.build.api.dsl.LintOptions
+
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
@@ -55,6 +58,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.compose.constraintlayout)
     debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.kotlinx.collections.immutable)
 
     // Slack Compose Lints (Android Lint checks)
     lintChecks(libs.compose.lint.checks)

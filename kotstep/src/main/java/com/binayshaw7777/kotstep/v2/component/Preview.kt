@@ -28,7 +28,7 @@ import com.binayshaw7777.kotstep.v2.util.Util.getKotStepStyle
 
 @Preview(showBackground = true, backgroundColor = 0xFF1C2526)
 @Composable
-fun KotStepPreview() {
+private fun KotStepPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()

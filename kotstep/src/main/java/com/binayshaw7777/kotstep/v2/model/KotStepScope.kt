@@ -3,6 +3,8 @@ package com.binayshaw7777.kotstep.v2.model
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.binayshaw7777.kotstep.v2.model.step.Step
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.toPersistentList
 
 @DslMarker
 annotation class KotStepDsl
@@ -142,5 +144,5 @@ class KotStepScope {
      *
      * @return A list of [Step] objects representing the defined steps.
      */
-    internal fun buildSteps(): List<Step> = steps
+    internal fun buildSteps(): PersistentList<Step> = steps.toPersistentList()
 }

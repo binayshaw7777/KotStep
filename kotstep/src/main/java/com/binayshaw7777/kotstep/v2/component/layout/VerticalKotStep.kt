@@ -9,6 +9,7 @@ import com.binayshaw7777.kotstep.v2.component.steps.VerticalStepItem
 import com.binayshaw7777.kotstep.v2.model.step.Step
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
+import kotlinx.collections.immutable.PersistentList
 
 /**
  * A composable function that displays a vertical step indicator.
@@ -39,7 +40,7 @@ fun VerticalKotStep(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     style: KotStepStyle,
-    steps: List<Step>,
+    steps: PersistentList<Step>,
     onClick: (Int) -> Unit = {}
 ) {
     require(steps.isNotEmpty()) { "Steps should not be empty" }
@@ -49,7 +50,7 @@ fun VerticalKotStep(
         modifier = Modifier.then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        for (index in steps.indices) {
+        steps.forEachIndexed { index, step ->
             key(index) {
                 val progress = when {
                     index == currentStep().toInt() -> currentStep() - currentStep().toInt()
@@ -72,7 +73,7 @@ fun VerticalKotStep(
                     stepState = stepState,
                     progress = { progress },
                     isLastStep = index == steps.size - 1,
-                    step = steps[index],
+                    step = step,
                     onClick = { onClick(index) }
                 )
             }
