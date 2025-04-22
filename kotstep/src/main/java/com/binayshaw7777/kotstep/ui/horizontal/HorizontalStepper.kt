@@ -15,7 +15,7 @@ package com.binayshaw7777.kotstep.ui.horizontal
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Please contact Binay Shaw, by visiting https://binayshaw.me or https://binay-shaw.onrender.com/ if you need additional information or have any
+ * Please contact Binay Shaw, by visiting https://binay-shaw.onrender.com/ if you need additional information or have any
  * questions or directly reach out to me via mail: binayshaw7777@gmail.com
  *
  * @author Binay Shaw
@@ -33,36 +33,20 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
 
 
 /**
- * A composable function that renders a horizontal stepper based on the provided style.
+ * @deprecated Since version 3.0.0, [HorizontalStepper] is deprecated.
+ * Use the new `KotStep` DSL from `com.binayshaw7777.kotstep.v2.KotStep` for improved flexibility and customization.
  *
- * This function acts as a router, delegating the rendering to specific Composable(s)
- * based on the type of [HorizontalStepperStyle] provided.
- *
- * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
- * @param style The [HorizontalStepperStyle] that defines the appearance and behavior of the stepper.
- * @param onStepClick A lambda function that is invoked when a step is clicked. Defaults to an empty lambda.
- *
- * Usage example:
- * ```
- * HorizontalStepper(
- *    style = numberedHorizontal(
- *        totalSteps = 5,
- *        currentStep = 2, // Third step is active
- *        stepStyle = StepStyle(
- *            stepSize = 28.dp,
- *            lineSize = 2.dp
- *            // ... other style properties
- *        )
- *    )
- *) { // Do something }
- * ```
- *
- * @see HorizontalStepperStyle
- * @see RenderHorizontalTab
- * @see RenderHorizontalIcon
- * @see RenderHorizontalNumber
- * @see RenderHorizontalDashed
+ * @sample com.binayshaw7777.kotstep.v2.samples.KotStepHorizontalExample
+ * @sample com.binayshaw7777.kotstep.v2.samples.KotStepVerticalExample
  */
+@Deprecated(
+    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Use the new KotStep DSL instead.",
+    replaceWith = ReplaceWith(
+        expression = "KotStep(...)",
+        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+    ),
+    level = DeprecationLevel.WARNING
+)
 @Composable
 fun HorizontalStepper(
     modifier: Modifier = Modifier,

@@ -78,13 +78,13 @@ import com.binayshaw7777.kotstep.model.tabVertical
 import com.binayshaw7777.kotstep.model.tabVerticalWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
+import com.binayshaw7777.kotstep.ui.theme.presentation.v2.KotStepPreview
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
 import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
 import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils
 import com.binayshaw7777.kotstep.utils.toast
-import com.binayshaw7777.kotstep.v2.component.KotStepPreview
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

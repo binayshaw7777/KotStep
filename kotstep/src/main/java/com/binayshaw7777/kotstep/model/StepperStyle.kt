@@ -230,6 +230,14 @@ sealed class VerticalStepperStyle(
 
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
+ * Dashed variant for the new KotStep is yet to be announced and released. You can still this style in your code.
+ *
+ *
  * Creates a horizontal stepper with a dashed line style.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -269,6 +277,11 @@ sealed class VerticalStepperStyle(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun dashed(
     totalSteps: Int,
     currentStep: Number,
@@ -283,6 +296,13 @@ fun dashed(
 
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
+ * Tab variant for the new KotStep is yet to be announced and released. You can still this style in your code.
+ *
  * Creates a horizontal stepper with a tab style.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -322,6 +342,11 @@ fun dashed(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun tabHorizontal(
     totalSteps: Int,
     currentStep: Number,
@@ -336,6 +361,13 @@ fun tabHorizontal(
 
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
+ * Tab variant for the new KotStep is yet to be announced and released. You can still this style in your code.
+ *
  * Creates a vertical stepper with a tab style.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -375,6 +407,11 @@ fun tabHorizontal(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun tabVertical(
     totalSteps: Int,
     currentStep: Number,
@@ -389,6 +426,13 @@ fun tabVertical(
 
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
+ * Fleet variant for the new KotStep is yet to be announced and released. You can still this style in your code.
+ *
  * Creates a horizontal stepper with a fleet style.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -433,6 +477,11 @@ fun tabVertical(
  * @see StepStyle
  * @see List
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun fleet(
     totalSteps: Int,
     currentStep: Number,
@@ -452,6 +501,13 @@ fun fleet(
 }
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
+ * Tab with Label variant for the new KotStep is yet to be announced and released. You can still this style in your code.
+ *
  * Creates a vertical stepper with a tab style and optional trailingLabels.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -503,6 +559,11 @@ fun fleet(
  *
  * @since 2.1.0
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun tabVerticalWithLabel(
     totalSteps: Int,
     currentStep: Number,
@@ -519,6 +580,11 @@ fun tabVerticalWithLabel(
 
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
  * Creates a horizontal stepper with numbered steps.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -558,6 +624,11 @@ fun tabVerticalWithLabel(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun numberedHorizontal(
     totalSteps: Int,
     currentStep: Number,
@@ -572,6 +643,11 @@ fun numberedHorizontal(
 
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
  * Creates a vertical stepper with numbered steps.
  *
  * @param totalSteps The total number of steps in the stepper.
@@ -611,6 +687,11 @@ fun numberedHorizontal(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun numberedVertical(
     totalSteps: Int,
     currentStep: Number,
@@ -624,6 +705,11 @@ fun numberedVertical(
 }
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
  * Creates a horizontal stepper with custom icons.
  *
  * @param currentStep The current active step in the stepper.
@@ -671,6 +757,11 @@ fun numberedVertical(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun iconHorizontal(
     currentStep: Number,
     icons: List<ImageVector>,
@@ -685,6 +776,11 @@ fun iconHorizontal(
 }
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
  * Creates a vertical stepper with custom icons.
  *
  * @param currentStep The current active step in the stepper.
@@ -732,6 +828,11 @@ fun iconHorizontal(
  *
  * @since 2.0.2
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun iconVertical(
     currentStep: Number,
     icons: List<ImageVector>,
@@ -746,6 +847,11 @@ fun iconVertical(
 }
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
  * Creates a composable function that renders a vertical stepper with icons and optional trailingLabels.
  *
  * @param currentStep The current active step in the stepper.
@@ -806,6 +912,11 @@ fun iconVertical(
  *
  * @since 2.1.0
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun iconVerticalWithLabel(
     currentStep: Number,
     icons: List<ImageVector>,
@@ -823,6 +934,11 @@ fun iconVerticalWithLabel(
 }
 
 /**
+ *
+ * @Deprecated factory functions for creating different styles of steppers.
+ * Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep
+ * which provides more functionality with version 3.0.0.
+ *
  * Creates a composable function that renders a vertical stepper with numbered steps and optional trailingLabels.
  *
  * @param currentStep The current active step in the stepper.
@@ -873,6 +989,11 @@ fun iconVerticalWithLabel(
  *
  * @since 2.1.0
  */
+@Deprecated(
+    message = "Use the new KotStep component package: import com.binayshaw7777.kotstep.v2.KotStep which provides more functionality with version 3.0.0.",
+    replaceWith = ReplaceWith("com.binayshaw7777.kotstep.v2.KotStep"),
+    level = DeprecationLevel.WARNING
+)
 fun numberedVerticalWithLabel(
     currentStep: Number,
     trailingLabels: List<(@Composable () -> Unit)?>,

@@ -34,38 +34,26 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
 
 
 /**
- * A composable function that renders a vertical stepper based on the provided style.
+ * @deprecated Since version 3.0.0, [VerticalStepper] is deprecated.
+ * Use the new `KotStep` DSL from `com.binayshaw7777.kotstep.v2.KotStep` for improved flexibility and customization.
  *
- * This function acts as a router, delegating the rendering to specific Composable(s)
- * based on the type of [VerticalStepperStyle] provided.
- *
- * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
- * @param style The [VerticalStepperStyle] that defines the appearance and behavior of the stepper.
- * @param onStepClick A lambda function that is invoked when a step is clicked. Defaults to an empty lambda.
- *
- * Usage example:
+ * Example replacement:
  * ```
- * VerticalStepper(
- *     style = numberedVertical(
- *         totalSteps = 5,
- *         currentStep = 2, // Third step is active
- *         stepStyle = StepStyle(
- *             stepSize = 28.dp,
- *             lineSize = 2.dp
- *             // ... other style properties
- *         )
- *     )
- * ) { // Do something }
+ * KotStep(modifier = ..., style = ..., currentStep = ...) {
+ *     step(title = ..., onClick = { ... }) {
+ *         // custom content
+ *     }
+ * }
  * ```
- *
- * @see VerticalStepperStyle
- * @see RenderVerticalTab
- * @see RenderVerticalIcon
- * @see RenderVerticalNumber
- * @see RenderVerticalNumberWithLabel
- * @see RenderVerticalIconWithLabel
- * @see RenderVerticalTabWithLabel
  */
+@Deprecated(
+    message = "VerticalStepper is deprecated since KotStep 3.0.0. Use the new KotStep DSL instead.",
+    replaceWith = ReplaceWith(
+        expression = "KotStep(...)",
+        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+    ),
+    level = DeprecationLevel.WARNING
+)
 @Composable
 fun VerticalStepper(
     modifier: Modifier = Modifier,

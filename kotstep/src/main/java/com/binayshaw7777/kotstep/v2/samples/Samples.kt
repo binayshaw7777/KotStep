@@ -30,7 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.R
-import com.binayshaw7777.kotstep.v2.component.KotStep
+import com.binayshaw7777.kotstep.v2.KotStep
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
 import com.binayshaw7777.kotstep.v2.util.Util.getKotStepStyle
 import com.binayshaw7777.kotstep.v2.util.Util.onClick

@@ -1,4 +1,4 @@
-package com.binayshaw7777.kotstep.v2.component
+package com.binayshaw7777.kotstep.v2
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
