@@ -17,7 +17,7 @@ import kotlinx.collections.immutable.PersistentList
  *
  * This function renders a sequence of steps in a horizontal layout, visually representing the progress
  * through a multi-step process. It supports both scrollable and non-scrollable modes, defined by
- * adding ```.horizontalScroll(rememberScrollState())``` in the Modifier code
+ * adding `.horizontalScroll(rememberScrollState())` in the Modifier code
  *
  * @param modifier Modifier to be applied to the container of the steps. This allows for customization
  *        of the layout and appearance of the entire step indicator.
@@ -41,7 +41,7 @@ import kotlinx.collections.immutable.PersistentList
  *
  * */
 @Composable
-fun HorizontalKotStep(
+internal fun HorizontalKotStep(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     style: KotStepStyle,

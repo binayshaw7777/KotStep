@@ -53,8 +53,8 @@ internal fun KotStepVerticalProgress(
     width: () -> Dp = { 1.dp },
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
-    lineTrackStyle: LineType,
-    lineProgressStyle: LineType,
+    lineTrackStyle: LineType = LineType.SOLID,
+    lineProgressStyle: LineType = LineType.SOLID,
     progress: () -> Float = { 1f },
     trackStrokeCap: StrokeCap = StrokeCap.Round,
     progressStrokeCap: StrokeCap = StrokeCap.Round

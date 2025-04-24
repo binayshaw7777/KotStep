@@ -52,7 +52,7 @@ import com.binayshaw7777.kotstep.v2.util.Util.onClick
  * @since 2.4.0
  */
 @Composable
-fun VerticalStepItem(
+internal fun VerticalStepItem(
     modifier: Modifier = Modifier,
     progress: () -> Float,
     step: Step,

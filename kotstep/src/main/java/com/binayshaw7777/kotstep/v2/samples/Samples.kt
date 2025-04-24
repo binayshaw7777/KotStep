@@ -39,7 +39,7 @@ import com.binayshaw7777.kotstep.v2.util.Util.onClick
  * Demonstrates how to add a step with a title.
  */
 @Composable
-fun StepWithTitle(modifier: Modifier = Modifier) {
+internal fun StepWithTitle(modifier: Modifier = Modifier) {
     KotStep(currentStep = { 1f }) {
         step(title = "1")
     }
@@ -49,7 +49,7 @@ fun StepWithTitle(modifier: Modifier = Modifier) {
  * Demonstrates how to add a step with an image vector icon.
  */
 @Composable
-fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
+internal fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
     val imageVector = ImageVector.vectorResource(R.drawable.kotlin)
     KotStep(currentStep = { 1f }) {
         step(icon = imageVector)
@@ -60,7 +60,7 @@ fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
  * Demonstrates how to add a step with custom composable content.
  */
 @Composable
-fun StepWithCustomContent(modifier: Modifier = Modifier) {
+internal fun StepWithCustomContent(modifier: Modifier = Modifier) {
     KotStep(currentStep = { 1f }) {
         step(content = { Text("Hi") })
     }

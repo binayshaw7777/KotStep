@@ -16,7 +16,7 @@ import kotlinx.collections.immutable.PersistentList
  *
  * This function renders a series of steps vertically, visually indicating the progress
  * and state of each step. It supports both scrollable and non-scrollable layouts,
- * adding ```.verticalScroll(rememberScrollState())``` in the Modifier code
+ * adding `.verticalScroll(rememberScrollState())` in the Modifier code
  *
  * @param modifier Modifier for styling and layout adjustments of the step indicator.
  * @param currentStep A lambda function that provides the current step as a float.
@@ -36,7 +36,7 @@ import kotlinx.collections.immutable.PersistentList
  * @since 2.4.0
  * */
 @Composable
-fun VerticalKotStep(
+internal fun VerticalKotStep(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     style: KotStepStyle,

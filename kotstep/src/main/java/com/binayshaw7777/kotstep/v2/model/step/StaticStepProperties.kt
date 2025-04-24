@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep.v2.model.step
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.StrokeCap
@@ -31,6 +32,7 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyle
  *
  * @since 2.4.0
  */
+@Immutable
 data class StaticStepProperties(
     val maxSize: Dp,
     val stepStyle: StepStyle,

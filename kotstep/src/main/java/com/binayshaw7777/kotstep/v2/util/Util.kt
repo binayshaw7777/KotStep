@@ -13,10 +13,11 @@ import com.binayshaw7777.kotstep.v2.model.style.BorderStyle
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
 import com.binayshaw7777.kotstep.v2.model.style.LineStyle
 import com.binayshaw7777.kotstep.v2.model.style.LineStyles
+import com.binayshaw7777.kotstep.v2.model.style.LineType
 import com.binayshaw7777.kotstep.v2.model.style.StepStyle
 import com.binayshaw7777.kotstep.v2.model.style.StepStyles
 
-object Util {
+internal object Util {
 
     internal fun getKotStepStyle(): KotStepStyle {
         return KotStepStyle(
@@ -49,12 +50,16 @@ object Util {
                 onCurrent = LineStyle.defaultCurrent().copy(
                     lineThickness = 10.dp,
                     lineLength = 100.dp,
-                    linePadding = PaddingValues(2.dp)
+                    linePadding = PaddingValues(2.dp),
+                    lineType = LineType.DASHED,
+                    progressType = LineType.DASHED
                 ),
                 onDone = LineStyle.defaultDone().copy(
                     lineThickness = 10.dp,
                     lineLength = 100.dp,
-                    linePadding = PaddingValues(2.dp)
+                    linePadding = PaddingValues(2.dp),
+                    lineType = LineType.DOTTED,
+                    progressType = LineType.DOTTED
                 )
             )
         )

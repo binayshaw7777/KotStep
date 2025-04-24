@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep.v2.model.step
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -17,7 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * @since 2.4.0
  *
  */
-data class Step(
+internal data class Step(
     var title: String?,
     var content: (@Composable () -> Unit)?,
     var icon: ImageVector?,
@@ -26,7 +25,6 @@ data class Step(
     var onDone: () -> Unit = {}
 ) {
 
-    // For title
     constructor(
         title: String,
         onClick: () -> Unit = {},
@@ -34,17 +32,6 @@ data class Step(
         onDone: () -> Unit = {}
     ) : this(title, null, null, onClick, label, onDone) {
         this.title = title
-        this.onClick = onClick
-        this.label = label
-        this.onDone = onDone
-    }
-
-    constructor(
-        painterIcon: Painter,
-        onClick: () -> Unit = {},
-        label: (@Composable () -> Unit)? = null,
-        onDone: () -> Unit = {}
-    ) : this(null, null, null, onClick, label, onDone) {
         this.onClick = onClick
         this.label = label
         this.onDone = onDone

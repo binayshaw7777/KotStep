@@ -63,7 +63,7 @@ private const val STEP_INDICATOR_DESCRIPTION = "Step Indicator"
  *  */
 @Stable
 @Composable
-fun StepIndicator(
+internal fun StepIndicator(
     modifier: Modifier = Modifier,
     size: Dp,
     shape: Shape,
