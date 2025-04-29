@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v2.model.style.BorderStyle
@@ -51,15 +52,17 @@ internal object Util {
                     lineThickness = 10.dp,
                     lineLength = 100.dp,
                     linePadding = PaddingValues(2.dp),
-                    lineType = LineType.DASHED,
-                    progressType = LineType.DASHED
+                    lineType = LineType.Dashed(),
+                    progressType = LineType.Dashed(),
+                    progressStrokeCap = StrokeCap.Butt,
+                    lineStrokeCap = StrokeCap.Butt
                 ),
                 onDone = LineStyle.defaultDone().copy(
                     lineThickness = 10.dp,
                     lineLength = 100.dp,
                     linePadding = PaddingValues(2.dp),
-                    lineType = LineType.DOTTED,
-                    progressType = LineType.DOTTED
+                    lineType = LineType.Dotted(gapLength = 24.dp),
+                    progressType = LineType.Dotted(gapLength = 24.dp)
                 )
             )
         )

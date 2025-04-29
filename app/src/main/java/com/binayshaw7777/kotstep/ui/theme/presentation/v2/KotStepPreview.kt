@@ -36,7 +36,7 @@ fun KotStepPreview() {
     ) {
 
         val stepStyle = getKotStepStyle()
-        var currentStep by remember { mutableFloatStateOf(0f) }
+        var currentStep by remember { mutableFloatStateOf(-1f) }
 
         Counter(
             currentStep = { currentStep },
@@ -76,7 +76,11 @@ private fun Counter(
         ) {
             Button(
                 onClick = {
-                    onChange(currentStep() - 0.25f)
+                    if (currentStep() == 0f) {
+                        onChange(-1f)
+                    } else {
+                        onChange(currentStep() - 0.25f)
+                    }
                 }
             ) {
                 Text(text = "Previous")

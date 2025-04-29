@@ -35,8 +35,8 @@ data class LineStyle(
     val linePadding: PaddingValues = PaddingValues(0.dp),
     val lineStrokeCap: StrokeCap = StrokeCap.Square,
     val progressStrokeCap: StrokeCap = StrokeCap.Square,
-    val lineType: LineType = LineType.SOLID,
-    val progressType: LineType = LineType.SOLID,
+    val lineType: LineType = LineType.Solid,
+    val progressType: LineType = LineType.Solid,
 ) {
     companion object {
 

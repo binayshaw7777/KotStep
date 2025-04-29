@@ -128,15 +128,15 @@ object Utils {
                     lineThickness = 10.dp,
                     lineLength = 100.dp,
                     linePadding = PaddingValues(2.dp),
-                    lineType = LineType.DASHED,
-                    progressType = LineType.DASHED
+                    lineType = LineType.Dashed(),
+                    progressType = LineType.Dashed()
                 ),
                 onDone = LineStyle.defaultDone().copy(
                     lineThickness = 10.dp,
                     lineLength = 100.dp,
                     linePadding = PaddingValues(2.dp),
-                    lineType = LineType.DOTTED,
-                    progressType = LineType.DOTTED
+                    lineType = LineType.Dotted(gapLength = 24.dp),
+                    progressType = LineType.Dotted(gapLength = 24.dp)
                 )
             )
         )
