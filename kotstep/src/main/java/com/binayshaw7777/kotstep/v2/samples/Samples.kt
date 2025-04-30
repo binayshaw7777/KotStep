@@ -159,7 +159,7 @@ fun KotStepHorizontalExample(
                     .background(Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
                     .onClick { showMoreItem = showMoreItem.not() }
             ) {
-                Text("Hello World This is not a joke")
+                Text("Hello World This is a longer text you see...")
                 AnimatedVisibility(showMoreItem) {
                     Row {
                         Icon(

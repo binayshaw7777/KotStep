@@ -32,15 +32,31 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalNumber
 import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
 
 
+
 /**
- * @deprecated Since version 3.0.0, [HorizontalStepper] is deprecated.
- * Use the new `KotStep` DSL from `com.binayshaw7777.kotstep.v2.KotStep` for improved flexibility and customization.
+ * @Deprecated
+ * HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new way of using KotStep.
  *
- * @sample com.binayshaw7777.kotstep.v2.samples.KotStepHorizontalExample
- * @sample com.binayshaw7777.kotstep.v2.samples.KotStepVerticalExample
+ * This composable function renders a horizontal stepper with different styles based on the provided [HorizontalStepperStyle].
+ * It provides visual feedback on the progress of a multi-step process.
+ *
+ * This function is now deprecated and it's recommended to use `KotStep` for new implementations.
+ *
+ * @param modifier Modifier for styling and layout customization of the stepper.
+ * @param style The [HorizontalStepperStyle] that determines the appearance and behavior of the stepper.
+ *              It can be one of the following:
+ *              - [HorizontalStepperStyle.Tab]: Renders a stepper with tabs for each step.
+ *              - [HorizontalStepperStyle.Fleet]: Renders a stepper with a "fleet" or animated progress bar.
+ *              - [HorizontalStepperStyle.Icon]: Renders a stepper with custom icons for each step.
+ *              - [HorizontalStepperStyle.Number]: Renders a stepper with numbered steps.
+ *              - [HorizontalStepperStyle.Dashed]: Renders a stepper with a dashed line between steps.
+ * @param onStepClick Callback function invoked when a step is clicked. It provides the index of the clicked step.
+ *
+ * @see HorizontalStepperStyle
+ * @see com.binayshaw7777.kotstep.v2.KotStep
  */
 @Deprecated(
-    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Use the new KotStep DSL instead.",
+    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new KotStep Component.",
     replaceWith = ReplaceWith(
         expression = "KotStep(...)",
         imports = ["com.binayshaw7777.kotstep.v2.KotStep"]

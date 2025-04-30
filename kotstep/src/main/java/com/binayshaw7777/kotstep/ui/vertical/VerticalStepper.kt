@@ -34,20 +34,53 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
 
 
 /**
- * @deprecated Since version 3.0.0, [VerticalStepper] is deprecated.
- * Use the new `KotStep` DSL from `com.binayshaw7777.kotstep.v2.KotStep` for improved flexibility and customization.
+ * @Deprecated(
+ *     message = "VerticalStepper is deprecated since KotStep 3.0.0. Use the new KotStep DSL instead.",
+ *     replaceWith = ReplaceWith(
+ *         expression = "KotStep(...)",
+ *         imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+ *     ),
+ *     level = DeprecationLevel.WARNING
+ * )
+ * A composable function that renders a vertical stepper based on the provided [style].
  *
- * Example replacement:
+ * This function is deprecated and will be removed in future versions.
+ * Please use the new KotStep DSL instead.
+ *
+ * It supports various stepper styles including:
+ * - [VerticalStepperStyle.Tab]
+ * - [VerticalStepperStyle.Icon]
+ * - [VerticalStepperStyle.Number]
+ * - [VerticalStepperStyle.NumberWithLabel]
+ * - [VerticalStepperStyle.IconWithLabel]
+ * - [VerticalStepperStyle.TabWithLabel]
+ *
+ * @param modifier The modifier to be applied to the stepper.
+ * @param style The style of the vertical stepper to render.
+ * @param onStepClick A lambda function that is invoked when a step is clicked.
+ *                    It receives the index of the clicked step as a parameter.
+ *
+ * @see VerticalStepperStyle
+ * @see KotStep
+ *
+ * Example Usage (Deprecated):
  * ```
- * KotStep(modifier = ..., style = ..., currentStep = ...) {
- *     step(title = ..., onClick = { ... }) {
- *         // custom content
+ * // Not recommended to use, please use KotStep instead.
+ * VerticalStepper(
+ *     modifier = Modifier.fillMaxWidth(),
+ *     style = VerticalStepperStyle.Number(
+ *         totalSteps = 5,
+ *         currentStep = 2,
+ *         stepStyle = StepStyle.Default
+ *     ),
+ *     onStepClick = { stepIndex ->
+ *         println("Clicked on step: $stepIndex")
  *     }
- * }
+ * )
  * ```
  */
 @Deprecated(
-    message = "VerticalStepper is deprecated since KotStep 3.0.0. Use the new KotStep DSL instead.",
+    message = "VerticalStepper is deprecated since KotStep 3.0.0. Please use the new KotStep Component.",
     replaceWith = ReplaceWith(
         expression = "KotStep(...)",
         imports = ["com.binayshaw7777.kotstep.v2.KotStep"]

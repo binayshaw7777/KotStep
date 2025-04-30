@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 /**
  *
  * @deprecated Since version 3.0.0, use [com.binayshaw7777.kotstep.v2.model.style.StepStyle] instead.
-
+ *
  * A data class that defines the style of a step in a stepper component.
  *
  * @property colors The colors of the steps.
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
  * @property ignoreCurrentState If set to true, shows DONE instead of CURRENT state.
  */
 @Deprecated(
-    message = "StepStyle is deprecated since version 3.0.0. Use com.binayshaw7777.kotstep.v2.model.style.StepStyle instead.",
+    message = "This StepStyle is deprecated since version 3.0.0. Please use the try the new way of using KotStep.",
     replaceWith = ReplaceWith(
         expression = "com.binayshaw7777.kotstep.v2.model.style.StepStyle",
         imports = ["com.binayshaw7777.kotstep.v2.model.style.StepStyle"]
@@ -72,7 +72,7 @@ data class StepStyle(
  * @property doneLineProgressType The progress type of the done line.
  */
 @Deprecated(
-    message = "LineDefault is deprecated since version 3.0.0. Use com.binayshaw7777.kotstep.v2.model.style.LineStyle instead.",
+    message = "This LineDefault is deprecated since version 3.0.0. Please use com.binayshaw7777.kotstep.v2.model.style.LineStyle instead.",
     replaceWith = ReplaceWith(
         expression = "com.binayshaw7777.kotstep.v2.model.style.LineStyle",
         imports = ["com.binayshaw7777.kotstep.v2.model.style.LineStyle"]
@@ -127,7 +127,7 @@ data class LineDefault(
  * @property checkMarkColor The color of the check mark.
  */
 @Deprecated(
-    message = "StepDefaults is deprecated since version 3.0.0. Use com.binayshaw7777.kotstep.v2.model.style.StepColors instead.",
+    message = "This StepDefaults is deprecated since version 3.0.0. Please use com.binayshaw7777.kotstep.v2.model.style.StepColors instead.",
     replaceWith = ReplaceWith(
         expression = "com.binayshaw7777.kotstep.v2.model.style.StepColors",
         imports = ["com.binayshaw7777.kotstep.v2.model.style.StepColors"]
