@@ -23,6 +23,25 @@ import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.StepState
 import com.binayshaw7777.kotstep.model.StepStyle
 
+/**
+ * Represents a single step in a horizontal fleet progress bar.
+ *
+ * This composable displays a horizontal line representing a single step in a sequence.
+ * It visually indicates whether the step is completed, currently active, or yet to be done.
+ * The progress of the current step is animated based on the provided `isPlaying` state and `duration`.
+ *
+ * @param modifier Modifier for styling and layout of the step.
+ * @param totalSteps The total number of steps in the fleet.
+ * @param index The index of the current step (starting from 0).
+ * @param duration The duration in milliseconds for animating the progress of a single step.
+ * @param currentStep The index of the currently active step.
+ * @param stepStyle The style configuration for the step's appearance.
+ * @param isPlaying Boolean indicating whether the progress animation is currently playing.
+ * @param stepState The current state of the step (TODO, CURRENT, or DONE).
+ * @param size The size of the overall fleet container. Used to calculate step widths.
+ * @param onClick Callback invoked when the step is clicked.
+ * @param onStepComplete Callback invoked when the progress of the current step reaches 100%.
+ */
 @Composable
 internal fun HorizontalFleetStep(
     modifier: Modifier = Modifier,

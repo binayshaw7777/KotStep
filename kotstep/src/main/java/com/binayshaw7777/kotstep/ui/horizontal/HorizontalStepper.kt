@@ -15,7 +15,7 @@ package com.binayshaw7777.kotstep.ui.horizontal
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Please contact Binay Shaw, by visiting https://binayshaw.me or https://binay-shaw.onrender.com/ if you need additional information or have any
+ * Please contact Binay Shaw, by visiting https://binay-shaw.onrender.com/ if you need additional information or have any
  * questions or directly reach out to me via mail: binayshaw7777@gmail.com
  *
  * @author Binay Shaw
@@ -32,37 +32,35 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalNumber
 import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
 
 
+
 /**
- * A composable function that renders a horizontal stepper based on the provided style.
  *
- * This function acts as a router, delegating the rendering to specific Composable(s)
- * based on the type of [HorizontalStepperStyle] provided.
+ * This composable function renders a horizontal stepper with different styles based on the provided [HorizontalStepperStyle].
+ * It provides visual feedback on the progress of a multi-step process.
  *
- * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
- * @param style The [HorizontalStepperStyle] that defines the appearance and behavior of the stepper.
- * @param onStepClick A lambda function that is invoked when a step is clicked. Defaults to an empty lambda.
+ * This function is now deprecated and it's recommended to use `KotStep` for new implementations.
  *
- * Usage example:
- * ```
- * HorizontalStepper(
- *    style = numberedHorizontal(
- *        totalSteps = 5,
- *        currentStep = 2, // Third step is active
- *        stepStyle = StepStyle(
- *            stepSize = 28.dp,
- *            lineSize = 2.dp
- *            // ... other style properties
- *        )
- *    )
- *) { // Do something }
- * ```
+ * @param modifier Modifier for styling and layout customization of the stepper.
+ * @param style The [HorizontalStepperStyle] that determines the appearance and behavior of the stepper.
+ *              It can be one of the following:
+ *              - [HorizontalStepperStyle.Tab]: Renders a stepper with tabs for each step.
+ *              - [HorizontalStepperStyle.Fleet]: Renders a stepper with a "fleet" or animated progress bar.
+ *              - [HorizontalStepperStyle.Icon]: Renders a stepper with custom icons for each step.
+ *              - [HorizontalStepperStyle.Number]: Renders a stepper with numbered steps.
+ *              - [HorizontalStepperStyle.Dashed]: Renders a stepper with a dashed line between steps.
+ * @param onStepClick Callback function invoked when a step is clicked. It provides the index of the clicked step.
  *
  * @see HorizontalStepperStyle
- * @see RenderHorizontalTab
- * @see RenderHorizontalIcon
- * @see RenderHorizontalNumber
- * @see RenderHorizontalDashed
+ * @see com.binayshaw7777.kotstep.v2.KotStep
  */
+//@Deprecated(
+//    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new KotStep Component.",
+//    replaceWith = ReplaceWith(
+//        expression = "KotStep(...)",
+//        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Composable
 fun HorizontalStepper(
     modifier: Modifier = Modifier,

@@ -34,38 +34,51 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
 
 
 /**
- * A composable function that renders a vertical stepper based on the provided style.
+ * A composable function that renders a vertical stepper based on the provided [style].
  *
- * This function acts as a router, delegating the rendering to specific Composable(s)
- * based on the type of [VerticalStepperStyle] provided.
+ * This function is deprecated and will be removed in future versions.
+ * Please use the new KotStep DSL instead.
  *
- * @param modifier A [Modifier] to be applied to the stepper. Defaults to [Modifier].
- * @param style The [VerticalStepperStyle] that defines the appearance and behavior of the stepper.
- * @param onStepClick A lambda function that is invoked when a step is clicked. Defaults to an empty lambda.
+ * It supports various stepper styles including:
+ * - [VerticalStepperStyle.Tab]
+ * - [VerticalStepperStyle.Icon]
+ * - [VerticalStepperStyle.Number]
+ * - [VerticalStepperStyle.NumberWithLabel]
+ * - [VerticalStepperStyle.IconWithLabel]
+ * - [VerticalStepperStyle.TabWithLabel]
  *
- * Usage example:
- * ```
- * VerticalStepper(
- *     style = numberedVertical(
- *         totalSteps = 5,
- *         currentStep = 2, // Third step is active
- *         stepStyle = StepStyle(
- *             stepSize = 28.dp,
- *             lineSize = 2.dp
- *             // ... other style properties
- *         )
- *     )
- * ) { // Do something }
- * ```
+ * @param modifier The modifier to be applied to the stepper.
+ * @param style The style of the vertical stepper to render.
+ * @param onStepClick A lambda function that is invoked when a step is clicked.
+ *                    It receives the index of the clicked step as a parameter.
  *
  * @see VerticalStepperStyle
- * @see RenderVerticalTab
- * @see RenderVerticalIcon
- * @see RenderVerticalNumber
- * @see RenderVerticalNumberWithLabel
- * @see RenderVerticalIconWithLabel
- * @see RenderVerticalTabWithLabel
+ * @see KotStep
+ *
+ * Example Usage (Deprecated):
+ * ```
+ * // Not recommended to use, please use KotStep instead.
+ * VerticalStepper(
+ *     modifier = Modifier.fillMaxWidth(),
+ *     style = VerticalStepperStyle.Number(
+ *         totalSteps = 5,
+ *         currentStep = 2,
+ *         stepStyle = StepStyle.Default
+ *     ),
+ *     onStepClick = { stepIndex ->
+ *         println("Clicked on step: $stepIndex")
+ *     }
+ * )
+ * ```
  */
+//@Deprecated(
+//    message = "VerticalStepper is deprecated since KotStep 3.0.0. Please use the new KotStep Component.",
+//    replaceWith = ReplaceWith(
+//        expression = "KotStep(...)",
+//        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Composable
 fun VerticalStepper(
     modifier: Modifier = Modifier,
