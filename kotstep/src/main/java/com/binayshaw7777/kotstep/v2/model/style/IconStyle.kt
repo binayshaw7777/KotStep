@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
  * @property iconTint The color to tint the icon. Defaults to [Color.Unspecified], which means no tinting is applied.
  * @property iconSize The size of the icon, represented as [Dp]. Defaults to 16.dp.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 data class IconStyle(
     val iconTint: Color = Color.Unspecified,

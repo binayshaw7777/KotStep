@@ -21,7 +21,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
  * @property lineStyle The style for the lines connecting the steps. Allows customizing the color,
  *   thickness, and other attributes of the lines. Defaults to [LineStyles.default].
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Immutable
 data class KotStepStyle(

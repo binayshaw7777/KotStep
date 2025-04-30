@@ -33,7 +33,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepState
  * @property iconStyle The style of any icon displayed within the step. Defaults to an empty `IconStyle`.
  * @property borderStyle The style of the border around the step indicator. Defaults to an empty `BorderStyle`.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Immutable
 data class StepStyle(
@@ -60,7 +60,7 @@ data class StepStyle(
  * @property onCurrent The style applied to the currently active step.
  * @property onDone The style applied to a step that has been completed.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Immutable
 data class StepStyles(
@@ -84,7 +84,7 @@ data class StepStyles(
          * @see StepStyle.defaultCurrent
          * @see StepStyle.defaultDone
          *
-         * @since 2.4.0
+         * @since 3.0.0
          */
         fun default() = StepStyles(
             onTodo = StepStyle.defaultTodo(),
@@ -122,10 +122,10 @@ data class StepStyles(
  * @see StepStyles
  * @see StepStyle
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
-fun StepStyles.getColorForState(stepState: StepState): Color {
+internal fun StepStyles.getColorForState(stepState: StepState): Color {
     return when (stepState) {
         StepState.Todo -> this.onTodo.stepColor
         StepState.Current -> this.onCurrent.stepColor
@@ -136,10 +136,10 @@ fun StepStyles.getColorForState(stepState: StepState): Color {
 /**
  * Represents the different states a step in a multi-step process can have.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
-fun StepStyles.getSizeForState(stepState: StepState): Dp {
+internal fun StepStyles.getSizeForState(stepState: StepState): Dp {
     return when (stepState) {
         StepState.Todo -> this.onTodo.stepSize
         StepState.Current -> this.onCurrent.stepSize

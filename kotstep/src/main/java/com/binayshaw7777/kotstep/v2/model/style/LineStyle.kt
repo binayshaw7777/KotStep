@@ -24,7 +24,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepState
  * @property lineType The type of the base line (e.g., solid, dashed). Defaults to `LineType.SOLID`.
  * @property progressType The type of the progress portion of the line (e.g., solid, dashed). Defaults to `LineType.SOLID`.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Immutable
 data class LineStyle(
@@ -50,7 +50,7 @@ data class LineStyle(
          *
          * @return A [LineStyle] object with the line color and progress color set to semi-transparent gray.
          *
-         * @since 2.4.0
+         * @since 3.0.0
          */
         fun defaultTodo() = LineStyle(lineColor = Color.Gray.copy(alpha = 0.3f), progressColor = Color.Gray.copy(alpha = 0.3f))
 
@@ -68,7 +68,7 @@ data class LineStyle(
          *
          * @return A [LineStyle] object with the default line and progress colors.
          *
-         * @since 2.4.0
+         * @since 3.0.0
          */
         fun defaultCurrent() = LineStyle(lineColor = Color.Gray.copy(alpha = 0.3f), progressColor = Color.Blue)
 
@@ -83,7 +83,7 @@ data class LineStyle(
          *   - `lineColor`: A gray color with 30% opacity (alpha = 0.3f).
          *   - `progressColor`: A solid green color.
          *
-         * @since 2.4.0
+         * @since 3.0.0
          */
         fun defaultDone() = LineStyle(lineColor = Color.Gray.copy(alpha = 0.3f), progressColor = Color.Green)
     }
@@ -100,7 +100,7 @@ data class LineStyle(
  * @property onCurrent The [LineStyle] to apply to lines that represent the "current" item.
  * @property onDone The [LineStyle] to apply to lines that represent "done" items.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Immutable
 data class LineStyles(
@@ -132,10 +132,10 @@ data class LineStyles(
  * @see LineStyles
  * @see StepState
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
-fun LineStyles.getLineColorForState(stepState: StepState): Color {
+internal fun LineStyles.getLineColorForState(stepState: StepState): Color {
     return when (stepState) {
         StepState.Todo -> this.onTodo.lineColor
         StepState.Current -> this.onCurrent.lineColor
@@ -164,10 +164,10 @@ fun LineStyles.getLineColorForState(stepState: StepState): Color {
  * @see LineStyles
  * @see StepState
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
-fun LineStyles.getProgressColorForState(stepState: StepState): Color {
+internal fun LineStyles.getProgressColorForState(stepState: StepState): Color {
     return when (stepState) {
         StepState.Todo -> this.onTodo.progressColor
         StepState.Current -> this.onCurrent.progressColor
@@ -188,10 +188,10 @@ fun LineStyles.getProgressColorForState(stepState: StepState): Color {
  * @see StepState
  * @see LineStyles
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
-fun LineStyles.getLineLengthForState(stepState: StepState): Dp {
+internal fun LineStyles.getLineLengthForState(stepState: StepState): Dp {
     return when (stepState) {
         StepState.Todo -> this.onTodo.lineLength
         StepState.Current -> this.onCurrent.lineLength

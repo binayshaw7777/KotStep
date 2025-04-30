@@ -29,7 +29,7 @@ import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
  *
  * @sample com.binayshaw7777.kotstep.v2.samples.KotStepVerticalExample
  *
- * @since 2.4.0
+ * @since 3.0.0
  **/
 @Composable
 fun KotStep(

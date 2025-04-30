@@ -58,7 +58,7 @@ private const val STEP_INDICATOR_DESCRIPTION = "Step Indicator"
  * 5. **Default Indicator:**
  *    - If all the above are not satisfied, it shows the default indicator.
  *
- * @since 2.4.0
+ * @since 3.0.0
  *
  *  */
 @Stable

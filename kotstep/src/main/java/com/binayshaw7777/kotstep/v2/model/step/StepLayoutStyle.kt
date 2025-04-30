@@ -8,7 +8,7 @@ import androidx.compose.runtime.Immutable
  * @property Vertical: Is a vertical orientation stepper where the step circle is in the top
  * @property Horizontal: Is a horizontal orientation stepper where the step circle is in the start
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Immutable
 enum class StepLayoutStyle {

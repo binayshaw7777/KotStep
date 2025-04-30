@@ -8,7 +8,7 @@ package com.binayshaw7777.kotstep.v2.model.step
  * - [Current]: The step is currently being performed.
  * - [Done]: The step has been completed.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 sealed class StepState {
     data object Todo : StepState()

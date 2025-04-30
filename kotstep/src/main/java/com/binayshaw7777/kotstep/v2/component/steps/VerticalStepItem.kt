@@ -49,7 +49,7 @@ import com.binayshaw7777.kotstep.v2.util.Util.onClick
  * @param isLastStep Boolean flag that indicates if it's the last step in the sequence.
  * @param onClick A callback function invoked when the step item is clicked. Defaults to an empty function.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
 internal fun VerticalStepItem(

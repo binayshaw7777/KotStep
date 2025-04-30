@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.IntSize
  * @param onSizeChanged A callback function that is invoked when the size of the content area changes.
  *                      It provides the new [IntSize] of the content area.
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 @Composable
 internal fun LabelContent(

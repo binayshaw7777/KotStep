@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
  * - [Solid]: A continuous, unbroken line.
  * - [Dashed]: A line consisting of alternating dashes and gaps.
  * - [Dotted]: A line consisting of dots separated by gaps.
+ *
+ * @since 3.0.0
  */
 @Immutable
 sealed class LineType {

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
  *                 border's appearance to be determined by other factors.
  * @property shape The shape of the border. Defaults to [CircleShape]. You can use any shape like [RoundedCornerShape()]
  *
- * @since 2.4.0
+ * @since 3.0.0
  */
 data class BorderStyle(
     val width: Dp = 1.dp,

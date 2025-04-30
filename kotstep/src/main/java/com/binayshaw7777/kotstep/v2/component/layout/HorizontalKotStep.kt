@@ -37,7 +37,7 @@ import kotlinx.collections.immutable.PersistentList
  * @throws IllegalArgumentException If the `steps` list is empty.
  * @throws IllegalArgumentException If the `currentStep` value is outside the valid range of -1 to `steps.size`.
  *
- * @since 2.4.0
+ * @since 3.0.0
  *
  * */
 @Composable

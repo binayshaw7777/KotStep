@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * @property content The content inside the step.
  * @property onDone The callback to check if the step is done.
  *
- * @since 2.4.0
+ * @since 3.0.0
  *
  */
 internal data class Step(
