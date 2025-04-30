@@ -69,7 +69,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.binayshaw7777"
             artifactId = "KotStep"
-            version = "2.3.1"
+            version = "3.0.0"
 
             afterEvaluate {
                 from(components["release"])
@@ -94,7 +94,7 @@ publishing {
                 }
                 scm {
                     connection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
-                    developerConnection.set("scm:git:ssh://[email protected]/binayshaw7777/KotStep.git")
+                    developerConnection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
                     url.set("https://github.com/binayshaw7777/KotStep")
                 }
             }
