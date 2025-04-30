@@ -62,8 +62,8 @@ internal fun KotStepVerticalProgress(
     lineProgressStyle: LineType = LineType.Solid,
     progress: () -> Float = { 1f },
     stepState: () -> StepState,
-    trackStrokeCap: StrokeCap = StrokeCap.Round,
-    progressStrokeCap: StrokeCap = StrokeCap.Round
+    trackStrokeCap: StrokeCap = StrokeCap.Butt,
+    progressStrokeCap: StrokeCap = StrokeCap.Butt
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress().coerceIn(0f, 1f),
@@ -97,7 +97,8 @@ internal fun KotStepVerticalProgress(
                     end = Offset(centerX, size.height),
                     strokeWidth = width().toPx(),
                     pathEffect = PathEffect.dashPathEffect(
-                        floatArrayOf(1f, lineTrackStyle.gapLength.toPx()), 0f
+                        floatArrayOf(lineTrackStyle.dashLength.toPx(), lineTrackStyle.gapLength.toPx()),
+                        0f
                     ),
                     cap = trackStrokeCap
                 )
@@ -145,7 +146,8 @@ internal fun KotStepVerticalProgress(
                         end = Offset(centerX, endY),
                         strokeWidth = width().toPx(),
                         pathEffect = PathEffect.dashPathEffect(
-                            floatArrayOf(1f, lineProgressStyle.gapLength.toPx()), 0f
+                            floatArrayOf(lineProgressStyle.dashLength.toPx(), lineProgressStyle.gapLength.toPx()),
+                            0f
                         ),
                         cap = progressStrokeCap
                     )

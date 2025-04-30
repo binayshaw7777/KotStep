@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -128,8 +129,10 @@ object Utils {
                     lineThickness = 4.dp,
                     lineLength = 100.dp,
                     linePadding = PaddingValues(2.dp),
-                    lineType = LineType.Dashed(),
-                    progressType = LineType.Dashed()
+                    progressStrokeCap = StrokeCap.Butt,
+                    lineStrokeCap = StrokeCap.Butt,
+                    lineType = LineType.Dashed(dashLength = 20.dp, gapLength = 10.dp),
+                    progressType = LineType.Dashed(dashLength = 20.dp, gapLength = 10.dp)
                 ),
                 onDone = LineStyle.defaultDone().copy(
                     lineThickness = 5.dp,
