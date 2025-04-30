@@ -3,6 +3,7 @@ package com.binayshaw7777.kotstep.v2.model
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.binayshaw7777.kotstep.v2.model.step.Step
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
@@ -50,6 +51,7 @@ class KotStepScope {
      *
      * @since 3.0.0
      */
+    @ExperimentalKotStep
     fun step(
         title: String,
         onClick: (() -> Unit) = {},
@@ -74,6 +76,7 @@ class KotStepScope {
      *
      * @since 3.0.0
      */
+    @ExperimentalKotStep
     fun step(
         icon: ImageVector,
         onClick: (() -> Unit) = {},
@@ -95,6 +98,7 @@ class KotStepScope {
      *
      * @since 3.0.0
      */
+    @ExperimentalKotStep
     fun step(
         content: (@Composable () -> Unit)? = null,
         onClick: (() -> Unit) = {},

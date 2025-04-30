@@ -27,6 +27,7 @@ import com.binayshaw7777.kotstep.v2.model.step.Step
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.BorderStyle
 import com.binayshaw7777.kotstep.v2.model.style.StepStyle
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 private const val DEFAULT_INDICATOR_SCALE = 0.6f
 private const val BORDER_SCALE_FACTOR = 0.1f
@@ -61,6 +62,7 @@ private const val STEP_INDICATOR_DESCRIPTION = "Step Indicator"
  * @since 3.0.0
  *
  *  */
+@OptIn(ExperimentalKotStep::class)
 @Stable
 @Composable
 internal fun StepIndicator(

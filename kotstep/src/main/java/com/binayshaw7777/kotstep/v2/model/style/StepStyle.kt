@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.binayshaw7777.kotstep.v2.model.step.StepState
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * Defines the visual style of a step in a stepper or similar UI component.
@@ -35,6 +36,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepState
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 @Immutable
 data class StepStyle(
     val stepColor: Color = Color.Gray,
@@ -62,6 +64,7 @@ data class StepStyle(
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 @Immutable
 data class StepStyles(
     val onTodo: StepStyle,
@@ -124,6 +127,7 @@ data class StepStyles(
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepStyles.getColorForState(stepState: StepState): Color {
     return when (stepState) {
@@ -138,6 +142,7 @@ internal fun StepStyles.getColorForState(stepState: StepState): Color {
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepStyles.getSizeForState(stepState: StepState): Dp {
     return when (stepState) {

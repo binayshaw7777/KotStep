@@ -31,6 +31,7 @@ import com.binayshaw7777.kotstep.v2.model.style.getLineColorForState
 import com.binayshaw7777.kotstep.v2.model.style.getLineLengthForState
 import com.binayshaw7777.kotstep.v2.model.style.getProgressColorForState
 import com.binayshaw7777.kotstep.v2.model.style.getSizeForState
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v2.util.Util.onClick
 
 
@@ -51,6 +52,7 @@ import com.binayshaw7777.kotstep.v2.util.Util.onClick
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun VerticalStepItem(
     modifier: Modifier = Modifier,

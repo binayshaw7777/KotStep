@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * Represents the style of a border.
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 data class BorderStyle(
     val width: Dp = 1.dp,
     val color: Color = Color.Unspecified,

@@ -31,6 +31,7 @@ import com.binayshaw7777.kotstep.v2.model.style.LineStyles
 import com.binayshaw7777.kotstep.v2.model.style.LineType
 import com.binayshaw7777.kotstep.v2.model.style.StepStyle
 import com.binayshaw7777.kotstep.v2.model.style.StepStyles
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 object Utils {
 
@@ -97,6 +98,7 @@ object Utils {
     )
         .subList(0, limit)
 
+    @OptIn(ExperimentalKotStep::class)
     internal fun getKotStepStyle(): KotStepStyle {
         return KotStepStyle(
             stepLayoutStyle = StepLayoutStyle.Vertical,

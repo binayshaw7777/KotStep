@@ -1,5 +1,7 @@
 package com.binayshaw7777.kotstep.v2.model.step
 
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
+
 /**
  * Represents the state of a step in a multi-step process.
  *
@@ -10,6 +12,7 @@ package com.binayshaw7777.kotstep.v2.model.step
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 sealed class StepState {
     data object Todo : StepState()
     data object Current : StepState()

@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v2.model.step.StepState
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * Represents the styling options for a line in a progress indicator or similar UI element.
@@ -26,6 +27,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepState
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 @Immutable
 data class LineStyle(
     val lineColor: Color = Color.Gray,
@@ -102,6 +104,7 @@ data class LineStyle(
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 @Immutable
 data class LineStyles(
     val onTodo: LineStyle,
@@ -134,6 +137,7 @@ data class LineStyles(
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun LineStyles.getLineColorForState(stepState: StepState): Color {
     return when (stepState) {
@@ -166,6 +170,7 @@ internal fun LineStyles.getLineColorForState(stepState: StepState): Color {
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun LineStyles.getProgressColorForState(stepState: StepState): Color {
     return when (stepState) {
@@ -190,6 +195,7 @@ internal fun LineStyles.getProgressColorForState(stepState: StepState): Color {
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun LineStyles.getLineLengthForState(stepState: StepState): Dp {
     return when (stepState) {

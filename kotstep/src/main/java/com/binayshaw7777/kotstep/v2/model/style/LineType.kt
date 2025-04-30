@@ -3,6 +3,7 @@ package com.binayshaw7777.kotstep.v2.model.style
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 
 /**
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 @Immutable
 sealed class LineType {
     @Immutable

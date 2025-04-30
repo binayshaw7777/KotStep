@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * Defines the style for the KotStep component, providing customization options for layout,
@@ -23,6 +24,7 @@ import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 @Immutable
 data class KotStepStyle(
     val stepLayoutStyle: StepLayoutStyle = StepLayoutStyle.Vertical,

@@ -25,7 +25,9 @@ import com.binayshaw7777.kotstep.utils.Utils.getKotStepStyle
 import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v2.samples.KotStepHorizontalExample
 import com.binayshaw7777.kotstep.v2.samples.KotStepVerticalExample
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
+@OptIn(ExperimentalKotStep::class)
 @Preview(showBackground = true, backgroundColor = 0xFF1C2526)
 @Composable
 fun KotStepPreview() {

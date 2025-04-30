@@ -9,6 +9,7 @@ import com.binayshaw7777.kotstep.v2.component.steps.VerticalStepItem
 import com.binayshaw7777.kotstep.v2.model.step.Step
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 import kotlinx.collections.immutable.PersistentList
 
 /**
@@ -35,6 +36,7 @@ import kotlinx.collections.immutable.PersistentList
  *
  * @since 3.0.0
  * */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun VerticalKotStep(
     modifier: Modifier = Modifier,

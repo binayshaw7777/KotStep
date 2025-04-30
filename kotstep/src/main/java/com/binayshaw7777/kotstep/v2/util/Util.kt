@@ -20,6 +20,7 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyles
 
 internal object Util {
 
+    @OptIn(ExperimentalKotStep::class)
     internal fun getKotStepStyle(): KotStepStyle {
         return KotStepStyle(
             stepLayoutStyle = StepLayoutStyle.Vertical,

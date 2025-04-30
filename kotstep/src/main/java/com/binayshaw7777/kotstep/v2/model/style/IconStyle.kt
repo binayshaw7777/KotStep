@@ -3,6 +3,7 @@ package com.binayshaw7777.kotstep.v2.model.style
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * Represents the styling for an icon, including its tint and size.
@@ -12,6 +13,7 @@ import androidx.compose.ui.unit.dp
  *
  * @since 3.0.0
  */
+@ExperimentalKotStep
 data class IconStyle(
     val iconTint: Color = Color.Unspecified,
     val iconSize: Dp = 16.dp

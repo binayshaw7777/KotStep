@@ -32,12 +32,14 @@ import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.R
 import com.binayshaw7777.kotstep.v2.KotStep
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v2.util.Util.getKotStepStyle
 import com.binayshaw7777.kotstep.v2.util.Util.onClick
 
 /**
  * Demonstrates how to add a step with a title.
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepWithTitle(modifier: Modifier = Modifier) {
     KotStep(currentStep = { 1f }) {
@@ -48,6 +50,7 @@ internal fun StepWithTitle(modifier: Modifier = Modifier) {
 /**
  * Demonstrates how to add a step with an image vector icon.
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
     val imageVector = ImageVector.vectorResource(R.drawable.kotlin)
@@ -59,6 +62,7 @@ internal fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
 /**
  * Demonstrates how to add a step with custom composable content.
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepWithCustomContent(modifier: Modifier = Modifier) {
     KotStep(currentStep = { 1f }) {
@@ -66,6 +70,7 @@ internal fun StepWithCustomContent(modifier: Modifier = Modifier) {
     }
 }
 
+@OptIn(ExperimentalKotStep::class)
 @Composable
 fun KotStepVerticalExample(
     modifier: Modifier = Modifier,
@@ -125,6 +130,7 @@ fun KotStepVerticalExample(
     }
 }
 
+@OptIn(ExperimentalKotStep::class)
 @Composable
 fun KotStepHorizontalExample(
     modifier: Modifier = Modifier,

@@ -7,6 +7,7 @@ import com.binayshaw7777.kotstep.v2.component.layout.VerticalKotStep
 import com.binayshaw7777.kotstep.v2.model.KotStepScope
 import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * A composable function that renders a step-based UI, either horizontally or vertically.
@@ -31,6 +32,7 @@ import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
  *
  * @since 3.0.0
  **/
+@ExperimentalKotStep
 @Composable
 fun KotStep(
     modifier: Modifier = Modifier,

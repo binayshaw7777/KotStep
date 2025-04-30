@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.LineType
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 /**
  * Composable function that draws a vertical progress indicator.
@@ -51,6 +52,7 @@ import com.binayshaw7777.kotstep.v2.model.style.LineType
  * @since 3.0.0
  *
  * */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun KotStepVerticalProgress(
     modifier: Modifier = Modifier,

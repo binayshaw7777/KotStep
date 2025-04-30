@@ -10,6 +10,7 @@ import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
 import com.binayshaw7777.kotstep.v2.model.style.LineStyle
 import com.binayshaw7777.kotstep.v2.model.style.LineType
 import com.binayshaw7777.kotstep.v2.model.style.StepStyle
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 
 /**
@@ -33,7 +34,7 @@ import com.binayshaw7777.kotstep.v2.model.style.StepStyle
  * @since 3.0.0
  */
 @Immutable
-internal data class StaticStepProperties(
+internal data class StaticStepProperties @OptIn(ExperimentalKotStep::class) constructor(
     val maxSize: Dp,
     val stepStyle: StepStyle,
     val lineStyle: LineStyle,
@@ -62,6 +63,7 @@ internal data class StaticStepProperties(
  *
  * @since 3.0.0
  */
+@OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun calculateStaticStepProperties(style: KotStepStyle, stepState: StepState): StaticStepProperties {
     return remember(style.stepStyle, style.lineStyle, stepState) {
