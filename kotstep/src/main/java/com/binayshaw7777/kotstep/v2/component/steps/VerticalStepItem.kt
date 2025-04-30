@@ -136,6 +136,7 @@ internal fun VerticalStepItem(
                     lineTrackStyle = staticProperties.lineTrackType,
                     lineProgressStyle = staticProperties.lineProgressType,
                     progress = progress,
+                    stepState = { stepState },
                     trackStrokeCap = staticProperties.trackStrokeCap,
                     progressStrokeCap = staticProperties.progressStrokeCap
                 )

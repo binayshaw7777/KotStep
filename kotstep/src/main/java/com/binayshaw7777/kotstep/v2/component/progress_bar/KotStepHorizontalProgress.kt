@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.v2.model.step.StepState
 import com.binayshaw7777.kotstep.v2.model.style.LineType
 
 /**
@@ -25,6 +26,10 @@ import com.binayshaw7777.kotstep.v2.model.style.LineType
  *
  * The function uses a `Canvas` to draw the progress indicator and supports different line styles
  * using `PathEffect` and different stroke caps using `StrokeCap`.
+ *
+ * **Note:**
+ * When the [StepState] is [StepState.Done], it does not draws line track. Instead it only draws line progress.
+ * This means `lineTrackColor`
  *
  * @param modifier The modifier to be applied to the Canvas.
  * @param width A lambda function that returns the width of the progress line in Dp (length of the bar).
@@ -55,6 +60,7 @@ internal fun KotStepHorizontalProgress(
     lineTrackStyle: LineType = LineType.Solid,
     lineProgressStyle: LineType = LineType.Solid,
     progress: () -> Float = { 1f },
+    stepState: () -> StepState,
     trackStrokeCap: StrokeCap = StrokeCap.Round,
     progressStrokeCap: StrokeCap = StrokeCap.Round
 ) {
@@ -81,6 +87,7 @@ internal fun KotStepHorizontalProgress(
                     cap = trackStrokeCap
                 )
             }
+
             is LineType.Dashed -> {
                 drawLine(
                     color = lineTrackColor,
@@ -88,22 +95,33 @@ internal fun KotStepHorizontalProgress(
                     end = Offset(size.width, centerY),
                     strokeWidth = height().toPx(),
                     pathEffect = PathEffect.dashPathEffect(
-                        floatArrayOf(1f, lineTrackStyle.gapLength.toPx()), 0f),
+                        floatArrayOf(1f, lineTrackStyle.gapLength.toPx()), 0f
+                    ),
                     cap = trackStrokeCap
                 )
             }
-            is LineType.Dotted -> {
-                val dotRadius = height().toPx() / 2
-                val spaceBetweenDots = dotRadius * 4
-                val totalDots = (size.width / spaceBetweenDots).toInt()
 
-                for (i in 0 until totalDots) {
-                    val x = i * spaceBetweenDots + dotRadius
-                    drawCircle(
-                        color = lineTrackColor,
-                        radius = dotRadius,
-                        center = Offset(x, centerY)
-                    )
+            is LineType.Dotted -> {
+                if (stepState() != StepState.Done) {
+                    val dotRadius = height().toPx() / 2
+                    val gapLengthPx = lineTrackStyle.gapLength.toPx()
+                    val spaceBetweenDots = dotRadius * 2 + gapLengthPx
+
+                    val totalProgressDots = (size.width / spaceBetweenDots).toInt()
+                    val actualSpaceBetweenDots = if (totalProgressDots > 0) {
+                        size.width / totalProgressDots
+                    } else {
+                        spaceBetweenDots
+                    }
+
+                    for (i in 0 until totalProgressDots) {
+                        val x = i * actualSpaceBetweenDots + dotRadius
+                        drawCircle(
+                            color = lineTrackColor,
+                            radius = dotRadius,
+                            center = Offset(x, centerY)
+                        )
+                    }
                 }
             }
         }
@@ -121,6 +139,7 @@ internal fun KotStepHorizontalProgress(
                         cap = progressStrokeCap
                     )
                 }
+
                 is LineType.Dashed -> {
                     drawLine(
                         color = lineProgressColor,
@@ -128,17 +147,27 @@ internal fun KotStepHorizontalProgress(
                         end = Offset(endX, centerY),
                         strokeWidth = height().toPx(),
                         pathEffect = PathEffect.dashPathEffect(
-                            floatArrayOf(1f, lineProgressStyle.gapLength.toPx()), 0f),
+                            floatArrayOf(1f, lineProgressStyle.gapLength.toPx()), 0f
+                        ),
                         cap = progressStrokeCap
                     )
                 }
+
                 is LineType.Dotted -> {
                     val dotRadius = height().toPx() / 2
-                    val spaceBetweenDots = dotRadius * 4
+                    val gapLengthPx = lineProgressStyle.gapLength.toPx()
+                    val spaceBetweenDots = dotRadius * 2 + gapLengthPx
+
                     val totalProgressDots = (endX / spaceBetweenDots).toInt()
 
+                    val actualSpaceBetweenDots = if (totalProgressDots > 0) {
+                        endX / totalProgressDots
+                    } else {
+                        spaceBetweenDots
+                    }
+
                     for (i in 0 until totalProgressDots) {
-                        val x = i * spaceBetweenDots + dotRadius
+                        val x = i * actualSpaceBetweenDots + dotRadius
                         drawCircle(
                             color = lineProgressColor,
                             radius = dotRadius,
@@ -148,46 +177,5 @@ internal fun KotStepHorizontalProgress(
                 }
             }
         }
-
-//        val trackPathEffect = when (lineTrackStyle) {
-//            is LineType.Solid -> null
-//            is LineType.Dashed -> PathEffect.dashPathEffect(
-//                floatArrayOf(lineTrackStyle.dashLength.toPx(), lineTrackStyle.gapLength.toPx()), 0f)
-//            is LineType.Dotted -> PathEffect.dashPathEffect(
-//                floatArrayOf(1f, lineTrackStyle.gapLength.toPx()), 0f)
-//        }
-//
-//
-//        val progressPathEffect = when (lineProgressStyle) {
-//            is LineType.Solid -> null
-//            is LineType.Dashed -> PathEffect.dashPathEffect(
-//                floatArrayOf(lineProgressStyle.dashLength.toPx(), lineProgressStyle.gapLength.toPx()), 0f)
-//            is LineType.Dotted -> PathEffect.dashPathEffect(
-//                floatArrayOf(1f, lineProgressStyle.gapLength.toPx()), 0f)
-//        }
-//
-//
-//        // Draw background track
-//        drawLine(
-//            color = lineTrackColor,
-//            start = Offset(0f, centerY),
-//            end = Offset(size.width, centerY),
-//            strokeWidth = height().toPx(),
-//            pathEffect = trackPathEffect,
-//            cap = trackStrokeCap
-//        )
-//
-//        // Draw progress
-//        val endX = size.width * animatedProgress
-//        if (endX > 0) {
-//            drawLine(
-//                color = lineProgressColor,
-//                start = Offset(0f, centerY),
-//                end = Offset(endX, centerY),
-//                strokeWidth = height().toPx(),
-//                pathEffect = progressPathEffect,
-//                cap = progressStrokeCap
-//            )
-//        }
     }
 }
