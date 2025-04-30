@@ -34,8 +34,6 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
 
 
 /**
- * @Deprecated
- * HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new way of using KotStep.
  *
  * This composable function renders a horizontal stepper with different styles based on the provided [HorizontalStepperStyle].
  * It provides visual feedback on the progress of a multi-step process.
@@ -55,14 +53,14 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  * @see HorizontalStepperStyle
  * @see com.binayshaw7777.kotstep.v2.KotStep
  */
-@Deprecated(
-    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new KotStep Component.",
-    replaceWith = ReplaceWith(
-        expression = "KotStep(...)",
-        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
-    ),
-    level = DeprecationLevel.WARNING
-)
+//@Deprecated(
+//    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new KotStep Component.",
+//    replaceWith = ReplaceWith(
+//        expression = "KotStep(...)",
+//        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Composable
 fun HorizontalStepper(
     modifier: Modifier = Modifier,

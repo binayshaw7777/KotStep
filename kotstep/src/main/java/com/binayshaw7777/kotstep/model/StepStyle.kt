@@ -12,8 +12,6 @@ import androidx.compose.ui.unit.sp
 
 /**
  *
- * @deprecated Since version 3.0.0, use [com.binayshaw7777.kotstep.v2.model.style.StepStyle] instead.
- *
  * A data class that defines the style of a step in a stepper component.
  *
  * @property colors The colors of the steps.
@@ -27,14 +25,14 @@ import androidx.compose.ui.unit.sp
  * @property showStrokeOnCurrent Whether to show the stroke on current.
  * @property ignoreCurrentState If set to true, shows DONE instead of CURRENT state.
  */
-@Deprecated(
-    message = "This StepStyle is deprecated since version 3.0.0. Please use the try the new way of using KotStep.",
-    replaceWith = ReplaceWith(
-        expression = "com.binayshaw7777.kotstep.v2.model.style.StepStyle",
-        imports = ["com.binayshaw7777.kotstep.v2.model.style.StepStyle"]
-    ),
-    level = DeprecationLevel.WARNING
-)
+//@Deprecated(
+//    message = "This StepStyle is deprecated since version 3.0.0. Please use the try the new way of using KotStep.",
+//    replaceWith = ReplaceWith(
+//        expression = "com.binayshaw7777.kotstep.v2.model.style.StepStyle",
+//        imports = ["com.binayshaw7777.kotstep.v2.model.style.StepStyle"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Immutable
 data class StepStyle(
     val colors: StepDefaults = StepDefaults.defaultColors(),
@@ -52,7 +50,6 @@ data class StepStyle(
 
 
 /**
- * @deprecated Since version 3.0.0, use [com.binayshaw7777.kotstep.v2.model.style.LineStyle] instead.
  *
  * A data class that defines the default line style for the steps.
  *
@@ -71,14 +68,14 @@ data class StepStyle(
  * @property currentLineProgressType The progress type of the current line.
  * @property doneLineProgressType The progress type of the done line.
  */
-@Deprecated(
-    message = "This LineDefault is deprecated since version 3.0.0. Please use com.binayshaw7777.kotstep.v2.model.style.LineStyle instead.",
-    replaceWith = ReplaceWith(
-        expression = "com.binayshaw7777.kotstep.v2.model.style.LineStyle",
-        imports = ["com.binayshaw7777.kotstep.v2.model.style.LineStyle"]
-    ),
-    level = DeprecationLevel.WARNING
-)
+//@Deprecated(
+//    message = "This LineDefault is deprecated since version 3.0.0. Please use com.binayshaw7777.kotstep.v2.model.style.LineStyle instead.",
+//    replaceWith = ReplaceWith(
+//        expression = "com.binayshaw7777.kotstep.v2.model.style.LineStyle",
+//        imports = ["com.binayshaw7777.kotstep.v2.model.style.LineStyle"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Immutable
 data class LineDefault(
     val lineThickness: Dp = 4.dp,
@@ -111,8 +108,7 @@ data class LineDefault(
 }
 
 /**
- * @deprecated Since version 3.0.0, use [com.binayshaw7777.kotstep.v2.model.style.StepStyle.stepColor] instead.
-
+ *
  * A data class that defines the default colors for the steps.
  *
  * @property todoContainerColor The color of the todo container.
@@ -126,14 +122,14 @@ data class LineDefault(
  * @property doneLineColor The color of the done line.
  * @property checkMarkColor The color of the check mark.
  */
-@Deprecated(
-    message = "This StepDefaults is deprecated since version 3.0.0. Please use com.binayshaw7777.kotstep.v2.model.style.StepColors instead.",
-    replaceWith = ReplaceWith(
-        expression = "com.binayshaw7777.kotstep.v2.model.style.StepColors",
-        imports = ["com.binayshaw7777.kotstep.v2.model.style.StepColors"]
-    ),
-    level = DeprecationLevel.WARNING
-)
+//@Deprecated(
+//    message = "This StepDefaults is deprecated since version 3.0.0. Please use com.binayshaw7777.kotstep.v2.model.style.StepColors instead.",
+//    replaceWith = ReplaceWith(
+//        expression = "com.binayshaw7777.kotstep.v2.model.style.StepColors",
+//        imports = ["com.binayshaw7777.kotstep.v2.model.style.StepColors"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Immutable
 data class StepDefaults(
     val todoContainerColor: Color = Color.Gray,

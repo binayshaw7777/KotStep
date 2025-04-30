@@ -34,14 +34,6 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
 
 
 /**
- * @Deprecated(
- *     message = "VerticalStepper is deprecated since KotStep 3.0.0. Use the new KotStep DSL instead.",
- *     replaceWith = ReplaceWith(
- *         expression = "KotStep(...)",
- *         imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
- *     ),
- *     level = DeprecationLevel.WARNING
- * )
  * A composable function that renders a vertical stepper based on the provided [style].
  *
  * This function is deprecated and will be removed in future versions.
@@ -79,14 +71,14 @@ import com.binayshaw7777.kotstep.ui.vertical.step.RenderVerticalTabWithLabel
  * )
  * ```
  */
-@Deprecated(
-    message = "VerticalStepper is deprecated since KotStep 3.0.0. Please use the new KotStep Component.",
-    replaceWith = ReplaceWith(
-        expression = "KotStep(...)",
-        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
-    ),
-    level = DeprecationLevel.WARNING
-)
+//@Deprecated(
+//    message = "VerticalStepper is deprecated since KotStep 3.0.0. Please use the new KotStep Component.",
+//    replaceWith = ReplaceWith(
+//        expression = "KotStep(...)",
+//        imports = ["com.binayshaw7777.kotstep.v2.KotStep"]
+//    ),
+//    level = DeprecationLevel.WARNING
+//)
 @Composable
 fun VerticalStepper(
     modifier: Modifier = Modifier,
