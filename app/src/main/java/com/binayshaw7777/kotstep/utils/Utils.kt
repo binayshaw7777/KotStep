@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Build
@@ -17,8 +18,20 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
+import com.binayshaw7777.kotstep.v2.model.style.BorderStyle
+import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
+import com.binayshaw7777.kotstep.v2.model.style.LineStyle
+import com.binayshaw7777.kotstep.v2.model.style.LineStyles
+import com.binayshaw7777.kotstep.v2.model.style.LineType
+import com.binayshaw7777.kotstep.v2.model.style.StepStyle
+import com.binayshaw7777.kotstep.v2.model.style.StepStyles
+import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
 
 object Utils {
 
@@ -84,6 +97,55 @@ object Utils {
         null
     )
         .subList(0, limit)
+
+    @OptIn(ExperimentalKotStep::class)
+    internal fun getKotStepStyle(): KotStepStyle {
+        return KotStepStyle(
+            stepLayoutStyle = StepLayoutStyle.Vertical,
+            showCheckMarkOnDone = false,
+            ignoreCurrentState = false,
+            stepStyle = StepStyles.default().copy(
+                onTodo = StepStyle.defaultTodo().copy(
+                    stepSize = 50.dp,
+                    stepColor = Color.Gray,
+                    borderStyle = BorderStyle(width = 2.dp, color = Color.Red)
+                ),
+                onCurrent = StepStyle.defaultTodo().copy(
+                    stepSize = 60.dp,
+                    stepColor = Color.DarkGray,
+                    borderStyle = BorderStyle(width = 2.dp, color = Color.Gray)
+                ),
+                onDone = StepStyle.defaultTodo().copy(
+                    stepSize = 50.dp,
+                    stepColor = Color.Green,
+                    borderStyle = BorderStyle(width = 2.dp, color = Color.DarkGray)
+                )
+            ),
+            lineStyle = LineStyles.default().copy(
+                onTodo = LineStyle.defaultTodo().copy(
+                    lineThickness = 10.dp,
+                    lineLength = 100.dp,
+                    linePadding = PaddingValues(2.dp),
+                ),
+                onCurrent = LineStyle.defaultCurrent().copy(
+                    lineThickness = 4.dp,
+                    lineLength = 100.dp,
+                    linePadding = PaddingValues(2.dp),
+                    progressStrokeCap = StrokeCap.Butt,
+                    lineStrokeCap = StrokeCap.Butt,
+                    lineType = LineType.Dashed(dashLength = 20.dp, gapLength = 10.dp),
+                    progressType = LineType.Dashed(dashLength = 20.dp, gapLength = 10.dp)
+                ),
+                onDone = LineStyle.defaultDone().copy(
+                    lineThickness = 5.dp,
+                    lineLength = 100.dp,
+                    linePadding = PaddingValues(2.dp),
+                    lineType = LineType.Dotted(gapLength = 10.dp),
+                    progressType = LineType.Dotted(gapLength = 10.dp)
+                )
+            )
+        )
+    }
 }
 
 fun Int.toast(context: Context) {

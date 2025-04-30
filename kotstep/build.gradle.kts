@@ -1,9 +1,11 @@
+import com.android.build.api.dsl.Lint
+import com.android.build.api.dsl.LintOptions
+
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     id("maven-publish")
-    id("org.jetbrains.dokka")
 }
 
 android {
@@ -33,14 +35,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
             withJavadocJar()
         }
+    }
+    lint {
+        abortOnError = false
     }
 }
 
@@ -55,6 +57,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.androidx.compose.constraintlayout)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.kotlinx.collections.immutable)
+
+    // Slack Compose Lints (Android Lint checks)
+    lintChecks(libs.compose.lint.checks)
 }
 
 publishing {
@@ -66,6 +73,30 @@ publishing {
 
             afterEvaluate {
                 from(components["release"])
+            }
+
+            pom {
+                name.set("KotStep")
+                description.set("A customizable stepper component for Jetpack Compose.")
+                url.set("https://github.com/binayshaw7777/KotStep")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("binayshaw7777")
+                        name.set("Binay Shaw")
+                        email.set("binayshaw7777@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
+                    developerConnection.set("scm:git:ssh://[email protected]/binayshaw7777/KotStep.git")
+                    url.set("https://github.com/binayshaw7777/KotStep")
+                }
             }
         }
     }

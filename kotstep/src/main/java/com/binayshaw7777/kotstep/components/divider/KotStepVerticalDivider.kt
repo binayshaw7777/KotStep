@@ -16,6 +16,29 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.LineType
 
+/**
+ * A composable function that draws a vertical divider with customizable properties,
+ * suitable for use in step indicators or similar UI elements.
+ *
+ * The divider consists of a background track and a progress line, both of which
+ * can have different colors, line styles (solid, dashed, dotted), and stroke caps.
+ * The progress line animates its length based on the provided `progress` value.
+ *
+ * @param modifier Modifier for styling and layout of the divider.
+ * @param height The height of the divider.
+ * @param width The width of the divider line (default: 1.dp).
+ * @param lineTrackColor The color of the background track line (default: Color.Gray).
+ * @param lineProgressColor The color of the progress line (default: Color.Black).
+ * @param lineTrackStyle The style of the background track line (default: LineType.SOLID).
+ * @param lineProgressStyle The style of the progress line (default: LineType.SOLID).
+ * @param progress A float value between 0f and 1f representing the progress of the line.
+ *                 0f means no progress, 1f means full progress. This value is animated.
+ * @param trackStrokeCap The stroke cap for the background track line (default: StrokeCap.Round).
+ * @param progressStrokeCap The stroke cap for the progress line (default: StrokeCap.Round).
+ *
+ * @see LineType
+ * @see StrokeCap
+ */
 @Composable
 internal fun KotStepVerticalDivider(
     modifier: Modifier = Modifier,
@@ -33,8 +56,6 @@ internal fun KotStepVerticalDivider(
         targetValue = progress.coerceIn(0f, 1f),
         animationSpec = tween(300), label = "line_progress_animation"
     )
-
-    println("Animated progress value is: $animatedProgress")
 
     Canvas(
         modifier = modifier

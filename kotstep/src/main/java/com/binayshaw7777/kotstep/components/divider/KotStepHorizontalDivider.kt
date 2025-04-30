@@ -16,6 +16,28 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.model.LineType
 
+/**
+ * A horizontal divider with a progress indicator.
+ *
+ * This composable draws a horizontal line that can be split into two parts:
+ * a track and a progress line. The track represents the total length or
+ * completed part, and the progress line visually indicates the current
+ * progress state.
+ *
+ * The line can be customized in terms of color, style (solid, dashed, dotted),
+ * width, height, and the progress can be animated.
+ *
+ * @param modifier Modifier to apply to the divider.
+ * @param width The total width of the divider.
+ * @param height The height or thickness of the divider line. Defaults to 1.dp.
+ * @param lineTrackColor The color of the track portion of the line. Defaults to Gray.
+ * @param lineProgressColor The color of the progress portion of the line. Defaults to Black.
+ * @param lineTrackStyle The style of the track portion of the line. Can be SOLID, DASHED, or DOTTED. Defaults to SOLID.
+ * @param lineProgressStyle The style of the progress portion of the line. Can be SOLID, DASHED, or DOTTED. Defaults to SOLID.
+ * @param progress The progress value, ranging from 0.0 to 1.0, where 0.0 means no progress, and 1.0 means full progress. Defaults to 1.0.
+ * @param trackStrokeCap The shape of the end of the track line. Defaults to Round.
+ * @param progressStrokeCap The shape of the end of the progress line. Defaults to Round.
+ */
 @Composable
 internal fun KotStepHorizontalDivider(
     modifier: Modifier = Modifier,
@@ -33,8 +55,6 @@ internal fun KotStepHorizontalDivider(
         targetValue = progress.coerceIn(0f, 1f),
         animationSpec = tween(300), label = "line_progress_animation"
     )
-
-    println("Animated progress value is: $animatedProgress")
 
     Canvas(
         modifier = modifier
