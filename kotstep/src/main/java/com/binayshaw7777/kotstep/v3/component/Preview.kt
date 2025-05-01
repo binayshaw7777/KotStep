@@ -1,4 +1,4 @@
-package com.binayshaw7777.kotstep.ui.theme.presentation.v2
+package com.binayshaw7777.kotstep.v3.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -21,16 +21,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.binayshaw7777.kotstep.utils.Utils.getKotStepStyle
 import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v3.samples.KotStepHorizontalExample
 import com.binayshaw7777.kotstep.v3.samples.KotStepVerticalExample
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
+import com.binayshaw7777.kotstep.v3.util.Util.getKotStepStyle
 
 @OptIn(ExperimentalKotStep::class)
 @Preview(showBackground = true, backgroundColor = 0xFF1C2526)
 @Composable
-fun KotStepPreview() {
+private fun KotStepPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +38,7 @@ fun KotStepPreview() {
     ) {
 
         val stepStyle = getKotStepStyle()
-        var currentStep by remember { mutableFloatStateOf(-1f) }
+        var currentStep by remember { mutableFloatStateOf(0f) }
 
         Counter(
             currentStep = { currentStep },
@@ -78,11 +78,7 @@ private fun Counter(
         ) {
             Button(
                 onClick = {
-                    if (currentStep() == 0f) {
-                        onChange(-1f)
-                    } else {
-                        onChange(currentStep() - 0.25f)
-                    }
+                    onChange(currentStep() - 0.25f)
                 }
             ) {
                 Text(text = "Previous")

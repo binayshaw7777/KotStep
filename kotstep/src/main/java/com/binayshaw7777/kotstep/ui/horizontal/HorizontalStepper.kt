@@ -51,7 +51,7 @@ import com.binayshaw7777.kotstep.ui.horizontal.step.RenderHorizontalTab
  * @param onStepClick Callback function invoked when a step is clicked. It provides the index of the clicked step.
  *
  * @see HorizontalStepperStyle
- * @see com.binayshaw7777.kotstep.v2.KotStep
+ * @see com.binayshaw7777.kotstep.v3.KotStep
  */
 //@Deprecated(
 //    message = "HorizontalStepper is deprecated since KotStep 3.0.0. Please use the try the new KotStep Component.",

@@ -23,15 +23,15 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.binayshaw7777.kotstep.v2.model.step.StepLayoutStyle
-import com.binayshaw7777.kotstep.v2.model.style.BorderStyle
-import com.binayshaw7777.kotstep.v2.model.style.KotStepStyle
-import com.binayshaw7777.kotstep.v2.model.style.LineStyle
-import com.binayshaw7777.kotstep.v2.model.style.LineStyles
-import com.binayshaw7777.kotstep.v2.model.style.LineType
-import com.binayshaw7777.kotstep.v2.model.style.StepStyle
-import com.binayshaw7777.kotstep.v2.model.style.StepStyles
-import com.binayshaw7777.kotstep.v2.util.ExperimentalKotStep
+import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
+import com.binayshaw7777.kotstep.v3.model.style.BorderStyle
+import com.binayshaw7777.kotstep.v3.model.style.KotStepStyle
+import com.binayshaw7777.kotstep.v3.model.style.LineStyle
+import com.binayshaw7777.kotstep.v3.model.style.LineStyles
+import com.binayshaw7777.kotstep.v3.model.style.LineType
+import com.binayshaw7777.kotstep.v3.model.style.StepStyle
+import com.binayshaw7777.kotstep.v3.model.style.StepStyles
+import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 
 object Utils {
 
