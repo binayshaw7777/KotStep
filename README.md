@@ -35,7 +35,7 @@
   
 ## Installation
 
-[![](https://jitpack.io/v/binayshaw7777/KotStep.svg)](https://jitpack.io/#binayshaw7777/KotStep)
+[![](https://jitpack.io/v/binayshaw7777/kotstep.svg)](https://jitpack.io/#binayshaw7777/kotstep)
 ![Downloads](https://jitpack.io/v/binayshaw7777/KotStep/month.svg)
 
 To get started with KotStep in your Android Jetpack Compose project, 
