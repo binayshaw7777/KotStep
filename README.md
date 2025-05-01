@@ -15,6 +15,8 @@
 <img src="https://github.com/binayshaw7777/KotStep/assets/62587060/2cf2c41a-6812-484a-bcdc-d5f72cad94f0"/>
 </p>
 
+## Note: If you're using KotStep v3 then please checkout the new docs: [Documentation](https://github.com/binayshaw7777/KotStep/wiki/KotStep-Docs-(v3))
+
 ## Features
 
 - Multiple stepper styles:
@@ -73,6 +75,8 @@ dependencies {
 }
 ```
 </details>
+
+#### Please checkout KotStep v3 Docs if you've migrated the version to KotStep 3.0.0 and above: [KotStep V3 Docs](https://github.com/binayshaw7777/KotStep/wiki/KotStep-Docs-(v3))
 
 # Usage
 
