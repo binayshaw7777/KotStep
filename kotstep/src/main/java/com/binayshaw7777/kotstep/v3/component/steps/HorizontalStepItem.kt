@@ -1,6 +1,7 @@
 package com.binayshaw7777.kotstep.v3.component.steps
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
@@ -11,12 +12,14 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +39,7 @@ import com.binayshaw7777.kotstep.v3.model.style.getLineColorForState
 import com.binayshaw7777.kotstep.v3.model.style.getLineLengthForState
 import com.binayshaw7777.kotstep.v3.model.style.getProgressColorForState
 import com.binayshaw7777.kotstep.v3.model.style.getSizeForState
+import com.binayshaw7777.kotstep.v3.util.AnimationConstants
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v3.util.Util.onClick
 
@@ -88,6 +92,7 @@ internal fun HorizontalStepItem(
     val lineLength by transition.animateDp(label = "lineLength") {
         style.lineStyle.getLineLengthForState(it)
     }
+    var isContentVisible by rememberSaveable(step) { mutableStateOf(true) }
 
     var labelWidth by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
@@ -113,7 +118,12 @@ internal fun HorizontalStepItem(
         Row(
             modifier = Modifier
                 .height(staticProperties.maxSize)
-                .onClick { onClick() }
+                .onClick {
+                    if (step.isCollapsible) {
+                        isContentVisible = isContentVisible.not()
+                    }
+                    onClick()
+                }
                 .constrainAs(stepContent) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -133,39 +143,56 @@ internal fun HorizontalStepItem(
             )
 
             if (!isLastStep) {
-                KotStepHorizontalProgress(
-                    modifier = Modifier
-                        .padding(
-                            start = staticProperties.lineStyle.linePadding.calculateStartPadding(LayoutDirection.Rtl) + staticProperties.stepStyle.borderStyle.width,
-                            end = staticProperties.lineStyle.linePadding.calculateEndPadding(LayoutDirection.Rtl)
-                        ),
-                    width = { lineWidth },
-                    height = { staticProperties.lineStyle.lineThickness },
-                    lineTrackColor = lineColor,
-                    lineProgressColor = progressColor,
-                    lineTrackStyle = staticProperties.lineTrackType,
-                    lineProgressStyle = staticProperties.lineProgressType,
-                    progress = progress,
-                    stepState = { stepState },
-                    trackStrokeCap = staticProperties.trackStrokeCap,
-                    progressStrokeCap = staticProperties.progressStrokeCap
-                )
+                AnimatedVisibility(
+                    visible = isContentVisible,
+                    enter = AnimationConstants.Horizontal.progressLineEnter,
+                    exit = AnimationConstants.Horizontal.progressLineExit
+                ) {
+                    KotStepHorizontalProgress(
+                        modifier = Modifier
+                            .padding(
+                                start = staticProperties.lineStyle.linePadding.calculateStartPadding(
+                                    LayoutDirection.Rtl
+                                ) + staticProperties.stepStyle.borderStyle.width,
+                                end = staticProperties.lineStyle.linePadding.calculateEndPadding(
+                                    LayoutDirection.Rtl
+                                )
+                            ),
+                        width = { lineWidth },
+                        height = { staticProperties.lineStyle.lineThickness },
+                        lineTrackColor = lineColor,
+                        lineProgressColor = progressColor,
+                        lineTrackStyle = staticProperties.lineTrackType,
+                        lineProgressStyle = staticProperties.lineProgressType,
+                        progress = progress,
+                        stepState = { stepState },
+                        trackStrokeCap = staticProperties.trackStrokeCap,
+                        progressStrokeCap = staticProperties.progressStrokeCap
+                    )
+                }
             }
         }
 
         step.label?.let { label ->
-            LabelContent(
+            AnimatedVisibility(
+                visible = isContentVisible,
+                enter = AnimationConstants.Horizontal.labelEnter,
+                exit = AnimationConstants.Horizontal.labelExit,
                 modifier = Modifier.constrainAs(labelContent) {
-                    start.linkTo(parent.start)
                     top.linkTo(stepContent.bottom)
+                    start.linkTo(parent.start)
                     width = Dimension.wrapContent
-                },
-                label = label,
-                onSizeChanged = { size ->
-                    labelWidth = with(density) { size.width.toDp() }
-                    isLabelMeasured = true
                 }
-            )
+            ) {
+                LabelContent(
+                    modifier = Modifier.wrapContentWidth(),
+                    label = label,
+                    onSizeChanged = { size ->
+                        labelWidth = with(density) { size.width.toDp() }
+                        isLabelMeasured = true
+                    }
+                )
+            }
         }
     }
 }
