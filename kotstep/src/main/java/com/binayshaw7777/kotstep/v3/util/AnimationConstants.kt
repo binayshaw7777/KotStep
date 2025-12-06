@@ -5,8 +5,6 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
@@ -37,7 +35,7 @@ internal object AnimationConstants {
 
         /**
          * Enter transition for progress line in horizontal stepper.
-         * Slides in from left, expands horizontally, and fades in.
+         * Slides in from left and expands horizontally.
          */
         val progressLineEnter: EnterTransition
             get() = slideInHorizontally(
@@ -46,11 +44,11 @@ internal object AnimationConstants {
             ) + expandHorizontally(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 expandFrom = Alignment.Start
-            ) + fadeIn(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
 
         /**
          * Exit transition for progress line in horizontal stepper.
-         * Slides out to left, shrinks horizontally, and fades out.
+         * Slides out to left and shrinks horizontally.
          */
         val progressLineExit: ExitTransition
             get() = slideOutHorizontally(
@@ -59,11 +57,11 @@ internal object AnimationConstants {
             ) + shrinkHorizontally(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 shrinkTowards = Alignment.Start
-            ) + fadeOut(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
 
         /**
          * Enter transition for label in horizontal stepper.
-         * Slides in from left with gentler offset, expands horizontally, and fades in.
+         * Slides in from left with gentler offset and expands horizontally.
          */
         val labelEnter: EnterTransition
             get() = slideInHorizontally(
@@ -72,11 +70,11 @@ internal object AnimationConstants {
             ) + expandHorizontally(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 expandFrom = Alignment.Start
-            ) + fadeIn(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
 
         /**
          * Exit transition for label in horizontal stepper.
-         * Slides out to left with gentler offset, shrinks horizontally, and fades out.
+         * Slides out to left with gentler offset and shrinks horizontally.
          */
         val labelExit: ExitTransition
             get() = slideOutHorizontally(
@@ -85,7 +83,7 @@ internal object AnimationConstants {
             ) + shrinkHorizontally(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 shrinkTowards = Alignment.Start
-            ) + fadeOut(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
     }
 
     /**
@@ -95,7 +93,7 @@ internal object AnimationConstants {
 
         /**
          * Enter transition for progress line in vertical stepper.
-         * Slides in from top, expands vertically, and fades in.
+         * Slides in from top and expands vertically.
          */
         val progressLineEnter: EnterTransition
             get() = slideInVertically(
@@ -104,11 +102,11 @@ internal object AnimationConstants {
             ) + expandVertically(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 expandFrom = Alignment.Top
-            ) + fadeIn(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
 
         /**
          * Exit transition for progress line in vertical stepper.
-         * Slides out to top, shrinks vertically, and fades out.
+         * Slides out to top and shrinks vertically.
          */
         val progressLineExit: ExitTransition
             get() = slideOutVertically(
@@ -117,11 +115,11 @@ internal object AnimationConstants {
             ) + shrinkVertically(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 shrinkTowards = Alignment.Top
-            ) + fadeOut(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
 
         /**
          * Enter transition for label in vertical stepper.
-         * Slides in from top with gentler offset, expands vertically, and fades in.
+         * Slides in from top with gentler offset and expands vertically.
          */
         val labelEnter: EnterTransition
             get() = slideInVertically(
@@ -130,11 +128,11 @@ internal object AnimationConstants {
             ) + expandVertically(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 expandFrom = Alignment.Top
-            ) + fadeIn(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
 
         /**
          * Exit transition for label in vertical stepper.
-         * Slides out to top with gentler offset, shrinks vertically, and fades out.
+         * Slides out to top with gentler offset and shrinks vertically.
          */
         val labelExit: ExitTransition
             get() = slideOutVertically(
@@ -143,6 +141,6 @@ internal object AnimationConstants {
             ) + shrinkVertically(
                 animationSpec = tween(ANIMATION_DURATION_MS),
                 shrinkTowards = Alignment.Top
-            ) + fadeOut(animationSpec = tween(ANIMATION_DURATION_MS))
+            )
     }
 }
