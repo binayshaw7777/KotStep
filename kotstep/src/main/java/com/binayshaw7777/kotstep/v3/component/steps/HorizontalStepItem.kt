@@ -39,6 +39,7 @@ import com.binayshaw7777.kotstep.v3.model.style.getLineColorForState
 import com.binayshaw7777.kotstep.v3.model.style.getLineLengthForState
 import com.binayshaw7777.kotstep.v3.model.style.getProgressColorForState
 import com.binayshaw7777.kotstep.v3.model.style.getSizeForState
+import com.binayshaw7777.kotstep.v3.util.AnimationConstants
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v3.util.Util.onClick
 
@@ -142,7 +143,11 @@ internal fun HorizontalStepItem(
             )
 
             if (!isLastStep) {
-                AnimatedVisibility(shouldShowProgressLine) {
+                AnimatedVisibility(
+                    visible = shouldShowProgressLine,
+                    enter = AnimationConstants.Horizontal.progressLineEnter,
+                    exit = AnimationConstants.Horizontal.progressLineExit
+                ) {
                     KotStepHorizontalProgress(
                         modifier = Modifier
                             .padding(
@@ -171,6 +176,8 @@ internal fun HorizontalStepItem(
         step.label?.let { label ->
             AnimatedVisibility(
                 visible = shouldShowProgressLine,
+                enter = AnimationConstants.Horizontal.labelEnter,
+                exit = AnimationConstants.Horizontal.labelExit,
                 modifier = Modifier.constrainAs(labelContent) {
                     top.linkTo(stepContent.bottom)
                     start.linkTo(parent.start)
