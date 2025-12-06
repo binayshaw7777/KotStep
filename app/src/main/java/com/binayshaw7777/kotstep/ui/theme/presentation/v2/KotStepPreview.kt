@@ -1,8 +1,5 @@
 package com.binayshaw7777.kotstep.ui.theme.presentation.v2
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -153,54 +150,50 @@ private fun Counter(
             .then(modifier), horizontalArrangement = Arrangement.SpaceAround
     ) {
 
-        AnimatedVisibility(
-            visible = currentStep() >= -0.75f,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            Button(
-                onClick = {
-                    if (currentStep() == 0f) {
-                        onChange(-1f)
-                    } else {
-                        onChange(currentStep() - 0.25f)
-                    }
+        Button(
+            onClick = {
+                if (currentStep() == 0f) {
+                    onChange(-1f)
+                } else {
+                    onChange(currentStep() - 0.25f)
                 }
-            ) {
-                Text(text = "Previous")
-            }
+            },
+            enabled = currentStep() > -0.75f,
+        ) {
+            Text(text = "Previous")
         }
 
         Spacer(Modifier.weight(1f))
 
-        Switch(
-            checked = isCollapsible,
-            onCheckedChange = onCollapsibleChange
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text("Collapsible")
+            Switch(
+                checked = isCollapsible,
+                onCheckedChange = onCollapsibleChange
+            )
+        }
 
         Spacer(Modifier.weight(1f))
 
-        AnimatedVisibility(
-            visible = currentStep() < totalSteps.toFloat(),
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            Button(
-                onClick = {
-                    if (currentStep() == -1f) {
-                        onChange(0f)
-                    } else {
-                        onChange(currentStep() + 0.25f)
-                    }
+        Button(
+            onClick = {
+                if (currentStep() == -1f) {
+                    onChange(0f)
+                } else {
+                    onChange(currentStep() + 0.25f)
                 }
-            ) {
-                Text(
-                    text =
-                        if (currentStep() == -1f) "Start"
-                        else if (currentStep() >= totalSteps) "Finish"
-                        else "Next"
-                )
-            }
+            },
+            enabled = currentStep() < totalSteps.toFloat()
+        ) {
+            Text(
+                text =
+                    if (currentStep() == -1f) "Start"
+//                    else if (currentStep() >= totalSteps) "Finish"
+                    else "Next"
+            )
         }
     }
 }

@@ -92,7 +92,7 @@ internal fun HorizontalStepItem(
     val lineLength by transition.animateDp(label = "lineLength") {
         style.lineStyle.getLineLengthForState(it)
     }
-    var shouldShowProgressLine by rememberSaveable { mutableStateOf(true) }
+    var isContentVisible by rememberSaveable(step) { mutableStateOf(true) }
 
     var labelWidth by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
@@ -120,7 +120,7 @@ internal fun HorizontalStepItem(
                 .height(staticProperties.maxSize)
                 .onClick {
                     if (step.isCollapsible) {
-                        shouldShowProgressLine = shouldShowProgressLine.not()
+                        isContentVisible = isContentVisible.not()
                     }
                     onClick()
                 }
@@ -144,7 +144,7 @@ internal fun HorizontalStepItem(
 
             if (!isLastStep) {
                 AnimatedVisibility(
-                    visible = shouldShowProgressLine,
+                    visible = isContentVisible,
                     enter = AnimationConstants.Horizontal.progressLineEnter,
                     exit = AnimationConstants.Horizontal.progressLineExit
                 ) {
@@ -175,7 +175,7 @@ internal fun HorizontalStepItem(
 
         step.label?.let { label ->
             AnimatedVisibility(
-                visible = shouldShowProgressLine,
+                visible = isContentVisible,
                 enter = AnimationConstants.Horizontal.labelEnter,
                 exit = AnimationConstants.Horizontal.labelExit,
                 modifier = Modifier.constrainAs(labelContent) {

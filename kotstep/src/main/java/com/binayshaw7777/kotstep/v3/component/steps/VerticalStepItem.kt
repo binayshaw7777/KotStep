@@ -86,7 +86,7 @@ internal fun VerticalStepItem(
     val lineLength by transition.animateDp(label = "lineLength") {
         style.lineStyle.getLineLengthForState(it)
     }
-    var shouldShowProgressLine by rememberSaveable { mutableStateOf(true) }
+    var isContentVisible by rememberSaveable(step) { mutableStateOf(true) }
 
     var labelHeight by remember { mutableStateOf(0.dp) }
     var isLabelMeasured by remember { mutableStateOf(false) }
@@ -110,7 +110,7 @@ internal fun VerticalStepItem(
                 .width(staticProperties.maxSize)
                 .onClick {
                     if (step.isCollapsible) {
-                        shouldShowProgressLine = shouldShowProgressLine.not()
+                        isContentVisible = isContentVisible.not()
                     }
                     onClick()
                 }
@@ -135,7 +135,7 @@ internal fun VerticalStepItem(
 
             if (!isLastStep) {
                 AnimatedVisibility(
-                    visible = shouldShowProgressLine,
+                    visible = isContentVisible,
                     enter = AnimationConstants.Vertical.progressLineEnter,
                     exit = AnimationConstants.Vertical.progressLineExit
                 ) {
@@ -162,7 +162,7 @@ internal fun VerticalStepItem(
 
         step.label?.let { label ->
             AnimatedVisibility(
-                visible = shouldShowProgressLine,
+                visible = isContentVisible,
                 enter = AnimationConstants.Vertical.labelEnter,
                 exit = AnimationConstants.Vertical.labelExit,
                 modifier = Modifier.constrainAs(labelContent) {

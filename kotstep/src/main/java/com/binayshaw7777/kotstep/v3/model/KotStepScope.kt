@@ -44,7 +44,7 @@ class KotStepScope {
      * @param onClick Callback invoked when the step is clicked.
      * @param onDone Callback invoked when the step is completed.
      * @param label Composable content for the step's label.
-     * @property isCollapsible Set true to allow the progress to collapse on click.
+     * @param isCollapsible Set true to allow the progress to collapse on click.
      *
      * @throws IllegalArgumentException if [title] is blank.
      *
@@ -73,7 +73,7 @@ class KotStepScope {
      * @param onClick Callback invoked when the step is clicked.
      * @param label Composable content for the step's label.
      * @param onDone Callback invoked when the step is completed.
-     * @property isCollapsible Set true to allow the progress to collapse on click.
+     * @param isCollapsible Set true to allow the progress to collapse on click.
      *
      * @sample com.binayshaw7777.kotstep.v3.samples.StepWithImageVectorIcon
      *
@@ -97,7 +97,7 @@ class KotStepScope {
      * @param onClick Callback invoked when the step is clicked.
      * @param onDone Callback invoked when the step is completed.
      * @param label Composable content for the step's label.
-     * @property isCollapsible Set true to allow the progress to collapse on click.
+     * @param isCollapsible Set true to allow the progress to collapse on click.
      *
      * @sample com.binayshaw7777.kotstep.v3.samples.StepWithCustomContent
      *

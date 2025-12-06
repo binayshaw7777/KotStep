@@ -44,28 +44,28 @@ internal data class Step(
     constructor(
         imageVectorIcon: ImageVector,
         onClick: () -> Unit = {},
-        label: (@Composable () -> Unit)? = null,
         isCollapsible: Boolean = false,
+        label: (@Composable () -> Unit)? = null,
         onDone: () -> Unit = {}
     ) : this(null, null, imageVectorIcon, onClick, isCollapsible, label, onDone) {
         this.icon = imageVectorIcon
         this.onClick = onClick
-        this.label = label
         this.isCollapsible = isCollapsible
+        this.label = label
         this.onDone = onDone
     }
 
     constructor(
         content: (@Composable () -> Unit)? = null,
         onClick: () -> Unit = {},
-        label: (@Composable () -> Unit)? = null,
         isCollapsible: Boolean = false,
+        label: (@Composable () -> Unit)? = null,
         onDone: () -> Unit = {}
     ) : this(null, content, null, onClick, isCollapsible, label, onDone) {
         this.content = content
         this.onClick = onClick
-        this.label = label
         this.isCollapsible = isCollapsible
+        this.label = label
         this.onDone = onDone
     }
 }
