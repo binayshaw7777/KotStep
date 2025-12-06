@@ -20,6 +20,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.ui.theme.presentation.v2.steppers.GrowwPreview
-import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils.getKotStepStyle
 import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v3.samples.KotStepHorizontalExample
@@ -87,6 +87,7 @@ fun KotStepExamples() {
             KotStepExampleTypes.GROWW_APP -> {
                 GrowwPreview()
             }
+
             KotStepExampleTypes.AMAZON_APP -> {
 
             }
@@ -106,22 +107,33 @@ fun KotStepPreview() {
 
         val stepStyle = getKotStepStyle()
         var currentStep by remember { mutableFloatStateOf(-1f) }
+        var isCollapsible by remember { mutableStateOf(false) }
 
         Counter(
             currentStep = { currentStep },
-            totalSteps = 10,
+            totalSteps = 6,
             onChange = { newValue ->
                 println("Current step before: $currentStep")
                 currentStep = newValue
                 println("Current step after: $currentStep")
-            }
+            },
+            isCollapsible = isCollapsible,
+            onCollapsibleChange = { isCollapsible = it }
         )
 
         Spacer(Modifier.height(50.dp))
 
-        KotStepHorizontalExample(currentStep = { currentStep }, stepStyle = stepStyle.copy(stepLayoutStyle = StepLayoutStyle.Horizontal))
+        KotStepHorizontalExample(
+            currentStep = { currentStep },
+            stepStyle = stepStyle.copy(stepLayoutStyle = StepLayoutStyle.Horizontal),
+            isCollapsible = isCollapsible
+        )
 
-        KotStepVerticalExample(currentStep = { currentStep }, stepStyle = stepStyle)
+        KotStepVerticalExample(
+            currentStep = { currentStep },
+            stepStyle = stepStyle,
+            isCollapsible = isCollapsible
+        )
     }
 }
 
@@ -130,8 +142,11 @@ private fun Counter(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     totalSteps: Int,
-    onChange: (Float) -> Unit
+    onChange: (Float) -> Unit,
+    isCollapsible: Boolean,
+    onCollapsibleChange: (Boolean) -> Unit
 ) {
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -158,6 +173,13 @@ private fun Counter(
 
         Spacer(Modifier.weight(1f))
 
+        Switch(
+            checked = isCollapsible,
+            onCheckedChange = onCollapsibleChange
+        )
+
+        Spacer(Modifier.weight(1f))
+
         AnimatedVisibility(
             visible = currentStep() < totalSteps.toFloat(),
             enter = fadeIn(),
@@ -174,9 +196,9 @@ private fun Counter(
             ) {
                 Text(
                     text =
-                    if (currentStep() == -1f) "Start"
-                    else if (currentStep() >= totalSteps) "Finish"
-                    else "Next"
+                        if (currentStep() == -1f) "Start"
+                        else if (currentStep() >= totalSteps) "Finish"
+                        else "Next"
                 )
             }
         }

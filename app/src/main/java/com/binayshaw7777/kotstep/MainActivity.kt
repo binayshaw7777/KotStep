@@ -93,8 +93,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             KotStepTheme(darkTheme = false) {
 //                MainPreview()
-//                KotStepPreview()
-                KotStepExamples()
+                KotStepPreview()
+//                KotStepExamples()
             }
         }
     }

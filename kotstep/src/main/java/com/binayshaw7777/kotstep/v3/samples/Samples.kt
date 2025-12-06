@@ -76,6 +76,7 @@ fun KotStepVerticalExample(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     stepStyle: KotStepStyle = getKotStepStyle(),
+    isCollapsible: Boolean = false
 ) {
     val context = LocalContext.current
     var showMoreItem by remember { mutableStateOf(false) } // Just for example to show that steps can adapt the size of your passed composable labels
@@ -89,44 +90,59 @@ fun KotStepVerticalExample(
             title = "1",
             onClick = {
                 Toast.makeText(context, "Hi there", Toast.LENGTH_SHORT).show()
-            }
+            },
+            isCollapsible = isCollapsible
         )
-        step(icon = Icons.Default.Star)
-        step(content = {
-            Image(
-                painter = painterResource(R.drawable.kotlin),
-                contentDescription = null,
-                modifier = Modifier.size(16.dp)
-            )
-        })
-        step(title = "3", label = {
-            Card(Modifier.onClick { showMoreItem = showMoreItem.not() }) {
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
+        step(
+            icon = Icons.Default.Star,
+            isCollapsible = isCollapsible
+        )
+        step(
+            content = {
+                Image(
+                    painter = painterResource(R.drawable.kotlin),
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp)
+                )
+            },
+            isCollapsible = isCollapsible
+        )
+        step(
+            title = "3", label = {
+                Card(Modifier.onClick { showMoreItem = showMoreItem.not() }) {
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
+                    Text("Hello World")
 
-                AnimatedVisibility(showMoreItem) {
-                    Column {
-                        Text("Hello World")
-                        Text("Hello World")
-                        Text("Hello World")
-                        Text("Hello World")
-                        Text("Hello World")
+                    AnimatedVisibility(showMoreItem) {
+                        Column {
+                            Text("Hello World")
+                            Text("Hello World")
+                            Text("Hello World")
+                            Text("Hello World")
+                            Text("Hello World")
+                        }
                     }
                 }
-            }
-        }, onClick = {
-            showMoreItem = showMoreItem.not()
-        })
-        step(title = "4")
-        step()
+            }, onClick = {
+                showMoreItem = showMoreItem.not()
+            },
+            isCollapsible = isCollapsible
+        )
+        step(
+            title = "4",
+            isCollapsible = isCollapsible
+        )
+        step(
+            isCollapsible = isCollapsible
+        )
     }
 }
 
@@ -136,6 +152,7 @@ fun KotStepHorizontalExample(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     stepStyle: KotStepStyle = getKotStepStyle(),
+    isCollapsible: Boolean = false,
 ) {
     val context = LocalContext.current
     var showMoreItem by remember { mutableStateOf(false) } // Just for example to show that steps can adapt the size of your passed composable labels
@@ -149,37 +166,52 @@ fun KotStepHorizontalExample(
             title = "1",
             onClick = {
                 Toast.makeText(context, "Hi there", Toast.LENGTH_SHORT).show()
-            }
+            },
+            isCollapsible = isCollapsible
         )
-        step(icon = Icons.Default.Star)
-        step(content = {
-            Image(
-                painter = painterResource(R.drawable.kotlin),
-                contentDescription = null,
-                modifier = Modifier.size(16.dp)
-            )
-        })
-        step(title = "3", label = {
-            Row(
-                Modifier
-                    .background(Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
-                    .onClick { showMoreItem = showMoreItem.not() }
-            ) {
-                Text("Hello World This is a longer text you see...")
-                AnimatedVisibility(showMoreItem) {
-                    Row {
-                        Icon(
-                            Icons.Default.Search,
-                            contentDescription = null,
-                            modifier = Modifier.size(64.dp)
-                        )
+        step(
+            icon = Icons.Default.Star,
+            isCollapsible = isCollapsible
+        )
+        step(
+            content = {
+                Image(
+                    painter = painterResource(R.drawable.kotlin),
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp)
+                )
+            },
+            isCollapsible = isCollapsible
+        )
+        step(
+            title = "3", label = {
+                Row(
+                    Modifier
+                        .background(Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
+                        .onClick { showMoreItem = showMoreItem.not() }
+                ) {
+                    Text("Hello World This is a longer text you see...")
+                    AnimatedVisibility(showMoreItem) {
+                        Row {
+                            Icon(
+                                Icons.Default.Search,
+                                contentDescription = null,
+                                modifier = Modifier.size(64.dp)
+                            )
+                        }
                     }
                 }
-            }
-        }, onClick = {
-            showMoreItem = showMoreItem.not()
-        })
-        step(title = "4")
-        step()
+            }, onClick = {
+                showMoreItem = showMoreItem.not()
+            },
+            isCollapsible = isCollapsible
+        )
+        step(
+            title = "4",
+            isCollapsible = isCollapsible
+        )
+        step(
+            isCollapsible = isCollapsible
+        )
     }
 }

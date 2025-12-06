@@ -44,6 +44,7 @@ class KotStepScope {
      * @param onClick Callback invoked when the step is clicked.
      * @param onDone Callback invoked when the step is completed.
      * @param label Composable content for the step's label.
+     * @property isCollapsible Set true to allow the progress to collapse on click.
      *
      * @throws IllegalArgumentException if [title] is blank.
      *
@@ -56,12 +57,13 @@ class KotStepScope {
         title: String,
         onClick: (() -> Unit) = {},
         onDone: () -> Unit = {},
-        label: @Composable () -> Unit = {}
+        label: @Composable () -> Unit = {},
+        isCollapsible: Boolean = false
     ) {
         require(title.isNotBlank()) {
             "Step cannot have an empty title. Consider using other variants that support icons or composable content."
         }
-        steps.add(Step(title = title, onClick = onClick, label = label, onDone = onDone))
+        steps.add(Step(title = title, onClick = onClick, label = label, onDone = onDone, isCollapsible = isCollapsible))
     }
 
 
@@ -71,6 +73,7 @@ class KotStepScope {
      * @param onClick Callback invoked when the step is clicked.
      * @param label Composable content for the step's label.
      * @param onDone Callback invoked when the step is completed.
+     * @property isCollapsible Set true to allow the progress to collapse on click.
      *
      * @sample com.binayshaw7777.kotstep.v3.samples.StepWithImageVectorIcon
      *
@@ -81,9 +84,10 @@ class KotStepScope {
         icon: ImageVector,
         onClick: (() -> Unit) = {},
         onDone: () -> Unit = {},
-        label: @Composable () -> Unit = {}
+        label: @Composable () -> Unit = {},
+        isCollapsible: Boolean = false
     ) {
-        steps.add(Step(imageVectorIcon = icon, onClick = onClick, label = label, onDone = onDone))
+        steps.add(Step(imageVectorIcon = icon, onClick = onClick, label = label, onDone = onDone, isCollapsible = isCollapsible))
     }
 
 
@@ -93,6 +97,7 @@ class KotStepScope {
      * @param onClick Callback invoked when the step is clicked.
      * @param onDone Callback invoked when the step is completed.
      * @param label Composable content for the step's label.
+     * @property isCollapsible Set true to allow the progress to collapse on click.
      *
      * @sample com.binayshaw7777.kotstep.v3.samples.StepWithCustomContent
      *
@@ -103,9 +108,10 @@ class KotStepScope {
         content: (@Composable () -> Unit)? = null,
         onClick: (() -> Unit) = {},
         onDone: () -> Unit = {},
-        label: @Composable () -> Unit = {}
+        label: @Composable () -> Unit = {},
+        isCollapsible: Boolean = false
     ) {
-        steps.add(Step(content = content, onClick = onClick, label = label, onDone = onDone))
+        steps.add(Step(content = content, onClick = onClick, label = label, onDone = onDone, isCollapsible = isCollapsible))
     }
 
 

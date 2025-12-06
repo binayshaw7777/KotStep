@@ -345,19 +345,22 @@ private fun NewStyle() {
             icon = Icons.Default.Check,
             label = {
                 GrowwLabelComposable("Order approved by exchange", "02 Aug, '24, 09:00 AM")
-            }
+            },
+            isCollapsible = true
         )
         step(
             icon = Icons.Default.Check,
             label = {
                 GrowwLabelComposable("Auto-payment confirmed", "02 Aug, '24, 09:00 AM")
-            }
+            },
+            isCollapsible = true
         )
         step(
             icon = Icons.Default.Check,
             label = {
                 GrowwLabelComposable("Units allocated", "02 Aug, '24, 09:00 AM")
-            }
+            },
+            isCollapsible = true
         )
     }
 }

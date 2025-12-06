@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * @property onClick The callback to be invoked when the step is clicked.
  * @property content The content inside the step.
  * @property onDone The callback to check if the step is done.
+ * @property isCollapsible Set true to allow the progress to collapse on click.
  *
  * @since 3.0.0
  *
@@ -21,6 +22,7 @@ internal data class Step(
     var content: (@Composable () -> Unit)?,
     var icon: ImageVector?,
     var onClick: (() -> Unit)?,
+    var isCollapsible: Boolean = false,
     var label: (@Composable () -> Unit)?,
     var onDone: () -> Unit = {}
 ) {
@@ -29,10 +31,12 @@ internal data class Step(
         title: String,
         onClick: () -> Unit = {},
         label: (@Composable () -> Unit)? = null,
+        isCollapsible: Boolean = false,
         onDone: () -> Unit = {}
-    ) : this(title, null, null, onClick, label, onDone) {
+    ) : this(title, null, null, onClick, isCollapsible, label, onDone) {
         this.title = title
         this.onClick = onClick
+        this.isCollapsible = isCollapsible
         this.label = label
         this.onDone = onDone
     }
@@ -41,11 +45,13 @@ internal data class Step(
         imageVectorIcon: ImageVector,
         onClick: () -> Unit = {},
         label: (@Composable () -> Unit)? = null,
+        isCollapsible: Boolean = false,
         onDone: () -> Unit = {}
-    ) : this(null, null, imageVectorIcon, onClick, label, onDone) {
+    ) : this(null, null, imageVectorIcon, onClick, isCollapsible, label, onDone) {
         this.icon = imageVectorIcon
         this.onClick = onClick
         this.label = label
+        this.isCollapsible = isCollapsible
         this.onDone = onDone
     }
 
@@ -53,11 +59,13 @@ internal data class Step(
         content: (@Composable () -> Unit)? = null,
         onClick: () -> Unit = {},
         label: (@Composable () -> Unit)? = null,
+        isCollapsible: Boolean = false,
         onDone: () -> Unit = {}
-    ) : this(null, content, null, onClick, label, onDone) {
+    ) : this(null, content, null, onClick, isCollapsible, label, onDone) {
         this.content = content
         this.onClick = onClick
         this.label = label
+        this.isCollapsible = isCollapsible
         this.onDone = onDone
     }
 }
