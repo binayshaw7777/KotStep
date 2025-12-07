@@ -112,10 +112,44 @@ data class LineStyles(
     val onDone: LineStyle
 ) {
     companion object {
+
+        /**
+         * Represents a set of line styles for different task states (Todo, Current, Done).
+         *
+         * @property onTodo The line style for tasks in the "Todo" state.
+         * @property onCurrent The line style for tasks in the "Current" state.
+         * @property onDone The line style for tasks in the "Done" state.
+         *
+         * @since 3.0.0
+         */
         fun default() = LineStyles(
             onTodo = LineStyle.defaultTodo(),
             onCurrent = LineStyle.defaultCurrent(),
             onDone = LineStyle.defaultDone()
+        )
+
+        /**
+         * Creates a set of [LineStyles] with default values if not specified.
+         *
+         * This function provides a convenient way to create a [LineStyles] object where you can
+         * override the default style for each state (todo, current, done) individually. If a style
+         * for a specific state is not provided, it will default to the built-in default for that state.
+         *
+         * @param onTodo The [LineStyle] to use for todo lines. If null, defaults to [LineStyle.defaultTodo].
+         * @param onCurrent The [LineStyle] to use for the currently active line. If null, defaults to [LineStyle.defaultCurrent].
+         * @param onDone The [LineStyle] to use for completed lines. If null, defaults to [LineStyle.defaultDone].
+         * @return A [LineStyles] object with the specified styles or the defaults if not provided.
+         *
+         * @since 3.0.2
+         */
+        fun default(
+            onTodo: LineStyle? = null,
+            onCurrent: LineStyle? = null,
+            onDone: LineStyle? = null
+        ) = LineStyles(
+            onTodo = onTodo ?: LineStyle.defaultTodo(),
+            onCurrent = onCurrent ?: LineStyle.defaultCurrent(),
+            onDone = onDone ?: LineStyle.defaultDone()
         )
     }
 }

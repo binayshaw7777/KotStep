@@ -78,6 +78,7 @@ import com.binayshaw7777.kotstep.model.tabVertical
 import com.binayshaw7777.kotstep.model.tabVerticalWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
 import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
+import com.binayshaw7777.kotstep.ui.theme.presentation.v2.KotStepExamples
 import com.binayshaw7777.kotstep.ui.theme.presentation.v2.KotStepPreview
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
@@ -93,6 +94,7 @@ class MainActivity : ComponentActivity() {
             KotStepTheme(darkTheme = false) {
 //                MainPreview()
                 KotStepPreview()
+//                KotStepExamples()
             }
         }
     }

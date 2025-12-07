@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.androidx.compose.material.iconsExtended)
 
     implementation (project(":kotstep"))
 }

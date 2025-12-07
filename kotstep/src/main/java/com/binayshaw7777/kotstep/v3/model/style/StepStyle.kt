@@ -94,6 +94,38 @@ data class StepStyles(
             onCurrent = StepStyle.defaultCurrent(),
             onDone = StepStyle.defaultDone()
         )
+
+        /**
+         * Provides a set of default styles for a step-based UI component.
+         *
+         * This function allows you to define custom styles for each step state (todo, current, done)
+         * while falling back to sensible defaults if specific styles are not provided.
+         *
+         * @param onTodo The style to be applied to steps that are yet to be completed (todo). If null,
+         *               it defaults to [StepStyle.defaultTodo()].
+         * @param onCurrent The style to be applied to the currently active step. If null, it defaults to
+         *                  [StepStyle.defaultCurrent()].
+         * @param onDone The style to be applied to steps that have already been completed (done). If null,
+         *               it defaults to [StepStyle.defaultDone()].
+         * @return A [StepStyles] object containing the specified or default styles for each step state.
+         *
+         * @see StepStyle
+         * @see StepStyle.defaultTodo
+         * @see StepStyle.defaultCurrent
+         * @see StepStyle.defaultDone
+         * @see StepStyles
+         *
+         * @since 3.0.2
+         */
+        fun default(
+            onTodo: StepStyle? = null,
+            onCurrent: StepStyle? = null,
+            onDone: StepStyle? = null
+        ) = StepStyles(
+            onTodo = onTodo ?: StepStyle.defaultTodo(),
+            onCurrent = onCurrent ?: StepStyle.defaultCurrent(),
+            onDone = onDone ?: StepStyle.defaultDone()
+        )
     }
 }
 

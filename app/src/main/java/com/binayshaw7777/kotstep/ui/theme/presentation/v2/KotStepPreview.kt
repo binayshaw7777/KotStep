@@ -1,9 +1,8 @@
 package com.binayshaw7777.kotstep.ui.theme.presentation.v2
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,21 +10,87 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.ui.theme.presentation.v2.steppers.GrowwPreview
 import com.binayshaw7777.kotstep.utils.Utils.getKotStepStyle
 import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v3.samples.KotStepHorizontalExample
 import com.binayshaw7777.kotstep.v3.samples.KotStepVerticalExample
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
+
+enum class KotStepExampleTypes {
+    GROWW_APP,
+    AMAZON_APP
+}
+
+@Composable
+fun KotStepExamples() {
+
+    var expanded by remember { mutableStateOf(false) }
+    var exampleType by remember { mutableStateOf(KotStepExampleTypes.GROWW_APP) }
+
+
+    Column(modifier = Modifier.fillMaxSize().background(Color.DarkGray)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box {
+                IconButton(onClick = { expanded = true }) {
+                    Icon(Icons.Default.MoreVert, contentDescription = "Localized description")
+                }
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Groww App") },
+                        onClick = {
+                            exampleType = KotStepExampleTypes.GROWW_APP
+                            expanded = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Amazon Appp") },
+                        onClick = {
+                            exampleType = KotStepExampleTypes.AMAZON_APP
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+        when (exampleType) {
+            KotStepExampleTypes.GROWW_APP -> {
+                GrowwPreview()
+            }
+
+            KotStepExampleTypes.AMAZON_APP -> {
+
+            }
+        }
+    }
+}
 
 @OptIn(ExperimentalKotStep::class)
 @Preview(showBackground = true, backgroundColor = 0xFF1C2526)
@@ -39,22 +104,33 @@ fun KotStepPreview() {
 
         val stepStyle = getKotStepStyle()
         var currentStep by remember { mutableFloatStateOf(-1f) }
+        var isCollapsible by remember { mutableStateOf(false) }
 
         Counter(
             currentStep = { currentStep },
-            totalSteps = 10,
+            totalSteps = 6,
             onChange = { newValue ->
                 println("Current step before: $currentStep")
                 currentStep = newValue
                 println("Current step after: $currentStep")
-            }
+            },
+            isCollapsible = isCollapsible,
+            onCollapsibleChange = { isCollapsible = it }
         )
 
         Spacer(Modifier.height(50.dp))
 
-        KotStepHorizontalExample(currentStep = { currentStep }, stepStyle = stepStyle.copy(stepLayoutStyle = StepLayoutStyle.Horizontal))
+        KotStepHorizontalExample(
+            currentStep = { currentStep },
+            stepStyle = stepStyle.copy(stepLayoutStyle = StepLayoutStyle.Horizontal),
+            isCollapsible = isCollapsible
+        )
 
-        KotStepVerticalExample(currentStep = { currentStep }, stepStyle = stepStyle)
+        KotStepVerticalExample(
+            currentStep = { currentStep },
+            stepStyle = stepStyle,
+            isCollapsible = isCollapsible
+        )
     }
 }
 
@@ -63,55 +139,61 @@ private fun Counter(
     modifier: Modifier = Modifier,
     currentStep: () -> Float,
     totalSteps: Int,
-    onChange: (Float) -> Unit
+    onChange: (Float) -> Unit,
+    isCollapsible: Boolean,
+    onCollapsibleChange: (Boolean) -> Unit
 ) {
+
     Row(
         Modifier
             .fillMaxWidth()
             .then(modifier), horizontalArrangement = Arrangement.SpaceAround
     ) {
 
-        AnimatedVisibility(
-            visible = currentStep() >= -0.75f,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            Button(
-                onClick = {
-                    if (currentStep() == 0f) {
-                        onChange(-1f)
-                    } else {
-                        onChange(currentStep() - 0.25f)
-                    }
+        Button(
+            onClick = {
+                if (currentStep() == 0f) {
+                    onChange(-1f)
+                } else {
+                    onChange(currentStep() - 0.25f)
                 }
-            ) {
-                Text(text = "Previous")
-            }
+            },
+            enabled = currentStep() > -0.75f,
+        ) {
+            Text(text = "Previous")
         }
 
         Spacer(Modifier.weight(1f))
 
-        AnimatedVisibility(
-            visible = currentStep() < totalSteps.toFloat(),
-            enter = fadeIn(),
-            exit = fadeOut()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Button(
-                onClick = {
-                    if (currentStep() == -1f) {
-                        onChange(0f)
-                    } else {
-                        onChange(currentStep() + 0.25f)
-                    }
+            Text("Collapsible")
+            Switch(
+                checked = isCollapsible,
+                onCheckedChange = onCollapsibleChange
+            )
+        }
+
+        Spacer(Modifier.weight(1f))
+
+        Button(
+            onClick = {
+                if (currentStep() == -1f) {
+                    onChange(0f)
+                } else {
+                    onChange(currentStep() + 0.25f)
                 }
-            ) {
-                Text(
-                    text =
+            },
+            enabled = currentStep() < totalSteps.toFloat()
+        ) {
+            Text(
+                text =
                     if (currentStep() == -1f) "Start"
-                    else if (currentStep() >= totalSteps) "Finish"
+//                    else if (currentStep() >= totalSteps) "Finish"
                     else "Next"
-                )
-            }
+            )
         }
     }
 }
