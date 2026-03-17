@@ -36,9 +36,6 @@ import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v3.util.Util.getKotStepStyle
 import com.binayshaw7777.kotstep.v3.util.Util.onClick
 
-/**
- * Demonstrates how to add a step with a title.
- */
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepWithTitle(modifier: Modifier = Modifier) {
@@ -47,9 +44,6 @@ internal fun StepWithTitle(modifier: Modifier = Modifier) {
     }
 }
 
-/**
- * Demonstrates how to add a step with an image vector icon.
- */
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
@@ -59,9 +53,6 @@ internal fun StepWithImageVectorIcon(modifier: Modifier = Modifier) {
     }
 }
 
-/**
- * Demonstrates how to add a step with custom composable content.
- */
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun StepWithCustomContent(modifier: Modifier = Modifier) {
@@ -79,15 +70,18 @@ fun KotStepVerticalExample(
     isCollapsible: Boolean = false
 ) {
     val context = LocalContext.current
-    var showMoreItem by remember { mutableStateOf(false) } // Just for example to show that steps can adapt the size of your passed composable labels
+    var showMoreItem by remember { mutableStateOf(false) }
 
     KotStep(
         modifier = Modifier.verticalScroll(rememberScrollState()),
-        currentStep = { currentStep() }, // Provide the current step as a { Float }
-        style = stepStyle // KotStepStyle
+        currentStep = { currentStep() },
+        style = stepStyle
     ) {
         step(
             title = "1",
+            leadingLabel = {
+                Icon(Icons.Default.Search, contentDescription = null)
+            },
             onClick = {
                 Toast.makeText(context, "Hi there", Toast.LENGTH_SHORT).show()
             },
@@ -108,7 +102,8 @@ fun KotStepVerticalExample(
             isCollapsible = isCollapsible
         )
         step(
-            title = "3", label = {
+            title = "3",
+            trailingLabel = {
                 Card(Modifier.onClick { showMoreItem = showMoreItem.not() }) {
                     Text("Hello World")
                     Text("Hello World")
@@ -131,7 +126,8 @@ fun KotStepVerticalExample(
                         }
                     }
                 }
-            }, onClick = {
+            },
+            onClick = {
                 showMoreItem = showMoreItem.not()
             },
             isCollapsible = isCollapsible
@@ -155,15 +151,18 @@ fun KotStepHorizontalExample(
     isCollapsible: Boolean = false,
 ) {
     val context = LocalContext.current
-    var showMoreItem by remember { mutableStateOf(false) } // Just for example to show that steps can adapt the size of your passed composable labels
+    var showMoreItem by remember { mutableStateOf(false) }
 
     KotStep(
         modifier = Modifier.horizontalScroll(rememberScrollState()),
-        currentStep = { currentStep() }, // Provide the current step as a { Float }
-        style = stepStyle // KotStepStyle
+        currentStep = { currentStep() },
+        style = stepStyle
     ) {
         step(
             title = "1",
+            leadingLabel = {
+                Text("Start")
+            },
             onClick = {
                 Toast.makeText(context, "Hi there", Toast.LENGTH_SHORT).show()
             },
@@ -184,7 +183,8 @@ fun KotStepHorizontalExample(
             isCollapsible = isCollapsible
         )
         step(
-            title = "3", label = {
+            title = "3",
+            trailingLabel = {
                 Row(
                     Modifier
                         .background(Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
@@ -201,7 +201,8 @@ fun KotStepHorizontalExample(
                         }
                     }
                 }
-            }, onClick = {
+            },
+            onClick = {
                 showMoreItem = showMoreItem.not()
             },
             isCollapsible = isCollapsible
