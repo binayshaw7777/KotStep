@@ -59,6 +59,11 @@ dependencies {
     implementation(libs.androidx.compose.constraintlayout)
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.kotlinx.collections.immutable)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     // Slack Compose Lints (Android Lint checks)
     lintChecks(libs.compose.lint.checks)

@@ -401,6 +401,47 @@ VerticalStepper(
 |strokeCap|    StrokeCap|    StrokeCap.Square|    Style of the ends of the line connecting steps (ROUNDED, SQUARE)|
 ---
 
+## Testing V3
+
+KotStep V3 includes Android instrumentation UI tests in `kotstep/src/androidTest`.
+
+Prerequisites:
+- Start an Android emulator from Android Studio Device Manager, or connect a physical device with USB debugging enabled.
+- Confirm the device is visible:
+
+```powershell
+adb devices
+```
+
+Build the V3 Android test APK:
+
+```powershell
+.\gradlew.bat :kotstep:assembleDebugAndroidTest
+```
+
+Run all `kotstep` instrumentation tests:
+
+```powershell
+.\gradlew.bat :kotstep:connectedDebugAndroidTest
+```
+
+Run only the KotStep V3 test class:
+
+```powershell
+.\gradlew.bat :kotstep:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.binayshaw7777.kotstep.v3.KotStepV3Test
+```
+
+Run a single V3 test method:
+
+```powershell
+.\gradlew.bat :kotstep:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.binayshaw7777.kotstep.v3.KotStepV3Test#horizontal_collapsingStepPreservesIndicatorAlignment
+```
+
+Current V3 UI test coverage includes:
+- step indicator accessibility semantics
+- leading/trailing label rendering
+- collapse alignment for horizontal and vertical layouts
+
 ## Reporting Issues and Requesting Features✨
 If you encounter any issues or have feature requests, please create a new [issue](https://github.com/binayshaw7777/KotStep/issues) in this repository.
 

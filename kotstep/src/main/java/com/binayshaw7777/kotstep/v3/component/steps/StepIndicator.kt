@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -31,7 +32,10 @@ import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 
 private const val DEFAULT_INDICATOR_SCALE = 0.6f
 private const val BORDER_SCALE_FACTOR = 0.1f
-private const val STEP_INDICATOR_DESCRIPTION = "Step Indicator"
+private const val DEFAULT_STEP_DESCRIPTION = "Step"
+private const val TODO_STATE_DESCRIPTION = "Not completed"
+private const val CURRENT_STATE_DESCRIPTION = "Current step"
+private const val DONE_STATE_DESCRIPTION = "Completed"
 
 /**
  * A composable function that represents a step indicator in a multi-step process.
@@ -76,16 +80,42 @@ internal fun StepIndicator(
     stepStyle: () -> StepStyle,
     showCheckMark: () -> Boolean
 ) {
+    val stepData = step()
+    val currentStepState = stepState()
 
-    val isDefaultIndicator by remember(step) {
-        derivedStateOf { step().title.isNullOrEmpty() && step().icon == null && step().content == null }
+    val isDefaultIndicator by remember(stepData) {
+        derivedStateOf {
+            stepData.title.isNullOrEmpty() && stepData.icon == null && stepData.content == null
+        }
+    }
+
+    val indicatorContentDescription by remember(stepData) {
+        derivedStateOf {
+            when {
+                !stepData.title.isNullOrBlank() -> "Step: ${stepData.title}"
+                else -> DEFAULT_STEP_DESCRIPTION
+            }
+        }
+    }
+
+    val indicatorStateDescription by remember(currentStepState) {
+        derivedStateOf {
+            when (currentStepState) {
+                StepState.Todo -> TODO_STATE_DESCRIPTION
+                StepState.Current -> CURRENT_STATE_DESCRIPTION
+                StepState.Done -> DONE_STATE_DESCRIPTION
+            }
+        }
     }
 
     val baseModifier = Modifier
         .size(size)
         .clip(shape)
         .zIndex(1f)
-        .semantics { contentDescription = STEP_INDICATOR_DESCRIPTION }
+        .semantics {
+            contentDescription = indicatorContentDescription
+            stateDescription = indicatorStateDescription
+        }
 
     val styledModifier = if (isDefaultIndicator) {
         baseModifier
@@ -103,32 +133,32 @@ internal fun StepIndicator(
             .then(modifier)
     ) {
         when {
-            stepState() == StepState.Done && showCheckMark() -> {
+            currentStepState == StepState.Done && showCheckMark() -> {
                 Icon(
                     imageVector = Icons.Default.Done,
-                    contentDescription = "Done",
+                    contentDescription = null,
                     modifier = Modifier.size(stepStyle().iconStyle.iconSize),
                     tint = stepStyle().iconStyle.iconTint
                 )
             }
 
-            !step().title.isNullOrEmpty() -> {
+            !stepData.title.isNullOrEmpty() -> {
                 Text(
-                    text = step().title!!,
+                    text = stepData.title!!,
                     style = stepStyle().textStyle
                 )
             }
 
-            step().icon != null -> {
+            stepData.icon != null -> {
                 Icon(
-                    imageVector = step().icon!!,
+                    imageVector = stepData.icon!!,
                     contentDescription = null,
                     modifier = Modifier.size(stepStyle().iconStyle.iconSize)
                 )
             }
 
-            step().content != null -> {
-                step().content?.invoke()
+            stepData.content != null -> {
+                stepData.content?.invoke()
             }
 
             else -> {

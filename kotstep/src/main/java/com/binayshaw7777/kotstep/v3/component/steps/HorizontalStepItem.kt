@@ -1,20 +1,21 @@
 package com.binayshaw7777.kotstep.v3.component.steps
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,10 +25,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import com.binayshaw7777.kotstep.v3.component.label.LabelContent
 import com.binayshaw7777.kotstep.v3.component.progress_bar.KotStepHorizontalProgress
 import com.binayshaw7777.kotstep.v3.model.step.Step
@@ -43,24 +45,6 @@ import com.binayshaw7777.kotstep.v3.util.AnimationConstants
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v3.util.Util.onClick
 
-
-/**
- * Displays a single step item in a horizontal stepper.
- *
- * This composable renders a step indicator, a connecting line (if not the last step),
- * and an optional label. It dynamically updates its appearance based on the `stepState`.
- *
- * @param modifier The modifier to be applied to the step item.
- * @param progress A lambda that returns the progress value (between 0.0 and 1.0) for the connecting line.
- *                 This determines how much of the line is filled.
- * @param step The [Step] data representing the current step's information, including the optional label.
- * @param style The [KotStepStyle] defining the visual style of the stepper.
- * @param stepState The [StepState] indicating the current state of the step (Todo, Current, or Done).
- * @param isLastStep Boolean flag that indicates if it's the last step in the sequence.
- * @param onClick A callback function invoked when the step item is clicked. Defaults to an empty function.
- *
- * @since 3.0.0
- */
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun HorizontalStepItem(
@@ -69,22 +53,25 @@ internal fun HorizontalStepItem(
     step: Step,
     style: KotStepStyle,
     stepState: StepState,
+    stepIndex: Int,
     isLastStep: Boolean,
+    reservedLeadingLabelHeight: Dp,
+    reservedTrailingLabelHeight: Dp,
+    onLeadingLabelMeasured: (IntSize) -> Unit,
+    onTrailingLabelMeasured: (IntSize) -> Unit,
     onClick: () -> Unit = {}
 ) {
-
     val transition = updateTransition(targetState = stepState, label = "")
-
     val staticProperties = calculateStaticStepProperties(style, stepState)
 
-    val containerColor by transition.animateColor(label = "containerColor") {
-        style.stepStyle.getColorForState(it)
-    }
     val lineColor by transition.animateColor(label = "lineColor") {
         style.lineStyle.getLineColorForState(it)
     }
     val progressColor by transition.animateColor(label = "progressColor") {
         style.lineStyle.getProgressColorForState(it)
+    }
+    val containerColor by transition.animateColor(label = "containerColor") {
+        style.stepStyle.getColorForState(it)
     }
     val stepSize by transition.animateDp(label = "stepSize") {
         style.stepStyle.getSizeForState(it)
@@ -92,46 +79,45 @@ internal fun HorizontalStepItem(
     val lineLength by transition.animateDp(label = "lineLength") {
         style.lineStyle.getLineLengthForState(it)
     }
+
     var isContentVisible by rememberSaveable(step) { mutableStateOf(true) }
-
-    var labelWidth by remember { mutableStateOf(0.dp) }
-    var isLabelMeasured by remember { mutableStateOf(false) }
+    var trailingLabelWidth by remember { mutableStateOf(0.dp) }
+    var isTrailingLabelMeasured by remember { mutableStateOf(false) }
     val density = LocalDensity.current
-
 
     val lineWidth by remember {
         derivedStateOf {
-            if (isLabelMeasured) maxOf(labelWidth - stepSize, lineLength) else lineLength
+            if (isTrailingLabelMeasured) maxOf(trailingLabelWidth - stepSize, lineLength) else lineLength
         }
     }
-    LaunchedEffect(isLabelMeasured) {
-        Log.d("", "isLabelMeasured: $isLabelMeasured labelWidth: $labelWidth lineLength: $lineLength lineWidth: $lineWidth")
-    }
 
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier)
+    Column(
+        modifier = Modifier.fillMaxWidth().then(modifier),
+        horizontalAlignment = Alignment.Start
     ) {
-        val (stepContent, labelContent) = createRefs()
+        HorizontalLabelSlot(
+            reservedHeight = reservedLeadingLabelHeight,
+            label = step.leadingLabel,
+            visible = isContentVisible,
+            testTag = "kotstep_leading_label_$stepIndex",
+            onSizeChanged = onLeadingLabelMeasured
+        )
 
         Row(
             modifier = Modifier
+                .testTag("kotstep_step_$stepIndex")
                 .height(staticProperties.maxSize)
                 .onClick {
                     if (step.isCollapsible) {
                         isContentVisible = isContentVisible.not()
                     }
                     onClick()
-                }
-                .constrainAs(stepContent) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
             StepIndicator(
+                modifier = Modifier.testTag("kotstep_indicator_$stepIndex"),
                 size = stepSize,
                 shape = staticProperties.stepStyle.stepShape,
                 containerColor = containerColor,
@@ -149,15 +135,11 @@ internal fun HorizontalStepItem(
                     exit = AnimationConstants.Horizontal.progressLineExit
                 ) {
                     KotStepHorizontalProgress(
-                        modifier = Modifier
-                            .padding(
-                                start = staticProperties.lineStyle.linePadding.calculateStartPadding(
-                                    LayoutDirection.Rtl
-                                ) + staticProperties.stepStyle.borderStyle.width,
-                                end = staticProperties.lineStyle.linePadding.calculateEndPadding(
-                                    LayoutDirection.Rtl
-                                )
-                            ),
+                        modifier = Modifier.padding(
+                            start = staticProperties.lineStyle.linePadding.calculateStartPadding(LayoutDirection.Rtl) +
+                                staticProperties.stepStyle.borderStyle.width,
+                            end = staticProperties.lineStyle.linePadding.calculateEndPadding(LayoutDirection.Rtl)
+                        ),
                         width = { lineWidth },
                         height = { staticProperties.lineStyle.lineThickness },
                         lineTrackColor = lineColor,
@@ -173,26 +155,47 @@ internal fun HorizontalStepItem(
             }
         }
 
-        step.label?.let { label ->
-            AnimatedVisibility(
-                visible = isContentVisible,
-                enter = AnimationConstants.Horizontal.labelEnter,
-                exit = AnimationConstants.Horizontal.labelExit,
-                modifier = Modifier.constrainAs(labelContent) {
-                    top.linkTo(stepContent.bottom)
-                    start.linkTo(parent.start)
-                    width = Dimension.wrapContent
-                }
-            ) {
-                LabelContent(
-                    modifier = Modifier.wrapContentWidth(),
-                    label = label,
-                    onSizeChanged = { size ->
-                        labelWidth = with(density) { size.width.toDp() }
-                        isLabelMeasured = true
-                    }
-                )
+        HorizontalLabelSlot(
+            reservedHeight = reservedTrailingLabelHeight,
+            label = step.trailingLabel,
+            visible = isContentVisible,
+            testTag = "kotstep_trailing_label_$stepIndex",
+            onSizeChanged = { size ->
+                trailingLabelWidth = with(density) { size.width.toDp() }
+                isTrailingLabelMeasured = true
+                onTrailingLabelMeasured(size)
             }
+        )
+    }
+}
+
+@Composable
+private fun HorizontalLabelSlot(
+    reservedHeight: Dp,
+    label: (@Composable () -> Unit)?,
+    visible: Boolean,
+    testTag: String,
+    onSizeChanged: (IntSize) -> Unit
+) {
+    when {
+        label != null -> {
+            Box(modifier = Modifier.testTag(testTag).heightIn(min = reservedHeight)) {
+                AnimatedVisibility(
+                    visible = visible,
+                    enter = AnimationConstants.Horizontal.labelEnter,
+                    exit = AnimationConstants.Horizontal.labelExit
+                ) {
+                    LabelContent(
+                        modifier = Modifier.wrapContentWidth(),
+                        label = label,
+                        onSizeChanged = onSizeChanged
+                    )
+                }
+            }
+        }
+
+        reservedHeight > 0.dp -> {
+            Box(modifier = Modifier.testTag(testTag).height(reservedHeight))
         }
     }
 }
