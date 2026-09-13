@@ -1,4 +1,9 @@
 jdk:
   - openjdk17
-before_install:
-  - ./scripts/prepareJitpackEnvironment.sh
+
+# JitPack builds every tag/commit with `./gradlew install` by default, but a KMP
+# project uses maven-publish (no `install` task). We publish to the local Maven
+# repository instead; consumers resolve through Gradle module metadata
+# (root module KotStep -> android / desktop / wasm / ios variants).
+install:
+  - ./gradlew publishToMavenLocal --no-daemon

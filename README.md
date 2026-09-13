@@ -1,469 +1,288 @@
 <h1 align="center">KotStep</h1>
 
 <p align="center">
- <img alt="material" src="https://custom-icon-badges.demolab.com/badge/material%20you-palegreen?style=for-the-badge&logoColor=black&logo=material-you"/></a>
-  <img alt="API" src="https://img.shields.io/badge/Api%2021+-50f270?logo=android&logoColor=black&style=for-the-badge"/></a>
-  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-a503fc?logo=kotlin&logoColor=white&style=for-the-badge"/></a>
-  <img alt="Jetpack Compose" src="https://img.shields.io/static/v1?style=for-the-badge&message=Jetpack+Compose&color=4285F4&logo=Jetpack+Compose&logoColor=FFFFFF&label="/></a> 
+  <img alt="Android" src="https://img.shields.io/badge/Android-API%2024+-3DDC84?style=for-the-badge&logo=android&logoColor=white"/>
+  <img alt="iOS" src="https://img.shields.io/badge/iOS-16+-000000?style=for-the-badge&logo=apple&logoColor=white"/>
+  <img alt="Desktop JVM" src="https://img.shields.io/badge/Desktop-JVM%2017-orange?style=for-the-badge&logo=openjdk&logoColor=white"/>
+  <img alt="Web Wasm" src="https://img.shields.io/badge/Web-Wasm-654FF0?style=for-the-badge&logo=webassembly&logoColor=white"/>
+  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.1.10-a503fc?style=for-the-badge&logo=kotlin&logoColor=white"/>
+  <img alt="Compose Multiplatform" src="https://img.shields.io/badge/Compose%20Multiplatform-1.7.3-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white"/>
+  <a href="https://jitpack.io/#binayshaw7777/KotStep"><img src="https://img.shields.io/jitpack/v/github/binayshaw7777/KotStep?style=for-the-badge&color=purple"/></a>
   <a href="https://hits.sh/github.com/binayshaw7777/KotStep/"><img alt="Hits" src="https://hits.sh/github.com/binayshaw7777/KotStep.svg?style=for-the-badge&label=Views&color=41b316"/></a>
-  <a href="https://github.com/binayshaw7777/KotStep/releases/latest"><img src="https://img.shields.io/github/v/release/binayshaw7777/KotStep?color=purple&include_prereleases&logo=github&style=for-the-badge"/>
 </p>
 
-<p align="center">💜 KotStep is a Jetpack Compose library that simplifies the creation of customizable step-by-step UI components in your Android applications. It allows you to easily integrate vertical and horizontal stepper components with icons, titles, and various customization options.
-<br>
-<br>
+<p align="center">
+KotStep is a <strong>Compose Multiplatform</strong> stepper UI library — vertical and horizontal
+multi-step flows with animated progress, custom styles, collapsible steps, and leading/trailing
+labels. Works on Android, iOS, Desktop (JVM), and Web (Wasm) from a single shared codebase.
+</p>
+
+<p align="center">
 <img src="https://github.com/binayshaw7777/KotStep/assets/62587060/2cf2c41a-6812-484a-bcdc-d5f72cad94f0"/>
 </p>
 
-## Note: If you're using KotStep v3 then please checkout the new docs: [Documentation](https://github.com/binayshaw7777/KotStep/wiki/KotStep-Docs-(v3))
+---
 
-## Features
-
-- Multiple stepper styles:
-  - Horizontal Numbered Stepper
-  - Horizontal Tab Stepper
-  - Horizontal Icon Stepper
-  - Horizontal Dashed Stepper
-  - Vertical Icon Stepper
-  - Vertical Tab Stepper
-  - Vertical Numbered Stepper
-  - Vertical Icon Stepper with Label
-  - Vertical Tab Stepper with Label
-  - Vertical Numbered Stepper with Label
-- Easy integration with Jetpack Compose
-- Optional checkmark icons for completed steps.
-- Highly customizable appearance and behavior
-
-  
 ## Installation
 
-[![](https://jitpack.io/v/binayshaw7777/kotstep.svg)](https://jitpack.io/#binayshaw7777/kotstep)
-![Downloads](https://jitpack.io/v/binayshaw7777/KotStep/month.svg)
+KotStep is published via [JitPack](https://jitpack.io/#binayshaw7777/KotStep).
 
-To get started with KotStep in your Android Jetpack Compose project, 
-Add it in your root `build.gradle` at the end of repositories:
+### Step 1 — Add the JitPack repository
 
-```
-allprojects {
-	repositories {
-		...
-	    maven { url 'https://jitpack.io' }
+**`settings.gradle.kts`:**
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        maven("https://jitpack.io")
     }
 }
 ```
 
-Lastly, add the following dependency to your app's `build.gradle.kts` (Kotlin) or `build.gradle` (Groovy) file:
+### Step 2 — Add the dependency
 
-<details>
-<summary>Kotlin</summary>
-<br>
-
+#### Android (single-platform project)
 ```kotlin
+// app/build.gradle.kts
 dependencies {
-    implementation("com.github.binayshaw7777:KotStep:$currentVersion")
+    implementation("com.github.binayshaw7777:KotStep:3.2.0")
 }
 ```
-</details>
 
-<details>
-<summary>Groovy</summary>
-<br>
-
+#### Kotlin Multiplatform (Android + Desktop)
 ```kotlin
-dependencies {
-    implementation 'com.github.binayshaw7777:KotStep:$currentVersion'
-}
-```
-</details>
-
-#### Please checkout KotStep v3 Docs if you've migrated the version to KotStep 3.0.0 and above: [KotStep V3 Docs](https://github.com/binayshaw7777/KotStep/wiki/KotStep-Docs-(v3))
-
-# Usage
-
-## <b>Horizontal Stepper - Tab</b>
-
-```kotlin
-HorizontalStepper(
-    style = tabHorizontal(
-        totalSteps = 3,
-        currentStep = 1
-    )
-) {
-	// Do something...
+// shared/build.gradle.kts
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation("com.github.binayshaw7777:KotStep:3.2.0")
+        }
+    }
 }
 ```
 
-### `tabHorizontal` Parameters
+#### iOS
 
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
+> ⚠️ JitPack publishes Kotlin metadata and klibs but **not** pre-built iOS frameworks.
+> Link the framework from source per architecture and combine the outputs:
+>
+> ```bash
+> ./gradlew :kotstep:linkReleaseFrameworkIosSimulatorArm64 \
+>           :kotstep:linkReleaseFrameworkIosArm64 \
+>           :kotstep:linkReleaseFrameworkIosX64
+> ```
+>
+> The three `.framework` bundles land under `kotstep/build/bin/<target>/releaseFramework/`
+> (base name `KotStep`). Combine them into a distributable `.xcframework` with
+> `xcodebuild -create-xcframework …`.
 
+#### Web (Wasm)
 
-<b>Example:</b><br>
-![Horizontal Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/595c1c2a-dd51-478b-9398-f46ac4725b28)
+> Web consumers resolve the published Wasm klib directly via the JitPack coordinate above.
+> To run the demo web app locally:
+>
+> ```bash
+> ./gradlew :webApp:wasmJsBrowserDevelopmentRun
+> ```
 
 ---
 
-## <b>Horizontal Stepper - Icon</b>
+## Platform requirements
+
+| Platform | Minimum |
+|---|---|
+| Android | API 24 |
+| Desktop (JVM) | JVM 17 |
+| iOS | iOS 16 |
+| Web | Chrome 119+ / Firefox 120+ (Wasm-GC) |
+
+---
+
+## Quick Start — V3 API
+
+> ⚠️ **V3 is the current API and is multiplatform.** V2 is Android-only — see the [migration note](#v2--v3-migration) below.
 
 ```kotlin
-HorizontalStepper(
-    style = iconHorizontal(
-	currentStep = 1,
-        icons = listOf(
-            Icons.Default.AccountCircle,
-	    ...
-            Icons.Default.DateRange
+import com.binayshaw7777.kotstep.v3.KotStep
+import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
+import com.binayshaw7777.kotstep.v3.model.style.KotStepStyle
+import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
+
+@OptIn(ExperimentalKotStep::class)       // required
+@Composable
+fun CheckoutFlow() {
+    var currentStep by remember { mutableStateOf(0f) }
+
+    KotStep(
+        currentStep = { currentStep },   // () -> Float — required, no default
+        style = KotStepStyle(stepLayoutStyle = StepLayoutStyle.Horizontal)
+    ) {
+        step(title = "Cart",    onClick = { currentStep = 0f })
+        step(title = "Address", onClick = { currentStep = 1f })
+        step(title = "Payment", onClick = { currentStep = 2f })
+        step(title = "Done",    onClick = { currentStep = 3f })
+    }
+}
+```
+
+### API quick-reference
+
+| | |
+|---|---|
+| Entry composable | `com.binayshaw7777.kotstep.v3.KotStep` |
+| Required opt-in | `@OptIn(ExperimentalKotStep::class)` |
+| `currentStep` type | `() -> Float` — **required, no default** |
+| DSL scope type | `com.binayshaw7777.kotstep.v3.model.KotStepScope` |
+| Layout variants | `StepLayoutStyle.Vertical` (default) · `StepLayoutStyle.Horizontal` |
+
+### `currentStep` semantics
+
+`currentStep` is a `Float`. Whole numbers are fully-completed steps; fractions animate the connecting progress line.
+
+```kotlin
+-1f    // all steps in Todo state
+ 0f    // index 0 is Current
+ 0.5f  // 50 % progress on the line between index 0 and 1
+ 1f    // index 1 is Current; index 0 is Done
+ 3f    // index 3 is Current; indices 0-2 are Done
+```
+
+### Step DSL variants
+
+```kotlin
+// Text / numbered indicator
+step(title = "Shipping")
+
+// Icon indicator (ImageVector)
+step(icon = Icons.Default.Done)
+
+// Fully custom composable indicator
+step(content = { MyComposable() })
+
+// Collapsible step — tapping toggles content visibility
+step(title = "Details", isCollapsible = true)
+
+// Leading and trailing labels
+step(
+    title = "Payment",
+    leadingLabel  = { Text("Step 3") },
+    trailingLabel = { Text("~5 min") }
+)
+
+// With click callback
+step(title = "Review", onClick = { currentStep = 3f })
+```
+
+### Styling
+
+```kotlin
+@OptIn(ExperimentalKotStep::class)
+KotStep(
+    currentStep = { currentStep },
+    style = KotStepStyle(
+        stepLayoutStyle     = StepLayoutStyle.Vertical,
+        showCheckMarkOnDone = true,
+        ignoreCurrentState  = false,
+        stepStyle = StepStyles.default().copy(
+            onCurrent = StepStyle.defaultTodo().copy(
+                stepSize  = 48.dp,
+                stepColor = MaterialTheme.colorScheme.primary
+            ),
+            onDone = StepStyle.defaultTodo().copy(
+                stepColor = MaterialTheme.colorScheme.secondary
+            )
+        ),
+        lineStyle = LineStyles.default().copy(
+            onCurrent = LineStyle.defaultCurrent().copy(
+                lineThickness = 4.dp,
+                lineType      = LineType.Dashed()
+            )
         )
     )
 ) {
-	// Do something...
+    step(title = "Start")
+    step(title = "Middle")
+    step(title = "End")
 }
 ```
 
-### `iconHorizontal` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Horizontal Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/67df5304-dd3c-45f4-b631-5f05440fe429)
-
 ---
 
-## <b>Horizontal Stepper - Numbered</b>
+## V2 → V3 Migration
+
+> ⚠️ **V2 is Android-only.** The V2 sealed-class API (`HorizontalStepper`, `VerticalStepper`,
+> `tabHorizontal(…)`, `iconVertical(…)`, etc.) is not available on Desktop, iOS, or Web and
+> will not receive new features. Migrate to V3 for multiplatform support.
+
+### Before — V2 (Android only)
 
 ```kotlin
 HorizontalStepper(
-  style = numberedHorizontal(
-    totalSteps = 5,
-    currentStep = 1
-  )
+    style = tabHorizontal(totalSteps = 3, currentStep = 1)
 ) {
-	// Do something...
-}      
-```
-
-### `numberedHorizontal` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Horizontal Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/44b36c90-5321-4111-afac-bf8c609c2452)
-
-
----
-
-## <b>Horizontal Stepper - Dashed</b>
-
-```kotlin
-HorizontalStepper(
-  style = dashed(
-    totalSteps = 5,
-    currentStep = 1
-  )
-) {
-	// Do something...
-}    
-```
-
-### `dashed` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Horizontal Stepper - Dashed](https://github.com/binayshaw7777/KotStep/assets/62587060/df826be7-ecb2-4944-8fcc-7726190a03b1)
-
----
-
-## <b>Vertical Stepper - Tab</b>
-
-```kotlin
-VerticalStepper(
-  style = tabVertical(
-    totalSteps = 5,
-    currentStep = 1
-  )
-) {
-	// Do something...
-} 
-```
-
-### `tabVertical` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Vertical Stepper - Tab](https://github.com/binayshaw7777/KotStep/assets/62587060/d875ce8f-b8a3-4941-8c16-50c866071374)
-
----
-
-## <b>Vertical Stepper - Tab with Label</b>
-
-```kotlin
-VerticalStepper(
-  style = tabVerticalWithLabel(
-    totalSteps = 2,
-    currentStep = 1,
-    trailingLabels = listOf(
-    	{ Text("Hello") },
-        { Text("World") }
-    )
-  )
-) {
-	// Do something...
+    // step content
 }
 ```
 
-### `tabVerticalWithLabel` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-<b>Example:</b><br>
-![Vertical Stepper - Tab with Label](https://github.com/user-attachments/assets/31f99b69-01fa-49a9-9ee8-df7d85addf11)
-
----
-
-## <b>Vertical Stepper - Icon</b>
+### After — V3 (all platforms)
 
 ```kotlin
-VerticalStepper(
-  style = iconVertical(
-    currentStep = 1,
-    icons = listOf(
-      Icons.Default.AccountCircle,
-      ...
-      Icons.Default.DateRange
-    )
-  )
-) {
-	// Do something...
-}    
+@OptIn(ExperimentalKotStep::class)
+@Composable
+fun MyFlow() {
+    var step by remember { mutableStateOf(1f) }
+
+    KotStep(
+        currentStep = { step },
+        style = KotStepStyle(stepLayoutStyle = StepLayoutStyle.Horizontal)
+    ) {
+        step(title = "Step 1")
+        step(title = "Step 2")
+        step(title = "Step 3")
+    }
+}
 ```
 
-### `iconVertical` Parameters
+**Key changes:**
 
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Vertical Stepper - Icon](https://github.com/binayshaw7777/KotStep/assets/62587060/adc67265-8325-4297-a856-dfe088d7650d)
+| V2 | V3 |
+|---|---|
+| `HorizontalStepper { }` / `VerticalStepper { }` | Single `KotStep { }` composable |
+| `currentStep: Int` inside style factory | `currentStep: () -> Float` on `KotStep` |
+| `tabHorizontal(…)` / `iconVertical(…)` factories | `KotStepStyle(stepLayoutStyle = …)` |
+| Separate step composables per variant | Unified `step(title/icon/content)` DSL |
+| Android-only | Android · iOS · Desktop · Web |
 
 ---
 
-## <b>Vertical Stepper - Icon with label</b>
+## Run the demo app
 
-```kotlin
-VerticalStepper(
-  style = iconVerticalWithLabel(
-    currentStep = 1,
-    icons = listOf(
-      Icons.Default.AccountCircle,
-      Icons.Default.DateRange
-    ),
-    trailingLabels = listOf(
-    	{ Text("Hello") },
-        { Text("World") }
-    )
-  )
-) {
-	// Do something...
-}    
-```
+The demo entrypoints all render the same shared `DemoApp`:
 
-### `iconVerticalWithLabel` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `icons`                 	   | A list of ImageVectors.                           				                	  | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Vertical Stepper - Icon](https://github.com/user-attachments/assets/9aa2968f-11f9-414e-bde9-af9f6ac91324)
+| Platform | Command |
+|---|---|
+| Android | Open `app/` in Android Studio and run the `app` configuration |
+| Desktop | `./gradlew :desktopApp:run` |
+| Web | `./gradlew :webApp:wasmJsBrowserDevelopmentRun` (open the printed URL in Chrome 119+ / Firefox 120+) |
+| iOS | Open `iosApp/iosApp.xcodeproj` in Xcode and run on a simulator |
 
 ---
 
-## <b>Vertical Stepper - Numbered</b>
+## Contributing
 
-```kotlin
-VerticalStepper(
-  style = numberedVertical(
-    totalSteps = 5,
-    currentStep = 1
-  )
-) {
-	// Do something...
-}    
-```
+See [`AGENTS.md`](AGENTS.md) for the multi-agent migration protocol and owned-path rules.
 
-### `numberedVertical` Parameters
+Bug reports and feature requests → [GitHub Issues](https://github.com/binayshaw7777/KotStep/issues).
 
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-
-<b>Example:</b><br>
-![Vertical Stepper - Numbered](https://github.com/binayshaw7777/KotStep/assets/62587060/b79afbef-4f9d-4942-a0db-23003c956a8e)
-
----
-
-## <b>Vertical Stepper - Numbered with Label</b>
-
-```kotlin
-VerticalStepper(
-  style = numberedVerticalWithLabel(
-    totalSteps = 2,
-    currentStep = 1,
-    trailingLabels = listOf(
-    	{ Text("Hello") },
-        { Text("World") }
-    )
-  )
-) {
-	// Do something...
-}    
-```
-
-### `numberedVerticalWithLabel` Parameters
-
-| Parameter                       | Description                                                                                          | Default Value       |
-|----------------------------------|------------------------------------------------------------------------------------------------------|---------------------|
-| `totalSteps`                     | The total number of steps.                           				                 | -                   |
-| `currentStep`                    | The current step that is active.                                                                    | -                   |
-| `stepStyle`                      | The style for the step numbers. (Optional)                                                          | `StepStyle()`       |
-| `onStepClick`                    | Returns the index of the step clicked. (Optional)                                                   | `{}`                |
-
-<b>Example:</b><br>
-![Vertical Stepper - Numbered](https://github.com/user-attachments/assets/0d3de86b-e56c-4e4f-8f4c-21d42181699d)
-
-
-
-## `StepStyle` Parameters
-
-
-|Property|    Data Type|    Default Value|    Description|
-|----------------------------------|---------|------------------------------------------------------------------------------------------------------|---------------------|
-|colors    |StepDefaults    |StepDefaults.defaultColors()|    Colors for the step indicator|
-|stepSize|    Dp|    36.dp|    Size of the step indicator|
-|stepShape|    Shape|    CircleShape|    Shape of the step indicator|
-|textSize|    TextUnit    |16.sp|    Text size for the step indicator|
-|iconSize    |Dp    |24.dp|    Icon size for the step indicator|
-|lineThickness|    Dp|    6.dp|    Thickness of the line connecting steps|
-|lineSize|    Dp|    20.dp|    Length of the line connecting steps|
-|stepPadding|    Dp    |0.dp|    Padding around the step indicator|
-|lineStyle|    LineStyle|    LineStyle.SOLID    |Style of the line connecting steps (SOLID, DASHED, DOTTED)|
-|showCheckMarkOnDone|    Boolean|    true|    Whether to show a checkmark on completed steps|
-|showStrokeOnCurrent|    Boolean|    true|    Whether to show a stroke around the current step|
-|strokeCap|    StrokeCap|    StrokeCap.Square|    Style of the ends of the line connecting steps (ROUNDED, SQUARE)|
----
-
-## Testing V3
-
-KotStep V3 includes Android instrumentation UI tests in `kotstep/src/androidTest`.
-
-Prerequisites:
-- Start an Android emulator from Android Studio Device Manager, or connect a physical device with USB debugging enabled.
-- Confirm the device is visible:
-
-```powershell
-adb devices
-```
-
-Build the V3 Android test APK:
-
-```powershell
-.\gradlew.bat :kotstep:assembleDebugAndroidTest
-```
-
-Run all `kotstep` instrumentation tests:
-
-```powershell
-.\gradlew.bat :kotstep:connectedDebugAndroidTest
-```
-
-Run only the KotStep V3 test class:
-
-```powershell
-.\gradlew.bat :kotstep:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.binayshaw7777.kotstep.v3.KotStepV3Test
-```
-
-Run a single V3 test method:
-
-```powershell
-.\gradlew.bat :kotstep:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.binayshaw7777.kotstep.v3.KotStepV3Test#horizontal_collapsingStepPreservesIndicatorAlignment
-```
-
-Current V3 UI test coverage includes:
-- step indicator accessibility semantics
-- leading/trailing label rendering
-- collapse alignment for horizontal and vertical layouts
-
-## Reporting Issues and Requesting Features✨
-If you encounter any issues or have feature requests, please create a new [issue](https://github.com/binayshaw7777/KotStep/issues) in this repository.
-
-## Supporting KotStep :heart:
-Support it by joining __[stargazers](https://github.com/binayshaw7777/KotStep/stargazers)__ for this repository. :star: <br>
-Also __[follow](https://github.com/binayshaw7777)__ me for my next creations! 🤩
-
-<br>
-
-[![Star History Chart](https://api.star-history.com/svg?repos=binayshaw7777/KotStep&type=Date)](https://star-history.com/#binayshaw7777/KotStep&Date)
-
-<br>
----
+## License
 
 ```
-Copyright 2023 binayshaw7777
+Copyright 2024 Binay Shaw
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

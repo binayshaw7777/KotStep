@@ -1,19 +1,93 @@
 import com.android.build.api.dsl.Lint
 import com.android.build.api.dsl.LintOptions
+import org.gradle.api.publish.maven.MavenPublication
+import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     id("maven-publish")
 }
 
+kotlin {
+    androidTarget {
+        publishLibraryVariants("release")
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+                }
+            }
+        }
+    }
+    jvm("desktop") {
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+                }
+            }
+        }
+    }
+    wasmJs {
+        browser()
+    }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "KotStep"
+            isStatic = true
+        }
+    }
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.animation)
+            implementation(compose.material3)
+            implementation(libs.compose.material.icons.core)
+            implementation(libs.kotlinx.collections.immutable)
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+        val desktopTest by getting {
+            dependencies {
+                @OptIn(ExperimentalComposeLibrary::class)
+                implementation(compose.desktop.currentOs)
+            }
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.compose.ui.tooling.preview)
+            implementation(libs.androidx.compose.constraintlayout)
+        }
+        androidInstrumentedTest.dependencies {
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTestJUnit4)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.test.ext.junit)
+            implementation(libs.androidx.test.espresso.core)
+        }
+    }
+}
+
 android {
     namespace = "com.binayshaw7777.kotstep"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
+        targetSdk = 35
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -32,76 +106,59 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
     lint {
         abortOnError = false
     }
 }
 
+// Debug-only tooling without source-set dependency gymnastics
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.material3)
-    implementation(libs.androidx.compose.constraintlayout)
     debugImplementation(libs.androidx.ui.tooling)
-    implementation(libs.kotlinx.collections.immutable)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     // Slack Compose Lints (Android Lint checks)
     lintChecks(libs.compose.lint.checks)
 }
 
+// KMP publishing (Phase 8): keep the JitPack/Android coordinate stable
+// (group/artifact/version) and enrich every generated POM with project metadata.
 publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.binayshaw7777"
-            artifactId = "KotStep"
-            version = "3.1.0"
+    publications.withType<MavenPublication>().configureEach {
+        val base = "KotStep"
+        artifactId = when (name) {
+            "kotlinMultiplatform" -> base
+            "androidRelease" -> "$base-android"
+            "desktop" -> "$base-desktop"
+            "wasmJs" -> "$base-wasm-js"
+            "iosArm64" -> "$base-iosarm64"
+            "iosX64" -> "$base-iosx64"
+            "iosSimulatorArm64" -> "$base-iossimulatorarm64"
+            else -> "$base-$name"
+        }
+        groupId = "com.github.binayshaw7777"
+        version = "3.2.0"
 
-            afterEvaluate {
-                from(components["release"])
+        pom {
+            name.set("KotStep")
+            description.set("A customizable stepper component for Jetpack Compose.")
+            url.set("https://github.com/binayshaw7777/KotStep")
+            licenses {
+                license {
+                    name.set("The Apache License, Version 2.0")
+                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                }
             }
-
-            pom {
-                name.set("KotStep")
-                description.set("A customizable stepper component for Jetpack Compose.")
+            developers {
+                developer {
+                    id.set("binayshaw7777")
+                    name.set("Binay Shaw")
+                    email.set("binayshaw7777@gmail.com")
+                }
+            }
+            scm {
+                connection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
+                developerConnection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
                 url.set("https://github.com/binayshaw7777/KotStep")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("binayshaw7777")
-                        name.set("Binay Shaw")
-                        email.set("binayshaw7777@gmail.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
-                    developerConnection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
-                    url.set("https://github.com/binayshaw7777/KotStep")
-                }
             }
         }
     }

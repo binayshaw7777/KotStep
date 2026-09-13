@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="webApp-wasm-js">
+    <output-path>$PROJECT_DIR$/webApp/build/libs</output-path>
+    <root id="archive" name="webApp-wasm-js.jar">
+      <element id="module-output" name="KotStep.webApp.wasmJsMain" />
+    </root>
+  </artifact>
+</component>

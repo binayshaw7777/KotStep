@@ -8,8 +8,20 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
+build/
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+# Kotlin Multiplatform build artifacts
+.kotlin/
+kotlin-js-store/
+
+# Per-user Xcode data
+**/xcuserdata/
+/xcuserdata/
+
+# Agent skill symlinks (global installs managed under ~/.agents/skills)
+/.claude/
+/.opencode/

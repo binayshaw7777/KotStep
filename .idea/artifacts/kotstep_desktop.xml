@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="kotstep-desktop">
+    <output-path>$PROJECT_DIR$/kotstep/build/libs</output-path>
+    <root id="archive" name="kotstep-desktop.jar">
+      <element id="module-output" name="KotStep.kotstep.desktopMain" />
+    </root>
+  </artifact>
+</component>
