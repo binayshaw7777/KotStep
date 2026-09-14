@@ -30,11 +30,13 @@ If the task touches build files, module layout, source-set placement, or platfor
 
 Always invoke relevant skills for Kotlin/Compose/KMP work:
 
+- `kotstep` — KotStep stepper library core v3 DSL, custom indicators, lines, layout slots, constraint safety
+- `kotstep-sdui` — Server-Driven UI (SDUI) stepper schemas, state management, mutations, dynamic flows
 - `kmp-compose-multiplatform` — KMP architecture, source sets, expect/actual, version catalog, publishing
 - `compose-skill` — Compose/CMP patterns, resources (`R`→`Res`), testing, navigation, performance
 - `compose-multiplatform-patterns` — state mgmt, theming, KMP platform UI
 
-Skills live in `~/.agents/skills/<name>` and are symlinked into `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`, and project `.claude/skills` + `.opencode/skills` (gitignored).
+Skills live in `~/.agents/skills/<name>` and are symlinked into `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`, and project `.claude/skills` + `.opencode/skills` (gitignored). See also [RULES.md](file:///Users/binay/AndroidStudioProjects/KotStep/RULES.md) and [docs/SDUI_RULES.md](file:///Users/binay/AndroidStudioProjects/KotStep/docs/SDUI_RULES.md).
 
 ## Hard rules for this codebase
 

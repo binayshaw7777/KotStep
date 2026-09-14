@@ -11,18 +11,21 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
@@ -42,25 +45,35 @@ import com.binayshaw7777.kotstep.v3.model.style.getSizeForState
 import com.binayshaw7777.kotstep.v3.util.AnimationConstants
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v3.util.Util.onClick
+import kotlin.math.roundToInt
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun VerticalStepItem(
     modifier: Modifier = Modifier,
-    currentStep: () -> Float,
+    currentStepState: State<Float>,
+    staggerDelayMs: Long = 0L,
     step: Step,
     style: KotStepStyle,
     stepIndex: Int,
     isLastStep: Boolean,
-    reservedLeadingLabelWidth: Dp,
-    reservedTrailingLabelWidth: Dp,
+    maxLeadingLabelWidth: State<Dp>,
+    maxTrailingLabelWidth: State<Dp>,
     onLeadingLabelMeasured: (IntSize) -> Unit,
     onTrailingLabelMeasured: (IntSize) -> Unit,
-    onClick: () -> Unit = {}
+    onClick: (Int) -> Unit = {}
 ) {
-    val stepState by remember(stepIndex, style.ignoreCurrentState) {
+    val delayedCurrent = remember { mutableFloatStateOf(currentStepState.value) }
+    LaunchedEffect(currentStepState.value, staggerDelayMs) {
+        if (staggerDelayMs > 0L) delay(staggerDelayMs)
+        delayedCurrent.value = currentStepState.value
+    }
+    val activeCurrent: State<Float> = if (staggerDelayMs == 0L) currentStepState else delayedCurrent
+
+    val stepState by remember(stepIndex, style.ignoreCurrentState, activeCurrent) {
         derivedStateOf {
-            val current = currentStep()
+            val current = activeCurrent.value
             if (style.ignoreCurrentState) {
                 if (current >= stepIndex.toFloat()) StepState.Done else StepState.Todo
             } else {
@@ -73,9 +86,9 @@ internal fun VerticalStepItem(
             }
         }
     }
-    val progress = remember(stepIndex) {
-        {
-            val current = currentStep()
+    val progress by remember(stepIndex, activeCurrent) {
+        derivedStateOf {
+            val current = activeCurrent.value
             when {
                 current < 0f -> 0f
                 stepIndex == current.toInt() -> current - current.toInt()
@@ -85,7 +98,7 @@ internal fun VerticalStepItem(
         }
     }
 
-    val transition = updateTransition(targetState = stepState, label = "")
+    val transition = updateTransition(targetState = stepState, label = "step_state_transition_$stepIndex")
     val staticProperties = calculateStaticStepProperties(style, stepState)
 
     val lineColor by transition.animateColor(label = "lineColor") {
@@ -104,7 +117,7 @@ internal fun VerticalStepItem(
         style.lineStyle.getLineLengthForState(it)
     }
 
-    var isContentVisible by rememberSaveable(step) { mutableStateOf(true) }
+    var isContentVisible by rememberSaveable(stepIndex) { mutableStateOf(true) }
     var trailingLabelHeight by remember { mutableStateOf(0.dp) }
     var isTrailingLabelMeasured by remember { mutableStateOf(false) }
     val density = LocalDensity.current
@@ -121,7 +134,7 @@ internal fun VerticalStepItem(
         horizontalArrangement = Arrangement.Start
     ) {
         VerticalLabelSlot(
-            reservedWidth = reservedLeadingLabelWidth,
+            maxWidthState = maxLeadingLabelWidth,
             label = step.leadingLabel,
             visible = isContentVisible,
             testTag = "kotstep_leading_label_$stepIndex",
@@ -136,7 +149,7 @@ internal fun VerticalStepItem(
                     if (step.isCollapsible) {
                         isContentVisible = isContentVisible.not()
                     }
-                    onClick()
+                    onClick(stepIndex)
                 },
             horizontalAlignment = Alignment.Start
         ) {
@@ -173,14 +186,14 @@ internal fun VerticalStepItem(
                                         staticProperties.stepStyle.borderStyle.width,
                                     bottom = staticProperties.lineStyle.linePadding.calculateBottomPadding()
                                 ),
-                                height = { lineHeight },
-                                width = { staticProperties.lineStyle.lineThickness },
+                                height = lineHeight,
+                                width = staticProperties.lineStyle.lineThickness,
                                 lineTrackColor = lineColor,
                                 lineProgressColor = progressColor,
                                 lineTrackStyle = staticProperties.lineTrackType,
                                 lineProgressStyle = staticProperties.lineProgressType,
                                 progress = progress,
-                                stepState = { stepState },
+                                stepState = stepState,
                                 trackStrokeCap = staticProperties.trackStrokeCap,
                                 progressStrokeCap = staticProperties.progressStrokeCap
                             )
@@ -189,7 +202,7 @@ internal fun VerticalStepItem(
                 }
 
                 VerticalLabelSlot(
-                    reservedWidth = reservedTrailingLabelWidth,
+                    maxWidthState = maxTrailingLabelWidth,
                     label = step.trailingLabel,
                     visible = isContentVisible,
                     testTag = "kotstep_trailing_label_$stepIndex",
@@ -206,31 +219,40 @@ internal fun VerticalStepItem(
 
 @Composable
 private fun VerticalLabelSlot(
-    reservedWidth: Dp,
+    maxWidthState: State<Dp>,
     label: (@Composable () -> Unit)?,
     visible: Boolean,
     testTag: String,
     onSizeChanged: (IntSize) -> Unit
 ) {
-    when {
-        label != null -> {
-            Box(modifier = Modifier.testTag(testTag).widthIn(min = reservedWidth)) {
-                AnimatedVisibility(
-                    visible = visible,
-                    enter = AnimationConstants.Vertical.labelEnter,
-                    exit = AnimationConstants.Vertical.labelExit
-                ) {
-                    LabelContent(
-                        modifier = Modifier.wrapContentHeight(),
-                        label = label,
-                        onSizeChanged = onSizeChanged
-                    )
-                }
+    val density = LocalDensity.current
+    val enforceMinWidth = remember(maxWidthState, density) {
+        Modifier.layout { measurable, constraints ->
+            val minWidthPx = with(density) { maxWidthState.value.toPx().roundToInt() }
+            val targetMinWidth = maxOf(constraints.minWidth, minWidthPx).coerceAtMost(constraints.maxWidth)
+            val placeable = measurable.measure(
+                constraints.copy(minWidth = targetMinWidth)
+            )
+            val targetWidth = maxOf(placeable.width, minWidthPx).coerceIn(constraints.minWidth, constraints.maxWidth)
+            layout(targetWidth, placeable.height) {
+                placeable.place(0, 0)
             }
         }
+    }
 
-        reservedWidth > 0.dp -> {
-            Box(modifier = Modifier.testTag(testTag).width(reservedWidth))
+    Box(modifier = Modifier.testTag(testTag).then(enforceMinWidth)) {
+        if (label != null) {
+            AnimatedVisibility(
+                visible = visible,
+                enter = AnimationConstants.Vertical.labelEnter,
+                exit = AnimationConstants.Vertical.labelExit
+            ) {
+                LabelContent(
+                    modifier = Modifier.wrapContentHeight(),
+                    label = label,
+                    onSizeChanged = onSizeChanged
+                )
+            }
         }
     }
 }

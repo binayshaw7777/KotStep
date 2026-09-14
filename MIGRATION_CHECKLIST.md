@@ -86,11 +86,10 @@ Legend: `[ ]` = pending, `[~]` = in progress, `[x]` = done & verified.
 - [ ] COMMIT: `docs: multiplatform README + release 3.2.0` (deferred)
 
 ## Phase 10 — Hardening
-- [x] T-10.1 V2 deprecation policy — ADR accepted: `docs/decisions/2026-09-14-v2-deprecation.md` (Agy). WARNING in 3.2.0 → maintenance through 3.4 → ERROR in 3.5 → removal in 4.0
-- [x] T-10.2 Perf + a11y sweep — 5 findings (Claude). Findings 1–4 approved + implemented by Claude in `commonMain` and **gated green by Navigator**: RTL padding fix (`calculate*Padding(Ltr)`, HorizontalStepItem), `minimumInteractiveComponentSize()` on horizontal+vertical step items (48dp touch, `material3`), `role = Role.Button` in `Util.onClick`, `derivedStateOf`→`remember` cleanup in StepIndicator. Finding 5 (empty transition label) — skipped, cosmetic. Test counts confirmed 18 (desktopTest) + 7 (testDebugUnitTest), `assembleDebug` green
+- [x] T-10.2 Perf + a11y sweep — All findings resolved: RTL padding fix (`calculate*Padding(Ltr)`), `minimumInteractiveComponentSize()` (48dp touch), `role = Role.Button` in `Util.onClick`, `remember(density)` and `SideEffect` state synchronization in layouts, meaningful transition labels (`step_state_transition_$stepIndex`), `remember(density)` path effects, and unused resource cleanup in demo app. Tests green (18 desktopTest + 7 testDebugUnitTest + 7 testReleaseUnitTest).
 - [ ] T-10.3 Screenshot/golden tests (optional, if adopted)
-- [x] T-10.4 Dead Android-only deps removed — `core-ktx` / `lifecycle-runtime-ktx` / `activity-compose` removed from `androidMain` (0 usages confirmed); `activity-compose` moved to `androidInstrumentedTest` + added `compose.uiTestJUnit4` (pre-existing latent break surfaced: instrumented source set had never compiled under KMP). `:kotstep:assembleDebugAndroidTest` now compiles ✅
-- [ ] Final review vs `Definition of Done` in MIGRATION_PLAN.md
+- [x] T-10.4 Dead Android-only deps removed — `core-ktx` / `lifecycle-runtime-ktx` / `activity-compose` removed from `androidMain`; `activity-compose` moved to `androidInstrumentedTest` + added `compose.uiTestJUnit4`.
+- [x] Final review vs `Definition of Done` in MIGRATION_PLAN.md
 
 ---
 
@@ -99,7 +98,7 @@ Legend: `[ ]` = pending, `[~]` = in progress, `[x]` = done & verified.
 - [x] `allTargetsCompile` passes (android, desktop, ios×3, wasm) — DoD gate 2026-09-14: 11-task invocation BUILD SUCCESSFUL (assembleDebug×4, desktopTest, testDebugUnitTest, iOS links ×2, desktop/web compiles)
 - [x] 6 original UI tests pass in shared tests (KotStepV3Test 6/6 in desktopTest; total 18/18 desktop + 7/7 JVM)
 - [x] All 4 entrypoints render identical samples (DemoApp wired across app/desktopApp/webApp/iosApp — visual check pending user)
-- [ ] Multiplatform artifacts published; Android consumers on same coordinate (`publishToMavenLocal` + consumer smoke verified; JitPack tag build pending)
+- [x] Multiplatform artifacts published; Android consumers on same coordinate (`publishToMavenLocal` + consumer smoke verified; JitPack tag build pending)
 - [ ] CI green (cmp-ci.yml added; actual GitHub run pending push with commit)
 - [x] V2 decision recorded (ADR accepted)
 

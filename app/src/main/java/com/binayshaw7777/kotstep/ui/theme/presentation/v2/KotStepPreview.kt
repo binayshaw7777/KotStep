@@ -39,14 +39,15 @@ import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 
 enum class KotStepExampleTypes {
     GROWW_APP,
-    AMAZON_APP
+    AMAZON_APP,
+    SDUI_SHOWCASE
 }
 
 @Composable
 fun KotStepExamples() {
 
     var expanded by remember { mutableStateOf(false) }
-    var exampleType by remember { mutableStateOf(KotStepExampleTypes.GROWW_APP) }
+    var exampleType by remember { mutableStateOf(KotStepExampleTypes.SDUI_SHOWCASE) }
 
 
     Column(modifier = Modifier.fillMaxSize().background(Color.DarkGray)) {
@@ -64,6 +65,13 @@ fun KotStepExamples() {
                     onDismissRequest = { expanded = false }
                 ) {
                     DropdownMenuItem(
+                        text = { Text("SDUI Showcase") },
+                        onClick = {
+                            exampleType = KotStepExampleTypes.SDUI_SHOWCASE
+                            expanded = false
+                        }
+                    )
+                    DropdownMenuItem(
                         text = { Text("Groww App") },
                         onClick = {
                             exampleType = KotStepExampleTypes.GROWW_APP
@@ -71,7 +79,7 @@ fun KotStepExamples() {
                         }
                     )
                     DropdownMenuItem(
-                        text = { Text("Amazon Appp") },
+                        text = { Text("Amazon App") },
                         onClick = {
                             exampleType = KotStepExampleTypes.AMAZON_APP
                             expanded = false
@@ -81,6 +89,10 @@ fun KotStepExamples() {
             }
         }
         when (exampleType) {
+            KotStepExampleTypes.SDUI_SHOWCASE -> {
+                com.binayshaw7777.kotstep.v3.samples.KotStepSduiSampleScreen()
+            }
+
             KotStepExampleTypes.GROWW_APP -> {
                 GrowwPreview()
             }

@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/binayshaw7777/KotStep/main/docs/kotstep-sdui-schema.json",
+  "title": "KotStep SDUI Flow Schema",
+  "description": "Standard schema for KotStep Server-Driven UI flows across Android, iOS, Desktop, and Web.",
+  "type": "object",
+  "required": ["schemaVersion", "flowId", "version", "steps"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "Semantic schema version (e.g., '1.0.0')"
+    },
+    "flowId": {
+      "type": "string",
+      "description": "Unique flow identifier"
+    },
+    "version": {
+      "type": "integer",
+      "description": "Monotonically increasing sequence number for state synchronization"
+    },
+    "currentStepIndex": {
+      "type": "number",
+      "description": "Specifies current floating progress (e.g., 1.5). If omitted, inferred from the first CURRENT step."
+    },
+    "allowDirectNavigation": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether tapping completed steps allows navigation"
+    },
+    "style": {
+      "$ref": "#/definitions/SduiStyle"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SduiStep"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "SduiStep": {
+      "type": "object",
+      "required": ["id", "ordinal", "title", "state"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique step ID within this flow"
+        },
+        "ordinal": {
+          "type": "integer",
+          "description": "Zero-indexed display sequence"
+        },
+        "title": {
+          "type": "string",
+          "description": "Primary step title"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Secondary contextual text"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["TODO", "CURRENT", "DONE", "ERROR", "LOCKED", "SKIPPED"]
+        },
+        "indicator": {
+          "$ref": "#/definitions/SduiIndicator"
+        },
+        "action": {
+          "$ref": "#/definitions/SduiAction"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Error message displayed when state is ERROR"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SduiIndicator": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["NUMBER", "TEXT", "ICON", "CUSTOM"]
+        },
+        "value": {
+          "type": "string",
+          "description": "Explicit number or text value to display inside the indicator"
+        },
+        "iconName": {
+          "type": "string",
+          "description": "Icon identifier mapped by client's SduiIconResolver"
+        },
+        "customSlotName": {
+          "type": "string",
+          "description": "Slot identifier mapped by client's SduiContentResolver"
+        }
+      }
+    },
+    "SduiAction": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["NAVIGATE", "CUSTOM"]
+        },
+        "payload": {
+          "type": "string",
+          "description": "Optional payload or route argument passed with the action"
+        }
+      }
+    },
+    "SduiStyle": {
+      "type": "object",
+      "properties": {
+        "orientation": {
+          "type": "string",
+          "enum": ["HORIZONTAL", "VERTICAL"],
+          "default": "HORIZONTAL"
+        },
+        "step": {
+          "$ref": "#/definitions/SduiStepStyleConfig"
+        },
+        "line": {
+          "$ref": "#/definitions/SduiLineStyleConfig"
+        }
+      }
+    },
+    "SduiStepStyleConfig": {
+      "type": "object",
+      "properties": {
+        "shape": {
+          "type": "string",
+          "enum": ["CIRCLE", "ROUNDED_SQUARE", "SQUARE"],
+          "default": "CIRCLE"
+        },
+        "sizeDp": {
+          "type": "number",
+          "default": 36.0
+        },
+        "colors": {
+          "$ref": "#/definitions/SduiColorPalette"
+        }
+      }
+    },
+    "SduiColorPalette": {
+      "type": "object",
+      "properties": {
+        "todo": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#B0BEC5"
+        },
+        "current": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#1E88E5"
+        },
+        "done": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#43A047"
+        },
+        "error": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#E53935"
+        },
+        "locked": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#78909C"
+        }
+      }
+    },
+    "SduiLineStyleConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["SOLID", "DASHED", "DOTTED"],
+          "default": "SOLID"
+        },
+        "thicknessDp": {
+          "type": "number",
+          "default": 3.0
+        },
+        "activeColor": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#43A047"
+        },
+        "inactiveColor": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$",
+          "default": "#CFD8DC"
+        },
+        "dashLengthDp": {
+          "type": "number",
+          "default": 10.0
+        },
+        "gapLengthDp": {
+          "type": "number",
+          "default": 5.0
+        }
+      }
+    }
+  }
+}

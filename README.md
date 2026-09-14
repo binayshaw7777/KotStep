@@ -12,268 +12,297 @@
 </p>
 
 <p align="center">
-KotStep is a <strong>Compose Multiplatform</strong> stepper UI library — vertical and horizontal
-multi-step flows with animated progress, custom styles, collapsible steps, and leading/trailing
-labels. Works on Android, iOS, Desktop (JVM), and Web (Wasm) from a single shared codebase.
+  KotStep is a modern, customizable <strong>Compose Multiplatform</strong> stepper UI and <strong>Server-Driven UI (SDUI)</strong> library.<br/>
+  Build dynamic linear workflows, onboarding, checkout, KYC, and order tracking across <strong>Android</strong>, <strong>iOS</strong>, <strong>Desktop</strong>, and <strong>Web</strong> from a single shared codebase.
 </p>
 
 <p align="center">
-<img src="https://github.com/binayshaw7777/KotStep/assets/62587060/2cf2c41a-6812-484a-bcdc-d5f72cad94f0"/>
+  <a href="https://binayshaw7777.github.io/kotstep"><strong>Documentation Site »</strong></a> ·
+  <a href="https://github.com/binayshaw7777/KotStep/issues">Report Bug</a> ·
+  <a href="https://github.com/binayshaw7777/KotStep/issues">Request Feature</a>
+</p>
+
+<p align="center">
+  <img src="https://github.com/binayshaw7777/KotStep/assets/62587060/2cf2c41a-6812-484a-bcdc-d5f72cad94f0"/>
 </p>
 
 ---
 
-## Installation
+## 🌟 Features
 
-KotStep is published via [JitPack](https://jitpack.io/#binayshaw7777/KotStep).
+- 📱 **True Multiplatform**: 100% shared UI logic across Android, iOS, Desktop (JVM), and Web (Wasm-GC).
+- 🧩 **Declarative V3 DSL**: Intuitive, slot-based API (`KotStep`, `step`, leading/trailing label slots).
+- 🌐 **Server-Driven UI (`:kotstep-sdui`)**: Render complete steppers directly from backend JSON.
+- ⚡ **Optimistic Advancing & Instant Rollback**: Speculative step progression on user tap, with safe rollback on network failure.
+- 🔄 **Realtime Dynamic Mutations**: Inject, remove, or patch steps mid-flow via WebSockets, SSE, or push notifications without UI rebuilds.
+- 🎨 **Deep Styling & Shapes**: Circle, square, rounded corners, custom shapes, solid/dashed/dotted lines, sub-pixel progress animations.
+- ♿ **Accessibility First**: ScreenReader semantics, state descriptions, and 48dp touch targets built in.
 
-### Step 1 — Add the JitPack repository
+---
+
+## 📦 Architecture & Modules
+
+```mermaid
+flowchart LR
+    subgraph KotStep Ecosystem
+        subgraph Core[":kotstep"]
+            V3["V3 DSL Engine"]
+            Layouts["Horizontal & Vertical Layouts"]
+            Anim["Sub-pixel Line Animators"]
+        end
+
+        subgraph SDUI[":kotstep-sdui"]
+            Parser["Fault-Tolerant JSON Parser"]
+            StateMgr["SduiStateManager (StateFlow)"]
+            Resolvers["Color / Icon / Content Resolvers"]
+        end
+
+        subgraph Targets["Multiplatform Targets"]
+            Android["Android"]
+            iOS["iOS (SwiftUI / CMP)"]
+            Desktop["Desktop (JVM)"]
+            Web["Web (Wasm)"]
+        end
+    end
+
+    SDUI -->|Decorates & Drives| Core
+    Core --> Targets
+```
+
+| Module | Purpose | Coordinates |
+|---|---|---|
+| **`:kotstep`** | Core Compose Multiplatform stepper primitives & DSL | `com.github.binayshaw7777.KotStep:kotstep:3.2.0` |
+| **`:kotstep-sdui`** | Server-Driven UI, parser, reactive state machine & mutations | `com.github.binayshaw7777.KotStep:kotstep-sdui:3.2.0` |
+
+---
+
+## 🛠️ Installation
+
+Published via [JitPack](https://jitpack.io/#binayshaw7777/KotStep).
+
+### 1. Add Repository
 
 **`settings.gradle.kts`:**
 ```kotlin
 dependencyResolutionManagement {
     repositories {
+        google()
+        mavenCentral()
         maven("https://jitpack.io")
     }
 }
 ```
 
-### Step 2 — Add the dependency
+### 2. Add Dependencies
 
-#### Android (single-platform project)
-```kotlin
-// app/build.gradle.kts
-dependencies {
-    implementation("com.github.binayshaw7777:KotStep:3.2.0")
-}
-```
-
-#### Kotlin Multiplatform (Android + Desktop)
+#### Compose Multiplatform (`commonMain`)
 ```kotlin
 // shared/build.gradle.kts
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("com.github.binayshaw7777:KotStep:3.2.0")
+            // Core Stepper
+            implementation("com.github.binayshaw7777.KotStep:kotstep:3.2.0")
+
+            // Optional: Server-Driven UI
+            implementation("com.github.binayshaw7777.KotStep:kotstep-sdui:3.2.0")
         }
     }
 }
 ```
 
-#### iOS
-
-> ⚠️ JitPack publishes Kotlin metadata and klibs but **not** pre-built iOS frameworks.
-> Link the framework from source per architecture and combine the outputs:
->
-> ```bash
-> ./gradlew :kotstep:linkReleaseFrameworkIosSimulatorArm64 \
->           :kotstep:linkReleaseFrameworkIosArm64 \
->           :kotstep:linkReleaseFrameworkIosX64
-> ```
->
-> The three `.framework` bundles land under `kotstep/build/bin/<target>/releaseFramework/`
-> (base name `KotStep`). Combine them into a distributable `.xcframework` with
-> `xcodebuild -create-xcframework …`.
-
-#### Web (Wasm)
-
-> Web consumers resolve the published Wasm klib directly via the JitPack coordinate above.
-> To run the demo web app locally:
->
-> ```bash
-> ./gradlew :webApp:wasmJsBrowserDevelopmentRun
-> ```
+#### Android Single-Platform (`app`)
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    implementation("com.github.binayshaw7777.KotStep:kotstep:3.2.0")
+    implementation("com.github.binayshaw7777.KotStep:kotstep-sdui:3.2.0")
+}
+```
 
 ---
 
-## Platform requirements
-
-| Platform | Minimum |
-|---|---|
-| Android | API 24 |
-| Desktop (JVM) | JVM 17 |
-| iOS | iOS 16 |
-| Web | Chrome 119+ / Firefox 120+ (Wasm-GC) |
-
----
-
-## Quick Start — V3 API
-
-> ⚠️ **V3 is the current API and is multiplatform.** V2 is Android-only — see the [migration note](#v2--v3-migration) below.
+## 🚀 Quick Start: Core V3 DSL
 
 ```kotlin
+import androidx.compose.runtime.*
 import com.binayshaw7777.kotstep.v3.KotStep
 import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v3.model.style.KotStepStyle
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 
-@OptIn(ExperimentalKotStep::class)       // required
+@OptIn(ExperimentalKotStep::class)
 @Composable
-fun CheckoutFlow() {
-    var currentStep by remember { mutableStateOf(0f) }
+fun CheckoutStepper() {
+    var currentStep by remember { mutableFloatStateOf(0f) }
 
     KotStep(
-        currentStep = { currentStep },   // () -> Float — required, no default
+        currentStep = { currentStep },
         style = KotStepStyle(stepLayoutStyle = StepLayoutStyle.Horizontal)
     ) {
         step(title = "Cart",    onClick = { currentStep = 0f })
         step(title = "Address", onClick = { currentStep = 1f })
         step(title = "Payment", onClick = { currentStep = 2f })
-        step(title = "Done",    onClick = { currentStep = 3f })
+        step(title = "Review",  onClick = { currentStep = 3f })
     }
 }
 ```
 
-### API quick-reference
-
-| | |
-|---|---|
-| Entry composable | `com.binayshaw7777.kotstep.v3.KotStep` |
-| Required opt-in | `@OptIn(ExperimentalKotStep::class)` |
-| `currentStep` type | `() -> Float` — **required, no default** |
-| DSL scope type | `com.binayshaw7777.kotstep.v3.model.KotStepScope` |
-| Layout variants | `StepLayoutStyle.Vertical` (default) · `StepLayoutStyle.Horizontal` |
-
-### `currentStep` semantics
-
-`currentStep` is a `Float`. Whole numbers are fully-completed steps; fractions animate the connecting progress line.
-
+### Leading and Trailing Labels
 ```kotlin
--1f    // all steps in Todo state
- 0f    // index 0 is Current
- 0.5f  // 50 % progress on the line between index 0 and 1
- 1f    // index 1 is Current; index 0 is Done
- 3f    // index 3 is Current; indices 0-2 are Done
-```
-
-### Step DSL variants
-
-```kotlin
-// Text / numbered indicator
-step(title = "Shipping")
-
-// Icon indicator (ImageVector)
-step(icon = Icons.Default.Done)
-
-// Fully custom composable indicator
-step(content = { MyComposable() })
-
-// Collapsible step — tapping toggles content visibility
-step(title = "Details", isCollapsible = true)
-
-// Leading and trailing labels
 step(
-    title = "Payment",
-    leadingLabel  = { Text("Step 3") },
-    trailingLabel = { Text("~5 min") }
-)
-
-// With click callback
-step(title = "Review", onClick = { currentStep = 3f })
-```
-
-### Styling
-
-```kotlin
-@OptIn(ExperimentalKotStep::class)
-KotStep(
-    currentStep = { currentStep },
-    style = KotStepStyle(
-        stepLayoutStyle     = StepLayoutStyle.Vertical,
-        showCheckMarkOnDone = true,
-        ignoreCurrentState  = false,
-        stepStyle = StepStyles.default().copy(
-            onCurrent = StepStyle.defaultTodo().copy(
-                stepSize  = 48.dp,
-                stepColor = MaterialTheme.colorScheme.primary
-            ),
-            onDone = StepStyle.defaultTodo().copy(
-                stepColor = MaterialTheme.colorScheme.secondary
-            )
-        ),
-        lineStyle = LineStyles.default().copy(
-            onCurrent = LineStyle.defaultCurrent().copy(
-                lineThickness = 4.dp,
-                lineType      = LineType.Dashed()
-            )
-        )
-    )
-) {
-    step(title = "Start")
-    step(title = "Middle")
-    step(title = "End")
-}
-```
-
----
-
-## V2 → V3 Migration
-
-> ⚠️ **V2 is Android-only.** The V2 sealed-class API (`HorizontalStepper`, `VerticalStepper`,
-> `tabHorizontal(…)`, `iconVertical(…)`, etc.) is not available on Desktop, iOS, or Web and
-> will not receive new features. Migrate to V3 for multiplatform support.
-
-### Before — V2 (Android only)
-
-```kotlin
-HorizontalStepper(
-    style = tabHorizontal(totalSteps = 3, currentStep = 1)
-) {
-    // step content
-}
-```
-
-### After — V3 (all platforms)
-
-```kotlin
-@OptIn(ExperimentalKotStep::class)
-@Composable
-fun MyFlow() {
-    var step by remember { mutableStateOf(1f) }
-
-    KotStep(
-        currentStep = { step },
-        style = KotStepStyle(stepLayoutStyle = StepLayoutStyle.Horizontal)
-    ) {
-        step(title = "Step 1")
-        step(title = "Step 2")
-        step(title = "Step 3")
+    icon = Icons.Default.Check,
+    leadingLabel = { Text("Step 1", style = MaterialTheme.typography.labelSmall) },
+    trailingLabel = {
+        Column {
+            Text("Order Placed", fontWeight = FontWeight.Bold)
+            Text("10:30 AM", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
+        }
     }
-}
+)
 ```
-
-**Key changes:**
-
-| V2 | V3 |
-|---|---|
-| `HorizontalStepper { }` / `VerticalStepper { }` | Single `KotStep { }` composable |
-| `currentStep: Int` inside style factory | `currentStep: () -> Float` on `KotStep` |
-| `tabHorizontal(…)` / `iconVertical(…)` factories | `KotStepStyle(stepLayoutStyle = …)` |
-| Separate step composables per variant | Unified `step(title/icon/content)` DSL |
-| Android-only | Android · iOS · Desktop · Web |
 
 ---
 
-## Run the demo app
+## 🌐 Quick Start: Server-Driven UI (SDUI)
 
-The demo entrypoints all render the same shared `DemoApp`:
+### 1. 1-Line Drop-in
+Render directly from a JSON string returned by your backend API:
+
+```kotlin
+KotStepSdui(
+    json = apiResponseJson,
+    modifier = Modifier.fillMaxWidth().padding(16.dp),
+    onStepClick = { stepId ->
+        println("Clicked step $stepId")
+    }
+)
+```
+
+### 2. Interactive Flow with Optimistic Advances & Rollback
+Manage state reactively with `SduiStateManager`:
+
+```kotlin
+@Composable
+fun InteractiveCheckout(initialJson: String, viewModel: CheckoutViewModel) {
+    val manager = remember { SduiStateManager(initialJson) }
+    val flow by manager.flow.collectAsState()
+
+    KotStepSdui(
+        manager = manager,
+        iconResolver = SduiIconResolver { iconName ->
+            when (iconName) {
+                "shopping_cart"  -> Icons.Default.ShoppingCart
+                "local_shipping" -> Icons.Default.LocalShipping
+                "payment"        -> Icons.Default.Payment
+                else             -> null
+            }
+        },
+        onStepClick = { stepId ->
+            // 1. Optimistic Advance: UI updates immediately
+            manager.optimisticAdvance(stepId)
+
+            // 2. Call backend server
+            viewModel.submitStep(stepId, onFailure = {
+                // 3. Rollback immediately if server validation fails
+                manager.rollback()
+            })
+        }
+    )
+}
+```
+
+### 3. Dynamic Realtime Mutations
+Mutate the live stepper tree on the fly (e.g. inject customs inspection, remove obsolete steps):
+
+```kotlin
+// Inject a dynamic step after "step_shipping"
+manager.applyMutations(
+    mutations = listOf(
+        SduiMutation.InsertStep(
+            step = SduiStep(
+                id = "step_customs",
+                title = "Customs Declaration",
+                subtitle = "International order inspection",
+                state = SduiStepState.TODO
+            ),
+            afterStepId = "step_shipping"
+        )
+    ),
+    newVersion = flow.stateVersion + 1
+)
+```
+
+### Sample SDUI JSON Flow
+```json
+{
+  "schemaVersion": "1.0",
+  "flowId": "checkout_flow",
+  "title": "Express Checkout",
+  "orientation": "HORIZONTAL",
+  "currentStepId": "step_payment",
+  "stateVersion": 2,
+  "style": {
+    "stepStyle": {
+      "todo":    { "colorHex": "#475569", "sizeDp": 32, "shape": "CIRCLE" },
+      "current": { "colorHex": "#3B82F6", "sizeDp": 36, "shape": "CIRCLE", "borderWidthDp": 2, "borderColorHex": "#1D4ED8" },
+      "done":    { "colorHex": "#10B981", "sizeDp": 32, "shape": "CIRCLE" }
+    },
+    "lineStyle": {
+      "done":    { "lineColorHex": "#10B981", "thicknessDp": 3, "lineType": "SOLID" }
+    }
+  },
+  "steps": [
+    { "id": "step_cart",     "ordinal": 0, "state": "DONE",    "title": "Cart",     "indicator": { "type": "ICON", "value": "shopping_cart" } },
+    { "id": "step_shipping", "ordinal": 1, "state": "DONE",    "title": "Shipping", "indicator": { "type": "ICON", "value": "local_shipping" } },
+    { "id": "step_payment",  "ordinal": 2, "state": "CURRENT", "title": "Payment",  "indicator": { "type": "ICON", "value": "payment" } },
+    { "id": "step_review",   "ordinal": 3, "state": "TODO",    "title": "Review",   "indicator": { "type": "ICON", "value": "receipt" } }
+  ]
+}
+```
+Formal JSON Schema: [docs/kotstep-sdui-schema.json](docs/kotstep-sdui-schema.json).
+
+---
+
+## 🔄 V2 → V3 Migration
+
+> ⚠️ **V2 is Android-only.** The legacy sealed-class API (`HorizontalStepper`, `VerticalStepper`, `tabHorizontal`) is deprecated and Android-only. Migrate to V3 for multiplatform support.
+
+| V2 (Legacy Android-Only) | V3 (Compose Multiplatform) |
+|---|---|
+| `HorizontalStepper { }` | `KotStep(style = KotStepStyle(stepLayoutStyle = Horizontal)) { }` |
+| `currentStep: Int` inside style factory | `currentStep: () -> Float` (supports fractions and animation) |
+| Fixed step variants | Unified `step(title / icon / content)` slots |
+
+---
+
+## 💻 Run the Demo App
 
 | Platform | Command |
 |---|---|
-| Android | Open `app/` in Android Studio and run the `app` configuration |
-| Desktop | `./gradlew :desktopApp:run` |
-| Web | `./gradlew :webApp:wasmJsBrowserDevelopmentRun` (open the printed URL in Chrome 119+ / Firefox 120+) |
-| iOS | Open `iosApp/iosApp.xcodeproj` in Xcode and run on a simulator |
+| **Android** | Run `:app` in Android Studio (includes CMP & SDUI showcase) |
+| **Desktop (JVM)** | `./gradlew :desktopApp:run` |
+| **Web (Wasm)** | `./gradlew :webApp:wasmJsBrowserDevelopmentRun` (open URL in Chrome 119+ / Firefox 120+) |
+| **iOS** | Open `iosApp/iosApp.xcodeproj` in Xcode and run simulator |
 
 ---
 
-## Contributing
+## 📖 Documentation
 
-See [`AGENTS.md`](AGENTS.md) for the multi-agent migration protocol and owned-path rules.
+Full guides, API references, SDUI specs, and tutorials are available on the documentation site:  
+👉 **[https://binayshaw7777.github.io/kotstep](https://binayshaw7777.github.io/kotstep)**
 
-Bug reports and feature requests → [GitHub Issues](https://github.com/binayshaw7777/KotStep/issues).
+---
 
-## License
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+- Review [`RULES.md`](RULES.md) and [`AGENTS.md`](AGENTS.md) before submitting pull requests.
+- Open an issue on [GitHub Issues](https://github.com/binayshaw7777/KotStep/issues).
+
+---
+
+## 📄 License
 
 ```
 Copyright 2024 Binay Shaw

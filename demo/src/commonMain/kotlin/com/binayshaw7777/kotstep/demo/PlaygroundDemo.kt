@@ -5,8 +5,6 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -81,7 +79,7 @@ private val demoTitles = listOf(
     "Finish"
 )
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalKotStep::class)
+@OptIn(ExperimentalKotStep::class)
 @Composable
 fun PlaygroundDemo(modifier: Modifier = Modifier) {
     var totalSteps by remember { mutableIntStateOf(5) }
@@ -350,9 +348,9 @@ fun PlaygroundDemo(modifier: Modifier = Modifier) {
 
         // Shape Selector
         Text(text = "Step Indicator Shape", fontWeight = FontWeight.SemiBold)
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+        Row(
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             for (shape in DemoStepShape.entries) {
                 FilterChip(

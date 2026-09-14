@@ -58,5 +58,6 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
 
     implementation (project(":kotstep"))
+    implementation(project(":kotstep-sdui"))
     implementation(project(":demo"))
 }

@@ -35,8 +35,8 @@ import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
  * This means `lineTrackColor`
  *
  * @param modifier The modifier to be applied to the Canvas.
- * @param height A lambda function that returns the height of the progress line in Dp.
- * @param width A lambda function that returns the width of the progress line in Dp. Defaults to 1.dp.
+ * @param height The height of the progress line in Dp.
+ * @param width The width of the progress line in Dp. Defaults to 1.dp.
  * @param lineTrackColor The color of the background/track line. Defaults to Gray.
  * @param lineProgressColor The color of the progress line. Defaults to Black.
  * @param lineTrackStyle The style of the background/track line (SOLID, DASHED, DOTTED).
@@ -47,30 +47,30 @@ import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
  *   - `LineType.SOLID`: A solid line.
  *   - `LineType.DASHED`: A dashed line.
  *   - `LineType.DOTTED`: A dotted line.
- * @param progress A lambda function that returns the progress value
+ * @param progress The progress value (0.0 to 1.0).
+ * @param stepState The current [StepState] of the step owning this line.
  * @param trackStrokeCap The stroke cap style for the background/track line.
  * @param progressStrokeCap The stroke cap style for the progress line.
  *
  * @since 3.0.0
- *
  * */
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun KotStepVerticalProgress(
     modifier: Modifier = Modifier,
-    height: () -> Dp,
-    width: () -> Dp = { 1.dp },
+    height: Dp,
+    width: Dp = 1.dp,
     lineTrackColor: Color = Color.Gray,
     lineProgressColor: Color = Color.Black,
     lineTrackStyle: LineType = LineType.Solid,
     lineProgressStyle: LineType = LineType.Solid,
-    progress: () -> Float = { 1f },
-    stepState: () -> StepState,
+    progress: Float = 1f,
+    stepState: StepState,
     trackStrokeCap: StrokeCap = StrokeCap.Butt,
     progressStrokeCap: StrokeCap = StrokeCap.Butt
 ) {
     val animatedProgress by animateFloatAsState(
-        targetValue = progress().coerceIn(0f, 1f),
+        targetValue = progress.coerceIn(0f, 1f),
         animationSpec = tween(300), label = "kotstep_Vertical_line_progress_animation_v2"
     )
 
@@ -94,8 +94,8 @@ internal fun KotStepVerticalProgress(
 
     Canvas(
         modifier = modifier
-            .width(width())
-            .height(height())
+            .width(width)
+            .height(height)
     ) {
 
         val centerX = size.width / 2
@@ -107,7 +107,7 @@ internal fun KotStepVerticalProgress(
                     color = lineTrackColor,
                     start = Offset(centerX, 0f),
                     end = Offset(centerX, size.height),
-                    strokeWidth = width().toPx(),
+                    strokeWidth = width.toPx(),
                     cap = trackStrokeCap
                 )
             }
@@ -117,15 +117,15 @@ internal fun KotStepVerticalProgress(
                     color = lineTrackColor,
                     start = Offset(centerX, 0f),
                     end = Offset(centerX, size.height),
-                    strokeWidth = width().toPx(),
+                    strokeWidth = width.toPx(),
                     pathEffect = trackPathEffect,
                     cap = trackStrokeCap
                 )
             }
 
             is LineType.Dotted -> {
-                if (stepState() != StepState.Done) {
-                    val dotRadius = width().toPx() / 2
+                if (stepState != StepState.Done) {
+                    val dotRadius = width.toPx() / 2
                     val gapLengthPx = lineTrackStyle.gapLength.toPx()
                     val spaceBetweenDots = dotRadius * 2 + gapLengthPx
 
@@ -153,7 +153,7 @@ internal fun KotStepVerticalProgress(
                         color = lineProgressColor,
                         start = Offset(centerX, 0f),
                         end = Offset(centerX, endY),
-                        strokeWidth = width().toPx(),
+                        strokeWidth = width.toPx(),
                         cap = progressStrokeCap
                     )
                 }
@@ -163,14 +163,14 @@ internal fun KotStepVerticalProgress(
                         color = lineProgressColor,
                         start = Offset(centerX, 0f),
                         end = Offset(centerX, endY),
-                        strokeWidth = width().toPx(),
+                        strokeWidth = width.toPx(),
                         pathEffect = progressPathEffect,
                         cap = progressStrokeCap
                     )
                 }
 
                 is LineType.Dotted -> {
-                    val dotRadius = width().toPx() / 2
+                    val dotRadius = width.toPx() / 2
                     val gapLengthPx = lineProgressStyle.gapLength.toPx()
                     val spaceBetweenDots = dotRadius * 2 + gapLengthPx
 

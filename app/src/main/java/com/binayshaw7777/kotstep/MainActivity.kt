@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +28,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -86,11 +87,55 @@ import com.binayshaw7777.kotstep.utils.StepperOptions
 import com.binayshaw7777.kotstep.utils.Utils
 import com.binayshaw7777.kotstep.utils.toast
 
+import androidx.compose.ui.unit.sp
+import com.binayshaw7777.kotstep.v3.samples.KotStepSduiSampleScreen
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DemoApp()
+            var showSduiShowcase by rememberSaveable { mutableStateOf(true) }
+
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color(0xFF0F172A))
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = if (showSduiShowcase) "KotStep SDUI Showcase" else "CMP Multiplatform Demo",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Button(
+                            onClick = { showSduiShowcase = !showSduiShowcase },
+                            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                                containerColor = if (showSduiShowcase) Color(0xFF38BDF8) else Color(0xFF10B981)
+                            )
+                        ) {
+                            Text(
+                                text = if (showSduiShowcase) "Switch to CMP Demo" else "Switch to SDUI",
+                                color = if (showSduiShowcase) Color.Black else Color.White,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+
+                    if (showSduiShowcase) {
+                        KotStepSduiSampleScreen()
+                    } else {
+                        DemoApp()
+                    }
+                }
+            }
         }
     }
 }
@@ -421,7 +466,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -434,7 +479,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -447,7 +492,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -460,7 +505,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -473,7 +518,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -488,7 +533,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -502,7 +547,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -516,7 +561,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -530,7 +575,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -543,7 +588,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }
@@ -557,7 +602,7 @@ fun MainPreview() {
                             },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Outlined.KeyboardArrowRight,
+                                    Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                                     contentDescription = null
                                 )
                             }

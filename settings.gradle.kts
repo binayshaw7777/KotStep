@@ -68,6 +68,7 @@ dependencyResolutionManagement {
 rootProject.name = "KotStep"
 include(":app")
 include(":kotstep")
+include(":kotstep-sdui")
 include(":demo")
 include(":desktopApp")
 include(":webApp")

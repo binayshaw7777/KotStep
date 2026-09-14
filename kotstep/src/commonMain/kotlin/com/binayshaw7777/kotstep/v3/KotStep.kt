@@ -1,6 +1,10 @@
 package com.binayshaw7777.kotstep.v3
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import com.binayshaw7777.kotstep.v3.component.layout.HorizontalKotStep
 import com.binayshaw7777.kotstep.v3.component.layout.VerticalKotStep
@@ -36,30 +40,36 @@ fun KotStep(
     style: KotStepStyle = KotStepStyle(),
     content: KotStepScope.() -> Unit
 ) {
+    val latestCurrentStep = rememberUpdatedState(currentStep)
+    val currentStepState: State<Float> = remember(currentStep) { derivedStateOf { latestCurrentStep.value() } }
     val steps = KotStepScope().apply(content).buildSteps()
+
+    val currentSteps = rememberUpdatedState(steps)
+    val onStepClick = remember {
+        { index: Int ->
+            currentSteps.value.getOrNull(index)?.onClick?.invoke()
+            Unit
+        }
+    }
 
     when (style.stepLayoutStyle) {
         StepLayoutStyle.Vertical -> {
             VerticalKotStep(
                 modifier = modifier,
-                currentStep = currentStep,
+                currentStepState = currentStepState,
                 style = style,
                 steps = steps,
-                onClick = { index ->
-                    steps[index].onClick?.invoke()
-                }
+                onClick = onStepClick
             )
         }
 
         StepLayoutStyle.Horizontal -> {
             HorizontalKotStep(
                 modifier = modifier,
-                currentStep = currentStep,
+                currentStepState = currentStepState,
                 style = style,
                 steps = steps,
-                onClick = { index ->
-                    steps[index].onClick?.invoke()
-                }
+                onClick = onStepClick
             )
         }
     }

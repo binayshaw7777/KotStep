@@ -11,20 +11,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
@@ -45,25 +47,35 @@ import com.binayshaw7777.kotstep.v3.model.style.getSizeForState
 import com.binayshaw7777.kotstep.v3.util.AnimationConstants
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import com.binayshaw7777.kotstep.v3.util.Util.onClick
+import kotlin.math.roundToInt
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalKotStep::class)
 @Composable
 internal fun HorizontalStepItem(
     modifier: Modifier = Modifier,
-    currentStep: () -> Float,
+    currentStepState: State<Float>,
+    staggerDelayMs: Long = 0L,
     step: Step,
     style: KotStepStyle,
     stepIndex: Int,
     isLastStep: Boolean,
-    reservedLeadingLabelHeight: Dp,
-    reservedTrailingLabelHeight: Dp,
+    maxLeadingLabelHeight: State<Dp>,
+    maxTrailingLabelHeight: State<Dp>,
     onLeadingLabelMeasured: (IntSize) -> Unit,
     onTrailingLabelMeasured: (IntSize) -> Unit,
-    onClick: () -> Unit = {}
+    onClick: (Int) -> Unit = {}
 ) {
-    val stepState by remember(stepIndex, style.ignoreCurrentState) {
+    val delayedCurrent = remember { mutableFloatStateOf(currentStepState.value) }
+    LaunchedEffect(currentStepState.value, staggerDelayMs) {
+        if (staggerDelayMs > 0L) delay(staggerDelayMs)
+        delayedCurrent.value = currentStepState.value
+    }
+    val activeCurrent: State<Float> = if (staggerDelayMs == 0L) currentStepState else delayedCurrent
+
+    val stepState by remember(stepIndex, style.ignoreCurrentState, activeCurrent) {
         derivedStateOf {
-            val current = currentStep()
+            val current = activeCurrent.value
             if (style.ignoreCurrentState) {
                 if (current >= stepIndex.toFloat()) StepState.Done else StepState.Todo
             } else {
@@ -76,9 +88,9 @@ internal fun HorizontalStepItem(
             }
         }
     }
-    val progress = remember(stepIndex) {
-        {
-            val current = currentStep()
+    val progress by remember(stepIndex, activeCurrent) {
+        derivedStateOf {
+            val current = activeCurrent.value
             when {
                 current < 0f -> 0f
                 stepIndex == current.toInt() -> current - current.toInt()
@@ -88,7 +100,7 @@ internal fun HorizontalStepItem(
         }
     }
 
-    val transition = updateTransition(targetState = stepState, label = "")
+    val transition = updateTransition(targetState = stepState, label = "step_state_transition_$stepIndex")
     val staticProperties = calculateStaticStepProperties(style, stepState)
 
     val lineColor by transition.animateColor(label = "lineColor") {
@@ -107,7 +119,7 @@ internal fun HorizontalStepItem(
         style.lineStyle.getLineLengthForState(it)
     }
 
-    var isContentVisible by rememberSaveable(step) { mutableStateOf(true) }
+    var isContentVisible by rememberSaveable(stepIndex) { mutableStateOf(true) }
     var trailingLabelWidth by remember { mutableStateOf(0.dp) }
     var isTrailingLabelMeasured by remember { mutableStateOf(false) }
     val density = LocalDensity.current
@@ -123,7 +135,7 @@ internal fun HorizontalStepItem(
         horizontalAlignment = Alignment.Start
     ) {
         HorizontalLabelSlot(
-            reservedHeight = reservedLeadingLabelHeight,
+            maxHeightState = maxLeadingLabelHeight,
             label = step.leadingLabel,
             visible = isContentVisible,
             testTag = "kotstep_leading_label_$stepIndex",
@@ -138,7 +150,7 @@ internal fun HorizontalStepItem(
                     if (step.isCollapsible) {
                         isContentVisible = isContentVisible.not()
                     }
-                    onClick()
+                    onClick(stepIndex)
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
@@ -167,14 +179,14 @@ internal fun HorizontalStepItem(
                                 staticProperties.stepStyle.borderStyle.width,
                             end = staticProperties.lineStyle.linePadding.calculateEndPadding(LayoutDirection.Ltr)
                         ),
-                        width = { lineWidth },
-                        height = { staticProperties.lineStyle.lineThickness },
+                        width = lineWidth,
+                        height = staticProperties.lineStyle.lineThickness,
                         lineTrackColor = lineColor,
                         lineProgressColor = progressColor,
                         lineTrackStyle = staticProperties.lineTrackType,
                         lineProgressStyle = staticProperties.lineProgressType,
                         progress = progress,
-                        stepState = { stepState },
+                        stepState = stepState,
                         trackStrokeCap = staticProperties.trackStrokeCap,
                         progressStrokeCap = staticProperties.progressStrokeCap
                     )
@@ -183,7 +195,7 @@ internal fun HorizontalStepItem(
         }
 
         HorizontalLabelSlot(
-            reservedHeight = reservedTrailingLabelHeight,
+            maxHeightState = maxTrailingLabelHeight,
             label = step.trailingLabel,
             visible = isContentVisible,
             testTag = "kotstep_trailing_label_$stepIndex",
@@ -198,31 +210,40 @@ internal fun HorizontalStepItem(
 
 @Composable
 private fun HorizontalLabelSlot(
-    reservedHeight: Dp,
+    maxHeightState: State<Dp>,
     label: (@Composable () -> Unit)?,
     visible: Boolean,
     testTag: String,
     onSizeChanged: (IntSize) -> Unit
 ) {
-    when {
-        label != null -> {
-            Box(modifier = Modifier.testTag(testTag).heightIn(min = reservedHeight)) {
-                AnimatedVisibility(
-                    visible = visible,
-                    enter = AnimationConstants.Horizontal.labelEnter,
-                    exit = AnimationConstants.Horizontal.labelExit
-                ) {
-                    LabelContent(
-                        modifier = Modifier.wrapContentWidth(),
-                        label = label,
-                        onSizeChanged = onSizeChanged
-                    )
-                }
+    val density = LocalDensity.current
+    val enforceMinHeight = remember(maxHeightState, density) {
+        Modifier.layout { measurable, constraints ->
+            val minHeightPx = with(density) { maxHeightState.value.toPx().roundToInt() }
+            val targetMinHeight = maxOf(constraints.minHeight, minHeightPx).coerceAtMost(constraints.maxHeight)
+            val placeable = measurable.measure(
+                constraints.copy(minHeight = targetMinHeight)
+            )
+            val targetHeight = maxOf(placeable.height, minHeightPx).coerceIn(constraints.minHeight, constraints.maxHeight)
+            layout(placeable.width, targetHeight) {
+                placeable.place(0, 0)
             }
         }
+    }
 
-        reservedHeight > 0.dp -> {
-            Box(modifier = Modifier.testTag(testTag).height(reservedHeight))
+    Box(modifier = Modifier.testTag(testTag).then(enforceMinHeight)) {
+        if (label != null) {
+            AnimatedVisibility(
+                visible = visible,
+                enter = AnimationConstants.Horizontal.labelEnter,
+                exit = AnimationConstants.Horizontal.labelExit
+            ) {
+                LabelContent(
+                    modifier = Modifier.wrapContentWidth(),
+                    label = label,
+                    onSizeChanged = onSizeChanged
+                )
+            }
         }
     }
 }

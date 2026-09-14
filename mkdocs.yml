@@ -1,40 +1,64 @@
-site_name: KotStep Docs
+site_name: KotStep
 site_url: https://binayshaw7777.github.io/kotstep
+site_description: A customizable Compose Multiplatform Stepper UI & Server-Driven UI library for Android, iOS, Desktop, and Web.
+repo_name: binayshaw7777/KotStep
+repo_url: https://github.com/binayshaw7777/KotStep
 
-# nav:
-#   - Home: index.md
-#   - Guide:
-#       - Installation: guide/installation.md
-#       - Usage: guide/usage.md
-#   - About: about.md
+nav:
+  - Home: index.md
+  - Core Stepper (V3):
+      - Installation: guide/installation.md
+      - Quick Start: guide/usage.md
+      - Styling & Customization: guide/styling.md
+  - Server-Driven UI (SDUI):
+      - SDUI Overview: sdui/overview.md
+      - JSON Schema: sdui/schema.md
+      - State Manager & Mutations: sdui/state-manager.md
+      - Resolvers & Extensions: sdui/resolvers.md
+  - About: about.md
 
 theme:
   name: material
   features:
     - navigation.tabs
     - navigation.sections
-    - toc.integrate
+    - navigation.expand
     - navigation.top
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
-  language: en
   palette:
     - scheme: default
       toggle:
         icon: material/toggle-switch-off-outline 
         name: Switch to dark mode
-      primary: deepPurple
-      accent: orange 
+      primary: indigo
+      accent: deep purple
     - scheme: slate 
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode    
-      primary: deepPurple
-      accent: amber
+      primary: indigo
+      accent: deep purple
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
 
 copyright: |
-  &copy; 2023 <a href="https://github.com/binayshaw7777"  target="_blank" rel="noopener">Binay Shaw</a>
+  &copy; 2024 <a href="https://github.com/binayshaw7777" target="_blank" rel="noopener">Binay Shaw</a>

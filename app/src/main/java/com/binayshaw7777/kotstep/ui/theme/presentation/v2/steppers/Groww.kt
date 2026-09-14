@@ -18,9 +18,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Help
+import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -220,7 +220,7 @@ fun GrowwContent(modifier: Modifier = Modifier, paddingValues: PaddingValues) {
             modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 20.dp)
         ) {
             Icon(
-                imageVector = Icons.Filled.Help,
+                imageVector = Icons.AutoMirrored.Filled.Help,
                 tint = Color.LightGray,
                 contentDescription = null,
             )
@@ -234,7 +234,7 @@ fun GrowwContent(modifier: Modifier = Modifier, paddingValues: PaddingValues) {
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 tint = Color.White,
                 contentDescription = null,
                 modifier = Modifier.size(16.dp)
