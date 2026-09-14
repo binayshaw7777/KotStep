@@ -14,7 +14,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v3.component.steps.HorizontalStepItem
 import com.binayshaw7777.kotstep.v3.model.step.Step
-import com.binayshaw7777.kotstep.v3.model.step.StepState
 import com.binayshaw7777.kotstep.v3.model.style.KotStepStyle
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
 import kotlinx.collections.immutable.PersistentList
@@ -29,7 +28,6 @@ internal fun HorizontalKotStep(
     onClick: (Int) -> Unit = {}
 ) {
     require(steps.isNotEmpty()) { "Steps should not be empty" }
-    require(currentStep() in -1f..(steps.size).toFloat()) { "Current step should be between 0 and total steps: ${steps.size} but it was ${currentStep()}" }
 
     val density = LocalDensity.current
     var maxLeadingLabelHeight by remember { mutableStateOf(0.dp) }
@@ -41,31 +39,12 @@ internal fun HorizontalKotStep(
     ) {
         steps.forEachIndexed { index, step ->
             key(index) {
-                val progress = when {
-                    currentStep() < 0f -> 0f
-                    index == currentStep().toInt() -> currentStep() - currentStep().toInt()
-                    index < currentStep().toInt() -> 1f
-                    else -> 0f
-                }
-
-                val stepState = if (style.ignoreCurrentState) {
-                    if (currentStep() >= index.toFloat()) StepState.Done else StepState.Todo
-                } else {
-                    when {
-                        currentStep() < 0f -> StepState.Todo
-                        index < currentStep().toInt() -> StepState.Done
-                        index == currentStep().toInt() -> StepState.Current
-                        else -> StepState.Todo
-                    }
-                }
-
                 HorizontalStepItem(
+                    currentStep = currentStep,
+                    step = step,
                     style = style,
-                    stepState = stepState,
-                    progress = { progress },
                     stepIndex = index,
                     isLastStep = index == steps.size - 1,
-                    step = step,
                     reservedLeadingLabelHeight = maxLeadingLabelHeight,
                     reservedTrailingLabelHeight = maxTrailingLabelHeight,
                     onLeadingLabelMeasured = { size ->

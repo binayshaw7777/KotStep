@@ -1,5 +1,6 @@
 package com.binayshaw7777.kotstep.v3.model.style
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -13,6 +14,7 @@ import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
  *
  * @since 3.0.0
  */
+@Immutable
 @ExperimentalKotStep
 data class IconStyle(
     val iconTint: Color = Color.Unspecified,

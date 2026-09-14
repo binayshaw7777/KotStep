@@ -2,7 +2,6 @@ package com.binayshaw7777.kotstep.v3.model.step
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
@@ -67,44 +66,42 @@ internal data class StaticStepProperties @OptIn(ExperimentalKotStep::class) cons
 @Composable
 internal fun calculateStaticStepProperties(style: KotStepStyle, stepState: StepState): StaticStepProperties {
     return remember(style.stepStyle, style.lineStyle, stepState) {
-        derivedStateOf {
-            StaticStepProperties(
-                maxSize = maxOf(
-                    style.stepStyle.onTodo.stepSize,
-                    style.stepStyle.onCurrent.stepSize,
-                    style.stepStyle.onDone.stepSize
-                ),
-                stepStyle = when (stepState) {
-                    StepState.Todo -> style.stepStyle.onTodo
-                    StepState.Current -> style.stepStyle.onCurrent
-                    StepState.Done -> style.stepStyle.onDone
-                },
-                lineStyle = when (stepState) {
-                    StepState.Todo -> style.lineStyle.onTodo
-                    StepState.Current -> style.lineStyle.onCurrent
-                    StepState.Done -> style.lineStyle.onDone
-                },
-                lineTrackType = when (stepState) {
-                    StepState.Todo -> style.lineStyle.onTodo.lineType
-                    StepState.Current -> style.lineStyle.onCurrent.lineType
-                    StepState.Done -> style.lineStyle.onDone.lineType
-                },
-                lineProgressType = when (stepState) {
-                    StepState.Todo -> style.lineStyle.onTodo.progressType
-                    StepState.Current -> style.lineStyle.onCurrent.progressType
-                    StepState.Done -> style.lineStyle.onDone.progressType
-                },
-                trackStrokeCap = when (stepState) {
-                    StepState.Todo -> style.lineStyle.onTodo.lineStrokeCap
-                    StepState.Current -> style.lineStyle.onCurrent.lineStrokeCap
-                    StepState.Done -> style.lineStyle.onDone.lineStrokeCap
-                },
-                progressStrokeCap = when (stepState) {
-                    StepState.Todo -> style.lineStyle.onTodo.progressStrokeCap
-                    StepState.Current -> style.lineStyle.onCurrent.progressStrokeCap
-                    StepState.Done -> style.lineStyle.onDone.progressStrokeCap
-                }
-            )
-        }
-    }.value
+        StaticStepProperties(
+            maxSize = maxOf(
+                style.stepStyle.onTodo.stepSize,
+                style.stepStyle.onCurrent.stepSize,
+                style.stepStyle.onDone.stepSize
+            ),
+            stepStyle = when (stepState) {
+                StepState.Todo -> style.stepStyle.onTodo
+                StepState.Current -> style.stepStyle.onCurrent
+                StepState.Done -> style.stepStyle.onDone
+            },
+            lineStyle = when (stepState) {
+                StepState.Todo -> style.lineStyle.onTodo
+                StepState.Current -> style.lineStyle.onCurrent
+                StepState.Done -> style.lineStyle.onDone
+            },
+            lineTrackType = when (stepState) {
+                StepState.Todo -> style.lineStyle.onTodo.lineType
+                StepState.Current -> style.lineStyle.onCurrent.lineType
+                StepState.Done -> style.lineStyle.onDone.lineType
+            },
+            lineProgressType = when (stepState) {
+                StepState.Todo -> style.lineStyle.onTodo.progressType
+                StepState.Current -> style.lineStyle.onCurrent.progressType
+                StepState.Done -> style.lineStyle.onDone.progressType
+            },
+            trackStrokeCap = when (stepState) {
+                StepState.Todo -> style.lineStyle.onTodo.lineStrokeCap
+                StepState.Current -> style.lineStyle.onCurrent.lineStrokeCap
+                StepState.Done -> style.lineStyle.onDone.lineStrokeCap
+            },
+            progressStrokeCap = when (stepState) {
+                StepState.Todo -> style.lineStyle.onTodo.progressStrokeCap
+                StepState.Current -> style.lineStyle.onCurrent.progressStrokeCap
+                StepState.Done -> style.lineStyle.onDone.progressStrokeCap
+            }
+        )
+    }
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -56,21 +57,26 @@ internal fun KotStepHorizontalDivider(
         animationSpec = tween(300), label = "line_progress_animation"
     )
 
+    val trackPathEffect = remember(lineTrackStyle) {
+        when (lineTrackStyle) {
+            LineType.SOLID -> null
+            LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+            LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+        }
+    }
+    val progressPathEffect = remember(lineProgressStyle) {
+        when (lineProgressStyle) {
+            LineType.SOLID -> null
+            LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+            LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+        }
+    }
+
     Canvas(
         modifier = modifier
             .width(width)
             .height(height)
     ) {
-        val trackPathEffect = when (lineTrackStyle) {
-            LineType.SOLID -> null
-            LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-            LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
-        }
-        val progressPathEffect = when (lineProgressStyle) {
-            LineType.SOLID -> null
-            LineType.DASHED -> PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-            LineType.DOTTED -> PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
-        }
 
         // Draw background line
         if (lineTrackStyle != LineType.DOTTED) {

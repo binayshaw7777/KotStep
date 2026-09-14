@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep.v3.model.style
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -172,7 +171,6 @@ data class LineStyles(
  * @since 3.0.0
  */
 @OptIn(ExperimentalKotStep::class)
-@Composable
 internal fun LineStyles.getLineColorForState(stepState: StepState): Color {
     return when (stepState) {
         StepState.Todo -> this.onTodo.lineColor
@@ -205,7 +203,6 @@ internal fun LineStyles.getLineColorForState(stepState: StepState): Color {
  * @since 3.0.0
  */
 @OptIn(ExperimentalKotStep::class)
-@Composable
 internal fun LineStyles.getProgressColorForState(stepState: StepState): Color {
     return when (stepState) {
         StepState.Todo -> this.onTodo.progressColor
@@ -230,7 +227,6 @@ internal fun LineStyles.getProgressColorForState(stepState: StepState): Color {
  * @since 3.0.0
  */
 @OptIn(ExperimentalKotStep::class)
-@Composable
 internal fun LineStyles.getLineLengthForState(stepState: StepState): Dp {
     return when (stepState) {
         StepState.Todo -> this.onTodo.lineLength

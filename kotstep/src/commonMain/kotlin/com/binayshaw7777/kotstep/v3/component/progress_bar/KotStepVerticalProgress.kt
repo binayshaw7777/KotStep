@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.binayshaw7777.kotstep.v3.model.step.StepState
@@ -72,6 +74,24 @@ internal fun KotStepVerticalProgress(
         animationSpec = tween(300), label = "kotstep_Vertical_line_progress_animation_v2"
     )
 
+    val density = LocalDensity.current
+    val trackPathEffect = remember(lineTrackStyle, density) {
+        (lineTrackStyle as? LineType.Dashed)?.let {
+            PathEffect.dashPathEffect(
+                floatArrayOf(with(density) { it.dashLength.toPx() }, with(density) { it.gapLength.toPx() }),
+                0f
+            )
+        }
+    }
+    val progressPathEffect = remember(lineProgressStyle, density) {
+        (lineProgressStyle as? LineType.Dashed)?.let {
+            PathEffect.dashPathEffect(
+                floatArrayOf(with(density) { it.dashLength.toPx() }, with(density) { it.gapLength.toPx() }),
+                0f
+            )
+        }
+    }
+
     Canvas(
         modifier = modifier
             .width(width())
@@ -98,10 +118,7 @@ internal fun KotStepVerticalProgress(
                     start = Offset(centerX, 0f),
                     end = Offset(centerX, size.height),
                     strokeWidth = width().toPx(),
-                    pathEffect = PathEffect.dashPathEffect(
-                        floatArrayOf(lineTrackStyle.dashLength.toPx(), lineTrackStyle.gapLength.toPx()),
-                        0f
-                    ),
+                    pathEffect = trackPathEffect,
                     cap = trackStrokeCap
                 )
             }
@@ -147,10 +164,7 @@ internal fun KotStepVerticalProgress(
                         start = Offset(centerX, 0f),
                         end = Offset(centerX, endY),
                         strokeWidth = width().toPx(),
-                        pathEffect = PathEffect.dashPathEffect(
-                            floatArrayOf(lineProgressStyle.dashLength.toPx(), lineProgressStyle.gapLength.toPx()),
-                            0f
-                        ),
+                        pathEffect = progressPathEffect,
                         cap = progressStrokeCap
                     )
                 }

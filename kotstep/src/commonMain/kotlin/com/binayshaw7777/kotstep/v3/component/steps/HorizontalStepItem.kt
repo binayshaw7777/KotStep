@@ -50,10 +50,9 @@ import com.binayshaw7777.kotstep.v3.util.Util.onClick
 @Composable
 internal fun HorizontalStepItem(
     modifier: Modifier = Modifier,
-    progress: () -> Float,
+    currentStep: () -> Float,
     step: Step,
     style: KotStepStyle,
-    stepState: StepState,
     stepIndex: Int,
     isLastStep: Boolean,
     reservedLeadingLabelHeight: Dp,
@@ -62,6 +61,33 @@ internal fun HorizontalStepItem(
     onTrailingLabelMeasured: (IntSize) -> Unit,
     onClick: () -> Unit = {}
 ) {
+    val stepState by remember(stepIndex, style.ignoreCurrentState) {
+        derivedStateOf {
+            val current = currentStep()
+            if (style.ignoreCurrentState) {
+                if (current >= stepIndex.toFloat()) StepState.Done else StepState.Todo
+            } else {
+                when {
+                    current < 0f -> StepState.Todo
+                    stepIndex < current.toInt() -> StepState.Done
+                    stepIndex == current.toInt() -> StepState.Current
+                    else -> StepState.Todo
+                }
+            }
+        }
+    }
+    val progress = remember(stepIndex) {
+        {
+            val current = currentStep()
+            when {
+                current < 0f -> 0f
+                stepIndex == current.toInt() -> current - current.toInt()
+                stepIndex < current.toInt() -> 1f
+                else -> 0f
+            }
+        }
+    }
+
     val transition = updateTransition(targetState = stepState, label = "")
     val staticProperties = calculateStaticStepProperties(style, stepState)
 
@@ -123,10 +149,10 @@ internal fun HorizontalStepItem(
                 shape = staticProperties.stepStyle.stepShape,
                 containerColor = containerColor,
                 borderStyle = staticProperties.stepStyle.borderStyle,
-                stepState = { stepState },
-                step = { step },
-                stepStyle = { staticProperties.stepStyle },
-                showCheckMark = { style.showCheckMarkOnDone }
+                stepState = stepState,
+                step = step,
+                stepStyle = staticProperties.stepStyle,
+                showCheckMark = style.showCheckMarkOnDone
             )
 
             if (!isLastStep) {

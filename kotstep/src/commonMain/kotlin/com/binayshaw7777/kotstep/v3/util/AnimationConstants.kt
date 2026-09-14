@@ -37,53 +37,49 @@ internal object AnimationConstants {
          * Enter transition for progress line in horizontal stepper.
          * Slides in from left and expands horizontally.
          */
-        val progressLineEnter: EnterTransition
-            get() = slideInHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                initialOffsetX = { -it / 2 }
-            ) + expandHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                expandFrom = Alignment.Start
-            )
+        val progressLineEnter: EnterTransition = slideInHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            initialOffsetX = { -it / 2 }
+        ) + expandHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            expandFrom = Alignment.Start
+        )
 
         /**
          * Exit transition for progress line in horizontal stepper.
          * Slides out to left and shrinks horizontally.
          */
-        val progressLineExit: ExitTransition
-            get() = slideOutHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                targetOffsetX = { -it / 2 }
-            ) + shrinkHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                shrinkTowards = Alignment.Start
-            )
+        val progressLineExit: ExitTransition = slideOutHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            targetOffsetX = { -it / 2 }
+        ) + shrinkHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            shrinkTowards = Alignment.Start
+        )
 
         /**
          * Enter transition for label in horizontal stepper.
          * Slides in from left with gentler offset and expands horizontally.
          */
-        val labelEnter: EnterTransition
-            get() = slideInHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                initialOffsetX = { -it / 3 }
-            ) + expandHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                expandFrom = Alignment.Start
-            )
+        val labelEnter: EnterTransition = slideInHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            initialOffsetX = { -it / 3 }
+        ) + expandHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            expandFrom = Alignment.Start
+        )
 
         /**
          * Exit transition for label in horizontal stepper.
          * Slides out to left with gentler offset and shrinks horizontally.
          */
-        val labelExit: ExitTransition
-            get() = slideOutHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                targetOffsetX = { -it / 3 }
-            ) + shrinkHorizontally(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                shrinkTowards = Alignment.Start
-            )
+        val labelExit: ExitTransition = slideOutHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            targetOffsetX = { -it / 3 }
+        ) + shrinkHorizontally(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            shrinkTowards = Alignment.Start
+        )
     }
 
     /**
@@ -95,52 +91,48 @@ internal object AnimationConstants {
          * Enter transition for progress line in vertical stepper.
          * Slides in from top and expands vertically.
          */
-        val progressLineEnter: EnterTransition
-            get() = slideInVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                initialOffsetY = { -it / 2 }
-            ) + expandVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                expandFrom = Alignment.Top
-            )
+        val progressLineEnter: EnterTransition = slideInVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            initialOffsetY = { -it / 2 }
+        ) + expandVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            expandFrom = Alignment.Top
+        )
 
         /**
          * Exit transition for progress line in vertical stepper.
          * Slides out to top and shrinks vertically.
          */
-        val progressLineExit: ExitTransition
-            get() = slideOutVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                targetOffsetY = { -it / 2 }
-            ) + shrinkVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                shrinkTowards = Alignment.Top
-            )
+        val progressLineExit: ExitTransition = slideOutVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            targetOffsetY = { -it / 2 }
+        ) + shrinkVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            shrinkTowards = Alignment.Top
+        )
 
         /**
          * Enter transition for label in vertical stepper.
          * Slides in from top with gentler offset and expands vertically.
          */
-        val labelEnter: EnterTransition
-            get() = slideInVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                initialOffsetY = { -it / 3 }
-            ) + expandVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                expandFrom = Alignment.Top
-            )
+        val labelEnter: EnterTransition = slideInVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            initialOffsetY = { -it / 3 }
+        ) + expandVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            expandFrom = Alignment.Top
+        )
 
         /**
          * Exit transition for label in vertical stepper.
          * Slides out to top with gentler offset and shrinks vertically.
          */
-        val labelExit: ExitTransition
-            get() = slideOutVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                targetOffsetY = { -it / 3 }
-            ) + shrinkVertically(
-                animationSpec = tween(ANIMATION_DURATION_MS),
-                shrinkTowards = Alignment.Top
-            )
+        val labelExit: ExitTransition = slideOutVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            targetOffsetY = { -it / 3 }
+        ) + shrinkVertically(
+            animationSpec = tween(ANIMATION_DURATION_MS),
+            shrinkTowards = Alignment.Top
+        )
     }
 }

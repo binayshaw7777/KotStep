@@ -23,6 +23,7 @@ package com.binayshaw7777.kotstep.model
  */
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 
 
@@ -36,6 +37,7 @@ typealias StepLabel = (@Composable () -> Unit)?
  * @property currentStep The current active step in the stepper. (-1 .. totalSteps).
  * @property onStepClick Returns the index of the step clicked or tapped.
  */
+@Immutable
 sealed class BaseStepperStyle(
     val totalSteps: Int,
     val currentStep: Number,
@@ -49,6 +51,7 @@ sealed class BaseStepperStyle(
  * @property currentStep The current active step in the stepper (-1 .. totalSteps).
  * @property onStepClick Returns the index of the step clicked or tapped.
  */
+@Immutable
 sealed class HorizontalStepperStyle(
     totalSteps: Int,
     currentStep: kotlin.Number,
@@ -133,6 +136,7 @@ sealed class HorizontalStepperStyle(
  * @property currentStep The current active step in the stepper (-1 .. totalSteps).
  * @property onStepClick Returns the index of the step clicked or tapped.
  */
+@Immutable
 sealed class VerticalStepperStyle(
     totalSteps: Int,
     currentStep: kotlin.Number,

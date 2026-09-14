@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,7 +64,6 @@ private const val DONE_STATE_DESCRIPTION = "Completed"
  *
  *  */
 @OptIn(ExperimentalKotStep::class)
-@Stable
 @Composable
 internal fun StepIndicator(
     modifier: Modifier = Modifier,
@@ -73,24 +71,21 @@ internal fun StepIndicator(
     shape: Shape,
     containerColor: Color,
     borderStyle: BorderStyle,
-    stepState: () -> StepState,
-    step: () -> Step,
-    stepStyle: () -> StepStyle,
-    showCheckMark: () -> Boolean
+    stepState: StepState,
+    step: Step,
+    stepStyle: StepStyle,
+    showCheckMark: Boolean
 ) {
-    val stepData = step()
-    val currentStepState = stepState()
-
-    val isDefaultIndicator = remember(stepData) {
-        stepData.title.isNullOrEmpty() && stepData.icon == null && stepData.content == null
+    val isDefaultIndicator = remember(step) {
+        step.title.isNullOrEmpty() && step.icon == null && step.content == null
     }
 
-    val indicatorContentDescription = remember(stepData) {
-        if (!stepData.title.isNullOrBlank()) "Step: ${stepData.title}" else DEFAULT_STEP_DESCRIPTION
+    val indicatorContentDescription = remember(step) {
+        if (!step.title.isNullOrBlank()) "Step: ${step.title}" else DEFAULT_STEP_DESCRIPTION
     }
 
-    val indicatorStateDescription = remember(currentStepState) {
-        when (currentStepState) {
+    val indicatorStateDescription = remember(stepState) {
+        when (stepState) {
             StepState.Todo -> TODO_STATE_DESCRIPTION
             StepState.Current -> CURRENT_STATE_DESCRIPTION
             StepState.Done -> DONE_STATE_DESCRIPTION
@@ -122,32 +117,32 @@ internal fun StepIndicator(
             .then(modifier)
     ) {
         when {
-            currentStepState == StepState.Done && showCheckMark() -> {
+            stepState == StepState.Done && showCheckMark -> {
                 Icon(
                     imageVector = Icons.Default.Done,
                     contentDescription = null,
-                    modifier = Modifier.size(stepStyle().iconStyle.iconSize),
-                    tint = stepStyle().iconStyle.iconTint
+                    modifier = Modifier.size(stepStyle.iconStyle.iconSize),
+                    tint = stepStyle.iconStyle.iconTint
                 )
             }
 
-            !stepData.title.isNullOrEmpty() -> {
+            !step.title.isNullOrEmpty() -> {
                 Text(
-                    text = stepData.title!!,
-                    style = stepStyle().textStyle
+                    text = step.title!!,
+                    style = stepStyle.textStyle
                 )
             }
 
-            stepData.icon != null -> {
+            step.icon != null -> {
                 Icon(
-                    imageVector = stepData.icon!!,
+                    imageVector = step.icon!!,
                     contentDescription = null,
-                    modifier = Modifier.size(stepStyle().iconStyle.iconSize)
+                    modifier = Modifier.size(stepStyle.iconStyle.iconSize)
                 )
             }
 
-            stepData.content != null -> {
-                stepData.content?.invoke()
+            step.content != null -> {
+                step.content?.invoke()
             }
 
             else -> {

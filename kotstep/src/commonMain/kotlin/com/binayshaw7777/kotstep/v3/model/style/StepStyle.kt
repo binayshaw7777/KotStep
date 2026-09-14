@@ -1,7 +1,6 @@
 package com.binayshaw7777.kotstep.v3.model.style
 
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -160,7 +159,6 @@ data class StepStyles(
  * @since 3.0.0
  */
 @OptIn(ExperimentalKotStep::class)
-@Composable
 internal fun StepStyles.getColorForState(stepState: StepState): Color {
     return when (stepState) {
         StepState.Todo -> this.onTodo.stepColor
@@ -175,7 +173,6 @@ internal fun StepStyles.getColorForState(stepState: StepState): Color {
  * @since 3.0.0
  */
 @OptIn(ExperimentalKotStep::class)
-@Composable
 internal fun StepStyles.getSizeForState(stepState: StepState): Dp {
     return when (stepState) {
         StepState.Todo -> this.onTodo.stepSize

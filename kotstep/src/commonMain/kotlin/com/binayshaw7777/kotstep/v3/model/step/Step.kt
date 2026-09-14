@@ -1,17 +1,19 @@
 package com.binayshaw7777.kotstep.v3.model.step
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 
+@Immutable
 internal data class Step(
-    var title: String?,
-    var content: (@Composable () -> Unit)?,
-    var icon: ImageVector?,
-    var leadingLabel: (@Composable () -> Unit)?,
-    var onClick: (() -> Unit)?,
-    var isCollapsible: Boolean = false,
-    var trailingLabel: (@Composable () -> Unit)?,
-    var onDone: () -> Unit = {}
+    val title: String?,
+    val content: (@Composable () -> Unit)?,
+    val icon: ImageVector?,
+    val leadingLabel: (@Composable () -> Unit)?,
+    val onClick: (() -> Unit)?,
+    val isCollapsible: Boolean = false,
+    val trailingLabel: (@Composable () -> Unit)?,
+    val onDone: () -> Unit = {}
 ) {
 
     constructor(

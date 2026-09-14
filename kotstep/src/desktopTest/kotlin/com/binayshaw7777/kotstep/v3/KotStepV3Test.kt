@@ -17,8 +17,12 @@ import androidx.compose.ui.test.runComposeUiTest
 import com.binayshaw7777.kotstep.v3.model.step.StepLayoutStyle
 import com.binayshaw7777.kotstep.v3.model.style.KotStepStyle
 import com.binayshaw7777.kotstep.v3.util.ExperimentalKotStep
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.setValue
 import kotlin.math.abs
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalKotStep::class, ExperimentalTestApi::class)
@@ -252,6 +256,88 @@ class KotStepV3Test {
             onNodeWithTag("kotstep_indicator_$i", useUnmergedTree = true)
                 .assert(hasStateDescription("Not completed"))
         }
+    }
+
+    @Test
+    fun horizontal_fractionalStepChangeDoesNotRecomposeUnchangedSteps() = runComposeUiTest {
+        var currentStepState by mutableFloatStateOf(0.1f)
+        var step0Compositions = 0
+        var step1Compositions = 0
+
+        setContent {
+            MaterialTheme {
+                KotStep(
+                    currentStep = { currentStepState },
+                    style = KotStepStyle(stepLayoutStyle = StepLayoutStyle.Horizontal)
+                ) {
+                    step(
+                        title = "One",
+                        leadingLabel = {
+                            step0Compositions++
+                            Text("Lead 1")
+                        }
+                    )
+                    step(
+                        title = "Two",
+                        leadingLabel = {
+                            step1Compositions++
+                            Text("Lead 2")
+                        }
+                    )
+                }
+            }
+        }
+
+        val initialStep0Compositions = step0Compositions
+        val initialStep1Compositions = step1Compositions
+
+        // Change currentStep from 0.1 to 0.5 (fractional change within Step 0)
+        currentStepState = 0.5f
+        waitForIdle()
+
+        // Steps must NOT recompose their contents on fractional changes
+        assertEquals(initialStep0Compositions, step0Compositions)
+        assertEquals(initialStep1Compositions, step1Compositions)
+    }
+
+    @Test
+    fun vertical_fractionalStepChangeDoesNotRecomposeUnchangedSteps() = runComposeUiTest {
+        var currentStepState by mutableFloatStateOf(0.1f)
+        var step0Compositions = 0
+        var step1Compositions = 0
+
+        setContent {
+            MaterialTheme {
+                KotStep(
+                    currentStep = { currentStepState },
+                    style = KotStepStyle(stepLayoutStyle = StepLayoutStyle.Vertical)
+                ) {
+                    step(
+                        title = "One",
+                        leadingLabel = {
+                            step0Compositions++
+                            Text("Lead 1")
+                        }
+                    )
+                    step(
+                        title = "Two",
+                        leadingLabel = {
+                            step1Compositions++
+                            Text("Lead 2")
+                        }
+                    )
+                }
+            }
+        }
+
+        val initialStep0Compositions = step0Compositions
+        val initialStep1Compositions = step1Compositions
+
+        currentStepState = 0.5f
+        waitForIdle()
+
+        assertEquals(initialStep0Compositions, step0Compositions)
+        assertEquals(initialStep1Compositions, step1Compositions)
     }
 
     private fun hasContentDescription(value: String): SemanticsMatcher {
