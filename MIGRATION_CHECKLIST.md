@@ -83,7 +83,7 @@ Legend: `[ ]` = pending, `[~]` = in progress, `[x]` = done & verified.
 - [x] T-9.1 README draft delivered by **Claude** (report) — **pending user paste → Navigator applies as README.md**. Verified consumer facts: import `com.binayshaw7777.kotstep.v3.KotStep`, `@OptIn(ExperimentalKotStep::class)`, `currentStep: () -> Float` required
 - [x] T-9.2 Demo parity — code-side verified: **desktop** (Claude: `desktopApp` + `desktopTest`), **web** (Agy: wasmjs distribution + DemoApp sections), **iOS** (Agy: linkDebugFramework×3 + xcodebuild simulator BUILD SUCCEEDED, TEAM_ID not blocking), **Android** (Navigator: `:app` re-pointed from V2 playground to shared `DemoApp()` via `implementation(project(":demo"))`; `:app:assembleDebug` green). Visual confirmation on all 4 entrypoints = pending user (run `:desktopApp:run`, `:webApp:wasmJsRun`, `:app` on emulator, iOS simulator)
 - [x] T-9.3 Version bumped `3.2.0` (publish block) — release notes added at `docs/release-notes/3.2.0.md`; **tag `v3.2.0` pending commits + user go**
-- [ ] COMMIT: `docs: multiplatform README + release 3.2.0` (deferred)
+- [x] COMMIT: `docs: multiplatform README + release 3.2.0`
 
 ## Phase 10 — Hardening
 - [x] T-10.1 V2 deprecation policy — ADR accepted: `docs/decisions/2026-09-14-v2-deprecation.md` (Agy). WARNING in 3.2.0 → maintenance through 3.4 → ERROR in 3.5 → removal in 4.0

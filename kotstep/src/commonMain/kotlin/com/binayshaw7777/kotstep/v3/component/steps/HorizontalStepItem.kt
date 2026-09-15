@@ -119,7 +119,7 @@ internal fun HorizontalStepItem(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth().then(modifier),
+        modifier = Modifier.wrapContentWidth().then(modifier),
         horizontalAlignment = Alignment.Start
     ) {
         HorizontalLabelSlot(
