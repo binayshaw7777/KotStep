@@ -61,6 +61,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.binayshaw7777.kotstep.demo.DemoApp
 import com.binayshaw7777.kotstep.model.LineDefault
 import com.binayshaw7777.kotstep.model.LineType
 import com.binayshaw7777.kotstep.model.StepDefaults
@@ -77,9 +78,7 @@ import com.binayshaw7777.kotstep.model.tabHorizontal
 import com.binayshaw7777.kotstep.model.tabVertical
 import com.binayshaw7777.kotstep.model.tabVerticalWithLabel
 import com.binayshaw7777.kotstep.ui.horizontal.HorizontalStepper
-import com.binayshaw7777.kotstep.ui.theme.KotStepTheme
 import com.binayshaw7777.kotstep.ui.theme.presentation.v2.KotStepExamples
-import com.binayshaw7777.kotstep.ui.theme.presentation.v2.KotStepPreview
 import com.binayshaw7777.kotstep.ui.vertical.VerticalStepper
 import com.binayshaw7777.kotstep.utils.StepperItemShape
 import com.binayshaw7777.kotstep.utils.StepperItemShape.Companion.getShapeFromEnum
@@ -91,11 +90,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            KotStepTheme(darkTheme = false) {
-//                MainPreview()
-                KotStepPreview()
-//                KotStepExamples()
-            }
+            DemoApp()
         }
     }
 }

@@ -2,9 +2,9 @@ name: "Slack Compose Linting"
 
 on:
   push:
-    branches: [ "*" ]  # Runs on every push to any branch
+    branches: [ "**" ]  # Runs on every push to any branch
   pull_request:
-    branches: [ "*" ]  # Runs on every pull request to any branch
+    branches: [ "**" ]  # Runs on every pull request to any branch
 
 jobs:
   lint:

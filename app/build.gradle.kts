@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.binayshaw7777.kotstep"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.binayshaw7777.kotstep"
@@ -58,4 +58,5 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
 
     implementation (project(":kotstep"))
+    implementation(project(":demo"))
 }
