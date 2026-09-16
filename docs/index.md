@@ -86,7 +86,7 @@ Add dependency to `commonMain`:
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("com.github.binayshaw7777:KotStep:3.2.0")
+            implementation("io.github.binayshaw7777:kotstep:3.2.0")
         }
     }
 }

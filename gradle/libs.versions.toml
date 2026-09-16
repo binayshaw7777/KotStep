@@ -10,6 +10,7 @@ androidxComposeConstraintLayout = "1.1.1"
 kotlinxCollectionsImmutable = "0.3.8"
 lifecycleRuntimeKtx = "2.8.7"
 uiTooling = "1.7.8"
+vanniktechMavenPublish = "0.30.0"
 
 [libraries]
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" }
@@ -41,3 +42,4 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composeMultipl
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPublish" }

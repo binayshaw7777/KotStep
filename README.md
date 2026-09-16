@@ -47,31 +47,19 @@
 
 ## 📦 Installation
 
-KotStep is published via [JitPack](https://jitpack.io/#binayshaw7777/KotStep).
+KotStep is published directly to **Maven Central** (and also available via JitPack).
 
-### Step 1: Add JitPack repository
-
-Add JitPack to your root `settings.gradle.kts`:
-
-```kotlin
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://jitpack.io")
-    }
-}
-```
-
-### Step 2: Add KotStep dependency
+### Dependency Setup
 
 #### Compose Multiplatform (Shared `commonMain`)
+Ensure `mavenCentral()` is present in your `settings.gradle.kts` (standard in Gradle):
+
 ```kotlin
 // shared/build.gradle.kts or build.gradle.kts in multiplatform module
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("com.github.binayshaw7777:KotStep:3.2.0")
+            implementation("io.github.binayshaw7777:kotstep:3.2.0")
         }
     }
 }
@@ -81,9 +69,14 @@ kotlin {
 ```kotlin
 // app/build.gradle.kts
 dependencies {
-    implementation("com.github.binayshaw7777:KotStep:3.2.0")
+    implementation("io.github.binayshaw7777:kotstep:3.2.0")
 }
 ```
+
+> [!NOTE]
+> **Legacy JitPack Users:**
+> Projects using JitPack can also resolve `com.github.binayshaw7777:KotStep:3.2.0` with `maven("https://jitpack.io")`. For all new Compose Multiplatform projects, Maven Central (`io.github.binayshaw7777:kotstep:3.2.0`) is recommended.
+
 
 #### iOS Setup
 JitPack distributes Kotlin klibs and metadata. To link the iOS framework from source:

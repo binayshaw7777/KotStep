@@ -1,5 +1,8 @@
 import com.android.build.api.dsl.Lint
 import com.android.build.api.dsl.LintOptions
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.publish.maven.MavenPublication
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
@@ -8,7 +11,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    id("maven-publish")
+    alias(libs.plugins.vanniktech.maven.publish)
 }
 
 kotlin {
@@ -120,46 +123,47 @@ dependencies {
     lintChecks(libs.compose.lint.checks)
 }
 
-// KMP publishing (Phase 8): keep the JitPack/Android coordinate stable
-// (group/artifact/version) and enrich every generated POM with project metadata.
-publishing {
-    publications.withType<MavenPublication>().configureEach {
-        val base = "KotStep"
-        artifactId = when (name) {
-            "kotlinMultiplatform" -> base
-            "androidRelease" -> "$base-android"
-            "desktop" -> "$base-desktop"
-            "wasmJs" -> "$base-wasm-js"
-            "iosArm64" -> "$base-iosarm64"
-            "iosX64" -> "$base-iosx64"
-            "iosSimulatorArm64" -> "$base-iossimulatorarm64"
-            else -> "$base-$name"
-        }
-        groupId = "com.github.binayshaw7777"
-        version = "3.2.0"
+mavenPublishing {
+    configure(
+        KotlinMultiplatform(
+            javadocJar = JavadocJar.Empty(),
+            sourcesJar = true,
+            androidVariantsToPublish = listOf("release"),
+        )
+    )
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    if (System.getenv("CI") != null || project.hasProperty("signingInMemoryKeyId")) {
+        signAllPublications()
+    }
 
-        pom {
-            name.set("KotStep")
-            description.set("A customizable stepper component for Jetpack Compose.")
+    coordinates("io.github.binayshaw7777", "kotstep", "3.2.0")
+
+    pom {
+        name.set("KotStep")
+        description.set("A customizable stepper component for Compose Multiplatform.")
+        url.set("https://github.com/binayshaw7777/KotStep")
+        inceptionYear.set("2024")
+
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("binayshaw7777")
+                name.set("Binay Shaw")
+                email.set("binayshaw7777@gmail.com")
+                url.set("https://github.com/binayshaw7777")
+            }
+        }
+
+        scm {
             url.set("https://github.com/binayshaw7777/KotStep")
-            licenses {
-                license {
-                    name.set("The Apache License, Version 2.0")
-                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                }
-            }
-            developers {
-                developer {
-                    id.set("binayshaw7777")
-                    name.set("Binay Shaw")
-                    email.set("binayshaw7777@gmail.com")
-                }
-            }
-            scm {
-                connection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
-                developerConnection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
-                url.set("https://github.com/binayshaw7777/KotStep")
-            }
+            connection.set("scm:git:https://github.com/binayshaw7777/KotStep.git")
+            developerConnection.set("scm:git:ssh://git@github.com/binayshaw7777/KotStep.git")
         }
     }
 }
